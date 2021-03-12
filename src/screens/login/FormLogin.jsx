@@ -6,7 +6,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import { connect } from 'react-redux'
-import { injectIntl } from 'react-intl'
 import loginActions from '../../redux/login'
 import cryptosignActions from '../../redux/certificat/cryptosign'
 import getCertifActions from '../../redux/certificat/getCertif'
@@ -191,7 +190,7 @@ class FormLogin extends Component {
      * @memberof Actions
      */
     render() {
-        const { listCertif, intl } = this.props
+        const { listCertif } = this.props
         const { visible } = this.state
 
         return (
@@ -199,7 +198,7 @@ class FormLogin extends Component {
                 <div className="d-flex justify-content-center h-100">
                     <div className="form">
                         <div align="center" className="form-title">
-                            {intl.formatMessage({ id: 'auth' })}
+                            تسجيل الدخول
                             <img
                                 className="img "
                                 src={fleche}
@@ -208,8 +207,8 @@ class FormLogin extends Component {
                         </div>
                         <div className="card-body">
                             <div className="formPadding">
-                                <div className="label">
-                                    {intl.formatMessage({ id: 'username' })}
+                                <div className="rtl label">
+                                    إسم المستخدم{' '}
                                     <span className="text-danger">* </span>
                                 </div>
                                 <div className="input-group form-group">
@@ -221,17 +220,16 @@ class FormLogin extends Component {
                                             fontFamily: 'Arabic Kufi',
                                             fontWeight: 'Regular',
                                         }}
-                                        className="form-control"
-                                        placeholder={intl.formatMessage({
-                                            id: 'username',
-                                        })}
+                                        className="rtl1 form-control"
+                                        placeholder="أدخل إسم المستخدم"
                                         onChange={e =>
                                             this.handleChange(e, 'email')
                                         }
                                     />
                                 </div>
-                                <div className="label">
-                                    {intl.formatMessage({ id: 'password' })}
+                                <div className="rtl label">
+                                    {' '}
+                                    كلمة المرور{' '}
                                     <span className="text-danger">* </span>
                                 </div>
                                 <div className="input-group form-group">
@@ -243,16 +241,14 @@ class FormLogin extends Component {
                                             fontFamily: 'Arabic Kufi',
                                             fontWeight: 'Regular',
                                         }}
-                                        className="form-control"
-                                        placeholder={intl.formatMessage({
-                                            id: 'password',
-                                        })}
+                                        className="rtl1 form-control"
+                                        placeholder="أدخل كلمة المرور"
                                         onChange={e =>
                                             this.handleChange(e, 'password')
                                         }
                                     />
                                 </div>
-                                <div className=" form-group d-flex  align-items-baseline justify-content-between">
+                                <div className=" form-group col-xs-12 col-sm-4 col-md- align-items-center">
                                     <Button
                                         type="submit"
                                         size="sm"
@@ -262,26 +258,27 @@ class FormLogin extends Component {
                                             fontWeight: 'bold',
                                             borderColor: '#858484',
                                             backgroundColor: '#858484',
-
+                                            width: '100px',
+                                            fontFamily: 'Droid Arabic Kufi',
                                             float: 'right',
+                                            marginRight: '-15px',
                                         }}
                                     >
-                                        Entrer
+                                        {' '}
+                                        تسجيل الدخول
                                     </Button>
-                                    <div className="link_btn">
-                                        <a
-                                            href="/sendEmail"
-                                            style={{
-                                                textDecoration: 'underline',
-                                                color: '#858484',
-                                                // float: 'left',
-                                            }}
-                                        >
-                                            {intl.formatMessage({
-                                                id: 'forgetPassword',
-                                            })}
-                                        </a>
-                                    </div>
+                                </div>
+                                <div className="link_btn">
+                                    <a
+                                        href="/sendEmail"
+                                        style={{
+                                            textDecoration: 'underline',
+                                            color: '#858484',
+                                            float: 'left',
+                                        }}
+                                    >
+                                        نسيت كلمة المرور ؟
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -294,7 +291,7 @@ class FormLogin extends Component {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
-                    // style={{ direction: 'rtl' }}
+                    style={{ direction: 'rtl' }}
                 >
                     <Modal.Header closeButton>
                         <Modal.Title style={{ paddingLeft: '78%' }}>
@@ -360,7 +357,6 @@ class FormLogin extends Component {
  *  declaration des props
  */
 FormLogin.propTypes = {
-    intl: PropTypes.object.isRequired,
     loginRequest: PropTypes.func.isRequired,
     getCertifRequest: PropTypes.func.isRequired,
     alertShow: PropTypes.func.isRequired,
@@ -415,4 +411,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(injectIntl(FormLogin))
+)(FormLogin)
