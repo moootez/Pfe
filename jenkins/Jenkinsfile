@@ -1,0 +1,100 @@
+pipeline {
+    agent none 
+
+ 
+    environment {
+        CI = 'false'
+        server_pass = credentials('serveur_inlucc_57_password')
+    }
+    stages {
+    
+            stage('Analyse Qualité'){
+
+    agent any
+    steps{
+        dir ("/var/lib/jenkins/workspace/FrontINLUCC"){
+           withSonarQubeEnv('sonar_mouheb') {
+               sh '/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner \
+  -Dsonar.projectKey=Font_INLUCC \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://10.1.1.113 \
+  -Dsonar.login=b931b196318cfebdea4a7c0f6cda7a7f7209d81f '
+        
+
+            }
+
+    
+        }
+    }}
+    
+        stage('setup') {
+            agent any
+            steps {
+                // sh 'rm -rf node_modules/ '
+               
+                sh 'npm install '
+
+                  }
+            }
+    
+  stage('Lint Test') {
+              agent any
+            steps {
+            sh 'echo test'
+               
+            }
+                       
+    }
+            stage('Build') {
+                agent any
+            steps {
+                sh ' npm run build '
+            }
+                       
+    }
+    
+    /*stage('Deploy ssh Cynapsys'){
+        agent {
+        docker {
+            image 'node:13.1.0-alpine'
+            args '-p 3021:3000 -u root'
+        }
+    }
+        steps {
+       
+            script {
+                withCredentials([string(credentialsId: 'serveur_inlucc_57_password', variable: 'serveur_inlucc_57_password')]) {
+                def remote = [:]
+                remote.name = 'serveurinlucc57'
+                remote.host = '10.1.1.57'
+                remote.user = 'root'
+                remote.password =serveur_inlucc_57_password
+                remote.allowAnyHosts = true
+
+                
+                stage('Remote SSH') {
+                  sshCommand remote: remote, command: " rm -rf /var/www/html/InluccSs1/FrontINLUCC/build "
+                   //sshCommand remote: remote, command: " rm -rf /var/www/html/FrontMFPEExterne/build "
+                sshPut remote: remote, from: '/var/lib/jenkins/workspace/FrontINLUCC/build', into: '/var/www/html/InluccSs1/FrontINLUCC'
+                //sshPut remote: remote, from: '/var/lib/jenkins/workspace/FrontINLUCC/build', into: '/var/www/html/FrontMFPEExterne'
+           
+           
+           
+            }
+            }
+        }}}*/
+    
+
+    
+    
+    stage('notifications'){
+    steps {
+        mail bcc: 'Notif INLUCC Front BO Web ', body: '''
+        
+        Le build Jenkinsb  est terminé avec succès  .  \n  
+        ''', cc: 'haythem.baklouti@gfi-tunisie.com,manel.ktata@gfi-tunisie.com,omar.gargouri@gfi-tunisie.com,wahid.mgaidi@gfi-tunisie.com,mohamed.abaied@gfi-tunisie.com,zouhaeir.sbaiti@gfi-tunisie.com,mokhles.mnakbi@gfi-tunisie.com,safouane.fatin@gfi-tunisie.com', from: 'jenkins@gfi-tunisie.com', replyTo: '', subject: 'Notif Devops Front INLUCC BO', to: 'houssem.khaldi@gfi-tunisie.com'
+    
+        }
+            }
+    }
+}

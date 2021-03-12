@@ -1,0 +1,18 @@
+{
+    "typeDeclaration": {
+        "premiere declaration": "أول تصريح",
+        "changement substantiel": "تصريح لتغيير جوهري",
+        "renouvellement": " تجديد التصريح ",
+        "declaration depart": " تصريح مغادرة"
+    },
+    "listSexe": {
+        "Homme": "ذكر",
+        "Femme": "انثي"
+    },
+    "listEtatCivile": {
+        "marié": "متزوج(ة)",
+        "Divorcé(e)": "مطلق(ة)",
+        "Veuf(ve)": "أرمل(ة)",
+        "celibataire": "أعزب(ة)"
+    }
+}

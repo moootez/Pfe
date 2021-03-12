@@ -1,0 +1,29 @@
+.footerApp {
+    width: 100%;
+    margin: auto;
+    padding: 12px;
+    background-color: #cdcdcd;
+}
+
+.iconFooter {
+    font-size: 24px;
+    margin: 0 5px;
+    color: #cd121a;
+}
+
+.footerApp a {
+    text-decoration: none;
+}
+.phoneNumber {
+    padding: 3px;
+}
+@media only screen and (max-width: 959px) and (min-width: 600px) {
+    .tel {
+        order: 3;
+    }
+}
+.public {
+    color: #1f1f1f;
+    /* font-family: 'Open Sans'; */
+    font-size: 22;
+}

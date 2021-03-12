@@ -1,0 +1,19 @@
+/*
+* css
+*/
+label.pull-left {
+    margin: 10px 11px -10px 11px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #0a1938;
+}
+.myInput {
+    width: 100%;
+}
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #000000;
+    border-radius: 0;
+}
+.MuiOutlinedInput-input {
+    padding: 13.5px 20px !important;
+}

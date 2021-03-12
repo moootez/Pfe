@@ -1,0 +1,166 @@
+{
+    "listItamsDeaclaration": [
+        {
+            "label": "أول تصريح",
+            "value": "premiere declaration",
+            "id": 1
+        },
+        {
+            "label": "تصريح لتغيير جوهري",
+            "value": "changement substantiel",
+            "id": 2
+        },
+        {
+            "label": " تجديد التصريح ",
+            "value": "renouvellement",
+            "id": 2
+        },
+        {
+            "label": " تصريح مغادرة",
+            "value": "declaration depart",
+            "id": 2
+        }
+    ],
+    "listSexe": [
+        {
+            "label": "ذكر",
+            "value": "Homme"
+        },
+        {
+            "label": "انثي",
+            "value": "Femme"
+        }
+    ],
+    "listEtatCivile": [
+        {
+            "label": "متزوج(ة)",
+            "value": "marié"
+        },
+        {
+            "label": "مطلق(ة)",
+            "value": "Divorcé(e)"
+        },
+        {
+            "label": "أرمل(ة)",
+            "value": "Veuf(ve)"
+        },
+        {
+            "label": "أعزب(ة)",
+            "value": "celibataire"
+        }
+    ],
+    "listMinisteres": [
+        {
+            "label": "رئاسة الحكـــومة",
+            "value": "Présidence du Gouvernement"
+        },
+        {
+            "label": "وزارة العدل",
+            "value": "Ministère de la justice"
+        },
+        {
+            "label": "وزارة الشؤون الدينية",
+            "value": "Ministère des affaires religieuses"
+        },
+        {
+            "label": "وزارة المالية",
+            "value": "Ministère des Finances"
+        },
+        {
+            "label": "وزارة التنمية والاستثمار والتعاون الدولي",
+            "value": "Ministère du Développement, de l'Investissement et de la Coopération internationale"
+        },
+        {
+            "label": "وزارة الصناعة والمؤسسات الصغرى والمتوسطة",
+            "value": "Ministère de l’Industrie et des PME"
+        },
+        {
+            "label": "وزارة الشؤون المحلية والبيئة",
+            "value": "Ministère des affaires locales et de l’environnement"
+        },
+        {
+            "label": "وزارة شؤون الشباب والرياضة",
+            "value": "Ministère de la Jeunesse et des Sports"
+        },
+        {
+            "label": "وزارة المرأة والأسرة والطفولة وكبار السن",
+            "value": "Ministère de la femme, de la famille, de l'enfance et des seniors"
+        },
+        {
+            "label": "وزارة السياحة والصناعات التقليدية",
+            "value": "Ministère de tourisme et de l’artisanat"
+        },
+        {
+            "label": "وزارة أملاك الدّولة والشؤون العقارية",
+            "value": "Ministère des Domaines de l'Etat et des Affaires Foncières"
+        },
+        {
+            "label": "وزارة التجارة",
+            "value": "Ministère du Commerce"
+        },
+        {
+            "label": "وزارة التربية",
+            "value": "Ministère de l'éducation"
+        },
+        {
+            "label": "وزارة التعليم العالي والبحث العلمي",
+            "value": "Ministère de l'enseignement supérieur et de la recherche scientifique"
+        },
+        {
+            "label": "وزارة الفلاحة والموارد المائية والصيد البحري",
+            "value": "Ministère de l’Agriculture, des ressources hydrauliques et de la pêche"
+        },
+        {
+            "label": "وزارة التجهيز والاسكان والتهيئة الترابية",
+            "value": "Ministère de l’Equipement, l’habitat et l’aménagement du territoire"
+        },
+        {
+            "label": "وزارة الصحة",
+            "value": "Ministère de la santé"
+        },
+        {
+            "label": "وزارة الشؤون الاجتماعية",
+            "value": "Ministère des Affaires Sociales"
+        },
+        {
+            "label": "وزارة التكوين المهني والتشغيل",
+            "value": "Ministère de la Formation professionnelle et de l'emploi"
+        },
+        {
+            "label": "وزارة تكنولوجيات الاتصال والاقتصاد الرقمي",
+            "value": "Ministère des Technologies de la Communication et de l'Economie Numérique"
+        },
+        {
+            "label": "وزارة الشؤون الثقافية",
+            "value": "Ministère des affaires culturelles"
+        },
+        {
+            "label": "وزارة النقل",
+            "value": "Ministère du Transport"
+        },
+        {
+            "label": "وزارة الداخلية",
+            "value": "Ministère de l'intérieur"
+        },
+        {
+            "label": " وزارة الدفاع الوطني",
+            "value": "Ministère de la Défense Nationale"
+        },
+        {
+            "label": " وزارة الشؤون الخارجية  ",
+            "value": "Ministère des affaires étrangères"
+        },
+        {
+            "label": " وزارة الوظيفة العمومية وتحديث الإدارة والسياسات العمومية  ",
+            "value": "Ministère de la Fonction Publique, de la Modernisation de l'Administration et des Politiques Publiques"
+        }
+    ],
+    "listInputHeaders": {
+        "intituleFr": "المسمى بالفرنسية",
+        "intituleAr": "المسمى بالعربية",
+        "intituleEn": "المسمى بالأنجليزية",
+        "parent": "المرجع",
+        "rang": "الترتيب",
+        "assujettie": "خاضعة لواجب التصريح"
+    }
+}
