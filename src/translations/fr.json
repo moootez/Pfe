@@ -37,7 +37,7 @@
     "profesionalAccess": "Accès professionnel",
     "login": "Login",
     "password": "Mot de passe",
-    "connect": "Se connecter",
+    "connect": "se connecter",
     "informations": "Mes informations",
     "demands": "Les Demandes",
     "nomenclatures": "Nomenclature",
@@ -309,7 +309,5 @@
     "dateNotif": "Date Notif",
     "dateReception": "Date Réception",
     "dateChangement": "Date Modification",
-    "notifications": "Notifications",
-    "username": "Nom d'utilisateur",
-    "auth": "Authentification"
+    "notifications": "Notifications"
 }
