@@ -57,8 +57,7 @@ function* loginSagas(payload) {
                         error: true,
                         title: 'خطأ',
                         success: false,
-                        message:
-                            'اسم المستخدم أو رقم السري USB أو كلمة المرور غير صحيحة أو المستخدم غير مسموح له بالدخول',
+                        message: "nom d'utilisateur ou mot de passe incorrect",
                     })
                 ),
             ])
@@ -74,8 +73,7 @@ function* loginSagas(payload) {
                     error: true,
                     title: 'خطأ',
                     success: false,
-                    message:
-                        'اسم المستخدم أو رقم السري USB أو كلمة المرور غير صحيحة أو المستخدم غير مسموح له بالدخول',
+                    message: "nom d'utilisateur ou mot de passe incorrect",
                 })
             ),
         ])
