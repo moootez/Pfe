@@ -14,7 +14,7 @@ function* getAllUsersSagas({ response }) {
     const { login } = yield select()
     instance.defaults.headers.Authorization = `Bearer ${login.response.Token}`
     try {
-        const responseAdd = yield Post('ss3_users/all', response)
+        const responseAdd = yield Post('users/all', response)
         if (responseAdd.status === 200) {
             yield all([
                 yield put(

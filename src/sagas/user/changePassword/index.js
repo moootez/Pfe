@@ -13,7 +13,7 @@ import { Put } from '../../../serveur/axios'
  */
 function* changePasswordSagas({ response }) {
     try {
-        const res = yield Put(`ss3_users/change_password`, response)
+        const res = yield Put(`users/change_password`, response)
 
         if (res.status === 200 || res.status === 201 || res.status === 202) {
             yield all([

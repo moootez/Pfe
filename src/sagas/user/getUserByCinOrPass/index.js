@@ -15,7 +15,7 @@ import alertActions from '../../../redux/alert'
  */
 function* getUserByTokenSagas({ response }) {
     try {
-        const res = yield Post('ss3_users/active', response)
+        const res = yield Post('users/active', response)
         if (res.status === 200 || res.status === 201) {
             yield all([
                 yield put(

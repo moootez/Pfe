@@ -14,7 +14,7 @@ import { Patch } from '../../../serveur/axios'
  */
 function* editUserSagas({ response }) {
     try {
-        const res = yield Patch(`ss3_users/${response.id}`, response)
+        const res = yield Patch(`users/${response.id}`, response)
         if (res.status === 200 || res.status === 201 || res.status === 202) {
             yield all([
                 yield put(editUserActions.editUserSuccess(res.data)),

@@ -17,10 +17,10 @@ import instance from '../../serveur/axios'
 function* loginSagas(payload) {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
-        // const response = yield Post('ss3_user/auth/login', payload.response)
+        // const response = yield Post('user/auth/login', payload.response)
         const response = yield axios({
             method: 'post',
-            url: `${baseUrl}ss3_user/auth/login`,
+            url: `${baseUrl}user/auth/login`,
             data: payload.response,
             headers: {
                 'Accept-Version': 1,

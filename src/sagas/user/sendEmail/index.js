@@ -11,7 +11,7 @@ import { Post } from '../../../serveur/axios'
  */
 function* sendEmailSagas({ response }) {
     try {
-        const res = yield Post('ss3_users/forget', response)
+        const res = yield Post('users/forget', response)
         if (res.status === 200 || res.status === 201) {
             yield all([yield put(sendEmailActions.sendEmailSuccess(res.data))])
         } else {

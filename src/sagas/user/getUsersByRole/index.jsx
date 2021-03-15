@@ -13,7 +13,7 @@ import { Get } from '../../../serveur/axios'
  */
 function* getUsersByRoleSagas({ response }) {
     try {
-        const res = yield Get(`ss3_users/list/${response}`)
+        const res = yield Get(`users/list/${response}`)
         if (res.status === 200 || res.status === 201) {
             yield all([
                 yield put(
