@@ -309,5 +309,7 @@
     "dateNotif": "Date Notif",
     "dateReception": "Date Réception",
     "dateChangement": "Date Modification",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "auth": "Authentification",
+    "username": "Nom d'utilisateur "
 }
