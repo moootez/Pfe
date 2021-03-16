@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-// import Keycloak from 'keycloak-js'
 import axios from 'axios'
 import loginActions, { loginTypes } from '../../redux/login/index'
 import alertActions from '../../redux/alert'
@@ -32,10 +31,11 @@ function* loginSagas(payload) {
 
         if (response.data.Token) {
             yield localStorage.setItem('InluccToken', response.data.Token)
-            // yield localStorage.setItem(
-            //     'role',
-            //     response.data.User.details.userRoles[0].role
-            // )
+            yield localStorage.setItem(
+                'role',
+                // response.data.User.details.userRoles[0].role
+                'ROLE_ADMIN'
+            )
             instance.defaults.headers.Authorization = `Bearer ${response.data.Token}`
             yield put(getLoaderActions.disableGeneraleLoader())
             yield put(loginActions.loginSuccess(response.data))

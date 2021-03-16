@@ -10,7 +10,7 @@ const Index = () => {
     const page = window.location.pathname
     return (
         <Fragment>
-            <LoginBody page={page === '/sendEmail' && 'sendEmail'} />
+            <LoginBody page={page === '/sendEmail' ? 'sendEmail' : ''} />
         </Fragment>
     )
 }
