@@ -146,7 +146,6 @@ class FormLogin extends Component {
                                         style={{
                                             border: '#b20606 1px solid',
                                             outline: 'none',
-                                            fontFamily: 'Arabic Kufi',
                                             fontWeight: 'Regular',
                                         }}
                                         className="form-control"

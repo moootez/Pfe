@@ -4,7 +4,7 @@ import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
 import axios from 'axios'
 import loginActions, { loginTypes } from '../../redux/login/index'
 import alertActions from '../../redux/alert'
-import getAllReferencialActions from '../../redux/referencial/getAllReferencial/index'
+// import getAllReferencialActions from '../../redux/referencial/getAllReferencial/index'
 import baseUrl from '../../serveur/baseUrl'
 import getLoaderActions from '../../redux/wrapApi/index'
 import instance from '../../serveur/axios'
@@ -32,18 +32,18 @@ function* loginSagas(payload) {
 
         if (response.data.Token) {
             yield localStorage.setItem('InluccToken', response.data.Token)
-            yield localStorage.setItem(
-                'role',
-                response.data.User.details.userRoles[0].role
-            )
+            // yield localStorage.setItem(
+            //     'role',
+            //     response.data.User.details.userRoles[0].role
+            // )
             instance.defaults.headers.Authorization = `Bearer ${response.data.Token}`
             yield put(getLoaderActions.disableGeneraleLoader())
             yield put(loginActions.loginSuccess(response.data))
-            yield put(
-                getAllReferencialActions.getAllReferenceRequest({
-                    dontNavigate: true,
-                })
-            )
+            // yield put(
+            //     getAllReferencialActions.getAllReferenceRequest({
+            //         dontNavigate: true,
+            //     })
+            // )
         } else {
             yield put(getLoaderActions.disableGeneraleLoader())
             yield all([
@@ -57,12 +57,13 @@ function* loginSagas(payload) {
                         error: true,
                         title: 'خطأ',
                         success: false,
-                        message: "nom d'utilisateur ou mot de passe incorrect",
+                        message: "Nom d'utilisateur ou mot de passe incorrect",
                     })
                 ),
             ])
         }
     } catch (error) {
+        yield put(getLoaderActions.disableGeneraleLoader())
         yield put(loginActions.loginFailure(error))
         yield all([
             yield put(
@@ -73,7 +74,7 @@ function* loginSagas(payload) {
                     error: true,
                     title: 'خطأ',
                     success: false,
-                    message: "nom d'utilisateur ou mot de passe incorrect",
+                    message: "Nom d'utilisateur ou mot de passe incorrect",
                 })
             ),
         ])
