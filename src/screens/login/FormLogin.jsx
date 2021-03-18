@@ -29,28 +29,6 @@ class FormLogin extends Component {
     }
 
     /* life cycle */
-    /**
-     *
-     *
-     * @param {*} nextProps
-     * @memberof
-     */
-    componentWillReceiveProps() {
-        const { loginRequest, onHideAlert } = this.props
-        const { email, password } = this.state
-        /* test if signature OK */
-
-        setTimeout(() => {
-            onHideAlert()
-            loginRequest({
-                username: email,
-                password,
-                serialNumberToken: '165075729',
-            })
-        }, 1000)
-    }
-
-    /* life cycle */
     componentWillUnmount() {
         window.removeEventListener('keypress', e => this.verifKey(e))
     }
@@ -77,7 +55,6 @@ class FormLogin extends Component {
         loginRequest({
             username: email,
             password,
-            serialNumberToken: '165075729',
         })
     }
 
@@ -201,7 +178,6 @@ class FormLogin extends Component {
 FormLogin.propTypes = {
     intl: PropTypes.object.isRequired,
     loginRequest: PropTypes.func.isRequired,
-    onHideAlert: PropTypes.func.isRequired,
 }
 
 // dispatch action

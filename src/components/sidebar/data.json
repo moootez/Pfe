@@ -94,6 +94,22 @@
                 "defaultPermission": false,
                 "subitems": null,
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+            },
+            {
+                "id": 7,
+                "link": "/referencial",
+                "title": "Facture",
+                "defaultPermission": false,
+                "subitems": null,
+                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+            },
+            {
+                "id": 8,
+                "link": "/referencial",
+                "title": "Reglement",
+                "defaultPermission": false,
+                "subitems": null,
+                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
             }
         ]
     }

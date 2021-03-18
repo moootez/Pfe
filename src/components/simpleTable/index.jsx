@@ -13,14 +13,8 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Grid,
-    Divider,
 } from '@material-ui/core'
-import getAllLivraisons from '../../redux/referencial/getAllReferencial'
-import getCommandes from '../../redux/statistique/getStatistique'
 import generateKey, { removeBottomDash } from '../../shared/utility'
-import TableCollapse from '../../components/tableWithCollapse'
-import PageTitle from '../../components/ui/pageTitle'
 
 /**
  * style cellule du table
@@ -84,45 +78,61 @@ const styles = theme => ({
 })
 
 const Index = props => {
-    const {
-        commandes,
-        getCommande,
-        userID,
-        livraisons,
-        classes,
-        getAllLivraison,
-    } = props
+    const { classes, apiCall, dataApi, dataReturned } = props
 
-    const [allLivraison, setAllLivraison] = useState([])
+    const [dataTable, setDataTable] = useState([])
 
     useEffect(() => {
-        getAllLivraison({ user: userID })
+        apiCall(dataApi)
     }, [])
 
     // Set livraison on state
     useEffect(() => {
-        setAllLivraison(livraisons)
-    }, [livraisons])
-    const dataSubArray = {
-        apiCall: getCommande,
-        dataApi: data => ({
-            user: data.Client_commande,
-            commande: data.No_livraison,
-        }),
-        dataReturned: commandes,
-    }
+        setDataTable(dataReturned)
+    }, [dataReturned])
+
     return (
         <div className="column col-md-12">
-            <Grid className="gridItem">
-                <PageTitle label="Livraison" />
-            </Grid>
-            <Divider />
-            <TableCollapse
-                apiCall={getAllLivraison}
-                dataApi={{ user: userID }}
-                dataReturned={JSON.parse(JSON.stringify(livraisons))}
-                dataSubArray={dataSubArray}
-            />
+            {!(dataTable || []).length && (
+                <p className="text-center m-3">Pas de données disponible!!</p>
+            )}
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            {Boolean((dataTable || []).length) &&
+                                Object.keys(dataTable[0] || {}).map(item => (
+                                    <StyledTableCell
+                                        className={classes.headTable}
+                                        align="center"
+                                        key={generateKey()}
+                                    >
+                                        {removeBottomDash(item)}
+                                    </StyledTableCell>
+                                ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {(dataTable || []).map(item => (
+                            <StyledTableRow key={generateKey()}>
+                                {Object.values(item).map(value => {
+                                    return (
+                                        <StyledTableCell
+                                            className={classes.headTable}
+                                            align="center"
+                                            key={generateKey()}
+                                        >
+                                            <div key={generateKey()}>
+                                                {value}
+                                            </div>
+                                        </StyledTableCell>
+                                    )
+                                })}
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Paper>
         </div>
     )
 }
@@ -136,11 +146,7 @@ const Index = props => {
  *
  * @param {*} dispatch
  */
-const mapDispatchToProps = dispatch => ({
-    getAllLivraison: userID =>
-        dispatch(getAllLivraisons.getAllReferenceRequest(userID)),
-    getCommande: data => dispatch(getCommandes.getStatistiqueRequest(data)),
-})
+const mapDispatchToProps = null
 
 // obtenir les données from  store state
 /**
@@ -149,8 +155,7 @@ const mapDispatchToProps = dispatch => ({
  * @param {*} state
  * @returns
  */
-const mapStateToProps = ({ referencial, info, login, statistique }) => ({
-    commandes: statistique.getStatistique.response,
+const mapStateToProps = ({ referencial, info, login }) => ({
     userID: login.response.User.details.codeInsc,
     livraisons: referencial.allReferencials.response,
     selectedRef: referencial.allReferencials.selectedRef,
@@ -162,12 +167,10 @@ const mapStateToProps = ({ referencial, info, login, statistique }) => ({
  *  declaration des props
  */
 Index.propTypes = {
-    commandes: PropTypes.array.isRequired,
-    getCommande: PropTypes.func.isRequired,
-    userID: PropTypes.object.isRequired,
+    dataApi: PropTypes.object.isRequired,
     classes: PropTypes.func.isRequired,
-    livraisons: PropTypes.array.isRequired,
-    getAllLivraison: PropTypes.func.isRequired,
+    dataReturned: PropTypes.array.isRequired,
+    apiCall: PropTypes.func.isRequired,
 }
 
 export default connect(

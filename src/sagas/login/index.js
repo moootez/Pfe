@@ -2,6 +2,7 @@
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
 import axios from 'axios'
 import loginActions, { loginTypes } from '../../redux/login/index'
+import getAllRef from '../../redux/referencial/getAllReferencial'
 import alertActions from '../../redux/alert'
 // import getAllReferencialActions from '../../redux/referencial/getAllReferencial/index'
 import baseUrl from '../../serveur/baseUrl'
@@ -19,7 +20,7 @@ function* loginSagas(payload) {
         // const response = yield Post('user/auth/login', payload.response)
         const response = yield axios({
             method: 'post',
-            url: `${baseUrl}user/auth/login`,
+            url: `${baseUrl.local}user/auth/login`,
             data: payload.response,
             headers: {
                 'Accept-Version': 1,
@@ -38,6 +39,7 @@ function* loginSagas(payload) {
             )
             instance.defaults.headers.Authorization = `Bearer ${response.data.Token}`
             yield put(getLoaderActions.disableGeneraleLoader())
+            yield put(getAllRef.getAllReferenceSuccess(true))
             yield put(loginActions.loginSuccess(response.data))
             // yield put(
             //     getAllReferencialActions.getAllReferenceRequest({
