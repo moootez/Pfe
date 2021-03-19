@@ -79,7 +79,7 @@ const Index = ({
         },
     ]
 
-    const search = intl.formatMessage({ id: 'search' })
+    const search = intl.formatMessage({ id: 'Recherche' })
     /* set table */
     const setTable = arrayFiltred => {
         let rowsTmp = []
@@ -222,7 +222,7 @@ const Index = ({
     return (
         <div style={{ padding: '1%' }}>
             <Grid className="gridItem">
-                <PageTitle label="المستخدمين" />
+                <PageTitle label="Gestin des client" />
             </Grid>
             <Grid container>
                 <Form
@@ -261,7 +261,7 @@ const Index = ({
                     margin=" 3% 5% 1% "
                     type="contained"
                     size="medium"
-                    label="إضافة مستخدم"
+                    label="Ajouter"
                     clicked={() => handleajout()}
                 />
             </div>
