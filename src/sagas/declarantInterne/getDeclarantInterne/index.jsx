@@ -1,9 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
+import axios from 'axios'
 import getFilterDeclarantInterneActions, {
     getFilterDeclarantInterneTypes,
 } from '../../../redux/declarantInterne/getDeclarantInterne'
-import { Post } from '../../../serveur/axios'
+import getLoaderActions from '../../../redux/wrapApi/index'
+import baseUrl from '../../../serveur/baseUrl'
 
 /**
  * consomation API avec axios
@@ -12,7 +14,20 @@ import { Post } from '../../../serveur/axios'
  */
 function* getFilterDeclarantInterneSagas({ response }) {
     try {
-        const res = yield Post('declarant/bypage', response)
+        const { user } = response
+        yield put(getLoaderActions.activeGeneraleLoader())
+        const res = yield axios({
+            method: 'get',
+            url: `${baseUrl.remote}Facture_entete/1/${user}`,
+            headers: {
+                'Accept-Version': 1,
+                Accept: 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            timeout: 3000,
+        })
+        console.log(res)
         if (res.status === 200) {
             yield all([
                 yield put(
@@ -20,13 +35,15 @@ function* getFilterDeclarantInterneSagas({ response }) {
                         res.data
                     )
                 ),
+                yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
             yield put(
                 getFilterDeclarantInterneActions.getFilterDeclarantInterneFailure(
-                    res.data.data
+                    res.data
                 )
             )
+            yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
         yield put(
@@ -34,6 +51,7 @@ function* getFilterDeclarantInterneSagas({ response }) {
                 error
             )
         )
+        yield put(getLoaderActions.disableGeneraleLoader())
     }
 }
 

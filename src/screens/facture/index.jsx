@@ -6,49 +6,48 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Grid, Divider } from '@material-ui/core'
-import getAllLivraisons from '../../redux/referencial/getAllReferencial'
-import getCommandes from '../../redux/statistique/getStatistique'
+import getAllFactures from '../../redux/declarantInterne/getDeclarantInterne'
+import getFactures from '../../redux/declarantInterne/getDeclarantSanction'
 import TableCollapse from '../../components/tableWithCollapse'
 import PageTitle from '../../components/ui/pageTitle'
 
 const Index = props => {
     const {
-        commandes,
-        getCommande,
+        factureDetails,
+        getFacture,
         userID,
-        livraisons,
-        getAllLivraison,
+        factures,
+        getAllFacture,
     } = props
 
     useEffect(() => {
-        getAllLivraison({ user: userID })
+        getAllFacture({ user: userID })
     }, [])
 
     // Set livraison on state
 
     const [dataSubArray, setDataSubArray] = useState({
-        apiCall: getCommande,
+        apiCall: getFacture,
         dataApi: data => ({
-            user: data.Client_commande,
-            commande: data.No_livraison,
+            facture: data.No_facture,
         }),
-        dataReturned: commandes,
+        dataReturned: factureDetails,
     })
 
     useEffect(() => {
-        setDataSubArray({ ...dataSubArray, dataReturned: commandes })
-    }, [commandes])
+        setDataSubArray({ ...dataSubArray, dataReturned: factureDetails })
+    }, [factureDetails])
 
     return (
         <div className="column col-md-12">
             <Grid className="gridItem">
-                <PageTitle label="Livraison" />
+                <PageTitle label="Factures" />
             </Grid>
             <Divider />
             <TableCollapse
-                apiCall={getAllLivraison}
+                apiCall={getAllFacture}
                 dataApi={{ user: userID }}
-                dataReturned={JSON.parse(JSON.stringify(livraisons))}
+                dataReturned={JSON.parse(JSON.stringify(factures))}
                 dataSubArray={dataSubArray}
             />
         </div>
@@ -65,9 +64,9 @@ const Index = props => {
  * @param {*} dispatch
  */
 const mapDispatchToProps = dispatch => ({
-    getAllLivraison: userID =>
-        dispatch(getAllLivraisons.getAllReferenceRequest(userID)),
-    getCommande: data => dispatch(getCommandes.getStatistiqueRequest(data)),
+    getAllFacture: userID =>
+        dispatch(getAllFactures.getFilterDeclarantInterneRequest(userID)),
+    getFacture: data => dispatch(getFactures.getDeclarantSanctionRequest(data)),
 })
 
 // obtenir les données from  store state
@@ -77,11 +76,10 @@ const mapDispatchToProps = dispatch => ({
  * @param {*} state
  * @returns
  */
-const mapStateToProps = ({ referencial, info, login, statistique }) => ({
-    commandes: statistique.getStatistique.response,
+const mapStateToProps = ({ info, login, declarantInterne }) => ({
+    factureDetails: declarantInterne.getDeclarantSanction.response,
     userID: login.response.User.details.codeInsc,
-    livraisons: referencial.allReferencials.response,
-    selectedRef: referencial.allReferencials.selectedRef,
+    factures: declarantInterne.getFiltredDeclarantInterne.response,
     lng: info.language,
 })
 
@@ -90,11 +88,11 @@ const mapStateToProps = ({ referencial, info, login, statistique }) => ({
  *  declaration des props
  */
 Index.propTypes = {
-    commandes: PropTypes.array.isRequired,
-    getCommande: PropTypes.func.isRequired,
+    factureDetails: PropTypes.array.isRequired,
+    getFacture: PropTypes.func.isRequired,
     userID: PropTypes.object.isRequired,
-    livraisons: PropTypes.array.isRequired,
-    getAllLivraison: PropTypes.func.isRequired,
+    factures: PropTypes.array.isRequired,
+    getAllFacture: PropTypes.func.isRequired,
 }
 
 export default connect(

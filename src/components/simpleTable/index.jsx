@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { injectIntl } from 'react-intl'
@@ -80,28 +79,21 @@ const styles = theme => ({
 const Index = props => {
     const { classes, apiCall, dataApi, dataReturned } = props
 
-    const [dataTable, setDataTable] = useState([])
-
     useEffect(() => {
         apiCall(dataApi)
     }, [])
 
-    // Set livraison on state
-    useEffect(() => {
-        setDataTable(dataReturned)
-    }, [dataReturned])
-
     return (
         <div className="column col-md-12">
-            {!(dataTable || []).length && (
+            {!(dataReturned || []).length && (
                 <p className="text-center m-3">Pas de données disponible!!</p>
             )}
             <Paper className={classes.root}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            {Boolean((dataTable || []).length) &&
-                                Object.keys(dataTable[0] || {}).map(item => (
+                            {Boolean((dataReturned || []).length) &&
+                                Object.keys(dataReturned[0] || {}).map(item => (
                                     <StyledTableCell
                                         className={classes.headTable}
                                         align="center"
@@ -113,7 +105,7 @@ const Index = props => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {(dataTable || []).map(item => (
+                        {(dataReturned || []).map(item => (
                             <StyledTableRow key={generateKey()}>
                                 {Object.values(item).map(value => {
                                     return (
@@ -137,31 +129,6 @@ const Index = props => {
     )
 }
 
-/* redux */
-
-// dispatch action
-
-/**
- *
- *
- * @param {*} dispatch
- */
-const mapDispatchToProps = null
-
-// obtenir les données from  store state
-/**
- *
- *
- * @param {*} state
- * @returns
- */
-const mapStateToProps = ({ referencial, info, login }) => ({
-    userID: login.response.User.details.codeInsc,
-    livraisons: referencial.allReferencials.response,
-    selectedRef: referencial.allReferencials.selectedRef,
-    lng: info.language,
-})
-
 /* Proptypes */
 /**
  *  declaration des props
@@ -173,7 +140,4 @@ Index.propTypes = {
     apiCall: PropTypes.func.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(withStyles(styles)(Index)))
+export default injectIntl(withStyles(styles)(Index))

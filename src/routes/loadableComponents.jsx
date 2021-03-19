@@ -424,14 +424,26 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
-            loader: () => import('../screens/publicationDeclaration'),
+            loader: () => import('../screens/commande'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/publication_du_declaration',
+        path: '/commande',
         props: {
             exact: true,
         },
         name: 'publication_du_declaration',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/facture'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/facture',
+        props: {
+            exact: true,
+        },
+        name: 'facture',
         showWhenConnected: true,
     },
     {

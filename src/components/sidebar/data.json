@@ -36,7 +36,7 @@
                 "subitems": [
                     {
                         "id": 41,
-                        "link": "/publication_du_declaration",
+                        "link": "/commande",
                         "title": "Mes commandes",
                         "defaultPermission": false,
                         "roles": ["ROLE_CLIENT"]
@@ -97,7 +97,7 @@
             },
             {
                 "id": 7,
-                "link": "/referencial",
+                "link": "/facture",
                 "title": "Facture",
                 "defaultPermission": false,
                 "subitems": null,

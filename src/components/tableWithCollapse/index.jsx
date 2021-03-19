@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, useEffect } from 'react'
 import MaterialTable from 'material-table'
 import PropTypes from 'prop-types'
 import { removeBottomDash } from '../../shared/utility'
@@ -18,29 +18,37 @@ const DetailPanelWithRowClick = props => {
 
     // Set livraison on state
     useEffect(() => {
-        const header = Object.keys(dataReturned[0]).map(el => ({
+        const header = Object.keys(
+            dataReturned && dataReturned.length ? dataReturned[0] : {}
+        ).map(el => ({
             field: el,
             title: removeBottomDash(el),
         }))
-        setDataTable({ header, data: dataReturned })
+        setDataTable({ header, data: dataReturned || [] })
     }, [JSON.stringify(dataReturned)])
 
     return (
-        <MaterialTable
-            columns={dataTable.header}
-            data={dataTable.data}
-            title=""
-            detailPanel={rowData => {
-                return (
-                    // dataSubArray.dataApi is A function to get useful data from row data
-                    <SimpleTable
-                        {...dataSubArray}
-                        dataApi={dataSubArray.dataApi(rowData)}
-                    />
-                )
-            }}
-            onRowClick={(event, rowData, togglePanel) => togglePanel()}
-        />
+        <>
+            {dataTable.header.length && dataTable.data.length ? (
+                <MaterialTable
+                    columns={dataTable.header}
+                    data={dataTable.data}
+                    title=""
+                    detailPanel={rowData => {
+                        return (
+                            // dataSubArray.dataApi is A function to get useful data from row data
+                            <SimpleTable
+                                {...dataSubArray}
+                                dataApi={dataSubArray.dataApi(rowData)}
+                            />
+                        )
+                    }}
+                    onRowClick={(event, rowData, togglePanel) => togglePanel()}
+                />
+            ) : (
+                <p className="text-center m-3">Pas de données disponible!!</p>
+            )}
+        </>
     )
 }
 
@@ -55,4 +63,4 @@ DetailPanelWithRowClick.defaultProps = {
     dataSubArray: {},
 }
 
-export default memo(DetailPanelWithRowClick)
+export default DetailPanelWithRowClick
