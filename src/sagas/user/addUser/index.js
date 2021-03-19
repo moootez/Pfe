@@ -15,7 +15,7 @@ import getAllUsersActions from '../../../redux/user/getAllUsers'
  */
 function* addUserSagas({ response }) {
     try {
-        const res = yield Post('ss3_users/inscription', response)
+        const res = yield Post('users/inscription', response)
         if (res.status === 200 || res.status === 201) {
             yield all([
                 yield put(addUserActions.addUserSuccess(res.data)),

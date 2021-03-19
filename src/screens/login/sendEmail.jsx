@@ -97,9 +97,8 @@ class SendEmail extends Component {
                     <div className="form">
                         <div style={{ padding: '10%' }} className="card-body">
                             <div className="formPadding">
-                                <div className="rtl label">
-                                    {' '}
-                                    البريد الإلكتروني{' '}
+                                <div className="label">
+                                    Adresse Email
                                     <span className="text-danger">* </span>
                                 </div>
                                 <div className="input-group form-group">
@@ -108,17 +107,16 @@ class SendEmail extends Component {
                                         style={{
                                             border: '#b20606 1px solid',
                                             outline: 'none',
-                                            fontFamily: 'Arabic Kufi',
                                             fontWeight: 'Regular',
                                         }}
-                                        className="rtl1 form-control"
-                                        placeholder="أدخل كلمة المرور"
+                                        className="form-control"
+                                        placeholder="Adresse Email"
                                         onChange={e =>
                                             this.handleChange(e, 'email')
                                         }
                                     />
                                 </div>
-                                <div className=" form-group align-items-center">
+                                <div className=" form-group d-flex justify-content-between">
                                     <Button
                                         type="submit"
                                         size="sm"
@@ -129,14 +127,11 @@ class SendEmail extends Component {
                                             borderColor: '#858484',
                                             backgroundColor: '#858484',
                                             width: '100px',
-                                            fontFamily: 'Droid Arabic Kufi',
                                             float: 'right',
-                                            marginRight: '9%',
                                         }}
                                         autoFocus
                                     >
-                                        {' '}
-                                        تسجيل
+                                        Valider
                                     </Button>
                                     <Button
                                         type="submit"
@@ -147,14 +142,12 @@ class SendEmail extends Component {
                                             borderColor: '#858484',
                                             backgroundColor: '#858484',
                                             width: '100px',
-                                            fontFamily: 'Droid Arabic Kufi',
                                             float: 'right',
-                                            marginRight: '9%',
                                         }}
                                     >
                                         {' '}
                                         <a href="/" style={{ color: 'white' }}>
-                                            رجوع
+                                            Annuler
                                         </a>
                                     </Button>
                                 </div>

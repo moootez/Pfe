@@ -36,7 +36,7 @@
                 "subitems": [
                     {
                         "id": 41,
-                        "link": "/publication_du_declaration",
+                        "link": "/commande",
                         "title": "Mes commandes",
                         "defaultPermission": false,
                         "roles": ["ROLE_CLIENT"]
@@ -91,6 +91,22 @@
                 "id": 6,
                 "link": "/referencial",
                 "title": "Livraison",
+                "defaultPermission": false,
+                "subitems": null,
+                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+            },
+            {
+                "id": 7,
+                "link": "/facture",
+                "title": "Facture",
+                "defaultPermission": false,
+                "subitems": null,
+                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+            },
+            {
+                "id": 8,
+                "link": "/referencial",
+                "title": "Reglement",
                 "defaultPermission": false,
                 "subitems": null,
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"]

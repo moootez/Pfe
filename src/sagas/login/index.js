@@ -1,10 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-// import Keycloak from 'keycloak-js'
 import axios from 'axios'
 import loginActions, { loginTypes } from '../../redux/login/index'
+import getAllRef from '../../redux/referencial/getAllReferencial'
 import alertActions from '../../redux/alert'
-import getAllReferencialActions from '../../redux/referencial/getAllReferencial/index'
+// import getAllReferencialActions from '../../redux/referencial/getAllReferencial/index'
 import baseUrl from '../../serveur/baseUrl'
 import getLoaderActions from '../../redux/wrapApi/index'
 import instance from '../../serveur/axios'
@@ -17,10 +17,10 @@ import instance from '../../serveur/axios'
 function* loginSagas(payload) {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
-        // const response = yield Post('ss3_user/auth/login', payload.response)
+        // const response = yield Post('user/auth/login', payload.response)
         const response = yield axios({
             method: 'post',
-            url: `${baseUrl}ss3_user/auth/login`,
+            url: `${baseUrl.local}user/auth/login`,
             data: payload.response,
             headers: {
                 'Accept-Version': 1,
@@ -34,16 +34,18 @@ function* loginSagas(payload) {
             yield localStorage.setItem('InluccToken', response.data.Token)
             yield localStorage.setItem(
                 'role',
-                response.data.User.details.userRoles[0].role
+                // response.data.User.details.userRoles[0].role
+                'ROLE_ADMIN'
             )
             instance.defaults.headers.Authorization = `Bearer ${response.data.Token}`
             yield put(getLoaderActions.disableGeneraleLoader())
+            yield put(getAllRef.getAllReferenceSuccess(true))
             yield put(loginActions.loginSuccess(response.data))
-            yield put(
-                getAllReferencialActions.getAllReferenceRequest({
-                    dontNavigate: true,
-                })
-            )
+            // yield put(
+            //     getAllReferencialActions.getAllReferenceRequest({
+            //         dontNavigate: true,
+            //     })
+            // )
         } else {
             yield put(getLoaderActions.disableGeneraleLoader())
             yield all([
@@ -57,13 +59,13 @@ function* loginSagas(payload) {
                         error: true,
                         title: 'خطأ',
                         success: false,
-                        message:
-                            'اسم المستخدم أو رقم السري USB أو كلمة المرور غير صحيحة أو المستخدم غير مسموح له بالدخول',
+                        message: "Nom d'utilisateur ou mot de passe incorrect",
                     })
                 ),
             ])
         }
     } catch (error) {
+        yield put(getLoaderActions.disableGeneraleLoader())
         yield put(loginActions.loginFailure(error))
         yield all([
             yield put(
@@ -74,8 +76,7 @@ function* loginSagas(payload) {
                     error: true,
                     title: 'خطأ',
                     success: false,
-                    message:
-                        'اسم المستخدم أو رقم السري USB أو كلمة المرور غير صحيحة أو المستخدم غير مسموح له بالدخول',
+                    message: "Nom d'utilisateur ou mot de passe incorrect",
                 })
             ),
         ])

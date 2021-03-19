@@ -23,7 +23,7 @@ const instance = axios.create({
         'Content-Type': 'application/json; charset=utf-8',
         ...authorisation,
     },
-    timeout: 500000,
+    timeout: 3000,
 })
 
 /**

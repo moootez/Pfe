@@ -129,7 +129,7 @@ class Routes extends Component {
             language,
             connected,
             loggedUser,
-            FirstConnect,
+            // FirstConnect,
             history,
             allReferenciels,
         } = this.props
@@ -148,10 +148,7 @@ class Routes extends Component {
                     >
                         <Header history={history} />
                         <div className="App">
-                            <Dashboard
-                                userRole={role}
-                                isLogged={connected && !FirstConnect}
-                            />
+                            <Dashboard userRole={role} isLogged={connected} />
                         </div>
                         <Footer />
                     </div>
@@ -174,11 +171,11 @@ class Routes extends Component {
 const mapStateToProps = ({ login, wrapApi, info, referencial }) => {
     return {
         connected: login.connected,
-        FirstConnect:
-            login.FirstConnect &&
-            login.response.User.details.userRoles.find(
-                i => i.role === 'ROLE_CITOYEN'
-            ) !== undefined,
+        FirstConnect: false,
+        // login.FirstConnect &&
+        // login.response.User.details.userRoles.find(
+        //     i => i.role === 'ROLE_CITOYEN'
+        // ) !== undefined,
         loggedUser: login.response,
         allReferenciels: referencial.allReferencials.response,
         generalLoader: wrapApi.generalLoader,
