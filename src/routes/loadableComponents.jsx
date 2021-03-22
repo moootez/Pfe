@@ -689,6 +689,18 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/reglement'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/reglement',
+        props: {
+            exact: true,
+        },
+        name: 'reglement',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/user/addUser'),
             loading: () => <SpinnerHourGlass />,
         }),
