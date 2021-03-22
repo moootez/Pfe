@@ -18,7 +18,7 @@ function* getFilterDeclarantInterneSagas({ response }) {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl.remote}Facture_entete/1/${user}`,
+            url: `${baseUrl}appelCrm/Facture_entete/1/${user}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

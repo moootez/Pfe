@@ -18,7 +18,7 @@ function* getDeclarantSanctionSagas({ response }) {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl.remote}Facture_ligne/${facture}`,
+            url: `${baseUrl}appelCrm/Facture_ligne/${facture}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

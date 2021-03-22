@@ -18,7 +18,7 @@ function* getAllReferencialSagas(payload) {
         yield put(getLoaderActions.activeGeneraleLoader())
         const response = yield axios({
             method: 'get',
-            url: `${baseUrl.remote}Livraison_entete/${user}`,
+            url: `${baseUrl}appelCrm/Livraison_entete/${user}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

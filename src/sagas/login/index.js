@@ -20,7 +20,7 @@ function* loginSagas(payload) {
         // const response = yield Post('user/auth/login', payload.response)
         const response = yield axios({
             method: 'post',
-            url: `${baseUrl.local}user/auth/login`,
+            url: `${baseUrl}user/auth/login`,
             data: payload.response,
             headers: {
                 'Accept-Version': 1,
