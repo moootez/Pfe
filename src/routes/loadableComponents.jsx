@@ -749,6 +749,18 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/createCommande'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/create_commande',
+        props: {
+            exact: true,
+        },
+        name: 'create-commande',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/login/sendEmail'),
             loading: () => <SpinnerHourGlass />,
         }),

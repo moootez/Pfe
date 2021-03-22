@@ -50,7 +50,7 @@
                     },
                     {
                         "id": 43,
-                        "link": "/publication_etablissement",
+                        "link": "/create_commande",
                         "title": "Crée une commande",
                         "defaultPermission": false,
                         "roles": ["ROLE_CLIENT"]

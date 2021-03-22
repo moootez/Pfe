@@ -25,6 +25,7 @@ import parametres from './parametres'
 import history from './history/index'
 import pageCms from './pageCms'
 import notification from './notification'
+import commande from './commande'
 import { reducer as nbrDecParAction } from './tableauDeBord/nbrDecParAction'
 import { reducer as nbrDecParStatusTraitees } from './tableauDeBord/nbrDecParStatusTraitees'
 import { reducer as nbrDecParYear } from './tableauDeBord/nbrDecParYear'
@@ -65,6 +66,7 @@ const containersReducer = {
     certificat,
     parametres,
     history,
+    commande,
 }
 /*
  * enregistrer les données dans redux store
