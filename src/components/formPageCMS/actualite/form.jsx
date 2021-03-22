@@ -100,7 +100,7 @@ const form = ({
                                 animation
                                 size="lg"
                             >
-                                <img src={imageState} alt="Camp 2011 logo" />
+                                <img src={imageState} alt=" Voir les images" />
                             </Modal>
                             {imageState && (
                                 <Button
@@ -108,7 +108,7 @@ const form = ({
                                     size="sm"
                                     onClick={show}
                                 >
-                                    عرض الصور
+                                    Voir l&acute;image
                                 </Button>
                             )}
                         </Grid>

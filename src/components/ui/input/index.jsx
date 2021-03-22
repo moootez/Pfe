@@ -121,17 +121,13 @@ const index = props => {
                         !name.includes('adress') &&
                         !name.includes('valeur')
                     ) {
-                        if (/^[ء-ي,0-9 ]*$/g.test(e.target.value)) {
-                            onchange(e, id)
-                            setInputValue(e.target.value)
-                            setVerifText(false)
-                        } else setVerifText(true)
+                        onchange(e, id)
+                        setInputValue(e.target.value)
+                        setVerifText(false)
                     } else if (name === 'valeur') {
-                        if (/^[ء-ي ]*$/g.test(e.target.value)) {
-                            onchange(e, id)
-                            setInputValue(e.target.value)
-                            setVerifText(false)
-                        } else setVerifText(true)
+                        onchange(e, id)
+                        setInputValue(e.target.value)
+                        setVerifText(false)
                     } else if (name === 'intituleFr' || name === 'intituleEn') {
                         if (
                             /^[ a-z0-9._,@$%&'"àáâæçèéêëìíîïœùúû.-]+$/i.test(

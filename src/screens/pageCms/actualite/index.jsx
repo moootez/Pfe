@@ -13,7 +13,7 @@ import alertActions from '../../../redux/alert'
 /**
  *
  *
- * @param {*} { lng, intl, history, filtredTable, getActualite,alertShow, alertHide }
+ * @param {*} { lng, intl, history, filtredTable, getActualite, alertHide, alertShow }
  * @returns
  */
 const Index = ({
@@ -23,19 +23,18 @@ const Index = ({
     filtredTable,
     getActualite,
     deleteActualite,
-    alertShow,
     alertHide,
+    alertShow,
 }) => {
     const type = 'listActualite'
     /* hooks member */
     const [rows, setRows] = useState([])
 
-    /* list header */
     const headers = [
-        'عنوان المقال',
-        'التاريخ',
+        'Texte',
+        'Priorite',
         intl.formatMessage({ id: 'dateCreaction' }),
-        'إختيار',
+        'Actions',
     ]
     /* set table */
     const setTable = arrayFiltred => {
@@ -44,9 +43,8 @@ const Index = ({
             rowsTmp = arrayFiltred.map((item, index) => ({
                 id: item.id,
                 index,
-                titreAr: item.titreAr,
-                dateActualite:
-                    item.dateActualite && item.dateActualite.substr(0, 11),
+                theme: item.texte,
+                sujet: item.priorite,
                 createdAt: item.createdAt && item.createdAt.substr(0, 11),
             }))
         }
@@ -63,7 +61,6 @@ const Index = ({
             setTable(filtredTable)
         }
     }, [filtredTable])
-
     /* functions */
     /**
      * screen d'edit
@@ -85,12 +82,13 @@ const Index = ({
      * @param {*} row
      */
     const deleteRef = item => {
+        console.log(item)
         alertShow(true, {
             warning: true,
             info: false,
             error: false,
             success: false,
-            title: `هل أنت متأكد من حذف ${item.titreAr}`,
+            title: `Voulez-vous vraiment supprimer ${item.texte}`,
             onConfirm: () => {
                 deleteActualite(item.id)
                 setTimeout(() => {
@@ -115,7 +113,7 @@ const Index = ({
     return (
         <div style={{ padding: '1%' }}>
             <Grid className="gridItem">
-                <PageTitle label="المستجدات" />
+                <PageTitle label="Actualite / News" />
             </Grid>
             <div style={{ marginTop: '3%' }} />
             <div style={{ marginTop: '42px' }}>
@@ -123,7 +121,7 @@ const Index = ({
                     color="white"
                     type="contained"
                     size="medium"
-                    label="إضافة"
+                    label="Ajouter"
                     clicked={() => addActualite()}
                 />
             </div>
@@ -153,7 +151,7 @@ const mapStateToProps = state => {
     return {
         allReferenciels: state.referencial.allReferencials.response,
         lng: state.info.language,
-        filtredTable: state.pageCms.Index.response,
+        filtredTable: state.pageCms.Actualite.response,
     }
 }
 
@@ -186,7 +184,6 @@ const mapDispatchToProps = dispatch => ({
 /**
  *  Inialisation
  */
-
 Index.defaultProps = {
     filtredTable: [],
 }
