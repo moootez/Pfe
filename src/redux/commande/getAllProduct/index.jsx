@@ -7,12 +7,12 @@ import Immutable from 'seamless-immutable'
  */
 
 const { Types, Creators } = createActions({
-    getAllCommandeRequest: ['response'],
-    getAllCommandeSuccess: ['response', 'loading'],
-    getAllCommandeFailure: ['error'],
+    getAllProductRequest: ['response'],
+    getAllProductSuccess: ['response', 'loading'],
+    getAllProductFailure: ['error'],
 })
 
-export const getAllCommandeTypes = Types
+export const getAllProductTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
@@ -33,13 +33,13 @@ export const INITIAL_STATE = Immutable({
  * reducers action request
  * @param {*} state
  */
-const getAllCommandeRequest = state => state.merge({ loading: true })
+const getAllProductRequest = state => state.merge({ loading: true })
 
 /**
  * reducers action success
  * @param {*} state
  */
-const getAllCommandeSuccess = (state, { response }) =>
+const getAllProductSuccess = (state, { response }) =>
     state.merge({
         error: false,
         response,
@@ -49,7 +49,7 @@ const getAllCommandeSuccess = (state, { response }) =>
  * reducers action failure
  * @param {*} state
  */
-const getAllCommandeFailure = (state, { response }) =>
+const getAllProductFailure = (state, { response }) =>
     state.merge({
         loading: false,
         error: true,
@@ -60,7 +60,7 @@ const getAllCommandeFailure = (state, { response }) =>
  * render redux reducer actions
  */
 export const reducer = createReducer(INITIAL_STATE, {
-    [Types.GET_ALL_COMMANDE_REQUEST]: getAllCommandeRequest,
-    [Types.GET_ALL_COMMANDE_SUCCESS]: getAllCommandeSuccess,
-    [Types.GET_ALL_COMMANDE_FAILURE]: getAllCommandeFailure,
+    [Types.GET_ALL_PRODUCT_REQUEST]: getAllProductRequest,
+    [Types.GET_ALL_PRODUCT_SUCCESS]: getAllProductSuccess,
+    [Types.GET_ALL_PRODUCT_FAILURE]: getAllProductFailure,
 })
