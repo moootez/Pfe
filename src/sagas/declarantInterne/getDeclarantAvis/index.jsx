@@ -21,7 +21,7 @@ function* getDeclarantAvisSagas({ response }) {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl.remote}Commande_entete/${user}`,
+            url: `${baseUrl}appelCrm/Commande_entete/${user}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

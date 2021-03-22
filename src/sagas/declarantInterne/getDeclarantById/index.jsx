@@ -18,7 +18,7 @@ function* getDeclarantInterneSagas({ response }) {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl.remote}Commande_Ligne/${commande}/${user}`,
+            url: `${baseUrl}appelCrm/Commande_Ligne/${commande}/${user}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',
