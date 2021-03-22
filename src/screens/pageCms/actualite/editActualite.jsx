@@ -231,13 +231,13 @@ class editActualite extends React.Component {
                                     color="secondary"
                                     type="contained"
                                     size="medium"
-                                    label="تأكيد"
+                                    label="Confirmer"
                                     clicked={this.editActualite}
                                 />
                                 <ButtonComponent
                                     color="secondary"
                                     type="contained"
-                                    label="إلغاء"
+                                    label="Annuler"
                                     size="medium"
                                     clicked={this.cancelActualite}
                                 />

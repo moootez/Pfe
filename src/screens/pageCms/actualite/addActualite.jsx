@@ -193,7 +193,10 @@ class addActualite extends React.Component {
 
         return (
             <div className="ctn__declataion">
-                <PageTitle label="إضافة مستجدات" />
+                <PageTitle
+                    label="
+Ajouter des Actualite "
+                />
                 <FormGroup>
                     <div className="centerDiv">
                         <Grid container>
@@ -213,13 +216,13 @@ class addActualite extends React.Component {
                                     color="secondary"
                                     type="contained"
                                     size="medium"
-                                    label="تأكيد"
+                                    label="Confirmer"
                                     clicked={this.addActualite}
                                 />
                                 <ButtonComponent
                                     color="secondary"
                                     type="contained"
-                                    label="إلغاء"
+                                    label="Annuler"
                                     size="medium"
                                     clicked={this.cancelActualite}
                                 />
