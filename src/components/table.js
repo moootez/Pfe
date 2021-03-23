@@ -191,7 +191,7 @@ class CustomizedTable extends PureComponent {
             lng,
         } = this.props
         const { page, rowsPerPage, rowsS } = this.state
-        const actions = lng === 'ar' ? 'اختيار' : 'choisir'
+        const actions = 'Choisir'
 
         return (
             <Paper className={classes.root}>

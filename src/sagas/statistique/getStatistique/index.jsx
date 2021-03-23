@@ -19,7 +19,7 @@ function* getStatistiqueSagas({ response }) {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl}appelCrm/Livraison_ligne/${user}/4/${commande}`,
+            url: `${baseUrl}appelCrm/Livraison_ligne/${user}/${commande}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

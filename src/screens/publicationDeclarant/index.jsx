@@ -112,7 +112,7 @@ const Index = ({
         },
         {
             id: 'action',
-            label: 'إختيار',
+            label: 'Choisir',
         },
     ]
     /* set table and input search */

@@ -13,6 +13,7 @@ import roles from './roles'
 import publication from './publication'
 import etablissement from './etablissement/index'
 import declarantInterne from './declarantInterne'
+import commande from './commande'
 import inscription from './inscription'
 import getStatistique from './statistique/index'
 import parametres from './parametres/index'
@@ -41,6 +42,7 @@ const sagas = [
     ...tableauDeBord,
     loginSaga,
     wrapApi,
+    ...commande,
     ...history,
     ...referencial,
     ...users,

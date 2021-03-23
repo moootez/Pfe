@@ -339,8 +339,8 @@ class Index extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                title: 'تذكير',
-                message: 'يرجى معالجة الأخطاء',
+                title: 'Avertissement',
+                message: 'Merci de corriger les erreurs',
             })
         else {
             addUserRequest(this.payload)
@@ -361,8 +361,8 @@ class Index extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                title: 'تذكير',
-                message: 'يرجى معالجة الأخطاء',
+                title: 'Avertissement',
+                message: 'Merci de corriger les erreurs',
             })
         else {
             editUserRequest(payloadState)
@@ -397,9 +397,9 @@ class Index extends React.Component {
         return (
             <div className="ctn__declataion">
                 {history.location.state.type === 'edit' ? (
-                    <PageTitle label="تغيير مستخدم" />
+                    <PageTitle label="Modifier utilisateur" />
                 ) : (
-                    <PageTitle label="إضافة مستخدم" />
+                    <PageTitle label="Ajouter utilisateur" />
                 )}
                 {[] && (
                     <FormGroup>
@@ -460,7 +460,7 @@ class Index extends React.Component {
                                         color="secondary"
                                         type="contained"
                                         size="medium"
-                                        label="تأكيد"
+                                        label="Confirmer"
                                         clicked={
                                             history.location.state.type ===
                                             'edit'
@@ -472,7 +472,7 @@ class Index extends React.Component {
                                         disabled={disable}
                                         color="secondary"
                                         type="contained"
-                                        label="إلغاء"
+                                        label="Annuler"
                                         size="medium"
                                         clicked={this.cancelAjout}
                                     />

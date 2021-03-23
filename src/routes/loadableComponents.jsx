@@ -436,6 +436,42 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/reclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/mes-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'mes_reclamation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/listeReclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/liste-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'liste_reclamation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/addReclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/ajout-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'ajout_reclamation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/facture'),
             loading: () => <SpinnerHourGlass />,
         }),
@@ -665,6 +701,18 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/validerCommande'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/validation-commande',
+        props: {
+            exact: true,
+        },
+        name: 'Validation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/user/getUser'),
             loading: () => <SpinnerHourGlass />,
         }),
@@ -745,6 +793,18 @@ const loadableComponents = [
             exact: true,
         },
         name: 'history',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/createCommande'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/create_commande',
+        props: {
+            exact: true,
+        },
+        name: 'create-commande',
         showWhenConnected: true,
     },
     {

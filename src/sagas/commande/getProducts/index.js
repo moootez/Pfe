@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios'
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-import getSanctionActions, {
-    getSanctionTypes,
-} from '../../../redux/declarantInterne/getSanctionById'
+import getAllProductAction, {
+    getAllProductTypes,
+} from '../../../redux/commande/getAllProduct'
 import baseUrl from '../../../serveur/baseUrl'
 import getLoaderActions from '../../../redux/wrapApi/index'
 
@@ -12,13 +12,12 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  *
  * @param {*} { response }
  */
-function* getSanctionSagas({ response }) {
+function* getAllProductSagas() {
     try {
-        const { user } = response
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl}appelCrm/Reglements/${user}`,
+            url: `${baseUrl}article/all`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',
@@ -29,15 +28,17 @@ function* getSanctionSagas({ response }) {
         })
         if (res.status === 200) {
             yield all([
-                yield put(getSanctionActions.getSanctionSuccess(res.data)),
+                yield put(
+                    getAllProductAction.getAllProductSuccess(res.data.data)
+                ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(getSanctionActions.getSanctionFailure(res.data))
+            yield put(getAllProductAction.getAllProductFailure(res.data.data))
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
-        yield put(getSanctionActions.getSanctionFailure(error))
+        yield put(getAllProductAction.getAllProductFailure(error))
         yield put(getLoaderActions.disableGeneraleLoader())
     }
 }
@@ -45,6 +46,9 @@ function* getSanctionSagas({ response }) {
 /**
  * appele à la fonction with key action
  */
-export default function* getSanctionSaga() {
-    yield takeLatest(getSanctionTypes.GET_SANCTION_REQUEST, getSanctionSagas)
+export default function* getAllProductSaga() {
+    yield takeLatest(
+        getAllProductTypes.GET_ALL_PRODUCT_REQUEST,
+        getAllProductSagas
+    )
 }

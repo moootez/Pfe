@@ -120,7 +120,7 @@ const PublicationDecCoursDesComptes = ({
         },
         {
             id: 'action',
-            label: 'إختيار',
+            label: 'Choisir',
         },
     ]
     /* set table */

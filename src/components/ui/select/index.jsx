@@ -130,7 +130,7 @@ const index = ({
                 {...attributes}
             >
                 {(selectAll
-                    ? [{ label: 'اختيار', value: 0 }, ...list]
+                    ? [{ label: 'Choisir', value: 0 }, ...list]
                     : list || []
                 ).map(option => (
                     <MenuItem

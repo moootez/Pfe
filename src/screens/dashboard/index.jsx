@@ -183,7 +183,7 @@ export default function Index({ isLogged, userRole }) {
                 <Switch>
                     {listOfRoutes.map(route => route)}
                     <Route exact path="/">
-                        <Redirect to="/statistique" />
+                        <Redirect to="/actualite" />
                     </Route>
                 </Switch>
             </main>

@@ -6,7 +6,7 @@
             {
                 "id": 1,
                 "title": "News",
-                "link": "/tableauDeBord",
+                "link": "/actualite",
                 "defaultPermission": true,
                 "subitems": null,
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"]
@@ -21,36 +21,28 @@
             },
             {
                 "id": 3,
-                "link": "/referencial",
-                "title": "Articles",
-                "defaultPermission": false,
-                "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
-            },
-            {
-                "id": 4,
                 "link": "/parametres",
                 "title": "Commande",
                 "defaultPermission": false,
                 "roles": [""],
                 "subitems": [
                     {
-                        "id": 41,
+                        "id": 31,
                         "link": "/commande",
                         "title": "Mes commandes",
                         "defaultPermission": false,
                         "roles": ["ROLE_CLIENT"]
                     },
                     {
-                        "id": 42,
-                        "link": "/publication_declarant",
+                        "id": 32,
+                        "link": "/validation-commande",
                         "title": "Commandes a valider",
                         "defaultPermission": false,
                         "roles": ["ROLE_ADMIN", "ROLE_ADV"]
                     },
                     {
-                        "id": 43,
-                        "link": "/publication_etablissement",
+                        "id": 33,
+                        "link": "/create_commande",
                         "title": "Crée une commande",
                         "defaultPermission": false,
                         "roles": ["ROLE_CLIENT"]
@@ -58,29 +50,29 @@
                 ]
             },
             {
-                "id": 5,
-                "link": "/user",
+                "id": 4,
+                "link": "/reclamation",
                 "title": "Reclamation",
                 "defaultPermission": false,
                 "roles": [""],
                 "subitems": [
                     {
-                        "id": 51,
-                        "link": "/declaration_saisie",
+                        "id": 41,
+                        "link": "/mes-reclamation",
                         "title": "Mes reclamations",
                         "defaultPermission": true,
                         "roles": ["ROLE_CLIENT"]
                     },
                     {
-                        "id": 52,
-                        "link": "/saisie_declaration",
+                        "id": 42,
+                        "link": "/ajout-reclamation",
                         "title": "Ajouter une reclamation",
                         "defaultPermission": true,
                         "roles": ["ROLE_CLIENT"]
                     },
                     {
-                        "id": 53,
-                        "link": "/declaration_rattacher_saisie/rattacher_le_scan_de_la_declaration",
+                        "id": 43,
+                        "link": "/liste-reclamation",
                         "title": "Liste de reclamation",
                         "defaultPermission": false,
                         "roles": ["ROLE_ADMIN", "ROLE_ADV"]
@@ -88,7 +80,7 @@
                 ]
             },
             {
-                "id": 6,
+                "id": 5,
                 "link": "/referencial",
                 "title": "Livraison",
                 "defaultPermission": false,
@@ -96,7 +88,7 @@
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"]
             },
             {
-                "id": 7,
+                "id": 6,
                 "link": "/facture",
                 "title": "Facture",
                 "defaultPermission": false,
@@ -104,7 +96,7 @@
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"]
             },
             {
-                "id": 8,
+                "id": 7,
                 "link": "/reglement",
                 "title": "Reglement",
                 "defaultPermission": false,

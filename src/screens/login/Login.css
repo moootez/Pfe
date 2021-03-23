@@ -1,6 +1,7 @@
 .bg {
     background: url('../../assets/images/bg.png');
     background-size: cover;
+    background-position: center;
     width: 100vw;
     height: 100vh;
     position: fixed;

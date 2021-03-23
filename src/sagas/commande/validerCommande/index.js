@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios'
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-import getSanctionActions, {
-    getSanctionTypes,
-} from '../../../redux/declarantInterne/getSanctionById'
+import validerCommandeAction, {
+    validerCommandeTypes,
+} from '../../../redux/commande/validerCommande'
 import baseUrl from '../../../serveur/baseUrl'
 import getLoaderActions from '../../../redux/wrapApi/index'
 
@@ -12,13 +12,13 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  *
  * @param {*} { response }
  */
-function* getSanctionSagas({ response }) {
+function* validerCommandeSagas({ response }) {
     try {
-        const { user } = response
+        const { commande, status } = response
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
-            method: 'get',
-            url: `${baseUrl}appelCrm/Reglements/${user}`,
+            method: 'post',
+            url: `${baseUrl}commande/change-status/${commande}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',
@@ -26,18 +26,23 @@ function* getSanctionSagas({ response }) {
                 'Content-Type': 'application/json; charset=utf-8',
             },
             timeout: 3000,
+            data: { status },
         })
         if (res.status === 200) {
             yield all([
-                yield put(getSanctionActions.getSanctionSuccess(res.data)),
+                yield put(
+                    validerCommandeAction.validerCommandeSuccess(res.data.data)
+                ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(getSanctionActions.getSanctionFailure(res.data))
+            yield put(
+                validerCommandeAction.validerCommandeFailure(res.data.data)
+            )
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
-        yield put(getSanctionActions.getSanctionFailure(error))
+        yield put(validerCommandeAction.validerCommandeFailure(error))
         yield put(getLoaderActions.disableGeneraleLoader())
     }
 }
@@ -45,6 +50,9 @@ function* getSanctionSagas({ response }) {
 /**
  * appele à la fonction with key action
  */
-export default function* getSanctionSaga() {
-    yield takeLatest(getSanctionTypes.GET_SANCTION_REQUEST, getSanctionSagas)
+export default function* validerCommandeSaga() {
+    yield takeLatest(
+        validerCommandeTypes.VALIDER_COMMANDE_REQUEST,
+        validerCommandeSagas
+    )
 }
