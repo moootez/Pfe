@@ -81,7 +81,7 @@ const index = ({
                         </MenuItem>
                     ) : (
                         <MenuItem key="" value="">
-                            اختيار
+                            Choisir
                         </MenuItem>
                     ))}
                 {(list || []).map(item => {

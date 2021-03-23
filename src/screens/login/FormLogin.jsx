@@ -78,8 +78,8 @@ class FormLogin extends Component {
         const { intl } = this.props
 
         return (
-            <div>
-                <div className="d-flex justify-content-center h-100">
+            <div className="d-flex justify-content-center align-items-center pt-5">
+                <div className="d-flex justify-content-center h-100 w-50">
                     <div className="form">
                         <div align="center" className="form-title">
                             {intl.formatMessage({ id: 'auth' })}

@@ -100,7 +100,7 @@ const Index = ({
         },
         {
             id: 'action',
-            label: 'إختيار',
+            label: 'Choisir',
         },
     ]
 

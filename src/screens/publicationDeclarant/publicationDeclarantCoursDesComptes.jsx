@@ -94,7 +94,7 @@ const PublicationDeclarantCoursDesComptes = ({
         },
         {
             id: 'action',
-            label: 'إختيار',
+            label: 'Choisir',
         },
     ]
     /* set tabel */

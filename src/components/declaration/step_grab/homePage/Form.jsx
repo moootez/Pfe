@@ -52,7 +52,6 @@ const Form = ({
             setPayloadCategorie(payload.categorie)
         }
     }, [payload])
-    console.log('aaaaaaaa', payload, payloadCategorie)
     /**
      * obtenir parent fonction
      *

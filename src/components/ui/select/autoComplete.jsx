@@ -63,10 +63,10 @@ const autoComplete = ({
         if (list) {
             setListOptions(list)
             if (selectAll)
-                setListOptions([{ label: 'اختيار', value: 0 }, ...list])
+                setListOptions([{ label: 'Choisir', value: 0 }, ...list])
 
             const selectedValue = (selectAll
-                ? [{ label: 'اختيار', value: 0 }, ...list]
+                ? [{ label: 'Choisir', value: 0 }, ...list]
                 : list || []
             ).filter(index => selectedItem === index.value && index.label)
 
