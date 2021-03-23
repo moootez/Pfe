@@ -436,6 +436,42 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/reclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/mes-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'mes_reclamation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/listeReclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/liste-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'liste_reclamation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/addReclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/ajout-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'ajout_reclamation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/facture'),
             loading: () => <SpinnerHourGlass />,
         }),
