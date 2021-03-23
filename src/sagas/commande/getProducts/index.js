@@ -28,11 +28,13 @@ function* getAllProductSagas() {
         })
         if (res.status === 200) {
             yield all([
-                yield put(getAllProductAction.getAllProductSuccess(res.data)),
+                yield put(
+                    getAllProductAction.getAllProductSuccess(res.data.data)
+                ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(getAllProductAction.getAllProductFailure(res.data))
+            yield put(getAllProductAction.getAllProductFailure(res.data.data))
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
