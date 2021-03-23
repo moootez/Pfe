@@ -665,6 +665,18 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/validerCommande'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/validation-commande',
+        props: {
+            exact: true,
+        },
+        name: 'Validation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/user/getUser'),
             loading: () => <SpinnerHourGlass />,
         }),

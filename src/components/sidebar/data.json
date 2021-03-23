@@ -6,7 +6,7 @@
             {
                 "id": 1,
                 "title": "News",
-                "link": "/tableauDeBord",
+                "link": "/actualite",
                 "defaultPermission": true,
                 "subitems": null,
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"]
@@ -43,7 +43,7 @@
                     },
                     {
                         "id": 42,
-                        "link": "/publication_declarant",
+                        "link": "/validation-commande",
                         "title": "Commandes a valider",
                         "defaultPermission": false,
                         "roles": ["ROLE_ADMIN", "ROLE_ADV"]
