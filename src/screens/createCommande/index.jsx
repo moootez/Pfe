@@ -101,6 +101,7 @@ const Index = props => {
                                     variant="outlined"
                                     onBlur={e =>
                                         setCommande({
+                                            ...commande,
                                             [rowData.codeArticleX3]: {
                                                 ...(commande[
                                                     rowData.codeArticleX3
@@ -132,6 +133,7 @@ const Index = props => {
                                     size="small"
                                     onBlur={e =>
                                         setCommande({
+                                            ...commande,
                                             [rowData.codeArticleX3]: {
                                                 ...(commande[
                                                     rowData.codeArticleX3

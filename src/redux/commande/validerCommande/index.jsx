@@ -6,12 +6,12 @@ import Immutable from 'seamless-immutable'
  */
 
 const { Types, Creators } = createActions({
-    deleteEtablissementRequest: ['response'],
-    deleteEtablissementSuccess: ['response', 'loading'],
-    deleteEtablissementFailure: ['error'],
+    validerCommandeRequest: ['response'],
+    validerCommandeSuccess: ['response', 'loading'],
+    validerCommandeFailure: ['error'],
 })
 
-export const deleteEtablissementTypes = Types
+export const validerCommandeTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
@@ -27,7 +27,7 @@ export const INITIAL_STATE = Immutable({
  * reducers action request
  * @param {*} state
  */
-const deleteEtablissementSuccess = (state, { response }) =>
+const validerCommandeSuccess = (state, { response }) =>
     state.merge({
         error: false,
         response,
@@ -38,7 +38,7 @@ const deleteEtablissementSuccess = (state, { response }) =>
  * reducers action failure
  * @param {*} state
  */
-const deleteEtablissementFailure = (state, { error }) => {
+const validerCommandeFailure = (state, { error }) => {
     const { response } = error
     return state.merge({
         loading: false,
@@ -51,14 +51,14 @@ const deleteEtablissementFailure = (state, { error }) => {
  * reducers action request
  * @param {*} state
  */
-const deleteEtablissementRequest = state =>
+const validerCommandeRequest = state =>
     state.merge({ loading: true, error: null })
 
 /**
  * render redux reducer actions
  */
 export const reducer = createReducer(INITIAL_STATE, {
-    [Types.DELETE_ETABLISSEMENT_REQUEST]: deleteEtablissementRequest,
-    [Types.DELETE_ETABLISSEMENT_SUCCESS]: deleteEtablissementSuccess,
-    [Types.DELETE_ETABLISSEMENT_FAILURE]: deleteEtablissementFailure,
+    [Types.VALIDER_COMMANDE_REQUEST]: validerCommandeRequest,
+    [Types.VALIDER_COMMANDE_SUCCESS]: validerCommandeSuccess,
+    [Types.VALIDER_COMMANDE_FAILURE]: validerCommandeFailure,
 })
