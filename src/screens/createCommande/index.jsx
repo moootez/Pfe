@@ -8,12 +8,13 @@ import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Grid, Divider, TextField, Button } from '@material-ui/core'
 import getAllProductActions from '../../redux/commande/getAllProduct'
+import addNewCommandeActions from '../../redux/commande/newCommande'
 import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 
 const Index = props => {
-    const { products, getAllProduct, userID } = props
+    const { products, getAllProduct, userID, addCommande } = props
 
     console.log(userID)
 
@@ -41,6 +42,15 @@ const Index = props => {
             parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
     const getTotalPrix = rowData => getTotalQt(rowData) * parseInt(rowData.prix)
+    const handleSubmit = () => {
+        const payload = Object.entries(commande).map(elem => ({
+            Code_article: elem[0],
+            QTY: getTotalQt(
+                allProduct.find(el => el.codeArticleX3 === elem[0])
+            ),
+        }))
+        addCommande({ produits: payload, user: userID })
+    }
 
     return (
         <div className="column col-md-12">
@@ -161,8 +171,12 @@ const Index = props => {
                 data={allProduct || []}
             />
             <div className="m-3 text-right">
-                <Button variant="contained" color="primary">
-                    Passer la commande
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                >
+                    Envoyer la commande
                 </Button>
             </div>
         </div>
@@ -179,6 +193,8 @@ const Index = props => {
  */
 const mapDispatchToProps = dispatch => ({
     getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
+    addCommande: payload =>
+        dispatch(addNewCommandeActions.addNewCommandeRequest(payload)),
 })
 
 // obtenir les données from  store state
@@ -202,6 +218,7 @@ Index.propTypes = {
     userID: PropTypes.object.isRequired,
     products: PropTypes.array.isRequired,
     getAllProduct: PropTypes.func.isRequired,
+    addCommande: PropTypes.func.isRequired,
 }
 
 export default connect(

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { reducer as getAllProduct } from './getAllProduct'
+import { reducer as newCommande } from './newCommande'
 
 /*
  * render all redux reducers actions
@@ -10,4 +11,5 @@ import { reducer as getAllProduct } from './getAllProduct'
  */
 export default combineReducers({
     getAllProduct,
+    newCommande,
 })

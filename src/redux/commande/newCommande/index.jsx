@@ -6,12 +6,12 @@ import Immutable from 'seamless-immutable'
  */
 
 const { Types, Creators } = createActions({
-    addEtablissementRequest: ['response'],
-    addEtablissementSuccess: ['response', 'loading'],
-    addEtablissementFailure: ['error'],
+    addNewCommandeRequest: ['response'],
+    addNewCommandeSuccess: ['response', 'loading'],
+    addNewCommandeFailure: ['error'],
 })
 
-export const addEtablissementTypes = Types
+export const addNewCommandeTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
@@ -27,7 +27,7 @@ export const INITIAL_STATE = Immutable({
  * reducers action request
  * @param {*} state
  */
-const addEtablissementSuccess = (state, { response }) =>
+const addNewCommandeSuccess = (state, { response }) =>
     state.merge({
         error: false,
         response,
@@ -38,7 +38,7 @@ const addEtablissementSuccess = (state, { response }) =>
  * reducers action failure
  * @param {*} state
  */
-const addEtablissementFailure = (state, { error }) => {
+const addNewCommandeFailure = (state, { error }) => {
     const { response } = error
     return state.merge({
         loading: false,
@@ -51,14 +51,14 @@ const addEtablissementFailure = (state, { error }) => {
  * reducers action request
  * @param {*} state
  */
-const addEtablissementRequest = state =>
+const addNewCommandeRequest = state =>
     state.merge({ loading: true, error: null })
 
 /**
  * render redux reducer actions
  */
 export const reducer = createReducer(INITIAL_STATE, {
-    [Types.ADD_ETABLISSEMENT_REQUEST]: addEtablissementRequest,
-    [Types.ADD_ETABLISSEMENT_SUCCESS]: addEtablissementSuccess,
-    [Types.ADD_ETABLISSEMENT_FAILURE]: addEtablissementFailure,
+    [Types.ADD_NEW_COMMANDE_REQUEST]: addNewCommandeRequest,
+    [Types.ADD_NEW_COMMANDE_SUCCESS]: addNewCommandeSuccess,
+    [Types.ADD_NEW_COMMANDE_FAILURE]: addNewCommandeFailure,
 })
