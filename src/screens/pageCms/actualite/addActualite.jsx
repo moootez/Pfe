@@ -93,7 +93,7 @@ class addActualite extends React.Component {
     fieldChangedHandler = ({ target: { name, value, files } }) => {
         const { payloadState } = this.state
         const { alertShow } = this.props
-        const base64 = []
+        let base64 = []
         if (name === 'image') {
             const fileToLoad = files[0]
             const fileReader = new FileReader()
@@ -102,7 +102,7 @@ class addActualite extends React.Component {
                 // eslint-disable-next-line func-names
                 fileReader.onload = function(fileLoadedEvent) {
                     file = fileLoadedEvent.target.result
-                    base64.push(file)
+                    base64 = file
                 }
                 // Convert data to base64
                 fileReader.readAsDataURL(fileToLoad)
@@ -118,7 +118,7 @@ class addActualite extends React.Component {
                     info: false,
                     error: true,
                     success: false,
-                    message: `الرجاء تقليل حجم الصورة`,
+                    message: `Image de grande taille`,
                 })
             }
         }
@@ -176,7 +176,7 @@ class addActualite extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                message: `الرجاء تقليل حجم الصورة`,
+                message: `Image de grande taille`,
             })
     }
 

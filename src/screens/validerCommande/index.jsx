@@ -27,7 +27,7 @@ const Index = props => {
     const [allCommande, setAllCommande] = useState([])
 
     useEffect(() => {
-        getCommande({ user: userID })
+        getCommande({ user: userID, role })
     }, [])
 
     useEffect(() => {
