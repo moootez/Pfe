@@ -140,7 +140,7 @@ const Index = ({
         })
     }
 
-    if (role) {
+    if (role === 'ROLE_CLIENT') {
         return (
             <div className="row">
                 {rows.map(el => (
