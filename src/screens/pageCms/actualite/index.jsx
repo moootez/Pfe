@@ -1,14 +1,42 @@
 import React, { useEffect, useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
-import { Grid } from '@material-ui/core'
+import {
+    Grid,
+    Card,
+    CardMedia,
+    CardContent,
+    Typography,
+} from '@material-ui/core'
 import ButtonComponent from '../../../components/ui/button'
 import getActualiteActions from '../../../redux/pageCms/actualite/getActualite'
 import deleteActualiteActions from '../../../redux/pageCms/actualite/deleteActualite'
 import Table from '../../../components/ui/table/index'
 import PageTitle from '../../../components/ui/pageTitle'
 import alertActions from '../../../redux/alert'
+import news from '../../../assets/images/new.png'
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+}))
 
 /**
  *
@@ -25,7 +53,9 @@ const Index = ({
     deleteActualite,
     alertHide,
     alertShow,
+    role,
 }) => {
+    const classes = useStyles()
     const type = 'listActualite'
     /* hooks member */
     const [rows, setRows] = useState([])
@@ -110,6 +140,42 @@ const Index = ({
         })
     }
 
+    if (role) {
+        return (
+            <div className="row">
+                {rows.map(el => (
+                    <div className="col-4 p-3">
+                        <Card>
+                            <CardMedia
+                                className={classes.media}
+                                image={news}
+                                title="New"
+                            />
+                            <CardContent>
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    component="p"
+                                >
+                                    {el.theme}
+                                </Typography>
+                                <p
+                                    style={{
+                                        fontSize: 10,
+                                        color: 'black',
+                                        float: 'right',
+                                    }}
+                                >
+                                    {el.createdAt}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     return (
         <div style={{ padding: '1%' }}>
             <Grid className="gridItem">
@@ -152,6 +218,7 @@ const mapStateToProps = state => {
         allReferenciels: state.referencial.allReferencials.response,
         lng: state.info.language,
         filtredTable: state.pageCms.Actualite.response,
+        role: state.login.response.User.details.userRoles[0].role,
     }
 }
 
@@ -191,6 +258,7 @@ Index.defaultProps = {
  *  declaration des props
  */
 Index.propTypes = {
+    role: PropTypes.string.isRequired,
     intl: PropTypes.object.isRequired,
     filtredTable: PropTypes.array,
     history: PropTypes.object.isRequired,

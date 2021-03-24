@@ -5,13 +5,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import Button from '@material-ui/core/Button'
 import { injectIntl, FormattedMessage } from 'react-intl'
-// import Notifications from './notifications'
-// import flagTn from '../../assets/images/flag-tn.svg'
 import userlogo from '../../assets/images/usered.svg'
-// import FacebookIcon from '../../assets/icons/icone-fb.png'
-// import InstagramIcon from '../../assets/icons/icone-instagram.png'
-// import YoutubeIcon from '../../assets/icons/icone-tube.png'
-// import TwitterIcon from '../../assets/icons/icone-twitter.png'
 
 /**
  * Index
@@ -59,22 +53,8 @@ const Index = ({ logout, history }) => {
     return (
         <header className="header">
             <Grid container>
-                <Grid item xs={4} md sm className="left-block">
-                    {/* <div className="tn-flag mt-auto">
-                        <img src={flagTn} alt="tunisia-flag" />
-                    </div>
-                    <div className="text-block uppercase">
-                        <p className="p-0">
-                            <FormattedMessage id="nameRepublic" />
-                        </p>
-                    </div> */}
-                </Grid>
+                <Grid item xs={4} md sm className="left-block"></Grid>
                 <Grid item xs={8} md sm className="right-block">
-                    {/* </ClickAwayListener> */}
-                    {/* <div className="notification mt-auto">
-                        <Notifications />
-                    </div> */}
-                    {/* <ClickAwayListener> */}
                     <div className="pos-relative">
                         <div
                             className="prof-access"
@@ -114,35 +94,6 @@ const Index = ({ logout, history }) => {
                             )}
                         </div>
                     </div>
-
-                    {/* <div className="icones mt-auto">
-                        <img
-                            src={YoutubeIcon}
-                            alt="userlogo"
-                            className="icone"
-                        />
-                    </div>
-                    <div className="icones mt-auto">
-                        <img
-                            src={InstagramIcon}
-                            alt="userlogo"
-                            className="icone"
-                        />
-                    </div>
-                    <div className="icones mt-auto">
-                        <img
-                            src={TwitterIcon}
-                            alt="userlogo"
-                            className="icone"
-                        />
-                    </div>
-                    <div className="icones mt-auto">
-                        <img
-                            src={FacebookIcon}
-                            alt="userlogo"
-                            className="icone"
-                        />
-                    </div> */}
                 </Grid>
             </Grid>
         </header>

@@ -5,17 +5,17 @@
         "items": [
             {
                 "id": 1,
-                "title": "News",
+                "title": "Actualités",
                 "link": "/actualite",
                 "defaultPermission": true,
                 "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
             },
             {
                 "id": 2,
-                "title": "Gestion Client",
+                "title": "Gestion des clients",
                 "link": "/user",
-                "roles": ["ROLE_ADMIN", "ROLE_ADV"],
+                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"],
                 "subitems": null,
                 "defaultPermission": true
             },
@@ -24,7 +24,7 @@
                 "link": "/parametres",
                 "title": "Commande",
                 "defaultPermission": false,
-                "roles": [""],
+                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"],
                 "subitems": [
                     {
                         "id": 31,
@@ -36,14 +36,14 @@
                     {
                         "id": 32,
                         "link": "/validation-commande",
-                        "title": "Commandes a valider",
+                        "title": "Commandes à valider",
                         "defaultPermission": false,
-                        "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+                        "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
                     },
                     {
                         "id": 33,
                         "link": "/create_commande",
-                        "title": "Crée une commande",
+                        "title": "Créer une commande",
                         "defaultPermission": false,
                         "roles": ["ROLE_CLIENT"]
                     }
@@ -52,14 +52,14 @@
             {
                 "id": 4,
                 "link": "/reclamation",
-                "title": "Reclamation",
+                "title": "Réclamations",
                 "defaultPermission": false,
-                "roles": [""],
+                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"],
                 "subitems": [
                     {
                         "id": 41,
                         "link": "/mes-reclamation",
-                        "title": "Mes reclamations",
+                        "title": "Mes réclamations",
                         "defaultPermission": true,
                         "roles": ["ROLE_CLIENT"]
                     },
@@ -73,7 +73,7 @@
                     {
                         "id": 43,
                         "link": "/liste-reclamation",
-                        "title": "Liste de reclamation",
+                        "title": "Liste des réclamations",
                         "defaultPermission": false,
                         "roles": ["ROLE_ADMIN", "ROLE_ADV"]
                     }
@@ -82,26 +82,26 @@
             {
                 "id": 5,
                 "link": "/referencial",
-                "title": "Livraison",
+                "title": "Livraisons",
                 "defaultPermission": false,
                 "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
             },
             {
                 "id": 6,
                 "link": "/facture",
-                "title": "Facture",
+                "title": "Factures",
                 "defaultPermission": false,
                 "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
             },
             {
                 "id": 7,
                 "link": "/reglement",
-                "title": "Reglement",
+                "title": "Réglements",
                 "defaultPermission": false,
                 "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
             }
         ]
     }

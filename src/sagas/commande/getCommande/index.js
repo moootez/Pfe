@@ -14,11 +14,13 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  */
 function* getCommandeSagas({ response }) {
     try {
-        const { user } = response
+        const { user, role } = response
+        const endpoint =
+            role === 'ROLE_ADV' || role === 'ROLE_ADMIN' ? 'all' : user
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl}commande/${user}`,
+            url: `${baseUrl}commande/${endpoint}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

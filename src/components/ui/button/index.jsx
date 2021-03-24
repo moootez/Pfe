@@ -64,7 +64,7 @@ index.defaultProps = {
     disabled: false,
     color: 'white',
     size: 'medium',
-    bgColor: 'rgb(226, 33, 37)',
+    bgColor: '#cd121a',
     hoverColor: 'rgb(184, 22, 25)',
     margin: '5px 5% 1%',
 }

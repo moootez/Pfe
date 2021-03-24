@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import ButtonAppBar from './Header'
+// import ButtonAppBar from './Header'
 import Headboard from './Headboard'
 
 /**
@@ -11,7 +11,7 @@ const LoginHeader = () => {
     return (
         <Fragment>
             <div>
-                <ButtonAppBar />
+                {/* <ButtonAppBar /> */}
                 <Headboard />
             </div>
         </Fragment>

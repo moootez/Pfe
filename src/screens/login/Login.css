@@ -1,10 +1,22 @@
 .bg {
     background: url('../../assets/images/bg.png');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
     position: fixed;
+}
+
+.btn-submit {
+    height: 30px;
+    border: 1px solid #cd121a;
+    color: #cd121a;
+}
+
+.btn-submit:hover {
+    background-color: #cd121a;
+    color: white;
 }
 
 .rtl {
@@ -30,14 +42,10 @@
 .form {
     /* position: abdolute; */
     padding: 0%;
-    height: 60vh;
+    width: 100%;
     margin: 6%;
-    width: 70vw;
-    background-color: white;
+    background-color: rgba(235, 230, 235, 0.41);
     opacity: 0.93;
-    -webkit-box-shadow: 0px 0px 0px 38px rgba(235, 230, 235, 0.41);
-    -moz-box-shadow: 0px 0px 0px 38px rgba(235, 230, 235, 0.41);
-    box-shadow: 0px 0px 0px 38px rgba(235, 230, 235, 0.41);
 }
 
 .login_btn {
@@ -52,8 +60,8 @@
 }
 
 .formPadding {
-    padding-left: 28%;
-    padding-right: 28%;
+    padding: 50px;
+    margin: auto;
 }
 
 .form-title {

@@ -6,7 +6,10 @@ import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { Grid, Divider, Button } from '@material-ui/core'
+import { Grid, Divider } from '@material-ui/core'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+import CheckIcon from '@material-ui/icons/Check'
 import getCommandeActions from '../../redux/commande/getCommande'
 import validerCommandeActions from '../../redux/commande/validerCommande'
 import PageTitle from '../../components/ui/pageTitle'
@@ -19,16 +22,25 @@ const statusAndTxt = {
 }
 
 const Index = props => {
-    const { commandes, getCommande, userID, validerCommande } = props
+    const { commandes, getCommande, userID, validerCommande, role } = props
 
     const [allCommande, setAllCommande] = useState([])
 
     useEffect(() => {
-        getCommande({ user: userID })
+        getCommande({ user: userID, role })
     }, [])
 
     useEffect(() => {
-        setAllCommande(JSON.parse(JSON.stringify(commandes)))
+        let newCommandes
+        if (role === 'ROLE_CLIENT')
+            newCommandes = (commandes || []).filter(
+                el => el.status === 'BROUILLON'
+            )
+        else
+            newCommandes = (commandes || []).filter(
+                el => el.status === 'VALIDATION_CLIENT'
+            )
+        setAllCommande(JSON.parse(JSON.stringify(newCommandes)))
     }, [commandes])
 
     const handleSubmit = (newStatus, idCommande) => {
@@ -77,28 +89,28 @@ const Index = props => {
                             return (
                                 <div style={{ width: 80 }}>
                                     {toValide && (
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
+                                        <IconButton
                                             onClick={() =>
                                                 handleSubmit(
                                                     newStatus,
                                                     rowData.id
                                                 )
                                             }
+                                            color="primary"
+                                            aria-label={statusAndTxt[newStatus]}
                                         >
-                                            {statusAndTxt[rowData.status]}
-                                        </Button>
+                                            <CheckIcon />
+                                        </IconButton>
                                     )}
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
+                                    <IconButton
                                         onClick={() =>
                                             handleSubmit('ANNULER', rowData.id)
                                         }
+                                        color="secondary"
+                                        aria-label="Annuler"
                                     >
-                                        Annuler
-                                    </Button>
+                                        <CloseIcon />
+                                    </IconButton>
                                 </div>
                             )
                         },
@@ -134,6 +146,7 @@ const mapDispatchToProps = dispatch => ({
  */
 const mapStateToProps = ({ info, login, commande }) => ({
     userID: login.response.User.details.codeInsc,
+    role: login.response.User.details.userRoles[0].role,
     commandes: commande.getCommande.response,
     lng: info.language,
 })
@@ -147,6 +160,7 @@ Index.propTypes = {
     commandes: PropTypes.array.isRequired,
     getCommande: PropTypes.func.isRequired,
     validerCommande: PropTypes.func.isRequired,
+    role: PropTypes.string.isRequired,
 }
 
 export default connect(
