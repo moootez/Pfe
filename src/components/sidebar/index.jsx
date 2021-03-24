@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Fragment, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Immutable from 'seamless-immutable'
+// import Immutable from 'seamless-immutable'
 import { Typography, Collapse } from '@material-ui/core'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
  * @param {*} { history, interfaces }
  * @returns
  */
-const index = ({ history, interfaces }) => {
+const index = ({ history, role }) => {
     const classes = useStyles()
     const [selectedItem, setSelectedItem] = useState(1)
     const [selectedSubItem, setSelectedSubItem] = useState(1)
@@ -72,45 +72,22 @@ const index = ({ history, interfaces }) => {
     /* life cycle */
     useEffect(() => {
         try {
-            if (interfaces && interfaces[0] !== '*') {
-                const ecran = Immutable.asMutable(interfaces)
-                let newRoutes = []
-                newRoutes = []
-                let newItemChild = null
-
-                data[0].items.forEach(r => {
-                    if (r.subitems) {
-                        newItemChild = []
-                        r.subitems.forEach(x => {
-                            ecran.forEach(z => {
-                                const newZ = z.replace('-', '/')
-                                if (
-                                    x.link.indexOf(newZ) === 1 &&
-                                    newRoutes.indexOf(r) === -1
-                                ) {
-                                    if (newItemChild.indexOf(x) === -1) {
-                                        newItemChild.push(x)
-                                    }
-                                }
-                            })
-                        })
-                        if (newItemChild.length > 0) {
-                            newRoutes.push({
-                                title: r.title,
-                                id: r.id,
-                                link: r.link,
-                                subitems: newItemChild,
-                            })
-                        }
-                    } else {
-                        ecran.forEach(z => {
-                            const newZ = z.replace('-', '/')
-                            if (r.link.indexOf(newZ) > -1) {
-                                newRoutes.push(r)
+            if (role) {
+                // const ecran = Immutable.asMutable([role])
+                const newRoutes = data[0].items
+                    .map(menu => {
+                        if (menu.subitems) {
+                            return {
+                                ...menu,
+                                subitems: menu.subitems.filter(submenu =>
+                                    submenu.roles.includes(role)
+                                ),
                             }
-                        })
-                    }
-                })
+                        }
+                        return menu
+                    })
+                    .filter(menu => menu.roles.includes(role))
+
                 if (newRoutes.length > 0) {
                     setItemsMenu(newRoutes)
                 } else {
@@ -256,13 +233,14 @@ const index = ({ history, interfaces }) => {
 const mapStateToProps = state => ({
     language: state.info.language,
     interfaces: state.login.response.User.ecrans,
+    role: state.login.response.User.details.userRoles[0].role,
 })
 /**
  *  declaration des props
  */
 index.propTypes = {
-    interfaces: PropTypes.object.isRequired,
     history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+    role: PropTypes.string.isRequired,
 }
 export default compose(
     withRouter,

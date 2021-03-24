@@ -1,5 +1,6 @@
+/* eslint-disable no-restricted-globals */
 import React, { Component } from 'react'
-import { Button } from 'react-bootstrap'
+// import { Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
@@ -92,66 +93,41 @@ class SendEmail extends Component {
      */
     render() {
         return (
-            <div>
-                <div className="d-flex justify-content-center h-100">
-                    <div className="form">
-                        <div style={{ padding: '10%' }} className="card-body">
-                            <div className="formPadding">
-                                <div className="label">
-                                    Adresse Email
-                                    <span className="text-danger">* </span>
-                                </div>
-                                <div className="input-group form-group">
-                                    <input
-                                        type="text"
-                                        style={{
-                                            border: '#b20606 1px solid',
-                                            outline: 'none',
-                                            fontWeight: 'Regular',
-                                        }}
-                                        className="form-control"
-                                        placeholder="Adresse Email"
-                                        onChange={e =>
-                                            this.handleChange(e, 'email')
-                                        }
-                                    />
-                                </div>
-                                <div className=" form-group d-flex justify-content-between">
-                                    <Button
-                                        type="submit"
-                                        size="sm"
-                                        onClick={this.handleSubmit}
-                                        style={{
-                                            borderRadius: '10px',
-                                            fontWeight: 'bold',
-                                            borderColor: '#858484',
-                                            backgroundColor: '#858484',
-                                            width: '100px',
-                                            float: 'right',
-                                        }}
-                                        autoFocus
-                                    >
-                                        Valider
-                                    </Button>
-                                    <Button
-                                        type="submit"
-                                        size="sm"
-                                        style={{
-                                            borderRadius: '10px',
-                                            fontWeight: 'bold',
-                                            borderColor: '#858484',
-                                            backgroundColor: '#858484',
-                                            width: '100px',
-                                            float: 'right',
-                                        }}
-                                    >
-                                        {' '}
-                                        <a href="/" style={{ color: 'white' }}>
-                                            Annuler
-                                        </a>
-                                    </Button>
-                                </div>
+            <div className="d-flex justify-content-center align-items-center pt-5">
+                <div className="d-flex justify-content-center h-100 w-25">
+                    <div className="card-body form">
+                        <div className="formPadding">
+                            <div className="input-group form-group text-center">
+                                <input
+                                    autoComplete="off"
+                                    type="text"
+                                    style={{
+                                        border: '#939393 1px solid',
+                                        outline: 'none',
+                                        fontWeight: 'Regular',
+                                    }}
+                                    className="w-100"
+                                    placeholder="Adresse email"
+                                    onChange={e =>
+                                        this.handleChange(e, 'email')
+                                    }
+                                />
                             </div>
+
+                            <button
+                                type="submit"
+                                className="btn-submit w-100 mt-2"
+                                onClick={this.handleSubmit}
+                            >
+                                Valider
+                            </button>
+                            <button
+                                type="submit"
+                                className="btn-submit w-100 mt-2"
+                                onClick={() => location.assign('/')}
+                            >
+                                Annuler
+                            </button>
                         </div>
                     </div>
                 </div>

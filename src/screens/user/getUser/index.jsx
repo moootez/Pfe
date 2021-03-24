@@ -255,7 +255,7 @@ const Index = ({
             </div>
             <div>
                 <ButtonComponent
-                    bgColor="rgb(226, 33, 37)"
+                    bgColor="#cd121a"
                     color="white"
                     hoverColor="rgb(184, 22, 25)"
                     margin=" 3% 5% 1% "

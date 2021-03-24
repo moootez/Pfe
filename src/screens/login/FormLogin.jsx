@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Button } from 'react-bootstrap'
+// import { Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
 import loginActions from '../../redux/login'
-import fleche from '../../assets/images/fleche.png'
 import './Login.css'
 import alertActions from '../../redux/alert'
 
@@ -78,92 +77,71 @@ class FormLogin extends Component {
         const { intl } = this.props
 
         return (
-            <div className="d-flex justify-content-center align-items-center pt-5">
-                <div className="d-flex justify-content-center h-100 w-50">
-                    <div className="form">
-                        <div align="center" className="form-title">
-                            {intl.formatMessage({ id: 'auth' })}
-                            <img
-                                className="img "
-                                src={fleche}
-                                alt="fleche"
-                            ></img>
-                        </div>
-                        <div className="card-body">
-                            <div className="formPadding">
-                                <div className="label">
-                                    {intl.formatMessage({ id: 'username' })}
-                                    <span className="text-danger">* </span>
-                                </div>
-                                <div className="input-group form-group">
-                                    <input
-                                        type="text"
-                                        style={{
-                                            border: '#b20606 1px solid',
-                                            outline: 'none',
-                                            fontWeight: 'Regular',
-                                        }}
-                                        className="form-control"
-                                        placeholder={intl.formatMessage({
-                                            id: 'username',
-                                        })}
-                                        onChange={e =>
-                                            this.handleChange(e, 'email')
-                                        }
-                                    />
-                                </div>
-                                <div className="label">
-                                    {intl.formatMessage({ id: 'password' })}
-                                    <span className="text-danger">* </span>
-                                </div>
-                                <div className="input-group form-group">
-                                    <input
-                                        type="password"
-                                        style={{
-                                            border: '#b20606 1px solid',
-                                            outline: 'none',
-                                            fontWeight: 'Regular',
-                                        }}
-                                        className="form-control"
-                                        placeholder={intl.formatMessage({
-                                            id: 'password',
-                                        })}
-                                        onChange={e =>
-                                            this.handleChange(e, 'password')
-                                        }
-                                    />
-                                </div>
-                                <div className=" form-group d-flex  align-items-baseline justify-content-between">
-                                    <Button
-                                        type="submit"
-                                        size="sm"
-                                        onClick={this.handleSubmit}
-                                        style={{
-                                            borderRadius: '10px',
-                                            fontWeight: 'bold',
-                                            borderColor: '#858484',
-                                            backgroundColor: '#858484',
+            <div
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: '80vh' }}
+            >
+                <div className="d-flex justify-content-center w-25">
+                    <div className="card-body form">
+                        <div className="formPadding">
+                            <div className="input-group form-group text-center">
+                                <input
+                                    autoComplete="off"
+                                    type="text"
+                                    style={{
+                                        border: '#939393 1px solid',
+                                        outline: 'none',
+                                        fontWeight: 'Regular',
+                                    }}
+                                    className="w-100"
+                                    placeholder={intl.formatMessage({
+                                        id: 'username',
+                                    })}
+                                    onChange={e =>
+                                        this.handleChange(e, 'email')
+                                    }
+                                />
+                            </div>
 
-                                            float: 'right',
-                                        }}
-                                    >
-                                        Entrer
-                                    </Button>
-                                    <div className="link_btn">
-                                        <a
-                                            href="/sendEmail"
-                                            style={{
-                                                textDecoration: 'underline',
-                                                color: '#858484',
-                                                // float: 'left',
-                                            }}
-                                        >
-                                            {intl.formatMessage({
-                                                id: 'forgetPassword',
-                                            })}
-                                        </a>
-                                    </div>
-                                </div>
+                            <div className="input-group form-group text-center">
+                                <input
+                                    autoComplete="off"
+                                    type="password"
+                                    style={{
+                                        border: '#939393 1px solid',
+                                        outline: 'none',
+                                        fontWeight: 'Regular',
+                                        justifyContent: 'center',
+                                    }}
+                                    className="w-100"
+                                    placeholder={intl.formatMessage({
+                                        id: 'password',
+                                    })}
+                                    onChange={e =>
+                                        this.handleChange(e, 'password')
+                                    }
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="btn-submit w-100"
+                                onClick={this.handleSubmit}
+                            >
+                                Entrer
+                            </button>
+                            <div className="link_btn text-center">
+                                <a
+                                    href="/sendEmail"
+                                    style={{
+                                        textDecoration: 'underline',
+                                        color: '#cd121a ',
+                                        // float: 'left',
+                                    }}
+                                >
+                                    {intl.formatMessage({
+                                        id: 'forgetPassword',
+                                    })}
+                                </a>
                             </div>
                         </div>
                     </div>

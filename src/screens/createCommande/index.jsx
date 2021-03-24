@@ -9,17 +9,23 @@ import { injectIntl } from 'react-intl'
 import { Grid, Divider, TextField, Button } from '@material-ui/core'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import addNewCommandeActions from '../../redux/commande/newCommande'
+import uploadCommandeActions from '../../redux/commande/uploadCommande'
 import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 
 const Index = props => {
-    const { products, getAllProduct, userID, addCommande } = props
-
-    console.log(userID)
+    const {
+        products,
+        getAllProduct,
+        userID,
+        addCommande,
+        uploadCommande,
+    } = props
 
     const [allProduct, setAllProduct] = useState([])
     const [commande, setCommande] = useState({})
+    const [file, setFile] = useState(null)
 
     useEffect(() => {
         getAllProduct()
@@ -42,14 +48,23 @@ const Index = props => {
             parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
     const getTotalPrix = rowData => getTotalQt(rowData) * parseInt(rowData.prix)
+
     const handleSubmit = () => {
-        const payload = Object.entries(commande).map(elem => ({
-            Code_article: elem[0],
-            QTY: getTotalQt(
-                allProduct.find(el => el.codeArticleX3 === elem[0])
-            ),
-        }))
-        addCommande({ produits: payload, user: userID })
+        if (!file) {
+            const payload = Object.entries(commande).map(elem => ({
+                Code_article: elem[0],
+                QTY: getTotalQt(
+                    allProduct.find(el => el.codeArticleX3 === elem[0])
+                ),
+            }))
+            addCommande({ produits: payload, user: userID })
+        } else {
+            const formData = new FormData()
+
+            // Update the formData object
+            formData.append('myFile', file, file.name)
+            uploadCommande(file)
+        }
     }
 
     return (
@@ -77,11 +92,7 @@ const Index = props => {
                     },
                     { title: 'CodeArticle', field: 'codeArticleX3' },
                     { title: 'Designation', field: 'designation1' },
-                    {
-                        title: 'Birth Year',
-                        field: 'birthYear',
-                        type: 'numeric',
-                    },
+
                     { title: 'Categorie', field: 'categorie' },
                     { title: 'Prix', field: 'prix' },
                     {
@@ -173,6 +184,15 @@ const Index = props => {
                 data={allProduct || []}
             />
             <div className="m-3 text-right">
+                <Button variant="contained" component="label" className="mr-2">
+                    {file ? file.name : 'Upload File'}
+                    <input
+                        accept="text/csv"
+                        onChange={e => setFile(e.target.files[0])}
+                        type="file"
+                        hidden
+                    />
+                </Button>
                 <Button
                     variant="contained"
                     color="primary"
@@ -197,6 +217,8 @@ const mapDispatchToProps = dispatch => ({
     getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
     addCommande: payload =>
         dispatch(addNewCommandeActions.addNewCommandeRequest(payload)),
+    uploadCommande: payload =>
+        dispatch(uploadCommandeActions.uploadCommandeRequest(payload)),
 })
 
 // obtenir les données from  store state
@@ -221,6 +243,7 @@ Index.propTypes = {
     products: PropTypes.array.isRequired,
     getAllProduct: PropTypes.func.isRequired,
     addCommande: PropTypes.func.isRequired,
+    uploadCommande: PropTypes.func.isRequired,
 }
 
 export default connect(

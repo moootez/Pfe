@@ -9,7 +9,7 @@ $color_asphalt_approx: #170312;
 $color_valencia_approx: rgb(213, 69, 64);
 
 .App {
-    min-height: 80vh;
+    min-height: 89vh;
     display: flex;
     flex-direction: row;
 }
@@ -62,9 +62,9 @@ body {
 
 .header {
     flex-shrink: 0;
-    height: 70px;
-    padding: 5px 31px;
-    background-color: $color_tangaroa_approx;
+    // height: 70px;
+    // padding: 5px 31px;
+    background-color: white;
     .left-block {
         color: $black;
         display: flex;

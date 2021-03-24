@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-mutable-exports
-const baseUrl = 'http://41.226.165.26:8289/web/app_dev.php/api/'
+const baseUrl = 'http://10.1.1.177/web/app_dev.php/api/'
 
 // baseUrl preprod
 
