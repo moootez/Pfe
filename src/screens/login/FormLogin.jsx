@@ -81,7 +81,10 @@ class FormLogin extends Component {
                 className="d-flex justify-content-center align-items-center"
                 style={{ height: '80vh' }}
             >
-                <div className="d-flex justify-content-center w-25">
+                <div
+                    className="d-flex justify-content-center"
+                    style={{ width: '30%' }}
+                >
                     <div className="card-body form">
                         <div className="formPadding">
                             <div className="input-group form-group text-center">

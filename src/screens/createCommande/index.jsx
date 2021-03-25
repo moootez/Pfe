@@ -37,7 +37,9 @@ const Index = props => {
 
     const safeRequire = url => {
         try {
-            return require(url)
+            if (window.location.href.indexOf('41.226.165.26'))
+                return `http://41.226.165.26:8289/web/produits/${url}.png`
+            return `http://10.1.1.177/web/produits/${url}.png`
         } catch {
             return unknown
         }
@@ -82,9 +84,7 @@ const Index = props => {
                         render: rowData => (
                             <img
                                 key={generateKey()}
-                                src={safeRequire(
-                                    `../../assets/images/produits/${rowData.codeArticleX3}.png`
-                                )}
+                                src={safeRequire(rowData.codeArticleX3)}
                                 style={{ width: 40, borderRadius: '2%' }}
                                 alt="produit"
                             />
@@ -198,7 +198,7 @@ const Index = props => {
                     color="primary"
                     onClick={handleSubmit}
                 >
-                    Envoyer la commande
+                    Enregistrer la commande
                 </Button>
             </div>
         </div>
