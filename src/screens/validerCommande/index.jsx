@@ -57,8 +57,12 @@ const Index = props => {
                 title=""
                 columns={[
                     {
-                        title: 'Nom',
-                        field: 'client.nom',
+                        title: 'ID',
+                        field: 'id',
+                    },
+                    {
+                        title: 'Code Inscription',
+                        field: 'client.codeInsc',
                         // render: rowData => (
                         //     <img
                         //         key={generateKey()}
@@ -72,6 +76,7 @@ const Index = props => {
                     },
                     { title: 'Adresse', field: 'client.ligneAdresse' },
                     { title: 'Ville', field: 'client.ville' },
+                    { title: 'Status', field: 'status' },
                     {
                         title: 'Validation',
                         field: 'validation',
