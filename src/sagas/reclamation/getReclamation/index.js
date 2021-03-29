@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios'
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-import getCommandeAction, {
-    getCommandeTypes,
-} from '../../../redux/commande/getCommande'
+import getReclamationAction, {
+    getReclamationTypes,
+} from '../../../redux/reclamation/getReclamation'
 import baseUrl from '../../../serveur/baseUrl'
 import getLoaderActions from '../../../redux/wrapApi/index'
 
@@ -12,7 +12,7 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  *
  * @param {*} { response }
  */
-function* getCommandeSagas({ response }) {
+function* getReclamationSagas({ response }) {
     try {
         const { user, role } = response
         const endpoint =
@@ -20,7 +20,7 @@ function* getCommandeSagas({ response }) {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl}commande/${endpoint}`,
+            url: `${baseUrl}reclamation/${endpoint}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',
@@ -31,15 +31,17 @@ function* getCommandeSagas({ response }) {
         })
         if (res.status === 200) {
             yield all([
-                yield put(getCommandeAction.getCommandeSuccess(res.data.data)),
+                yield put(
+                    getReclamationAction.getReclamationSuccess(res.data.data)
+                ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(getCommandeAction.getCommandeFailure(res.data.data))
+            yield put(getReclamationAction.getReclamationFailure(res.data.data))
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
-        yield put(getCommandeAction.getCommandeFailure(error))
+        yield put(getReclamationAction.getReclamationFailure(error))
         yield put(getLoaderActions.disableGeneraleLoader())
     }
 }
@@ -47,6 +49,9 @@ function* getCommandeSagas({ response }) {
 /**
  * appele à la fonction with key action
  */
-export default function* getCommandeSaga() {
-    yield takeLatest(getCommandeTypes.GET_COMMANDE_REQUEST, getCommandeSagas)
+export default function* getReclamationSaga() {
+    yield takeLatest(
+        getReclamationTypes.GET_RECLAMATION_REQUEST,
+        getReclamationSagas
+    )
 }

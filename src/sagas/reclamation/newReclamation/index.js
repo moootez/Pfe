@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios'
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-import addNewCommandeAction, {
-    addNewCommandeTypes,
-} from '../../../redux/commande/newCommande'
+import addNewReclamationAction, {
+    addNewReclamationTypes,
+} from '../../../redux/reclamation/newReclamation'
 import alertActions from '../../../redux/alert'
 import baseUrl from '../../../serveur/baseUrl'
 import getLoaderActions from '../../../redux/wrapApi/index'
@@ -13,12 +13,12 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  *
  * @param {*} { response }
  */
-function* addNewCommandeSagas({ response }) {
+function* addNewReclamationSagas({ response }) {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'post',
-            url: `${baseUrl}commande/new`,
+            url: `${baseUrl}reclamation/new`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',
@@ -31,7 +31,9 @@ function* addNewCommandeSagas({ response }) {
         if (res.status === 200) {
             yield all([
                 yield put(
-                    addNewCommandeAction.addNewCommandeSuccess(res.data.data)
+                    addNewReclamationAction.addNewReclamationSuccess(
+                        res.data.data
+                    )
                 ),
                 yield put(
                     alertActions.alertShow(true, {
@@ -40,17 +42,19 @@ function* addNewCommandeSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Ajout commande avec succes',
+                        message: 'Ajout reclamation avec succes',
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(addNewCommandeAction.addNewCommandeFailure(res.data.data))
+            yield put(
+                addNewReclamationAction.addNewReclamationFailure(res.data.data)
+            )
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
-        yield put(addNewCommandeAction.addNewCommandeFailure(error))
+        yield put(addNewReclamationAction.addNewReclamationFailure(error))
         yield put(getLoaderActions.disableGeneraleLoader())
     }
 }
@@ -58,9 +62,9 @@ function* addNewCommandeSagas({ response }) {
 /**
  * appele à la fonction with key action
  */
-export default function* addNewCommandeSaga() {
+export default function* addNewReclamationSaga() {
     yield takeLatest(
-        addNewCommandeTypes.ADD_NEW_COMMANDE_REQUEST,
-        addNewCommandeSagas
+        addNewReclamationTypes.ADD_NEW_RECLAMATION_REQUEST,
+        addNewReclamationSagas
     )
 }
