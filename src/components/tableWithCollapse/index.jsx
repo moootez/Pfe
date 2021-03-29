@@ -2,13 +2,16 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+/* eslint-disable no-debugger */
+import React, { useState, useEffect, useRef } from 'react'
 import MaterialTable from 'material-table'
 import PropTypes from 'prop-types'
 import { removeBottomDash } from '../../shared/utility'
 import SimpleTable from '../simpleTable'
 
 const DetailPanelWithRowClick = props => {
+    const subDataRef = useRef(null)
+    // const [dataSub, setDataSub] = useState(useRef)
     const { apiCall, dataApi, dataReturned, dataSubArray } = props
 
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
@@ -28,14 +31,20 @@ const DetailPanelWithRowClick = props => {
         setDataTable({ header, data: dataReturned || [] })
     }, [JSON.stringify(dataReturned)])
 
+    useEffect(() => {
+        subDataRef.current = dataSubArray.dataReturned
+    }, [JSON.stringify(dataSubArray.dataReturned)])
+
     const detailPanel = dataSubArray
         ? {
               detailPanel: rowData => {
                   return (
                       // dataSubArray.dataApi is A function to get useful data from row data
                       <SimpleTable
+                          {...rowData}
                           {...dataSubArray}
                           dataApi={dataSubArray.dataApi(rowData)}
+                          dataReturned={subDataRef.current}
                       />
                   )
               },
@@ -49,7 +58,9 @@ const DetailPanelWithRowClick = props => {
                     columns={dataTable.header}
                     data={dataTable.data}
                     title=""
-                    onRowClick={(event, rowData, togglePanel) => togglePanel()}
+                    onRowClick={(event, rowData, togglePanel) => {
+                        togglePanel()
+                    }}
                     {...detailPanel}
                 />
             ) : (

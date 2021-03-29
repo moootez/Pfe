@@ -11,11 +11,11 @@ const loadableComponents = [
             loader: () => import('../screens/referencial/index'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/referencial',
+        path: '/livraison',
         props: {
             exact: true,
         },
-        name: 'referencial',
+        name: 'livraison',
         showWhenConnected: true,
     },
     {

@@ -37,8 +37,8 @@ const setListInput = (
             sm: 6,
             md: 4,
             isFormatted: true,
-            label: 'اسم المستخدم',
-            placeholder: 'اسم المستخدم',
+            label: "Nom d'utilisateur",
+            placeholder: "Nom d'utilisateur",
         },
         {
             name: 'sexe',

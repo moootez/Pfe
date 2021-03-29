@@ -16,7 +16,7 @@ import deleteActualiteActions from '../../../redux/pageCms/actualite/deleteActua
 import Table from '../../../components/ui/table/index'
 import PageTitle from '../../../components/ui/pageTitle'
 import alertActions from '../../../redux/alert'
-import news from '../../../assets/images/new.png'
+// import news from '../../../assets/images/new.png'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -70,13 +70,24 @@ const Index = ({
     const setTable = arrayFiltred => {
         let rowsTmp = []
         if (arrayFiltred && arrayFiltred.length > 0) {
-            rowsTmp = arrayFiltred.map((item, index) => ({
-                id: item.id,
-                index,
-                theme: item.texte,
-                sujet: item.priorite,
-                createdAt: item.createdAt && item.createdAt.substr(0, 11),
-            }))
+            if (role === 'ROLE_CLIENT') {
+                rowsTmp = arrayFiltred.map((item, index) => ({
+                    id: item.id,
+                    index,
+                    theme: item.texte,
+                    sujet: item.priorite,
+                    image: item.image,
+                    createdAt: item.createdAt && item.createdAt.substr(0, 11),
+                }))
+            } else {
+                rowsTmp = arrayFiltred.map((item, index) => ({
+                    id: item.id,
+                    index,
+                    theme: item.texte,
+                    sujet: item.priorite,
+                    createdAt: item.createdAt && item.createdAt.substr(0, 11),
+                }))
+            }
         }
         setRows(rowsTmp)
     }
@@ -142,36 +153,41 @@ const Index = ({
 
     if (role === 'ROLE_CLIENT') {
         return (
-            <div className="row">
-                {rows.map(el => (
-                    <div className="col-4 p-3">
-                        <Card>
-                            <CardMedia
-                                className={classes.media}
-                                image={news}
-                                title="New"
-                            />
-                            <CardContent>
-                                <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    component="p"
-                                >
-                                    {el.theme}
-                                </Typography>
-                                <p
-                                    style={{
-                                        fontSize: 10,
-                                        color: 'black',
-                                        float: 'right',
-                                    }}
-                                >
-                                    {el.createdAt}
-                                </p>
-                            </CardContent>
-                        </Card>
-                    </div>
-                ))}
+            <div style={{ padding: '1%' }}>
+                <Grid className="gridItem">
+                    <PageTitle label="Actualités" />
+                </Grid>
+                <div className="row">
+                    {rows.map(el => (
+                        <div className="col-4 p-3">
+                            <Card>
+                                <CardMedia
+                                    className={classes.media}
+                                    image={el.image}
+                                    title="New"
+                                />
+                                <CardContent>
+                                    <Typography
+                                        variant="body2"
+                                        color="textSecondary"
+                                        component="p"
+                                    >
+                                        {el.theme}
+                                    </Typography>
+                                    <p
+                                        style={{
+                                            fontSize: 10,
+                                            color: 'black',
+                                            float: 'right',
+                                        }}
+                                    >
+                                        {el.createdAt}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    ))}
+                </div>
             </div>
         )
     }
@@ -179,7 +195,7 @@ const Index = ({
     return (
         <div style={{ padding: '1%' }}>
             <Grid className="gridItem">
-                <PageTitle label="Actualite / News" />
+                <PageTitle label="Actualités" />
             </Grid>
             <div style={{ marginTop: '3%' }} />
             <div style={{ marginTop: '42px' }}>

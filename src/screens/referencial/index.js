@@ -33,6 +33,7 @@ const Index = props => {
             commande: data.No_livraison,
         }),
         dataReturned: commandes,
+        dataId: 'No_livraison',
     })
 
     useEffect(() => {
@@ -49,7 +50,7 @@ const Index = props => {
                 apiCall={getAllLivraison}
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(livraisons))}
-                dataSubArray={dataSubArray}
+                dataSubArray={{ ...dataSubArray }}
             />
         </div>
     )
