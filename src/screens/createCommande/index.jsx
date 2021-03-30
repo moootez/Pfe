@@ -65,7 +65,8 @@ const Index = props => {
 
             // Update the formData object
             formData.append('myFile', file, file.name)
-            uploadCommande(file)
+            formData.append('user', userID)
+            uploadCommande(formData)
         }
     }
 
