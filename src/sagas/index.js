@@ -21,6 +21,7 @@ import history from './history/index'
 import pageCms from './pageCms/index'
 import notification from './notification/index'
 import tableauDeBord from './tableauDeBord/index'
+import reclamation from './reclamation'
 
 /**
  * configuration pour tous saga
@@ -42,6 +43,7 @@ const sagas = [
     ...tableauDeBord,
     loginSaga,
     wrapApi,
+    ...reclamation,
     ...commande,
     ...history,
     ...referencial,

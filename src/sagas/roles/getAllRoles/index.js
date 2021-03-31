@@ -15,7 +15,7 @@ function* getAllRolesSagas() {
     try {
         const responseAdd = yield axios({
             method: 'get',
-            url: `${baseUrl.local}user/roles/`,
+            url: `${baseUrl}user/roles/`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

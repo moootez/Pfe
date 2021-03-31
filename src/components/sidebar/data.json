@@ -81,7 +81,7 @@
             },
             {
                 "id": 5,
-                "link": "/referencial",
+                "link": "/livraison",
                 "title": "Livraisons",
                 "defaultPermission": false,
                 "subitems": null,

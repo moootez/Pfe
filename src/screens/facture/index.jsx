@@ -31,6 +31,7 @@ const Index = props => {
         dataApi: data => ({
             facture: data.No_facture,
         }),
+        dataId: 'No_facture',
         dataReturned: factureDetails,
     })
 

@@ -93,16 +93,19 @@ class addActualite extends React.Component {
     fieldChangedHandler = ({ target: { name, value, files } }) => {
         const { payloadState } = this.state
         const { alertShow } = this.props
-        let base64 = []
+
         if (name === 'image') {
             const fileToLoad = files[0]
             const fileReader = new FileReader()
             if (fileToLoad && fileToLoad.size <= 150000) {
-                let file = ''
                 // eslint-disable-next-line func-names
-                fileReader.onload = function(fileLoadedEvent) {
-                    file = fileLoadedEvent.target.result
-                    base64 = file
+                fileReader.onload = fileLoadedEvent => {
+                    this.setState({
+                        payloadState: {
+                            ...payloadState,
+                            image: fileLoadedEvent.target.result,
+                        },
+                    })
                 }
                 // Convert data to base64
                 fileReader.readAsDataURL(fileToLoad)
@@ -121,13 +124,14 @@ class addActualite extends React.Component {
                     message: `Image de grande taille`,
                 })
             }
+        } else {
+            this.setState({
+                payloadState: {
+                    ...payloadState,
+                    [name]: value,
+                },
+            })
         }
-        this.setState({
-            payloadState: {
-                ...payloadState,
-                [name]: name === 'image' ? base64 : value,
-            },
-        })
     }
 
     /**

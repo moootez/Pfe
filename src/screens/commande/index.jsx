@@ -32,6 +32,7 @@ const Index = props => {
             user: data.Code_client,
             commande: data.No_commande,
         }),
+        dataId: 'No-commande',
         dataReturned: commandeDetails,
     })
 

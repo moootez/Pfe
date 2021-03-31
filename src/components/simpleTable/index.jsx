@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
+/* eslint-disable camelcase */
+/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -77,23 +79,32 @@ const styles = theme => ({
 })
 
 const Index = props => {
-    const { classes, apiCall, dataApi, dataReturned } = props
-
+    const { classes, apiCall, dataApi, dataReturned, dataId } = props
+    const [state, setState] = useState(
+        ((dataReturned || [])[0] || {})[dataId] === props[dataId]
+            ? dataReturned
+            : null
+    )
     useEffect(() => {
         apiCall(dataApi)
     }, [])
 
+    useEffect(() => {
+        if (((dataReturned || [])[0] || {})[dataId] === props[dataId])
+            setState(dataReturned)
+    }, [JSON.stringify(dataReturned)])
+
     return (
         <div className="column col-md-12">
-            {!(dataReturned || []).length && (
+            {!(state || []).length && (
                 <p className="text-center m-3">Pas de données disponible!!</p>
             )}
             <Paper className={classes.root}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            {Boolean((dataReturned || []).length) &&
-                                Object.keys(dataReturned[0] || {}).map(item => (
+                            {Boolean((state || []).length) &&
+                                Object.keys(state[0] || {}).map(item => (
                                     <StyledTableCell
                                         className={classes.headTable}
                                         align="center"
@@ -105,7 +116,7 @@ const Index = props => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {(dataReturned || []).map(item => (
+                        {(state || []).map(item => (
                             <StyledTableRow key={generateKey()}>
                                 {Object.values(item).map(value => {
                                     return (
@@ -138,6 +149,7 @@ Index.propTypes = {
     classes: PropTypes.func.isRequired,
     dataReturned: PropTypes.array.isRequired,
     apiCall: PropTypes.func.isRequired,
+    dataId: PropTypes.string.isRequired,
 }
 
 export default injectIntl(withStyles(styles)(Index))

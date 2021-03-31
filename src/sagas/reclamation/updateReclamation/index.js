@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios'
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-import uploadCommandeAction, {
-    uploadCommandeTypes,
-} from '../../../redux/commande/uploadCommande'
+import updateReclamationAction, {
+    updateReclamationTypes,
+} from '../../../redux/reclamation/updateReclamation'
 import alertActions from '../../../redux/alert'
 import baseUrl from '../../../serveur/baseUrl'
 import getLoaderActions from '../../../redux/wrapApi/index'
@@ -13,21 +13,27 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  *
  * @param {*} { response }
  */
-function* uploadCommandeSagas({ response }) {
+function* updateReclamationSagas({ response }) {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
-        const res = yield axios.post(`${baseUrl}commande/import`, response, {
+        const res = yield axios({
+            method: 'post',
+            url: `${baseUrl}reclamation/update`,
             headers: {
                 'Accept-Version': 1,
+                Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json; charset=utf-8',
             },
             timeout: 3000,
+            data: response,
         })
         if (res.status === 200) {
             yield all([
                 yield put(
-                    uploadCommandeAction.uploadCommandeSuccess(res.data.data)
+                    updateReclamationAction.updateReclamationSuccess(
+                        res.data.data
+                    )
                 ),
                 yield put(
                     alertActions.alertShow(true, {
@@ -42,11 +48,13 @@ function* uploadCommandeSagas({ response }) {
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(uploadCommandeAction.uploadCommandeFailure(res.data.data))
+            yield put(
+                updateReclamationAction.updateReclamationFailure(res.data.data)
+            )
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
-        yield put(uploadCommandeAction.uploadCommandeFailure(error))
+        yield put(updateReclamationAction.updateReclamationFailure(error))
         yield put(getLoaderActions.disableGeneraleLoader())
     }
 }
@@ -54,9 +62,9 @@ function* uploadCommandeSagas({ response }) {
 /**
  * appele à la fonction with key action
  */
-export default function* uploadCommandeSaga() {
+export default function* updateReclamationSaga() {
     yield takeLatest(
-        uploadCommandeTypes.UPLOAD_COMMANDE_REQUEST,
-        uploadCommandeSagas
+        updateReclamationTypes.UPDATE_RECLAMATION_REQUEST,
+        updateReclamationSagas
     )
 }

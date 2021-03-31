@@ -16,7 +16,7 @@ function* getAllUsersSagas() {
     try {
         const responseAdd = yield axios({
             method: 'post',
-            url: `${baseUrl.local}users/all`,
+            url: `${baseUrl}users/all`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',
