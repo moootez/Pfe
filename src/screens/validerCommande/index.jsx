@@ -44,7 +44,12 @@ const Index = props => {
     }, [commandes])
 
     const handleSubmit = (newStatus, idCommande) => {
-        validerCommande({ status: newStatus, commande: idCommande })
+        validerCommande({
+            status: newStatus,
+            commande: idCommande,
+            user: userID,
+            role,
+        })
     }
 
     return (

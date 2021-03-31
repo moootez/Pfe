@@ -21,6 +21,9 @@ const Index = props => {
         userID,
         addCommande,
         uploadCommande,
+        history,
+        newCommande,
+        uploadNewCommande,
     } = props
 
     const [allProduct, setAllProduct] = useState([])
@@ -30,6 +33,11 @@ const Index = props => {
     useEffect(() => {
         getAllProduct()
     }, [])
+
+    useEffect(() => {
+        if (newCommande.loading === true || uploadNewCommande.loading === true)
+            setTimeout(() => history.push('/validation-commande'), 1000)
+    }, [newCommande.loading, uploadNewCommande.loading])
 
     useEffect(() => {
         setAllProduct(JSON.parse(JSON.stringify(products)))
@@ -86,7 +94,7 @@ const Index = props => {
                             <img
                                 key={generateKey()}
                                 src={safeRequire(rowData.codeArticleX3)}
-                                style={{ width: 40, borderRadius: '2%' }}
+                                style={{ width: 100, borderRadius: '2%' }}
                                 alt="produit"
                             />
                         ),
@@ -96,6 +104,7 @@ const Index = props => {
 
                     { title: 'Categorie', field: 'categorie' },
                     { title: 'Prix', field: 'prix' },
+                    { title: 'Coef UC', field: 'coefUcUs' },
                     {
                         title: 'Qté carton',
                         field: 'qtc',
@@ -232,6 +241,8 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = ({ info, login, commande }) => ({
     userID: login.response.User.details.codeInsc,
     products: commande.getAllProduct.response,
+    newCommande: commande.newCommande,
+    uploadNewCommande: commande.uploadCommande,
     lng: info.language,
 })
 
@@ -245,6 +256,9 @@ Index.propTypes = {
     getAllProduct: PropTypes.func.isRequired,
     addCommande: PropTypes.func.isRequired,
     uploadCommande: PropTypes.func.isRequired,
+    newCommande: PropTypes.any.isRequired,
+    uploadNewCommande: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
 }
 
 export default connect(

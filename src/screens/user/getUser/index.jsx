@@ -7,7 +7,7 @@ import Form from '../../../components/declaration/step_grab/homePage/Form'
 import PageTitle from '../../../components/ui/pageTitle'
 import getAllUsersActions from '../../../redux/user/getAllUsers'
 import getAllRolesActions from '../../../redux/roles/getAllRoles'
-import ButtonComponent from '../../../components/ui/button'
+// import ButtonComponent from '../../../components/ui/button'
 import Table from '../../../components/ui/table/table'
 
 /**
@@ -69,14 +69,6 @@ const Index = ({
             id: 'userRoles',
             label: intl.formatMessage({ id: 'role' }),
         },
-        {
-            id: 'enable',
-            label: intl.formatMessage({ id: 'etat' }),
-        },
-        {
-            id: 'action',
-            label: '',
-        },
     ]
 
     const search = intl.formatMessage({ id: 'Recherche' })
@@ -91,10 +83,6 @@ const Index = ({
                 username: item.username,
                 email: item.email,
                 userRoles: item.userRoles.length > 0 && item.userRoles[0].role,
-                enable:
-                    item.enable === true
-                        ? 'مسموح بالدخول'
-                        : 'غير مسموح بالدخول',
                 users: item,
             }))
         }
@@ -174,30 +162,30 @@ const Index = ({
      * redirect to page add
      *
      */
-    const handleajout = () => {
-        history.push({
-            pathname: 'ajout_user',
-            state: {
-                type: 'add',
-            },
-        })
-    }
+    // const handleajout = () => {
+    //     history.push({
+    //         pathname: 'ajout_user',
+    //         state: {
+    //             type: 'add',
+    //         },
+    //     })
+    // }
 
     /**
      * redirect to page edit
      *
      * @param {*} row
      */
-    const editAction = row => {
-        history.push({
-            pathname: 'edit_user',
-            state: {
-                user: row.users,
-                id: row.id,
-                type: 'edit',
-            },
-        })
-    }
+    // const editAction = row => {
+    //     history.push({
+    //         pathname: 'edit_user',
+    //         state: {
+    //             user: row.users,
+    //             id: row.id,
+    //             type: 'edit',
+    //         },
+    //     })
+    // }
 
     /**
      * handle pagination action for consultation tab
@@ -253,18 +241,7 @@ const Index = ({
                     placeholder={search}
                 />
             </div>
-            <div>
-                <ButtonComponent
-                    bgColor="#cd121a"
-                    color="white"
-                    hoverColor="rgb(184, 22, 25)"
-                    margin=" 3% 5% 1% "
-                    type="contained"
-                    size="medium"
-                    label="Ajouter"
-                    clicked={() => handleajout()}
-                />
-            </div>
+
             <Table
                 lng={lng}
                 headers={headers}
@@ -272,7 +249,7 @@ const Index = ({
                 history={history}
                 intl={intl}
                 type={type}
-                editAction={editAction}
+                // editAction={editAction}
                 paramTab={paramConsultTab}
                 meta={meta}
             />

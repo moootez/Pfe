@@ -59,7 +59,6 @@ const Index = ({ logout, history }) => {
                         <div
                             className="prof-access"
                             onClick={() => toggleDisconnect()}
-                            onClic
                             role="presentation"
                         >
                             <img src={userlogo} alt="userlogo" />

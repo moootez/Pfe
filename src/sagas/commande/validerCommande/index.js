@@ -4,6 +4,7 @@ import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
 import validerCommandeAction, {
     validerCommandeTypes,
 } from '../../../redux/commande/validerCommande'
+import getCommandeActions from '../../../redux/commande/getCommande'
 import baseUrl from '../../../serveur/baseUrl'
 import getLoaderActions from '../../../redux/wrapApi/index'
 
@@ -14,7 +15,7 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  */
 function* validerCommandeSagas({ response }) {
     try {
-        const { commande, status } = response
+        const { commande, status, user, role } = response
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'post',
@@ -28,10 +29,13 @@ function* validerCommandeSagas({ response }) {
             timeout: 3000,
             data: { status },
         })
-        if (res.status === 200) {
+        if (res.status === 200 || res.status === 201) {
             yield all([
                 yield put(
                     validerCommandeAction.validerCommandeSuccess(res.data.data)
+                ),
+                yield put(
+                    getCommandeActions.getCommandeRequest({ user, role })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
