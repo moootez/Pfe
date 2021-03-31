@@ -16,6 +16,7 @@ import deleteActualiteActions from '../../../redux/pageCms/actualite/deleteActua
 import Table from '../../../components/ui/table/index'
 import PageTitle from '../../../components/ui/pageTitle'
 import alertActions from '../../../redux/alert'
+import './style.css'
 // import news from '../../../assets/images/new.png'
 
 const useStyles = makeStyles(theme => ({
@@ -92,6 +93,15 @@ const Index = ({
         setRows(rowsTmp)
     }
 
+    useEffect(() => {
+        const newsQ = document.getElementById('animation')
+        const widthQ = (newsQ || {}).scrollWidth
+        const time = widthQ / 100
+        ;(
+            (newsQ || {}).style || {}
+        ).animation = `${time}s linear 1s infinite running news`
+    }, [rows])
+
     /* life cycle */
     useEffect(() => {
         getActualite()
@@ -157,6 +167,13 @@ const Index = ({
                 <Grid className="gridItem">
                     <PageTitle label="Actualités" />
                 </Grid>
+                <div className="d-flex line">
+                    <div className="animation d-flex" id="animation">
+                        {rows.map(el => (
+                            <p className="mr-5">{el.theme}</p>
+                        ))}
+                    </div>
+                </div>
                 <div className="row">
                     {rows.map(el => (
                         <div className="col-4 p-3">

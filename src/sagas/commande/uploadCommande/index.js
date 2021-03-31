@@ -16,17 +16,13 @@ import getLoaderActions from '../../../redux/wrapApi/index'
 function* uploadCommandeSagas({ response }) {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
-        const res = yield axios({
-            method: 'post',
-            url: `${baseUrl}commande/import`,
+        const res = yield axios.post(`${baseUrl}commande/import`, response, {
             headers: {
                 'Accept-Version': 1,
-                Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'multipart/form-data',
             },
             timeout: 3000,
-            formData: response,
         })
         if (res.status === 200) {
             yield all([
