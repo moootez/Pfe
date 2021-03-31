@@ -32,8 +32,8 @@ const DetailPanelWithRowClick = props => {
     }, [JSON.stringify(dataReturned)])
 
     useEffect(() => {
-        subDataRef.current = dataSubArray.dataReturned
-    }, [JSON.stringify(dataSubArray.dataReturned)])
+        subDataRef.current = (dataSubArray || {}).dataReturned
+    }, [JSON.stringify((dataSubArray || {}).dataReturned)])
 
     const detailPanel = dataSubArray
         ? {

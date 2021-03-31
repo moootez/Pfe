@@ -15,7 +15,7 @@
                 "id": 2,
                 "title": "Gestion des clients",
                 "link": "/user",
-                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"],
+                "roles": ["ROLE_ADMIN", "ROLE_ADV"],
                 "subitems": null,
                 "defaultPermission": true
             },

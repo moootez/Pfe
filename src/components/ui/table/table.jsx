@@ -19,7 +19,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel'
 // import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import { Fab, Typography } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
+// import EditIcon from '@material-ui/icons/Edit'
 import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import generateKey from '../../../shared/utility'
@@ -275,7 +275,7 @@ const EnhancedTable = ({
     saisieAction,
     scanAction,
     setArrayDecAffecter,
-    editAction,
+    // editAction,
     filtredTable,
     deleteRef,
 }) => {
@@ -689,22 +689,6 @@ const EnhancedTable = ({
                                             إستخراج وصل
                                         </Button>
                                     )}
-                                    {(type === 'user' ||
-                                        type === 'listQuide' ||
-                                        type === 'listTextJuridique' ||
-                                        type === 'listLien' ||
-                                        type === 'listRapport') && (
-                                        <Fab
-                                            color="secondary"
-                                            aria-label="edit"
-                                            className={classes.fab}
-                                            size="small"
-                                        >
-                                            <EditIcon
-                                                onClick={() => editAction(row)}
-                                            />
-                                        </Fab>
-                                    )}
 
                                     {(type === 'listTextJuridique' ||
                                         type === 'listLien' ||
@@ -876,7 +860,7 @@ EnhancedTable.defaultProps = {
     saisieAction: () => {},
     scanAction: () => {},
     setArrayDecAffecter: () => {},
-    editAction: () => {},
+    // editAction: () => { },
     deleteRef: () => {},
     filtredTable: [],
 }
@@ -900,7 +884,7 @@ EnhancedTable.propTypes = {
     type: PropTypes.string,
     saisieAction: PropTypes.object,
     scanAction: PropTypes.object,
-    editAction: PropTypes.func,
+    // editAction: PropTypes.func,
     setArrayDecAffecter: PropTypes.func,
     filtredTable: PropTypes.object,
     deleteRef: PropTypes.func,
