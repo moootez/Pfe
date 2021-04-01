@@ -10,8 +10,11 @@ import { Grid, Divider } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
+import Button from '../../components/ui/button'
 import getCommandeActions from '../../redux/commande/getCommande'
 import validerCommandeActions from '../../redux/commande/validerCommande'
+import exportPdfCommandeActions from '../../redux/commande/exportPdf'
 import PageTitle from '../../components/ui/pageTitle'
 
 const statusAndTxt = {
@@ -22,7 +25,16 @@ const statusAndTxt = {
 }
 
 const Index = props => {
-    const { commandes, getCommande, userID, validerCommande, role } = props
+    const {
+        commandes,
+        getCommande,
+        userID,
+        validerCommande,
+        exportPdf,
+        pdfLink,
+        syncProduits,
+        role,
+    } = props
 
     const [allCommande, setAllCommande] = useState([])
 
@@ -43,6 +55,10 @@ const Index = props => {
         setAllCommande(JSON.parse(JSON.stringify(newCommandes)))
     }, [commandes])
 
+    useEffect(() => {
+        if (pdfLink?.length) window.open(pdfLink, '_blank')
+    }, [pdfLink])
+
     const handleSubmit = (newStatus, idCommande) => {
         validerCommande({
             status: newStatus,
@@ -58,6 +74,14 @@ const Index = props => {
                 <PageTitle label="Validation commande" />
             </Grid>
             <Divider />
+            {role !== 'ROLE_CLIENT' && (
+                <div>
+                    <Button
+                        clicked={syncProduits}
+                        label="Synchronisation produits"
+                    />
+                </div>
+            )}
             <MaterialTable
                 title=""
                 columns={[
@@ -125,6 +149,22 @@ const Index = props => {
                             )
                         },
                     },
+                    {
+                        title: 'Export commande',
+                        field: 'export',
+                        render: rowData => {
+                            return (
+                                <div style={{ width: 80 }}>
+                                    <IconButton
+                                        onClick={() => exportPdf(rowData.id)}
+                                        color="primary"
+                                    >
+                                        <FileCopyIcon />
+                                    </IconButton>
+                                </div>
+                            )
+                        },
+                    },
                 ]}
                 data={allCommande || []}
             />
@@ -145,6 +185,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(getCommandeActions.getCommandeRequest(payload)),
     validerCommande: payload =>
         dispatch(validerCommandeActions.validerCommandeRequest(payload)),
+    exportPdf: payload =>
+        dispatch(exportPdfCommandeActions.exportPdfCommandeRequest(payload)),
+    syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
 // obtenir les données from  store state
@@ -158,6 +201,7 @@ const mapStateToProps = ({ info, login, commande }) => ({
     userID: login.response.User.details.codeInsc,
     role: login.response.User.details.userRoles[0].role,
     commandes: commande.getCommande.response,
+    pdfLink: commande.exportPdf.response,
     lng: info.language,
 })
 
@@ -170,7 +214,10 @@ Index.propTypes = {
     commandes: PropTypes.array.isRequired,
     getCommande: PropTypes.func.isRequired,
     validerCommande: PropTypes.func.isRequired,
+    exportPdf: PropTypes.func.isRequired,
+    pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
+    syncProduits: PropTypes.func.isRequired,
 }
 
 export default connect(

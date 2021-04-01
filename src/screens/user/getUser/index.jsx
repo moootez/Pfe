@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Grid } from '@material-ui/core'
 import Form from '../../../components/declaration/step_grab/homePage/Form'
 import PageTitle from '../../../components/ui/pageTitle'
+import Button from '../../../components/ui/button'
 import getAllUsersActions from '../../../redux/user/getAllUsers'
 import getAllRolesActions from '../../../redux/roles/getAllRoles'
 // import ButtonComponent from '../../../components/ui/button'
@@ -34,6 +35,7 @@ const Index = ({
     getAllRolesReq,
     allRoles,
     allUsers,
+    syncUsers,
 }) => {
     /* hooks member */
     const type = 'user'
@@ -241,6 +243,12 @@ const Index = ({
                     placeholder={search}
                 />
             </div>
+            <div className="float-right m-3">
+                <Button
+                    clicked={syncUsers}
+                    label="Synchronisation utilisateurs"
+                />
+            </div>
 
             <Table
                 lng={lng}
@@ -284,6 +292,7 @@ const mapDispatchToProps = dispatch => ({
     getAllUsersReq: payload =>
         dispatch(getAllUsersActions.getAllUsersRequest(payload)),
     getAllRolesReq: () => dispatch(getAllRolesActions.getAllRolesRequest()),
+    syncUsers: () => dispatch({ type: 'SYNC_USERS' }),
 })
 /**
  *  Inialisation
@@ -301,6 +310,7 @@ Index.propTypes = {
     getAllRolesReq: PropTypes.func.isRequired,
     allRoles: PropTypes.object.isRequired,
     allUsers: PropTypes.object.isRequired,
+    syncUsers: PropTypes.func.isRequired,
 }
 
 export default connect(
