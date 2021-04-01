@@ -22,6 +22,7 @@ import pageCms from './pageCms/index'
 import notification from './notification/index'
 import tableauDeBord from './tableauDeBord/index'
 import reclamation from './reclamation'
+import synchronisatoin from './refresh'
 
 /**
  * configuration pour tous saga
@@ -63,6 +64,7 @@ const sagas = [
     ...parametres,
     ...pageCms,
     ...notification,
+    ...synchronisatoin,
 ]
 
 function* globalSagas() {
