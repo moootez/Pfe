@@ -48,6 +48,7 @@
         "react-router-dom": "^5.0.1",
         "react-router-redux": "^5.0.0-alpha.6",
         "react-scripts": "4.0.0",
+        "react-site-nav": "^0.2.9",
         "react-swipeable-views": "^0.13.3",
         "react-toastify": "^5.4.1",
         "react-transition-group": "^4.1.1",
