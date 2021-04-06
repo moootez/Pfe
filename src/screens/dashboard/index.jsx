@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -9,6 +10,7 @@ import PropTypes from 'prop-types'
 import Sidebar from '../../components/sidebar'
 import DashboardHeader from '../../components/dashboard/header'
 import listOfRoutes from '../../routes/listOfRoutes'
+import './style.css'
 
 const drawerWidth = 260
 
@@ -125,7 +127,7 @@ export default function Index({ isLogged, userRole }) {
     const logged = isLogged || true
     return (
         <div className={classes.root}>
-            {logged && (
+            {/* {logged && (
                 <Drawer
                     variant="permanent"
                     className={`${classes.drawer} ${
@@ -167,7 +169,7 @@ export default function Index({ isLogged, userRole }) {
                         />
                     )}
                 </Drawer>
-            )}
+            )} */}
 
             <main
                 className="content dashboard-main"
@@ -176,16 +178,20 @@ export default function Index({ isLogged, userRole }) {
                     backgroundColor: '#f4f4f4',
                 }}
             >
-                {/* <Redirect from="/" to="/statistique" exact /> */}
-
                 {logged && <DashboardHeader />}
-                <div style={{ height: 20, backgroundColor: '#e6e6e6' }}></div>
-                <Switch>
-                    {listOfRoutes.map(route => route)}
-                    <Route exact path="/">
-                        <Redirect to="/actualite" />
-                    </Route>
-                </Switch>
+                <Sidebar
+                    userRole={userRole}
+                    drawerIsOpen={open}
+                    tabClicked={(e, openMenu) => selectHandler(e, openMenu)}
+                />
+                <div style={{ zIndex: 0 }}>
+                    <Switch>
+                        {listOfRoutes.map(route => route)}
+                        <Route exact path="/">
+                            <Redirect to="/actualite" />
+                        </Route>
+                    </Switch>
+                </div>
             </main>
         </div>
     )

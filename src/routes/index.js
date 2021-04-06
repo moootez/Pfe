@@ -8,7 +8,6 @@ import instance from '../serveur/axios'
 import wrapApiActions from '../redux/wrapApi'
 import alertActions from '../redux/alert'
 import SpinnerDot from '../components/ui/spinnerDot'
-import Header from '../containers/header'
 import Footer from '../containers/footer'
 import Login from '../screens/login'
 import Alert from '../components/ui/alert'
@@ -130,7 +129,6 @@ class Routes extends Component {
             connected,
             loggedUser,
             // FirstConnect,
-            history,
             allReferenciels,
         } = this.props
         const role = loggedUser
@@ -146,7 +144,6 @@ class Routes extends Component {
                             language === 'ar' ? 'containerAr' : 'containerFr'
                         }
                     >
-                        <Header history={history} />
                         <div className="App">
                             <Dashboard userRole={role} isLogged={connected} />
                         </div>
