@@ -210,7 +210,7 @@ class editActualite extends React.Component {
 
         return (
             <div className="ctn__declataion">
-                <PageTitle label="تعددل المستجد" />
+                <PageTitle label="Modifier l'actualité" />
                 <FormGroup>
                     <div className="centerDiv">
                         <Grid container>
