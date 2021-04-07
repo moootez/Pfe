@@ -28,7 +28,7 @@ function* addNewReclamationSagas({ response }) {
             timeout: 3000,
             data: response,
         })
-        if (res.status === 200) {
+        if (res.status === 200 || res.status === 201) {
             yield all([
                 yield put(
                     addNewReclamationAction.addNewReclamationSuccess(

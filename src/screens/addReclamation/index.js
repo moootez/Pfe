@@ -12,6 +12,7 @@ import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import PropTypes from 'prop-types'
+import getCommandes from '../../redux/statistique/getStatistique'
 import getAllLivraisons from '../../redux/referencial/getAllReferencial'
 import addReclamationActions from '../../redux/reclamation/newReclamation'
 import PageTitle from '../../components/ui/pageTitle'
@@ -23,34 +24,62 @@ const natureReclamation = [
     'Étui cabossé',
     'Date proche',
     'Étanchéité',
-    'Antres',
+    'Autres',
 ]
 
 const graviteReclamation = ['Mineur', 'Majeur', 'Critique']
 
 const Index = props => {
-    const { addReclamation, userID, getAllLivraison, livraisons } = props
+    const {
+        addReclamation,
+        userID,
+        getAllLivraison,
+        livraisons,
+        commandes,
+        getCommande,
+        newReclamation,
+        history,
+    } = props
 
-    const [reclamation, setReclamation] = useState(null)
+    const [reclamation, setReclamation] = useState({})
 
     useEffect(() => {
         getAllLivraison({ user: userID })
     }, [])
 
-    console.log(addReclamation, livraisons)
+    useEffect(() => {
+        if (reclamation.livraison)
+            getCommande({ user: userID, commande: reclamation.livraison })
+    }, [reclamation.livraison])
+
+    useEffect(() => {
+        if (newReclamation.loading === true)
+            setTimeout(() => history.push('/mes-reclamation'), 1000)
+    }, [newReclamation.loading])
 
     const submitReclamation = () => {
-        addReclamation(reclamation)
+        const newPayload = {
+            client: userID,
+            dateLivraison: new Date(Date.now()),
+            codeLivraison: reclamation.livraison,
+            quantite: reclamation.qte,
+            nature: reclamation.nature,
+            gravite: reclamation.gravite,
+            status: null,
+        }
+        addReclamation(newPayload)
     }
 
     const changeHandler = (name, e) => {
         const { value } = e.target
         setReclamation(r => ({ ...r, [name]: value }))
     }
+
+    console.log(livraisons)
     return (
         <div className="column col-md-12 text-center">
             <Grid className="gridItem">
-                <PageTitle label="Ajouter une reclamation" />
+                <PageTitle label="Ajouter une réclamation" />
             </Grid>
             <Divider />
             <div className="row mt-3 mb-3">
@@ -67,12 +96,9 @@ const Index = props => {
                             onChange={e => changeHandler('livraison', e)}
                             input={<Input />}
                         >
-                            {(
-                                livraisons.length || [
-                                    { No_livraison: '1223' },
-                                    { No_livraison: '1323' },
-                                    { No_livraison: '1243' },
-                                ]
+                            {(livraisons instanceof Array
+                                ? livraisons
+                                : []
                             ).map(element => (
                                 <MenuItem
                                     key={element.No_livraison}
@@ -98,18 +124,12 @@ const Index = props => {
                             onChange={e => changeHandler('produit', e)}
                             input={<Input />}
                         >
-                            {(
-                                livraisons.length || [
-                                    { No_livraison: '1223' },
-                                    { No_livraison: '1323' },
-                                    { No_livraison: '1243' },
-                                ]
-                            ).map(element => (
+                            {(commandes || []).map(element => (
                                 <MenuItem
-                                    key={element.No_livraison}
-                                    value={element.No_livraison}
+                                    key={element.Code_article}
+                                    value={element.Code_article}
                                 >
-                                    {element.No_livraison}
+                                    {element.Code_article}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -119,35 +139,53 @@ const Index = props => {
                 <div className="col-6">
                     <FormControl className="w-100">
                         <TextField
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             type="number"
-                            className="border mt-3"
+                            className="d-flex border mt-3"
                             onChange={e => changeHandler('qte', e)}
                             label="Quantité réclamée"
                         />
                     </FormControl>
                 </div>
                 {/* Nature reclamation */}
-                <div className="col-6">
-                    <FormControl className="w-100">
-                        <InputLabel id="select-nature">
-                            Nature réclamation
-                        </InputLabel>
-                        <Select
-                            className="border"
-                            id="demo-mutiple-name"
-                            labelId="select-nature"
-                            value={(reclamation || {}).livraison}
-                            onChange={e => changeHandler('nature', e)}
-                            input={<Input />}
-                        >
-                            {natureReclamation.map(element => (
-                                <MenuItem key={element} value={element}>
-                                    {element}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
+                {reclamation.nature !== 'Autres' ? (
+                    <div className="col-6">
+                        <FormControl className="w-100">
+                            <InputLabel id="select-nature">
+                                Nature réclamation
+                            </InputLabel>
+                            <Select
+                                className="border"
+                                id="demo-mutiple-name"
+                                labelId="select-nature"
+                                value={(reclamation || {}).livraison}
+                                onChange={e => changeHandler('nature', e)}
+                                input={<Input />}
+                            >
+                                {natureReclamation.map(element => (
+                                    <MenuItem key={element} value={element}>
+                                        {element}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                ) : (
+                    <div className="col-6">
+                        <FormControl className="w-100">
+                            <TextField
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                className="d-flex border mt-3"
+                                onChange={e => changeHandler('qte', e)}
+                                label="Préciser votre situation"
+                            />
+                        </FormControl>
+                    </div>
+                )}
                 {/* Gravite du reclamation */}
                 <div className="col-6">
                     <FormControl className="w-100">
@@ -178,9 +216,13 @@ const Index = props => {
 }
 
 Index.propTypes = {
+    newReclamation: PropTypes.object.isRequired,
     addReclamation: PropTypes.func.isRequired,
     userID: PropTypes.object.isRequired,
     getAllLivraison: PropTypes.func.isRequired,
+    commandes: PropTypes.array.isRequired,
+    getCommande: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
     livraisons: PropTypes.array,
 }
 
@@ -199,6 +241,7 @@ Index.defaultProps = {
 const mapDispatchToProps = dispatch => ({
     getAllLivraison: userID =>
         dispatch(getAllLivraisons.getAllReferenceRequest(userID)),
+    getCommande: data => dispatch(getCommandes.getStatistiqueRequest(data)),
     addReclamation: payload =>
         dispatch(addReclamationActions.addNewReclamationRequest(payload)),
 })
@@ -210,9 +253,17 @@ const mapDispatchToProps = dispatch => ({
  * @param {*} state
  * @returns
  */
-const mapStateToProps = ({ info, login, referencial }) => ({
+const mapStateToProps = ({
+    info,
+    login,
+    referencial,
+    statistique,
+    reclamation,
+}) => ({
     userID: login.response.User.details.codeInsc,
     livraisons: referencial.allReferencials.response,
+    commandes: statistique.getStatistique.response,
+    newReclamation: reclamation.newReclamation,
     lng: info.language,
 })
 

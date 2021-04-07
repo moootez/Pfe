@@ -14,11 +14,12 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  * @param {*} { response }
  */
 function* updateReclamationSagas({ response }) {
+    const { reclamation } = response
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'post',
-            url: `${baseUrl}reclamation/update`,
+            url: `${baseUrl}reclamation/change-status/${reclamation}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

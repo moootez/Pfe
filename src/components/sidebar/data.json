@@ -85,7 +85,7 @@
                 "title": "Livraisons",
                 "defaultPermission": false,
                 "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
+                "roles": ["ROLE_CLIENT"]
             },
             {
                 "id": 6,
@@ -93,7 +93,7 @@
                 "title": "Factures",
                 "defaultPermission": false,
                 "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
+                "roles": ["ROLE_CLIENT"]
             },
             {
                 "id": 7,
@@ -101,7 +101,7 @@
                 "title": "Réglements",
                 "defaultPermission": false,
                 "subitems": null,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
+                "roles": ["ROLE_CLIENT"]
             }
         ]
     }

@@ -31,13 +31,11 @@ function* getReclamationSagas({ response }) {
         })
         if (res.status === 200) {
             yield all([
-                yield put(
-                    getReclamationAction.getReclamationSuccess(res.data.data)
-                ),
+                yield put(getReclamationAction.getReclamationSuccess(res.data)),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(getReclamationAction.getReclamationFailure(res.data.data))
+            yield put(getReclamationAction.getReclamationFailure(res.data))
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
