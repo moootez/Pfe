@@ -164,8 +164,8 @@ class CustomizedTable extends PureComponent {
         if (value) {
             if (typeof value === 'object') return value.intituleAr
             if (element === 'assujettie') {
-                if (value.toString() === 'true') return 'نعم'
-                return 'لا'
+                if (value.toString() === 'true') return 'Oui'
+                return 'Non'
             }
             return value.toString()
         }
