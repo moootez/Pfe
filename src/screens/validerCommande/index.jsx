@@ -92,16 +92,6 @@ const Index = props => {
                     {
                         title: 'Code Inscription',
                         field: 'client.codeInsc',
-                        // render: rowData => (
-                        //     <img
-                        //         key={generateKey()}
-                        //         src={safeRequire(
-                        //             `../../assets/images/produits/${rowData.codeArticleX3}.png`
-                        //         )}
-                        //         style={{ width: 40, borderRadius: '2%' }}
-                        //         alt="produit"
-                        //     />
-                        // ),
                     },
                     { title: 'Adresse', field: 'client.ligneAdresse' },
                     { title: 'Ville', field: 'client.ville' },

@@ -1,24 +1,46 @@
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable global-require */
-/* eslint-disable radix */
-import React from 'react'
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable import/order */
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Grid, Divider } from '@material-ui/core'
-import getCommandeActions from '../../redux/commande/getCommande'
-import validerCommandeActions from '../../redux/commande/validerCommande'
+import getAllReclamations from '../../redux/reclamation/getReclamation'
+import TableCollapse from '../../components/tableWithCollapse'
 import PageTitle from '../../components/ui/pageTitle'
 
-const Index = () => {
+const Index = props => {
+    const { userID, reclamations, getAllReclamation } = props
+
+    useEffect(() => {
+        getAllReclamation({ user: userID })
+    }, [])
+
+    // Set livraison on state
+
     return (
         <div className="column col-md-12">
             <Grid className="gridItem">
-                <PageTitle label="Mes reclamations" />
+                <PageTitle label="Mes réclamations" />
             </Grid>
             <Divider />
+            <TableCollapse
+                apiCall={getAllReclamation}
+                dataApi={{ user: userID }}
+                dataReturned={JSON.parse(
+                    JSON.stringify(
+                        (reclamations || []).map(el => ({
+                            ...el,
+                            client: el.client.codeInsc,
+                        }))
+                    )
+                )}
+            />
         </div>
     )
 }
+
 /* redux */
 
 // dispatch action
@@ -29,10 +51,8 @@ const Index = () => {
  * @param {*} dispatch
  */
 const mapDispatchToProps = dispatch => ({
-    getCommande: payload =>
-        dispatch(getCommandeActions.getCommandeRequest(payload)),
-    validerCommande: payload =>
-        dispatch(validerCommandeActions.validerCommandeRequest(payload)),
+    getAllReclamation: userID =>
+        dispatch(getAllReclamations.getReclamationRequest(userID)),
 })
 
 // obtenir les données from  store state
@@ -42,11 +62,21 @@ const mapDispatchToProps = dispatch => ({
  * @param {*} state
  * @returns
  */
-const mapStateToProps = ({ info, login, commande }) => ({
+const mapStateToProps = ({ info, login, reclamation }) => ({
     userID: login.response.User.details.codeInsc,
-    commandes: commande.getCommande.response,
+    reclamations: reclamation.getReclamation.response,
     lng: info.language,
 })
+
+/* Proptypes */
+/**
+ *  declaration des props
+ */
+Index.propTypes = {
+    userID: PropTypes.object.isRequired,
+    reclamations: PropTypes.array.isRequired,
+    getAllReclamation: PropTypes.func.isRequired,
+}
 
 export default connect(
     mapStateToProps,
