@@ -30,7 +30,7 @@ function* getCertifSagas() {
                 warning: false,
                 info: false,
                 error: true,
-                title: 'خطأ',
+                title: 'Erreur',
                 success: false,
                 message: "Erreur d'authentification serveur",
             })

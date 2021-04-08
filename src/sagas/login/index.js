@@ -57,7 +57,7 @@ function* loginSagas(payload) {
                         warning: false,
                         info: false,
                         error: true,
-                        title: 'خطأ',
+                        title: 'Erreur',
                         success: false,
                         message: "Nom d'utilisateur ou mot de passe incorrect",
                     })
@@ -74,7 +74,7 @@ function* loginSagas(payload) {
                     warning: false,
                     info: false,
                     error: true,
-                    title: 'خطأ',
+                    title: 'Erreur',
                     success: false,
                     message: "Nom d'utilisateur ou mot de passe incorrect",
                 })

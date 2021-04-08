@@ -18,7 +18,8 @@ import Logo from '../../assets/images/logo.png'
  */
 
 const Header = props => {
-    const { logout } = props
+    const { logout, loggedUser } = props
+    const { username } = loggedUser.User.details
 
     const handleLogout = () => {
         logout()
@@ -42,7 +43,7 @@ const Header = props => {
                     </Grid>
                     <Grid xs={8} md sm className="right-block">
                         <div className="d-flex justify-content-end align-items-center w-100">
-                            <div>
+                            <div className="d-flex flex-column">
                                 <Tooltip title="Se déconnecter">
                                     <IconButton
                                         aria-label="delete"
@@ -54,6 +55,7 @@ const Header = props => {
                                         />
                                     </IconButton>
                                 </Tooltip>
+                                <p>Bienvenue {username}</p>
                             </div>
                         </div>
                     </Grid>
@@ -89,6 +91,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 Header.propTypes = {
+    loggedUser: PropTypes.object.isRequired,
     history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
     logout: PropTypes.func.isRequired,
 }

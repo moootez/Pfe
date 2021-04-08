@@ -111,6 +111,7 @@ const Index = props => {
                         render: rowData => (
                             <div style={{ width: 80 }}>
                                 <TextField
+                                    disabled={!rowData.actif}
                                     type="number"
                                     key={generateKey()}
                                     label="Quantité"

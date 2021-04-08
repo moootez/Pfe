@@ -83,88 +83,143 @@ const Index = props => {
             </Grid>
             <Divider />
             <div className="row mt-3 mb-3">
-                <div className="col-6">
-                    <FormControl className="w-100">
-                        <InputLabel id="select-livraison">
-                            Code livraison
-                        </InputLabel>
-                        <Select
-                            className="border"
-                            id="demo-mutiple-name"
-                            labelId="select-livraison"
-                            value={(reclamation || {}).livraison}
-                            onChange={e => changeHandler('livraison', e)}
-                            input={<Input />}
-                        >
-                            {(livraisons instanceof Array
-                                ? livraisons
-                                : []
-                            ).map(element => (
-                                <MenuItem
-                                    key={element.No_livraison}
-                                    value={element.No_livraison}
-                                >
-                                    {element.No_livraison}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                {/* Numero du produit */}
-                <div className="col-6">
-                    <FormControl className="w-100">
-                        <InputLabel id="select-produit">
-                            Code produit
-                        </InputLabel>
-                        <Select
-                            className="border"
-                            id="demo-mutiple-name"
-                            labelId="select-produit"
-                            value={(reclamation || {}).livraison}
-                            onChange={e => changeHandler('produit', e)}
-                            input={<Input />}
-                        >
-                            {(commandes || []).map(element => (
-                                <MenuItem
-                                    key={element.Code_article}
-                                    value={element.Code_article}
-                                >
-                                    {element.Code_article}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                {/* Quantite reclame */}
-                <div className="col-6">
-                    <FormControl className="w-100">
-                        <TextField
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            type="number"
-                            className="d-flex border mt-3"
-                            onChange={e => changeHandler('qte', e)}
-                            label="Quantité réclamée"
-                        />
-                    </FormControl>
-                </div>
-                {/* Nature reclamation */}
-                {reclamation.nature !== 'Autres' ? (
+                <div className="d-flex col-6">
+                    <div className="col-6 mt-3">Code livraison</div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            <InputLabel id="select-nature">
-                                Nature réclamation
+                            <InputLabel id="select-livraison">
+                                Code livraison
                             </InputLabel>
                             <Select
                                 className="border"
                                 id="demo-mutiple-name"
-                                labelId="select-nature"
+                                labelId="select-livraison"
                                 value={(reclamation || {}).livraison}
-                                onChange={e => changeHandler('nature', e)}
+                                onChange={e => changeHandler('livraison', e)}
                                 input={<Input />}
                             >
-                                {natureReclamation.map(element => (
+                                {(livraisons instanceof Array
+                                    ? livraisons
+                                    : []
+                                ).map(element => (
+                                    <MenuItem
+                                        key={element.No_livraison}
+                                        value={element.No_livraison}
+                                    >
+                                        {element.No_livraison}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                </div>
+                {/* Numero du produit */}
+                <div className="col-6 d-flex">
+                    <div className="col-6 mt-3">Code produit</div>
+                    <div className="col-6">
+                        <FormControl className="w-100">
+                            <InputLabel id="select-produit">
+                                Code produit
+                            </InputLabel>
+                            <Select
+                                className="border"
+                                id="demo-mutiple-name"
+                                labelId="select-produit"
+                                value={(reclamation || {}).livraison}
+                                onChange={e => changeHandler('produit', e)}
+                                input={<Input />}
+                            >
+                                {(commandes || []).map(element => (
+                                    <MenuItem
+                                        key={element.Code_article}
+                                        value={element.Code_article}
+                                    >
+                                        {element.Code_article}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                </div>
+                {/* Quantite reclame */}
+                <div className="col-6 d-flex">
+                    <div className="col-6 mt-3">Quantité réclamée</div>
+                    <div className="col-6">
+                        <FormControl className="w-100">
+                            <TextField
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                type="number"
+                                className="d-flex border mt-3"
+                                onChange={e => changeHandler('qte', e)}
+                                label="Quantité réclamée"
+                            />
+                        </FormControl>
+                    </div>
+                </div>
+                {/* Nature reclamation */}
+                {reclamation.nature !== 'Autres' ? (
+                    <div className="col-6 d-flex">
+                        <div className="col-6 mt-3">Nature réclamation</div>
+                        <div className="col-6">
+                            <FormControl className="w-100">
+                                <InputLabel id="select-nature">
+                                    Nature réclamation
+                                </InputLabel>
+                                <Select
+                                    className="border"
+                                    id="demo-mutiple-name"
+                                    labelId="select-nature"
+                                    value={(reclamation || {}).livraison}
+                                    onChange={e => changeHandler('nature', e)}
+                                    input={<Input />}
+                                >
+                                    {natureReclamation.map(element => (
+                                        <MenuItem key={element} value={element}>
+                                            {element}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="col-6 d-flex">
+                        <div className="col-6 mt-3">
+                            Préciser votre situation
+                        </div>
+                        <div className="col-6">
+                            <FormControl className="w-100">
+                                <TextField
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    className="d-flex border mt-3"
+                                    onChange={e => changeHandler('qte', e)}
+                                    label="Préciser votre situation"
+                                />
+                            </FormControl>
+                        </div>
+                    </div>
+                )}
+                {/* Gravite du reclamation */}
+                <div className="col-6 d-flex">
+                    <div className="col-6 mt-3">Gravité réclamation</div>
+                    <div className="col-6">
+                        <FormControl className="w-100">
+                            <InputLabel id="select-gravite">
+                                Gravité réclamation
+                            </InputLabel>
+                            <Select
+                                className="border"
+                                id="demo-mutiple-name"
+                                labelId="select-gravite"
+                                value={(reclamation || {}).livraison}
+                                onChange={e => changeHandler('gravite', e)}
+                                input={<Input />}
+                            >
+                                {graviteReclamation.map(element => (
                                     <MenuItem key={element} value={element}>
                                         {element}
                                     </MenuItem>
@@ -172,41 +227,6 @@ const Index = props => {
                             </Select>
                         </FormControl>
                     </div>
-                ) : (
-                    <div className="col-6">
-                        <FormControl className="w-100">
-                            <TextField
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                className="d-flex border mt-3"
-                                onChange={e => changeHandler('qte', e)}
-                                label="Préciser votre situation"
-                            />
-                        </FormControl>
-                    </div>
-                )}
-                {/* Gravite du reclamation */}
-                <div className="col-6">
-                    <FormControl className="w-100">
-                        <InputLabel id="select-gravite">
-                            Gravité réclamation
-                        </InputLabel>
-                        <Select
-                            className="border"
-                            id="demo-mutiple-name"
-                            labelId="select-gravite"
-                            value={(reclamation || {}).livraison}
-                            onChange={e => changeHandler('gravite', e)}
-                            input={<Input />}
-                        >
-                            {graviteReclamation.map(element => (
-                                <MenuItem key={element} value={element}>
-                                    {element}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
                 </div>
             </div>
 

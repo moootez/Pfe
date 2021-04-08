@@ -94,7 +94,7 @@ class Routes extends Component {
                     err.then(e => {
                         if (e.config && !e.config.url.includes('notification/'))
                             self.props.alertShow(true, {
-                                title: language === 'ar' ? 'خطأ' : 'Erreur',
+                                title: language === 'ar' ? 'Erreur' : 'Erreur',
                                 warning: false,
                                 info: false,
                                 error: true,

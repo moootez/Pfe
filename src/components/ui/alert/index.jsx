@@ -71,10 +71,10 @@ const index = ({
             {show && (
                 <SweetAlert
                     showCancel={onConfirm || (onConfirm && !error)}
-                    cancelBtnText={language === 'ar' ? 'لا' : 'Non'}
+                    cancelBtnText={language === 'ar' ? 'Non' : 'Non'}
                     confirmBtnBsStyle={error || warning ? 'danger' : 'default'}
                     confirmBtnText={
-                        onConfirm ? (language === 'ar' ? 'نعم' : 'Oui') : 'X'
+                        onConfirm ? (language === 'ar' ? 'Oui' : 'Oui') : 'X'
                     }
                     confirmBtnCssClass={onConfirm ? 'Oui' : 'closeBtnAlert'}
                     cancelBtnBsStyle="default"
@@ -86,7 +86,7 @@ const index = ({
                     title={
                         confirmDelete
                             ? language === 'ar'
-                                ? 'نعم'
+                                ? 'Oui'
                                 : 'Succès'
                             : title
                     }
@@ -94,8 +94,8 @@ const index = ({
                 >
                     {confirmDelete
                         ? language === 'ar'
-                            ? 'نعم'
-                            : 'تم الحذف بنجاح'
+                            ? 'Oui'
+                            : 'Supprimer avec succes'
                         : message}
                 </SweetAlert>
             )}
