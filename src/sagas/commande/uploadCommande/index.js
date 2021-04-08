@@ -36,7 +36,7 @@ function* uploadCommandeSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Ajout commande avec succes',
+                        message: 'Import commande avec succes',
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),

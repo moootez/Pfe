@@ -42,7 +42,7 @@ function* addNewReclamationSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Ajout reclamation avec succes',
+                        message: 'Ajout réclamation avec succes',
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),

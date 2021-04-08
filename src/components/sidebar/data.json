@@ -21,7 +21,7 @@
             },
             {
                 "id": 3,
-                "link": "/parametres",
+                "link": "/commandeRoute",
                 "title": "Commande",
                 "defaultPermission": false,
                 "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"],

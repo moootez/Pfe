@@ -43,7 +43,7 @@ function* updateReclamationSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Ajout commande avec succes',
+                        message: 'Changement de status avec succes',
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
