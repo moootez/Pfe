@@ -56,6 +56,7 @@ const Index = props => {
                     { title: 'Code Client', field: 'client.codeInsc' },
                     { title: 'Date livraison', field: 'dateLivraison' },
                     { title: 'Code livraison', field: 'codeLivraison' },
+                    { title: 'Code Produit', field: 'codeArticle' },
                     { title: 'Qte', field: 'quantite' },
                     { title: 'Nature', field: 'nature' },
                     { title: 'Gravité', field: 'gravite' },

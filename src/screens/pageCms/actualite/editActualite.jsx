@@ -193,7 +193,7 @@ class editActualite extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                message: `الرجاء تقليل حجم الصورة`,
+                message: `Image de grande taille`,
             })
     }
 

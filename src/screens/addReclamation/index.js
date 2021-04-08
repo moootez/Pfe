@@ -62,6 +62,7 @@ const Index = props => {
             client: userID,
             dateLivraison: new Date(Date.now()),
             codeLivraison: reclamation.livraison,
+            codeArticle: reclamation.produit,
             quantite: reclamation.qte,
             nature: reclamation.nature,
             gravite: reclamation.gravite,
