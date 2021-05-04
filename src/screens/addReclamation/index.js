@@ -142,6 +142,23 @@ const Index = props => {
                         </FormControl>
                     </div>
                 </div>
+                {/* Numero de lot */}
+                <div className="col-6 d-flex">
+                    <div className="col-6 mt-3">Numéro de lot</div>
+                    <div className="col-6">
+                        <FormControl className="w-100">
+                            <TextField
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                type="number"
+                                className="d-flex border mt-3"
+                                onChange={e => changeHandler('numLot', e)}
+                                label="Numéro de lot"
+                            />
+                        </FormControl>
+                    </div>
+                </div>
                 {/* Quantite reclame */}
                 <div className="col-6 d-flex">
                     <div className="col-6 mt-3">Quantité réclamée</div>

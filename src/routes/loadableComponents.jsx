@@ -333,6 +333,18 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/tableauDuBord'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/dashboard',
+        props: {
+            exact: true,
+        },
+        name: 'dashboard',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../components/consultation/index'),
             loading: () => <SpinnerHourGlass />,
         }),

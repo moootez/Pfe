@@ -104,39 +104,39 @@ const Index = props => {
 
                     { title: 'Categorie', field: 'categorie' },
                     { title: 'Prix', field: 'prix' },
-                    { title: 'Coef UC', field: 'coefUcUs' },
-                    {
-                        title: 'Qté carton',
-                        field: 'qtc',
-                        render: rowData => (
-                            <div style={{ width: 80 }}>
-                                <TextField
-                                    disabled={!rowData.actif}
-                                    type="number"
-                                    key={generateKey()}
-                                    label="Quantité"
-                                    id="outlined-size-small"
-                                    defaultValue={
-                                        (commande[rowData.codeArticleX3] || {})
-                                            .qtc || 0
-                                    }
-                                    variant="outlined"
-                                    onBlur={e =>
-                                        setCommande({
-                                            ...commande,
-                                            [rowData.codeArticleX3]: {
-                                                ...(commande[
-                                                    rowData.codeArticleX3
-                                                ] || {}),
-                                                qtc: e.target.value,
-                                            },
-                                        })
-                                    }
-                                    size="small"
-                                />
-                            </div>
-                        ),
-                    },
+                    // { title: 'Coef UC', field: 'coefUcUs' },
+                    // {
+                    //     title: 'Qté carton',
+                    //     field: 'qtc',
+                    //     render: rowData => (
+                    //         <div style={{ width: 80 }}>
+                    //             <TextField
+                    //                 disabled={!rowData.actif}
+                    //                 type="number"
+                    //                 key={generateKey()}
+                    //                 label="Quantité"
+                    //                 id="outlined-size-small"
+                    //                 defaultValue={
+                    //                     (commande[rowData.codeArticleX3] || {})
+                    //                         .qtc || 0
+                    //                 }
+                    //                 variant="outlined"
+                    //                 onBlur={e =>
+                    //                     setCommande({
+                    //                         ...commande,
+                    //                         [rowData.codeArticleX3]: {
+                    //                             ...(commande[
+                    //                                 rowData.codeArticleX3
+                    //                             ] || {}),
+                    //                             qtc: e.target.value,
+                    //                         },
+                    //                     })
+                    //                 }
+                    //                 size="small"
+                    //             />
+                    //         </div>
+                    //     ),
+                    // },
                     {
                         title: 'Qté vrac',
                         field: 'qtv',
@@ -169,17 +169,17 @@ const Index = props => {
                             </div>
                         ),
                     },
-                    {
-                        title: 'Qté total',
-                        field: 'qtt',
-                        render: rowData => {
-                            return (
-                                <div key={generateKey()} style={{ width: 80 }}>
-                                    <p>{getTotalQt(rowData)}</p>
-                                </div>
-                            )
-                        },
-                    },
+                    // {
+                    //     title: 'Qté total',
+                    //     field: 'qtt',
+                    //     render: rowData => {
+                    //         return (
+                    //             <div key={generateKey()} style={{ width: 80 }}>
+                    //                 <p>{getTotalQt(rowData)}</p>
+                    //             </div>
+                    //         )
+                    //     },
+                    // },
                     {
                         title: 'Prix total',
                         field: 'pt',
