@@ -15,7 +15,7 @@
                 "id": 2,
                 "title": "Gestion des clients",
                 "link": "/user",
-                "roles": ["ROLE_ADMIN", "ROLE_ADV"],
+                "roles": ["ROLE_ADMIN"],
                 "subitems": null,
                 "defaultPermission": true
             },
@@ -24,7 +24,7 @@
                 "link": "/commandeRoute",
                 "title": "Commande",
                 "defaultPermission": false,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"],
+                "roles": ["ROLE_ADV", "ROLE_CLIENT"],
                 "subitems": [
                     {
                         "id": 31,
@@ -38,7 +38,7 @@
                         "link": "/validation-commande",
                         "title": "Commandes à valider",
                         "defaultPermission": false,
-                        "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
+                        "roles": ["ROLE_ADV", "ROLE_CLIENT"]
                     },
                     {
                         "id": 33,
@@ -54,7 +54,7 @@
                 "link": "/reclamation",
                 "title": "Réclamations",
                 "defaultPermission": false,
-                "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"],
+                "roles": ["ROLE_ADV", "ROLE_CLIENT"],
                 "subitems": [
                     {
                         "id": 41,
@@ -75,7 +75,7 @@
                         "link": "/liste-reclamation",
                         "title": "Liste des réclamations",
                         "defaultPermission": false,
-                        "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+                        "roles": ["ROLE_ADV"]
                     }
                 ]
             },
@@ -102,6 +102,14 @@
                 "defaultPermission": false,
                 "subitems": null,
                 "roles": ["ROLE_CLIENT"]
+            },
+            {
+                "id": 7,
+                "link": "/dashboard",
+                "title": "Tableau de bord",
+                "defaultPermission": false,
+                "subitems": null,
+                "roles": ["ROLE_ADV", "ROLE_CLIENT"]
             }
         ]
     }

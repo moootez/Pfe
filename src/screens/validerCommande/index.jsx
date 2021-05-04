@@ -101,6 +101,8 @@ const Index = props => {
                         field: 'validation',
                         render: rowData => {
                             let newStatus = 'VALIDATION_OPALIA'
+                            const refusStatus =
+                                role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
                             if (rowData.status === 'BROUILLON') {
                                 newStatus = 'VALIDATION_CLIENT'
                             } else if (rowData.status === 'VALIDATION_CLIENT') {
@@ -128,7 +130,10 @@ const Index = props => {
                                     )}
                                     <IconButton
                                         onClick={() =>
-                                            handleSubmit('ANNULER', rowData.id)
+                                            handleSubmit(
+                                                refusStatus,
+                                                rowData.id
+                                            )
                                         }
                                         color="secondary"
                                         aria-label="Annuler"

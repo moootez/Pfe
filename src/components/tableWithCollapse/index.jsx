@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import MaterialTable from 'material-table'
 import PropTypes from 'prop-types'
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
 import { removeBottomDash } from '../../shared/utility'
 import SimpleTable from '../simpleTable'
 
@@ -28,7 +29,13 @@ const DetailPanelWithRowClick = props => {
             field: el,
             title: removeBottomDash(el),
         }))
-        setDataTable({ header, data: dataReturned || [] })
+        header.push({ field: 'action', title: 'Action' })
+        setDataTable({
+            header,
+            data: (dataReturned instanceof Array ? dataReturned : []).map(
+                el => ({ ...el, action: <PictureAsPdfIcon /> })
+            ),
+        })
     }, [JSON.stringify(dataReturned)])
 
     useEffect(() => {
@@ -55,6 +62,7 @@ const DetailPanelWithRowClick = props => {
         <>
             {dataTable.header.length && dataTable.data.length ? (
                 <MaterialTable
+                    options={{ maxBodyHeight: '80vh' }}
                     columns={dataTable.header}
                     data={dataTable.data}
                     title=""
