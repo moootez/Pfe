@@ -23,11 +23,11 @@
     ],
     "listSexe": [
         {
-            "label": "ذكر",
+            "label": "Homme",
             "value": "Homme"
         },
         {
-            "label": "انثي",
+            "label": "Femme",
             "value": "Femme"
         }
     ],

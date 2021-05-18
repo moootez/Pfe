@@ -164,30 +164,30 @@ const Index = ({
      * redirect to page add
      *
      */
-    // const handleajout = () => {
-    //     history.push({
-    //         pathname: 'ajout_user',
-    //         state: {
-    //             type: 'add',
-    //         },
-    //     })
-    // }
+    const handleajout = () => {
+        history.push({
+            pathname: 'ajout_user',
+            state: {
+                type: 'add',
+            },
+        })
+    }
 
     /**
      * redirect to page edit
      *
      * @param {*} row
      */
-    // const editAction = row => {
-    //     history.push({
-    //         pathname: 'edit_user',
-    //         state: {
-    //             user: row.users,
-    //             id: row.id,
-    //             type: 'edit',
-    //         },
-    //     })
-    // }
+    const editAction = row => {
+        history.push({
+            pathname: 'edit_user',
+            state: {
+                user: row.users,
+                id: row.id,
+                type: 'edit',
+            },
+        })
+    }
 
     /**
      * handle pagination action for consultation tab
@@ -226,8 +226,12 @@ const Index = ({
                 />
             </Grid>
             <div
-                className="col-md-4 float-left"
-                style={{ paddingTop: 20, paddingLeft: '5%', paddingBottom: 20 }}
+                className="col-md-6 float-left"
+                style={{
+                    paddingTop: 20,
+                    paddingRight: '5%',
+                    paddingBottom: 20,
+                }}
             >
                 <input
                     onBlur={onBlur}
@@ -243,10 +247,21 @@ const Index = ({
                     placeholder={search}
                 />
             </div>
+
             <div className="float-right m-3">
                 <Button
                     clicked={syncUsers}
                     label="Synchronisation utilisateurs"
+                />
+            </div>
+            <div className="float-right m-3">
+                <Button
+                    color="white"
+                    margin=" 3% 5% 1% "
+                    type="contained"
+                    size="medium"
+                    label="Ajouter utilisateur"
+                    clicked={() => handleajout()}
                 />
             </div>
 
@@ -257,7 +272,7 @@ const Index = ({
                 history={history}
                 intl={intl}
                 type={type}
-                // editAction={editAction}
+                editAction={editAction}
                 paramTab={paramConsultTab}
                 meta={meta}
             />

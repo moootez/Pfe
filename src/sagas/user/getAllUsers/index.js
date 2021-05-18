@@ -1,39 +1,20 @@
 /* eslint-disable import/prefer-default-export */
-import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
-import axios from 'axios'
+import { takeLatest, put, call, all, select } from 'redux-saga/effects' // eslint-disable-line
 import getAllUsersActions, {
     getAllUsersTypes,
 } from '../../../redux/user/getAllUsers'
-import baseUrl from '../../../serveur/baseUrl'
+import instance, { Post } from '../../../serveur/axios'
 
 /**
  * consomation API avec axios
  *
  * @param {*} { response }
  */
-function* getAllUsersSagas() {
-    // const { login } = yield select()
+function* getAllUsersSagas({ response }) {
+    const { login } = yield select()
+    instance.defaults.headers.Authorization = `Bearer ${login.response.Token}`
     try {
-        const responseAdd = yield axios({
-            method: 'post',
-            url: `${baseUrl}users/all`,
-            headers: {
-                'Accept-Version': 1,
-                Accept: 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json; charset=utf-8',
-                Authorization: `Bearer ${localStorage.InluccToken}`,
-            },
-            data: {
-                key: '',
-                limit: 5,
-                order: '',
-                page: 1,
-                role: 2,
-                searchData: '',
-            },
-            timeout: 3000,
-        })
+        const responseAdd = yield Post('users/all', response)
         if (responseAdd.status === 200) {
             yield all([
                 yield put(

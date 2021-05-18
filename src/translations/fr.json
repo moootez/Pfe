@@ -227,7 +227,7 @@
     "newFont": "Ajouter Font Commerce",
     "montant": "Montant",
     "natureObjSpec": "Nature des objets ",
-    "objSpeciauxNum": "²Objet Numéro",
+    "objSpeciauxNum": "Objet Numéro",
     "newobjSpeciaux": "Ajouter Objet",
     "pretsNum": "Pret Aquis Numéro",
     "newPrets": "Ajouter Pret Aquis",
@@ -311,5 +311,8 @@
     "dateChangement": "Date Modification",
     "notifications": "Notifications",
     "auth": "Authentification",
-    "username": "Nom d'utilisateur "
+    "username": "Nom d'utilisateur ",
+    "passwordNonIdentique": "Le mot de passe n'est pas le même",
+    "labelPassword": "Mot de Passe",
+    "labelConfirmPassword": "Confirmer Mot de Passe"
 }
