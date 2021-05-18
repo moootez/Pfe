@@ -22,8 +22,8 @@ const setListInput = (
             name: 'prenomTripartiteAr',
             sm: 6,
             md: 4,
-            label: intl.formatMessage({ id: 'labelPrenomTri' }),
-            placeholder: intl.formatMessage({ id: 'labelPrenomTri' }),
+            label: intl.formatMessage({ id: 'labelPrenom' }),
+            placeholder: intl.formatMessage({ id: 'labelPrenom' }),
         },
         {
             name: 'nomAr',
@@ -36,7 +36,6 @@ const setListInput = (
             name: 'username',
             sm: 6,
             md: 4,
-            isFormatted: true,
             label: "Nom d'utilisateur",
             placeholder: "Nom d'utilisateur",
         },
@@ -52,7 +51,7 @@ const setListInput = (
         /*
          * pour input gouvernoratResidence
          */
-        {
+        /* {
             name: 'gouvernoratResidence',
             label: intl.formatMessage({ id: 'labelGouvernorat' }),
             list: listGov,
@@ -62,17 +61,17 @@ const setListInput = (
             sm: 6,
             md: 4,
             required: false,
-        },
+        }, */
         /*
          * pour input delegationResidence
          */
         {
             name: 'delegationResidence',
             label: intl.formatMessage({ id: 'labelDelegation' }),
-            list: listDelegResidence,
-            isSelect: true,
-            isObject: true,
-            selectAll: false,
+            // list: listDelegResidence,
+            // isSelect: false,
+            // isObject: true,
+            // selectAll: false,
             sm: 6,
             md: 4,
             required: false,
@@ -84,10 +83,6 @@ const setListInput = (
             name: 'codePostaleResidence',
             required: false,
             label: intl.formatMessage({ id: 'labelCodePostal' }),
-            list: listCodePostalResidence,
-            isSelect: true,
-            isObject: true,
-            selectAll: true,
             sm: 6,
             md: 4,
         },
@@ -97,10 +92,8 @@ const setListInput = (
         {
             name: 'adresseResidence',
             label: intl.formatMessage({ id: 'labelAddressResidence' }),
-            placeholder: intl.formatMessage({ id: 'labelAddressResidence' }),
             sm: 6,
             md: 4,
-            required: false,
         },
         /*
          * pour input tel
@@ -141,14 +134,14 @@ const setListInput = (
             label: intl.formatMessage({ id: 'labelConfirmPassword' }),
             placeholder: intl.formatMessage({ id: 'labelConfirmPassword' }),
         },
-        {
+        /* {
             name: 'serialNumberToken',
             sm: 6,
             md: 4,
             label: intl.formatMessage({ id: 'serialNumber' }),
             placeholder: intl.formatMessage({ id: 'serialNumber' }),
             isFormatted: true,
-        },
+        }, */
         {
             name: 'userRoles',
             required: true,
