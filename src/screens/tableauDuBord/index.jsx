@@ -46,34 +46,42 @@ const index = () => {
         <div className="row p-5">
             <div className="col-3">
                 <Paper className="p-3">
-                    <span className="font-weight-bold d-block">
-                        {state.total.Nombre_commandes}
-                    </span>{' '}
-                    Commandes
+                    <center>
+                        <b>Commandes</b>
+                        <span className="font-weight-bold d-block" Style="color: #cd121a;  font-size: 30px;">
+                            {state.total.Nombre_commandes}
+                        </span>{' '}</center>
                 </Paper>
             </div>
             <div className="col-3">
                 <Paper className="p-3">
-                    <span className="font-weight-bold d-block">
-                        {state.total.Nombre_commandes_livrees}
-                    </span>{' '}
-                    Commandes livrées
+                    <center>
+                        <b>Commandes livrées</b>
+                        <span className="font-weight-bold d-block" Style="color: #cd121a;  font-size: 30px;">
+                            {state.total.Nombre_commandes_livrees}
+                        </span>{' '}
+                    </center>
+                </Paper>
+            </div>
+            <div className="col-3">
+
+                <Paper className="p-3">
+                    <center>
+                        <b>Montant facture</b>
+                        <span className="font-weight-bold d-block" Style="color: #cd121a;  font-size: 30px;">
+                            {state.total.Montant_facture_annee_en_cours}
+                        </span>{' '}</center>
+
                 </Paper>
             </div>
             <div className="col-3">
                 <Paper className="p-3">
-                    <span className="font-weight-bold d-block">
-                        {state.total.Montant_facture_annee_en_cours}
-                    </span>{' '}
-                    Montant facture
-                </Paper>
-            </div>
-            <div className="col-3">
-                <Paper className="p-3">
-                    <span className="font-weight-bold d-block">
-                        {state.total.Montant_a_regler}
-                    </span>{' '}
-                    Montant a regler
+                    <center>
+                        <b>Montant a régler</b>
+                        <span className="font-weight-bold d-block" Style="color: #cd121a;  font-size: 30px;">
+                            {state.total.Montant_a_regler}
+                        </span>{' '}
+                    </center>
                 </Paper>
             </div>
             <div className="col-6 p-3">
