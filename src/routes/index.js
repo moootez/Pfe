@@ -141,12 +141,15 @@ class Routes extends Component {
                 {connected && allReferenciels ? (
                     <div
                         className={
-                            language === 'ar' ? 'containerAr' : 'containerFr'
+                            language === 'ar'
+                                ? 'container-fluid'
+                                : 'container-fluid'
                         }
                     >
                         <div className="App">
                             <Dashboard userRole={role} isLogged={connected} />
                         </div>
+
                         <Footer />
                     </div>
                 ) : (
