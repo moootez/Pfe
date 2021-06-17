@@ -72,6 +72,35 @@ const index = ({ history, role }) => {
         })
     }
 
+    /* life cycle */
+    useEffect(() => {
+        try {
+            if (role) {
+                // const ecran = Immutable.asMutable([role])
+                const newRoutes = data[0].items
+                    .map(menu => {
+                        if (menu.subitems) {
+                            return {
+                                ...menu,
+                                subitems: menu.subitems.filter(submenu =>
+                                    submenu.roles.includes(role)
+                                ),
+                            }
+                        }
+                        return menu
+                    })
+                    .filter(menu => menu.roles.includes(role))
+
+                if (newRoutes.length > 0) {
+                    setItemsMenu(newRoutes)
+                } else {
+                    setItemsMenu([])
+                }
+            } else setItemsMenu(data[0].items)
+        } catch (e) {
+            console.log(e)
+        }
+    }, [])
     /**
      * select sous menu
      *
@@ -99,7 +128,129 @@ const index = ({ history, role }) => {
     /* render */
 
     return (
+        // <Fragment>
+        //     <List>
+        //         {itemsMenu.map(item => (
+        //             <Fragment>
+        //                 {item.subitems !== null ? (
+        //                     <Fragment>
+        //                         <ListItem
+        //                             button
+        //                             onClick={e => handleClickItem(e, item)}
+        //                             className={classes.listItem}
+        //                         >
+        //                             <ListItemText
+        //                                 primary={
+        //                                     <Typography
+        //                                         className={classes.itemText}
+        //                                     >
+        //                                         {item.title}
+        //                                     </Typography>
+        //                                 }
+        //                             />
+        //                             {open && selectedItem === item.id ? (
+        //                                 <ExpandLess />
+        //                             ) : (
+        //                                 <ExpandMore />
+        //                             )}
+        //                         </ListItem>
+        //                         <Collapse
+        //                             in={open}
+        //                             timeout="auto"
+        //                             unmountOnExit
+        //                         >
+        //                             {open &&
+        //                             item.subitems !== null &&
+        //                             selectedItem === item.id ? (
+        //                                 <List component="div" disablePadding>
+        //                                     {item.subitems.map(subitem => (
+        //                                         <ListItem
+        //                                             button
+        //                                             onClick={e =>
+        //                                                 handleClickSubItem(
+        //                                                     e,
+        //                                                     subitem
+        //                                                 )
+        //                                             }
+        //                                             className={
+        //                                                 selectedSubItem ===
+        //                                                 subitem.id
+        //                                                     ? classes.subItemList
+        //                                                     : ''
+        //                                             }
+        //                                         >
+        //                                             <ListItemText
+        //                                                 primary={
+        //                                                     <Typography
+        //                                                         className={
+        //                                                             selectedSubItem ===
+        //                                                             subitem.id
+        //                                                                 ? classes.selectedSubText
+        //                                                                 : classes.subItemText
+        //                                                         }
+        //                                                     >
+        //                                                         {subitem.title}
+        //                                                     </Typography>
+        //                                                 }
+        //                                                 className={
+        //                                                     classes.nested
+        //                                                 }
+        //                                             />
+        //                                         </ListItem>
+        //                                     ))}
+        //                                 </List>
+        //                             ) : null}
+        //                         </Collapse>
+        //                     </Fragment>
+        //                 ) : (
+        //                     <ListItem
+        //                         button
+        //                         onClick={e => handleClickSubItem(e, item)}
+        //                         className={classes.listItem}
+        //                     >
+        //                         <ListItemText
+        //                             primary={
+        //                                 <Typography
+        //                                     className={classes.itemText}
+        //                                 >
+        //                                     {item.title}
+        //                                 </Typography>
+        //                             }
+        //                         />
+        //                     </ListItem>
+        //                 )}
+        //             </Fragment>
+        //         ))}
+        //     </List>
+        // </Fragment>
         <div className="hight-index">
+            <SiteNav background="white" color="#cd121a" fontSize="16">
+                {itemsMenu.map(item => {
+                    const subBool = Boolean(item.subitems)
+                    const rootUrl = subBool
+                        ? { height: 'auto' }
+                        : { rootUrl: item.link }
+                    return (
+                        <ContentGroup {...rootUrl} title={item.title}>
+                            {/* 3. You can add anything in a ContentGroup */}
+                            {subBool && (
+                                <ul className="list-group">
+                                    {item.subitems.map(subitem => (
+                                        <li className="list-group-item">
+                                            <Link
+                                                style={{ color: '#cd121a' }}
+                                                to={subitem.link}
+                                            >
+                                                {subitem.title}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </ContentGroup>
+                    )
+                })}
+            </SiteNav>
             <img src={Slider} alt="Logo-INLUCC" style={{ width: '100%' }} />
         </div>
     )
