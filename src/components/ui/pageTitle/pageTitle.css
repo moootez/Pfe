@@ -9,9 +9,13 @@
     min-width: 83%;
 }
 .typo {
+    font-size: 36px;
+    margin-bottom: 40px;
     text-align: center;
-    background: #cd121a;
-    font-size: 18px;
+    /* background: #cd121a;  */
+    /* border: 1px solid #cd121a; */
+    color: #cd121a;
+    /* font-size: 18px; */
     /* padding: 5px 20px; */
     padding: 1px;
     min-width: 141px;

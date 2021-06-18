@@ -22,8 +22,7 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 345,
     },
     media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
+        height: '130px',
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -159,7 +158,7 @@ const Index = ({
                 <div className="row">
                     {rows.map(el => (
                         <div className="col-4 p-3">
-                            <Card>
+                            <Card style={{ borderRadius: '0px' }}>
                                 <CardMedia
                                     className={classes.media}
                                     image={el.image}
