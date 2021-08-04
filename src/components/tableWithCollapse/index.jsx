@@ -29,12 +29,13 @@ const DetailPanelWithRowClick = props => {
             field: el,
             title: removeBottomDash(el),
         }))
-        header.push({ field: 'action', title: 'Action' })
+        // header.push({ field: 'action', title: 'Action1' })
         setDataTable({
             header,
-            data: (dataReturned instanceof Array ? dataReturned : []).map(
+            data: (dataReturned instanceof Array ? dataReturned : [])
+            /* .map(
                 el => ({ ...el, action: <PictureAsPdfIcon /> })
-            ),
+            ), */
         })
     }, [JSON.stringify(dataReturned)])
 
@@ -44,18 +45,18 @@ const DetailPanelWithRowClick = props => {
 
     const detailPanel = dataSubArray
         ? {
-              detailPanel: rowData => {
-                  return (
-                      // dataSubArray.dataApi is A function to get useful data from row data
-                      <SimpleTable
-                          {...rowData}
-                          {...dataSubArray}
-                          dataApi={dataSubArray.dataApi(rowData)}
-                          dataReturned={subDataRef.current}
-                      />
-                  )
-              },
-          }
+            detailPanel: rowData => {
+                return (
+                    // dataSubArray.dataApi is A function to get useful data from row data
+                    <SimpleTable
+                        {...rowData}
+                        {...dataSubArray}
+                        dataApi={dataSubArray.dataApi(rowData)}
+                        dataReturned={subDataRef.current}
+                    />
+                )
+            },
+        }
         : {}
 
     return (

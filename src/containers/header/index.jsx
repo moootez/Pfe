@@ -51,7 +51,7 @@ const Index = ({ logout, history }) => {
     }
 
     return (
-        <header className="header">
+        <header className="header container">
             <Grid container>
                 <Grid item xs={4} md sm className="left-block"></Grid>
                 <Grid item xs={8} md sm className="right-block">

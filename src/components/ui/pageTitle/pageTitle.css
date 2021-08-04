@@ -14,7 +14,7 @@
     text-align: center;
     /* background: #cd121a;  */
     /* border: 1px solid #cd121a; */
-    color: #cd121a;
+    color: white;
     /* font-size: 18px; */
     /* padding: 5px 20px; */
     padding: 1px;
@@ -24,4 +24,7 @@
     /* font-family: -'apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto',
         'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
         'Helvetica Neue', sans-serif; */
+}
+.slider {
+    display: none !important;
 }

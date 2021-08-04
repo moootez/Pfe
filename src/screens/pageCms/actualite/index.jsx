@@ -16,6 +16,7 @@ import deleteActualiteActions from '../../../redux/pageCms/actualite/deleteActua
 import Table from '../../../components/ui/table/index'
 import PageTitle from '../../../components/ui/pageTitle'
 import alertActions from '../../../redux/alert'
+import './styleActuSlider.css'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     },
     expandOpen: {
         transform: 'rotate(180deg)',
-    },
+    }
 }))
 
 /**

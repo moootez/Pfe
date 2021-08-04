@@ -26,7 +26,7 @@ function* deleteActualiteSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'تم الحذف  بنجاح',
+                        message: 'Supprimé avec succès',
                     })
                 ),
             ])

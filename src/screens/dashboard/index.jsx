@@ -12,6 +12,7 @@ import DashboardHeader from '../../components/dashboard/header'
 import listOfRoutes from '../../routes/listOfRoutes'
 import './style.css'
 
+
 const drawerWidth = 260
 
 // style
@@ -175,7 +176,8 @@ export default function Index({ isLogged, userRole }) {
                 className="content dashboard-main"
                 style={{
                     width: `calc(100% - ${drawerWidth}px)`,
-                    backgroundColor: '#f4f4f4',
+                    background: `background: url(https://www.opaliarecordati.com/img/opalia-icon/background_repeat.png) center center repeat rgba(255, 255, 255, 0.5)`,
+                    backgroundColor: `rgba(255, 255, 255, 0.5)`,
                 }}
             >
                 {logged && <DashboardHeader />}
@@ -184,13 +186,13 @@ export default function Index({ isLogged, userRole }) {
                     drawerIsOpen={open}
                     tabClicked={(e, openMenu) => selectHandler(e, openMenu)}
                 />
-                <div style={{ zIndex: 0 }}>
-                    <Switch>
-                        {listOfRoutes.map(route => route)}
-                        <Route exact path="/">
-                            <Redirect to="/actualite" />
-                        </Route>
-                    </Switch>
+
+
+                <div style={{ zIndex: 0, backgroundColor: 'rgba(194, 13, 32, 0.9)', border: '5px solid rgba(194, 13, 32, 0.9)' }}>
+
+                    {listOfRoutes.map(route => route)}
+
+
                 </div>
             </main>
         </div>

@@ -30,6 +30,7 @@ function* exportPdfCommandeSagas({ response }) {
         })
         if (res.status === 200) {
             yield all([
+                window.open(res.data.result, '_blank'),
                 yield put(
                     exportPdfCommandeAction.exportPdfCommandeSuccess(
                         res.data.data

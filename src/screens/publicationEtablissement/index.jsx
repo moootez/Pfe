@@ -284,7 +284,7 @@ const Index = ({
                             color="white"
                             type="contained"
                             size="medium"
-                            label="حذف"
+                            label="Supprimer"
                             clicked={() => supprimerEtablissementFn()}
                         />
                     </div>

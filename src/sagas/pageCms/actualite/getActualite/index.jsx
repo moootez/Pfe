@@ -18,9 +18,13 @@ function* getActualiteSagas() {
         } else {
             yield put(getActualiteActions.getActualiteFailure(res))
         }
+        if (res.data) {
+            yield localStorage.setItem('ActualitesAll', JSON.stringify(res.data))
+        }
     } catch (error) {
         yield put(getActualiteActions.getActualiteFailure(error))
     }
+
 }
 
 /**

@@ -8,3 +8,7 @@
 .hight-index {
     z-index: 10;
 }
+/*swiper*/
+.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events {
+    z-index: 0;
+}

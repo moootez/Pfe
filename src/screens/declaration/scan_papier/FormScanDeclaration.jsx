@@ -51,7 +51,7 @@ const FormScanDeclaration = props => {
     const [scan, setScan] = useState([])
     const [errors, setErrors] = useState([])
     const { isError, errorsList, intl, history } = props
-    const { dataDeclaration } = history.location.state
+    const { dataDeclaration } = ''
 
     /* life cycle */
     useEffect(
@@ -75,7 +75,7 @@ const FormScanDeclaration = props => {
         isDragAccept,
         isDragReject,
     } = useDropzone({
-        accept: 'application/pdf,image/png,image/jpeg',
+        accept: 'application/pdf,text/plain,text/xml',
         onDrop: acceptedFiles => {
             setFiles(
                 acceptedFiles.map(file =>
@@ -107,7 +107,7 @@ const FormScanDeclaration = props => {
                         id="pdf_doc"
                         title={files[files.length - 1].name}
                         src={files[files.length - 1].preview}
-                        type="application/pdf"
+                        type="text/csv"
                         width="400"
                         height="600"
                         style={{ overflow: 'auto', width: '100%' }}
@@ -145,9 +145,8 @@ const FormScanDeclaration = props => {
             <Fragment>
                 <div
                     {...getRootProps({ className: 'dropzone' })}
-                    className={`p-4 text-center ${
-                        isDragAccept ? 'border-success' : null
-                    } ${isDragReject || fileError ? 'border-danger' : null}`}
+                    className={`p-4 text-center ${isDragAccept ? 'border-success' : null
+                        } ${isDragReject || fileError ? 'border-danger' : null}`}
                     style={draggableInput}
                 >
                     <input {...getInputProps()} />

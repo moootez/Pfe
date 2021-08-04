@@ -11,10 +11,12 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import Button from '../../components/ui/button'
 import getCommandeActions from '../../redux/commande/getCommande'
 import validerCommandeActions from '../../redux/commande/validerCommande'
 import exportPdfCommandeActions from '../../redux/commande/exportPdf'
+import importCommandeActions from '../../redux/commande/uploadCommande'
 import PageTitle from '../../components/ui/pageTitle'
 
 const statusAndTxt = {
@@ -31,6 +33,7 @@ const Index = props => {
         userID,
         validerCommande,
         exportPdf,
+        importCommande,
         pdfLink,
         syncProduits,
         role,
@@ -145,16 +148,32 @@ const Index = props => {
                         },
                     },
                     {
-                        title: 'Export commande',
+                        title: 'Export Pdf Commande',
                         field: 'export',
                         render: rowData => {
                             return (
                                 <div style={{ width: 80 }}>
                                     <IconButton
-                                        onClick={() => exportPdf(rowData.id)}
+                                        onClick={() => exportPdf({ id: rowData.id })}
                                         color="primary"
                                     >
                                         <FileCopyIcon />
+                                    </IconButton>
+                                </div>
+                            )
+                        },
+                    },
+                    {
+                        title: 'Import (Copy Commande)',
+                        field: 'import',
+                        render: rowData => {
+                            return (
+                                <div style={{ width: 80 }}>
+                                    <IconButton
+                                        onClick={() => importCommande({ id: rowData.id })}
+                                        color="primary"
+                                    >
+                                        <FileCopyOutlinedIcon />
                                     </IconButton>
                                 </div>
                             )
@@ -182,6 +201,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(validerCommandeActions.validerCommandeRequest(payload)),
     exportPdf: payload =>
         dispatch(exportPdfCommandeActions.exportPdfCommandeRequest(payload)),
+    importCommande: payload =>
+        dispatch(importCommandeActions.uploadCommandeRequest(payload)),
     syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
@@ -210,6 +231,7 @@ Index.propTypes = {
     getCommande: PropTypes.func.isRequired,
     validerCommande: PropTypes.func.isRequired,
     exportPdf: PropTypes.func.isRequired,
+    importCommande: PropTypes.func.isRequired,
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     syncProduits: PropTypes.func.isRequired,

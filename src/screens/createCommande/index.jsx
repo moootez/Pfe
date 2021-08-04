@@ -13,7 +13,9 @@ import uploadCommandeActions from '../../redux/commande/uploadCommande'
 import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
+import baseUrl from '../../serveur/baseUrl'
 
+// destrict
 const Index = props => {
     const {
         products,
@@ -29,11 +31,13 @@ const Index = props => {
     const [allProduct, setAllProduct] = useState([])
     const [commande, setCommande] = useState({})
     const [file, setFile] = useState(null)
-
+    // 1 seul fois
     useEffect(() => {
         getAllProduct()
     }, [])
 
+    //  exceution mors de changement du parametre
+    // exp [newCommande.loading, uploadNewCommande.loading]
     useEffect(() => {
         if (newCommande.loading === true || uploadNewCommande.loading === true)
             setTimeout(() => history.push('/validation-commande'), 1000)
@@ -45,9 +49,7 @@ const Index = props => {
 
     const safeRequire = url => {
         try {
-            if (window.location.href.indexOf('41.226.165.26'))
-                return `http://41.226.165.26:8289/web/produits/${url}.png`
-            return `http://10.1.1.177/web/produits/${url}.png`
+            return `${baseUrl}../produits/${url}.png`
         } catch {
             return unknown
         }
@@ -55,7 +57,7 @@ const Index = props => {
 
     const getTotalQt = rowData =>
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
-            parseInt(rowData.coefUcUs || 0) +
+        parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
     const getTotalPrix = rowData => getTotalQt(rowData) * parseInt(rowData.prix)
 

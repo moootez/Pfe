@@ -19,7 +19,7 @@ const theme = createMuiTheme({
         },
     },
     typography: {
-        fontFamily: '"Open Sans", sans-serif',
+        fontFamily: '"calibri", regular',
     },
     overrides: {
         MuiButton: {

@@ -45,12 +45,13 @@ const Index = props => {
 
     return (
         <div className="column col-md-12">
-            <Grid className="gridItem">
+            {/* <Grid className="gridItem">
                 <PageTitle label="Traitement des réclamations" />
-            </Grid>
+            </Grid> */}
             <Divider />
             <MaterialTable
-                title=""
+                title="Traitement des réclamations
+                "
                 columns={[
                     { title: 'ID réclamation', field: 'id' },
                     { title: 'Code Client', field: 'client.codeInsc' },
@@ -66,9 +67,16 @@ const Index = props => {
                         render: rowData => (
                             <div style={{ width: 300 }}>
                                 <FormControl className="w-100">
-                                    <InputLabel id="select-gravite">
-                                        Status
-                                    </InputLabel>
+                                    {rowData.status ? (
+                                        <InputLabel id="select-gravite">
+                                            {rowData.status}
+                                        </InputLabel>
+                                    ) : (
+                                        <InputLabel id="select-gravite">
+                                            Status
+                                        </InputLabel>
+                                    )}
+
                                     <Select
                                         className="border"
                                         id="demo-mutiple-name"
@@ -76,7 +84,7 @@ const Index = props => {
                                         value={
                                             (
                                                 (reclamationStatus || {})[
-                                                    rowData.id
+                                                rowData.id
                                                 ] || {}
                                             ).status
                                         }
@@ -92,6 +100,12 @@ const Index = props => {
                                             })
                                         }
                                         input={<Input />}
+                                        disabled={
+                                            rowData.status === 'Acceptée' ||
+                                                rowData.status === 'Refusée'
+                                                ? true
+                                                : null
+                                        }
                                     >
                                         {status.map(element => (
                                             <MenuItem
@@ -105,64 +119,64 @@ const Index = props => {
                                 </FormControl>
                                 {((reclamationStatus || {})[rowData.id] || {})
                                     .status === 'Refusée' && (
-                                    <TextField
-                                        type="text"
-                                        className="mt-2 w-100"
-                                        key={generateKey()}
-                                        label="Motif"
-                                        id="outlined-size-small"
-                                        defaultValue={
-                                            (
-                                                (reclamationStatus || {})[
+                                        <TextField
+                                            type="text"
+                                            className="mt-2 w-100"
+                                            key={generateKey()}
+                                            label="Motif"
+                                            id="outlined-size-small"
+                                            defaultValue={
+                                                (
+                                                    (reclamationStatus || {})[
                                                     rowData.id
-                                                ] || {}
-                                            ).motif
-                                        }
-                                        variant="outlined"
-                                        onBlur={e =>
-                                            setReclamationStatus({
-                                                ...reclamationStatus,
-                                                [rowData.id]: {
-                                                    ...(reclamationStatus[
-                                                        rowData.id
-                                                    ] || {}),
-                                                    motif: e.target.value,
-                                                },
-                                            })
-                                        }
-                                        size="small"
-                                    />
-                                )}
+                                                    ] || {}
+                                                ).motif
+                                            }
+                                            variant="outlined"
+                                            onBlur={e =>
+                                                setReclamationStatus({
+                                                    ...reclamationStatus,
+                                                    [rowData.id]: {
+                                                        ...(reclamationStatus[
+                                                            rowData.id
+                                                        ] || {}),
+                                                        motif: e.target.value,
+                                                    },
+                                                })
+                                            }
+                                            size="small"
+                                        />
+                                    )}
                                 {((reclamationStatus || {})[rowData.id] || {})
                                     .status === 'Acceptée' && (
-                                    <TextField
-                                        type="text"
-                                        className="mt-2 w-100"
-                                        key={generateKey()}
-                                        label="Action"
-                                        id="outlined-size-small"
-                                        defaultValue={
-                                            (
-                                                (reclamationStatus || {})[
+                                        <TextField
+                                            type="text"
+                                            className="mt-2 w-100"
+                                            key={generateKey()}
+                                            label="Action"
+                                            id="outlined-size-small"
+                                            defaultValue={
+                                                (
+                                                    (reclamationStatus || {})[
                                                     rowData.id
-                                                ] || {}
-                                            ).action
-                                        }
-                                        variant="outlined"
-                                        onBlur={e =>
-                                            setReclamationStatus({
-                                                ...reclamationStatus,
-                                                [rowData.id]: {
-                                                    ...(reclamationStatus[
-                                                        rowData.id
-                                                    ] || {}),
-                                                    action: e.target.value,
-                                                },
-                                            })
-                                        }
-                                        size="small"
-                                    />
-                                )}
+                                                    ] || {}
+                                                ).action
+                                            }
+                                            variant="outlined"
+                                            onBlur={e =>
+                                                setReclamationStatus({
+                                                    ...reclamationStatus,
+                                                    [rowData.id]: {
+                                                        ...(reclamationStatus[
+                                                            rowData.id
+                                                        ] || {}),
+                                                        action: e.target.value,
+                                                    },
+                                                })
+                                            }
+                                            size="small"
+                                        />
+                                    )}
                             </div>
                         ),
                     },
@@ -170,28 +184,42 @@ const Index = props => {
                         title: 'Validation',
                         field: 'validation',
                         render: rowData => {
+                            console.log(rowData.status)
                             return (
                                 <div>
-                                    <IconButton
-                                        onClick={() => {
-                                            const payload =
-                                                reclamationStatus[rowData.id]
-                                            updateReclamation({
-                                                reclamation: rowData.id,
-                                                ...payload,
-                                            })
-                                        }}
-                                        color="primary"
-                                        aria-label="Changer status"
-                                    >
-                                        <SendIcon />
-                                    </IconButton>
+                                    {rowData.status === 'Acceptée' ||
+                                        rowData.status === 'Refusée' ? (
+                                        <span> </span>
+                                    ) : (
+                                        <IconButton
+                                            onClick={() => {
+                                                const payload =
+                                                    reclamationStatus[
+                                                    rowData.id
+                                                    ]
+                                                updateReclamation({
+                                                    reclamation: rowData.id,
+                                                    ...payload,
+                                                })
+                                            }}
+                                            color="primary"
+                                            aria-label="Changer status"
+                                        >
+                                            <SendIcon />
+                                        </IconButton>
+                                    )}
                                 </div>
                             )
                         },
                     },
                 ]}
                 data={JSON.parse(JSON.stringify(reclamations)) || []}
+                options={{
+                    headerStyle: {
+                        backgroundColor: '#00aa9b',
+                        color: 'white',
+                    },
+                }}
             />
         </div>
     )
