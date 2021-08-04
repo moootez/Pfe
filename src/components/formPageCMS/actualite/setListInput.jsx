@@ -8,7 +8,7 @@ const setListInput = () => {
         {
             name: 'texte',
             sm: 6,
-            md: 4,
+            md: 9,
             label: 'Texte',
             placeholder: 'Texte',
             lng: 'fr',
@@ -17,15 +17,15 @@ const setListInput = () => {
         {
             name: 'priorite',
             sm: 6,
-            md: 4,
+            md: 3,
             label: 'Priorite',
             placeholder: 'Priorite',
             lng: 'fr',
             required: false,
         },
-        {
+        /* {
             name: 'dateActualite',
-            label: 'Date Création',
+            label: 'Date Publication',
             isDate: true,
             type: 'date',
             // props: {
@@ -33,7 +33,7 @@ const setListInput = () => {
             // },
             sm: 6,
             md: 4,
-        },
+        }, */
         {
             name: 'image',
             sm: 6,

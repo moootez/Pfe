@@ -1,5 +1,8 @@
-/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable import/order */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-debugger */
 import React, { Fragment, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 // import Immutable from 'seamless-immutable'
@@ -15,11 +18,24 @@ import SiteNav, { ContentGroup } from 'react-site-nav'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import data from './data.json'
 import Slider from '../../assets/images/slider.png'
+import Slider2 from '../../assets/images/slider-2.jpg'
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-/* style */
-/**
- * style css
- */
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
+
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+
+const page = window.location.pathname
+// const location = window.location.protocol + Slider
+const location = window.location.protocol + Slider2
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
@@ -59,6 +75,7 @@ const index = ({ history, role }) => {
     const [selectedSubItem, setSelectedSubItem] = useState(1)
     const [open, setOpen] = useState(false)
     const [itemsMenu, setItemsMenu] = useState([])
+
     /* functions */
     /**
      * select item in sidbar
@@ -126,132 +143,65 @@ const index = ({ history, role }) => {
     }
 
     /* render */
-
     return (
-        // <Fragment>
-        //     <List>
-        //         {itemsMenu.map(item => (
-        //             <Fragment>
-        //                 {item.subitems !== null ? (
-        //                     <Fragment>
-        //                         <ListItem
-        //                             button
-        //                             onClick={e => handleClickItem(e, item)}
-        //                             className={classes.listItem}
-        //                         >
-        //                             <ListItemText
-        //                                 primary={
-        //                                     <Typography
-        //                                         className={classes.itemText}
-        //                                     >
-        //                                         {item.title}
-        //                                     </Typography>
-        //                                 }
-        //                             />
-        //                             {open && selectedItem === item.id ? (
-        //                                 <ExpandLess />
-        //                             ) : (
-        //                                 <ExpandMore />
-        //                             )}
-        //                         </ListItem>
-        //                         <Collapse
-        //                             in={open}
-        //                             timeout="auto"
-        //                             unmountOnExit
-        //                         >
-        //                             {open &&
-        //                             item.subitems !== null &&
-        //                             selectedItem === item.id ? (
-        //                                 <List component="div" disablePadding>
-        //                                     {item.subitems.map(subitem => (
-        //                                         <ListItem
-        //                                             button
-        //                                             onClick={e =>
-        //                                                 handleClickSubItem(
-        //                                                     e,
-        //                                                     subitem
-        //                                                 )
-        //                                             }
-        //                                             className={
-        //                                                 selectedSubItem ===
-        //                                                 subitem.id
-        //                                                     ? classes.subItemList
-        //                                                     : ''
-        //                                             }
-        //                                         >
-        //                                             <ListItemText
-        //                                                 primary={
-        //                                                     <Typography
-        //                                                         className={
-        //                                                             selectedSubItem ===
-        //                                                             subitem.id
-        //                                                                 ? classes.selectedSubText
-        //                                                                 : classes.subItemText
-        //                                                         }
-        //                                                     >
-        //                                                         {subitem.title}
-        //                                                     </Typography>
-        //                                                 }
-        //                                                 className={
-        //                                                     classes.nested
-        //                                                 }
-        //                                             />
-        //                                         </ListItem>
-        //                                     ))}
-        //                                 </List>
-        //                             ) : null}
-        //                         </Collapse>
-        //                     </Fragment>
-        //                 ) : (
-        //                     <ListItem
-        //                         button
-        //                         onClick={e => handleClickSubItem(e, item)}
-        //                         className={classes.listItem}
-        //                     >
-        //                         <ListItemText
-        //                             primary={
-        //                                 <Typography
-        //                                     className={classes.itemText}
-        //                                 >
-        //                                     {item.title}
-        //                                 </Typography>
-        //                             }
-        //                         />
-        //                     </ListItem>
-        //                 )}
-        //             </Fragment>
-        //         ))}
-        //     </List>
-        // </Fragment>
         <div className="hight-index">
-            <SiteNav background="white" color="#cd121a" fontSize="16">
-                {itemsMenu.map(item => {
-                    const subBool = Boolean(item.subitems)
-                    const rootUrl = subBool
-                        ? { height: 'auto' }
-                        : { rootUrl: item.link }
-                    return (
-                        <ContentGroup {...rootUrl} title={item.title}>
-                            {/* 3. You can add anything in a ContentGroup */}
-                            {subBool && (
-                                <ul className="list-group">
-                                    {item.subitems.map(subitem => (
-                                        <li className="list-group-item">
-                                            <Link
-                                                style={{ color: '#cd121a' }}
-                                                to={subitem.link}
-                                            >
-                                                {subitem.title}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </ContentGroup>
-                    )
-                })}
-            </SiteNav>
-            <img src={Slider} alt="Logo-INLUCC" style={{ width: '100%' }} />
+            <div className="container">
+                <SiteNav
+                    className="container"
+                    background="white"
+                    fontSize="16"
+                    style={{ borderRadius: '0px !important' }}
+                >
+                    {itemsMenu.map(item => {
+                        const subBool = Boolean(item.subitems)
+                        const rootUrl = subBool
+                            ? { height: 'auto' }
+                            : { rootUrl: item.link }
+                        return (
+                            <ContentGroup
+                                {...rootUrl}
+                                title={item.title}
+                                style={{ borderRadius: '0px !important' }}
+                            >
+                                {/* 3. You can add anything in a ContentGroup */}
+                                {subBool && (
+                                    <ul
+                                        className="list-group"
+                                        style={{ borderRadius: '0px !important' }}
+                                    >
+                                        {item.subitems.map(subitem => (
+                                            <li className="list-group-item">
+                                                <Link
+                                                    style={{ color: '#cd121a' }}
+                                                    to={subitem.link}
+                                                >
+                                                    {subitem.title}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </ContentGroup>
+                        )
+                    })}
+                </SiteNav>
+            </div>
+            {page === "/dashboard" &&
+                <Swiper
+                    spaceBetween={50}
+                    slidesPerView={1}
+                    navigation
+                    pagination={{ clickable: true }}
+                    scrollbar={{ draggable: true }}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log('slide change')}
+                >
+                    <SwiperSlide> <img src={location} alt="slider 1" />  </SwiperSlide>
+                    <SwiperSlide> <img src="https://www.opaliarecordati.com/images/timelines/5/opalia-pharma-0.782662001616490312.jpg" alt="slider 2" /> </SwiperSlide>
+                    <SwiperSlide> <img src="https://www.opaliarecordati.com/images/timelines/8/opalia-pharma-0.227952001616490470.jpg" alt="slider 3" /> </SwiperSlide>
+                </Swiper>
+            }
+
         </div>
     )
 }

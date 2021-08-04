@@ -4,7 +4,7 @@ import axios from 'axios'
 import loginActions, { loginTypes } from '../../redux/login/index'
 import getAllRef from '../../redux/referencial/getAllReferencial'
 import alertActions from '../../redux/alert'
-// import getAllReferencialActions from '../../redux/referencial/getAllReferencial/index'
+import getActualiteActions from '../../redux/pageCms/actualite/getActualite/index'
 import baseUrl from '../../serveur/baseUrl'
 import getLoaderActions from '../../redux/wrapApi/index'
 import instance from '../../serveur/axios'
@@ -41,11 +41,11 @@ function* loginSagas(payload) {
             yield put(getLoaderActions.disableGeneraleLoader())
             yield put(getAllRef.getAllReferenceSuccess(true))
             yield put(loginActions.loginSuccess(response.data))
-            // yield put(
-            //     getAllReferencialActions.getAllReferenceRequest({
-            //         dontNavigate: true,
-            //     })
-            // )
+            yield put(
+                getActualiteActions.getActualiteRequest({
+                    dontNavigate: true,
+                })
+            )
         } else {
             yield put(getLoaderActions.disableGeneraleLoader())
             yield all([

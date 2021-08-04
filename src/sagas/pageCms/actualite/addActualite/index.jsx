@@ -25,7 +25,7 @@ function* addActualiteSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'تم الإضافة  بنجاح',
+                        message: 'Ajouté avec succès',
                     })
                 ),
                 yield put(goBack()),

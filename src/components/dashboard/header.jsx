@@ -23,25 +23,29 @@ const Header = props => {
 
     const handleLogout = () => {
         logout()
-        history.push('/')
+        history.push('/dashboard')
     }
 
     // render
     return (
         <Fragment>
-            <header className="dashboard-header">
+            <header className="dashboard-header container">
                 <Grid container>
-                    <Grid md={4} xs={4}>
+                    <Grid md={9} xs={4}>
                         {/* logo INLUCC  */}
                         <div className="logo-img" role="presentation">
-                            <img
-                                src={Logo}
-                                alt="Logo-INLUCC"
-                                style={{ height: 60 }}
-                            />
+                            <a href="/dashboard">
+                                <img
+                                    src={Logo}
+                                    alt="Logo-INLUCC"
+                                    style={{ height: 60 }}
+                                />
+                            </a>
+
                         </div>
                     </Grid>
-                    <Grid xs={8} md sm className="right-block">
+
+                    <Grid xs={8} md={3} sm className="right-block">
                         <div className="d-flex justify-content-end align-items-center w-100">
                             <div className="d-flex flex-column">
                                 <Tooltip title="Se déconnecter">
@@ -52,10 +56,11 @@ const Header = props => {
                                         <ExitToAppIcon
                                             style={{ color: 'black' }}
                                             fontSize="large"
+                                            label="yy"
                                         />
                                     </IconButton>
                                 </Tooltip>
-                                <p>Bienvenue {username}</p>
+                                <p className="username">{username}</p>
                             </div>
                         </div>
                     </Grid>

@@ -20,7 +20,6 @@ function* uploadCommandeSagas({ response }) {
             headers: {
                 'Accept-Version': 1,
                 'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'multipart/form-data',
             },
             timeout: 3000,
         })

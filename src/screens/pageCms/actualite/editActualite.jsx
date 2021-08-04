@@ -117,7 +117,7 @@ class editActualite extends React.Component {
             if (fileToLoad && fileToLoad.size <= 150000) {
                 let file = ''
                 // eslint-disable-next-line func-names
-                fileReader.onload = function(fileLoadedEvent) {
+                fileReader.onload = function (fileLoadedEvent) {
                     file = fileLoadedEvent.target.result
                     base64.push(file)
                 }
@@ -135,7 +135,7 @@ class editActualite extends React.Component {
                     info: false,
                     error: true,
                     success: false,
-                    message: `الرجاء تقليل حجم الصورة`,
+                    message: `Image de grande taille, il faut choisir une image de taille inferieur à 150000ko`,
                 })
             }
         }
@@ -193,7 +193,7 @@ class editActualite extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                message: `Image de grande taille`,
+                message: `Image de grande taille, il faut choisir une image de taille inferieur à 150000ko`,
             })
     }
 
