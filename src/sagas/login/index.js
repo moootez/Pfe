@@ -31,6 +31,14 @@ function* loginSagas(payload) {
         })
 
         if (response.data.Token) {
+            yield localStorage.setItem(
+                'countlogin',
+                response.data.User.details.firstLogin
+            )
+            yield localStorage.setItem(
+                'email',
+                response.data.User.details.email
+            )
             yield localStorage.setItem('InluccToken', response.data.Token)
             yield localStorage.setItem(
                 'role',

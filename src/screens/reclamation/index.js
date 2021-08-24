@@ -4,6 +4,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 import { injectIntl } from 'react-intl'
 import { Grid, Divider } from '@material-ui/core'
 import getAllReclamations from '../../redux/reclamation/getReclamation'
@@ -12,6 +13,12 @@ import PageTitle from '../../components/ui/pageTitle'
 
 const Index = props => {
     const { userID, reclamations, getAllReclamation } = props
+    const history = useHistory()
+    // useEffect(() => {
+    //     if (localStorage.countlogin === 1) {
+    //         history.push('/dashboard')
+    //     }
+    // }, [])
 
     useEffect(() => {
         getAllReclamation({ user: userID })

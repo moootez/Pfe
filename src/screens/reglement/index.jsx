@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
 import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
@@ -12,6 +13,12 @@ import PageTitle from '../../components/ui/pageTitle'
 
 const Index = props => {
     const { userID, reglements, getAllReglement } = props
+    const history = useHistory()
+    useEffect(() => {
+        if (localStorage.countlogin === 1) {
+            history.push('/dashboard')
+        }
+    }, [])
 
     useEffect(() => {
         getAllReglement({ user: userID })

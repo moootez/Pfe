@@ -44,6 +44,12 @@ const Index = props => {
     const [reclamation, setReclamation] = useState({})
 
     useEffect(() => {
+        if (localStorage.countlogin === 1) {
+            history.push('/dashboard')
+        }
+    }, [])
+
+    useEffect(() => {
         getAllLivraison({ user: userID })
     }, [])
 

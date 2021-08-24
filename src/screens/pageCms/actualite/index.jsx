@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     },
     expandOpen: {
         transform: 'rotate(180deg)',
-    }
+    },
 }))
 
 /**
@@ -91,10 +91,17 @@ const Index = ({
         setRows(rowsTmp)
     }
 
+    useEffect(() => {
+        if (localStorage.countlogin > 1) {
+            history.push('/dashboard')
+        }
+    }, [])
+
     /* life cycle */
     useEffect(() => {
         getActualite()
     }, [])
+
     /* life cycle */
     useEffect(() => {
         if (filtredTable) {

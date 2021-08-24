@@ -38,7 +38,7 @@ class FormLogin extends Component {
      * @memberof FormLogin
      */
     verifKey = e => {
-        if (e.keyCode === 13) {
+        if (e.keyCode === 1) {
             this.handleSubmit()
         }
     }

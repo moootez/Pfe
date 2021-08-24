@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
@@ -34,6 +35,13 @@ const Index = props => {
         dataId: 'No_facture',
         dataReturned: factureDetails,
     })
+
+    const history = useHistory()
+    useEffect(() => {
+        if (localStorage.countlogin === 1) {
+            history.push('/dashboard')
+        }
+    }, [])
 
     useEffect(() => {
         setDataSubArray({ ...dataSubArray, dataReturned: factureDetails })
