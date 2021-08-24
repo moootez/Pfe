@@ -7,18 +7,13 @@ import { reducer as wrapApi } from './wrapApi'
 import referencial from './referencial'
 import rapport from './rapport'
 import declarationReception from './declaration'
-import affectation from './affectation'
-import publication from './publication'
-import declarationGrab from './declaration_grab'
 import declarantInterne from './declarantInterne'
-import { reducer as stepSaisie } from './step_saisie'
 import users from './user'
 import { reducer as info } from './language'
 import { reducer as alert } from './alert'
 import ImmutablePersistenceTransform from './ImmutablePersistenceTransform'
 import etablissement from './etablissement'
 import inscription from './inscription'
-import certificat from './certificat'
 import statistique from './statistique'
 import roles from './roles'
 import parametres from './parametres'
@@ -53,18 +48,13 @@ const containersReducer = {
     referencial,
     info,
     declarationReception,
-    declarationGrab,
-    stepSaisie,
-    affectation,
     rapport,
     login,
     roles,
     users,
-    publication,
     etablissement,
     inscription,
     declarantInterne,
-    certificat,
     parametres,
     history,
     commande,

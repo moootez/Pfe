@@ -9,7 +9,7 @@ $color_asphalt_approx: #170312;
 $color_valencia_approx: rgb(213, 69, 64);
 
 .App {
-    min-height: 89vh;
+    min-height: 66vh;
     display: flex;
     flex-direction: row;
 }
@@ -289,7 +289,7 @@ body {
     .dashboard-header {
         padding: 30px 15px 5px 15px;
         display: flex;
-        background-color: rgba(255,255,255,0.5);
+        background-color: rgba(255, 255, 255, 0.5);
         // .left-block {
         //     flex: auto;
         //     .pageTitle h1 {
@@ -361,7 +361,6 @@ body {
 .footer {
     flex-shrink: 0;
     background-color: $color_tangaroa_approx;
-                  
 }
 .cernterDiv {
     text-align: center;
@@ -569,56 +568,55 @@ div.centerDiv {
     color: rgb(213, 69, 64);
 }
 
-.text-center{
+.text-center {
     color: white;
 }
-hr{
-    background-color: #717175 !important;  
+hr {
+    background-color: #717175 !important;
 }
 
-.hight-index a , .hight-index > div > nav > div > div{
+.hight-index a,
+.hight-index > div > nav > div > div {
     color: #353535 !important;
     padding: 0px;
     font-size: 1.3rem !important;
-    font-family: "calibri regular";
+    font-family: 'calibri regular';
     line-height: 20px;
     width: 140px;
-    
 }
 /*.hight-index > div > nav > div >a:first-child{
     width: 144px !important;
 }*/
-.hight-index > div > nav > div{
+.hight-index > div > nav > div {
     grid-template-columns: none !important;
-} 
-.hight-index a:hover , .hight-index > div > nav > div > div:hover{
-    color: rgba(194, 13, 32, 0.9) !important;
-    opacity: 1!important;
-    z-index:999
-    
 }
-.hight-index > div.container{
+.hight-index a:hover,
+.hight-index > div > nav > div > div:hover {
+    color: rgba(194, 13, 32, 0.9) !important;
+    opacity: 1 !important;
+    z-index: 999;
+}
+.hight-index > div.container {
     padding-right: 0;
     padding-left: 0;
 }
 
 .countryOpaliaHeader {
-    right:0;
+    right: 0;
     text-align: right;
     background: #c20d20;
     position: fixed;
     top: 0;
     z-index: 999;
-    color: #FFF;
+    color: #fff;
     padding: 8px 2% 4px 15px;
     font-size: 18px;
 }
 .countryOpaliaHeader:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: -30px;
     border-top: 38px solid #c20d20;
     border-left: 30px solid transparent;
 }
-    

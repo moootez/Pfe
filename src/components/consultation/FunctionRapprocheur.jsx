@@ -70,7 +70,7 @@ const FunctionRapprocheur = ({
                         })
                     }
                 />
-                {/* bouton redirection  رجوع */}
+                {/* bouton redirection  Retour */}
                 <ButtonComponent
                     color="secondary"
                     type="contained"

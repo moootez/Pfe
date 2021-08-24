@@ -7,6 +7,14 @@
     height: 100vh;
     position: fixed;
 }
+.bgallpages {
+    background: url('../../assets/images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: auto;
+}
 
 .btn-submit {
     height: 30px;

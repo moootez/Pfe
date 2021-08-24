@@ -17,7 +17,7 @@ const FunctionValidation = ({ intl, dataDeclaration, history, lng }) => {
             {/* séparation entre les component (hr) */}
             <Divider />
             <div>
-                {/* bouton redirection  رجوع */}
+                {/* bouton redirection  Retour */}
                 <ButtonComponent
                     color="secondary"
                     type="contained"

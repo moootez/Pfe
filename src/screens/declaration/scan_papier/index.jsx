@@ -187,7 +187,7 @@ const Index = ({
                 type: 'rattachement',
                 role: 'ROLE_NUMERISATION',
                 dataDeclaration: filtredTable.data[index],
-                label: 'إضافة نسخة',
+                label: 'Importer une commande',
             },
         })
     }
@@ -231,7 +231,7 @@ const Index = ({
     return (
         <div style={{ padding: '1%' }}>
             <Grid className="gridItem">
-                <PageTitle label="إضافة نسخة" />
+                <PageTitle label="Importer une commande" />
                 <label
                     htmlFor="form"
                     className="mt-3 mr-2 mb-0 ml-2 font-weight-bold text-uppercase text-primary"

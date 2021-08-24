@@ -62,7 +62,7 @@ const FunctionVerificateur = ({
                         ) : null}
                     </Fragment>
                 ) : null}
-                {/* bouton redirection  رجوع */}
+                {/* bouton redirection  Retour */}
                 <ButtonComponent
                     color="secondary"
                     type="contained"

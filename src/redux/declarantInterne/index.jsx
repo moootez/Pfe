@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { combineReducers } from 'redux'
 import { reducer as addDeclarantInterne } from './addDeclarantInterne'
 import { reducer as getFiltredDeclarantInterne } from './getDeclarantInterne'

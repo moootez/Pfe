@@ -12,7 +12,7 @@ const renderDetailsDeclaration = () => {
     /*  <ButtonComponent
                  color="secondary"
                  type="contained"
-                 label="رجوع"
+                 label="Retour"
                  size="large"
                  clicked={() => history.goBack()}
              /> */

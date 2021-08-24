@@ -197,7 +197,7 @@ const FormDetailDeclaration = ({
                         color="secondary"
                         type="contained"
                         size="medium"
-                        label="رجوع إلى المعاينة"
+                        label="Retour إلى المعاينة"
                         clicked={() => retour()}
                     />
                 </div>

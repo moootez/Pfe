@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { combineReducers } from 'redux'
 import { reducer as addDeclarant } from './addDeclarant'
 import { reducer as getDeclarantByCinOrPass } from './getDeclarantByCinOrPass'

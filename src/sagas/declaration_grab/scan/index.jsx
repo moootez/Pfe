@@ -13,11 +13,9 @@ import { Post } from '../../../serveur/axios'
  * @param {*} { response }
  */
 function* scanDecSagas({ response }) {
+    // /${response.id_declaration}
     try {
-        const res = yield Post(
-            `declaration/document/${response.id_declaration}`,
-            response.body
-        )
+        const res = yield Post(`commande/import`, response.body)
         if (res.status === 201) {
             yield all([
                 yield put(scanDecActions.scanDecSuccess(res.data)),
@@ -43,11 +41,18 @@ function* scanDecSagas({ response }) {
         } else {
             yield put(scanDecActions.scanDecFailure(res.data))
         }
-        if (res.data)
-            response.history.push({
-                pathname:
-                    '/declaration_rattacher_saisie/rattacher_le_scan_de_la_declaration',
-            })
+        if (res.data) {
+            yield put(
+                alertActions.alertShow(true, {
+                    onConfirm: false,
+                    warning: false,
+                    info: false,
+                    error: false,
+                    success: true,
+                    message: 'Import fait avec succés',
+                })
+            )
+        }
     } catch (error) {
         yield put(scanDecActions.scanDecFailure(error))
     }

@@ -44,58 +44,6 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
-            loader: () => import('../screens/declaration/step_reception'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_reception',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_reception',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/declaration/step_grab/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_saisie',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_saisie',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/declaration/step_grab/saisieDeclaration'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/saisie_declaration',
-        props: {
-            exact: true,
-        },
-        name: 'saisie_declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_grab/FormDetailDeclaration'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_saisie/saisie_details_declaration/:id',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_saisie_detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
             loader: () => import('../screens/declaration/scan_papier/index'),
             loading: () => <SpinnerHourGlass />,
         }),
@@ -148,290 +96,6 @@ const loadableComponents = [
             exact: true,
         },
         name: 'rattachement_scan_modification',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../components/declaration/step_reception/renderDetailsDeclaration'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_saisie/succée',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_saisie_success',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/rapprochementDeclaration/agentAffectationRapprochement/index'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_rapprochement',
-        props: {
-            exact: true,
-        },
-        name: 'rapprochement_Declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_rapprochement/:id',
-        props: {
-            exact: true,
-        },
-        name: 'affectation_rapprochement_detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_grab/FormDetailDeclaration'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_rapprochement/modification/:id',
-        props: {
-            exact: true,
-        },
-        name: 'affectation_rapprochement_modification',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/rapprochementDeclaration/agentRapprocheur'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/rapprochement_de_declaration',
-        props: {
-            exact: true,
-        },
-        name: 'rapprocheur_Declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/rapprochement_de_declaration/:id',
-        props: {
-            exact: true,
-        },
-        name: 'rapprochement_declaration_detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_grab/FormDetailDeclaration'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/rapprochement_de_declaration/modification/:id',
-        props: {
-            exact: true,
-        },
-        name: 'rapprochement_declaration_modification',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/validationDeclaration/agentAffectationValidation/index'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_validation',
-        props: {
-            exact: true,
-        },
-        name: 'validation_Declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_validation/:id',
-        props: {
-            exact: true,
-        },
-        name: 'affectation_pour_validation_detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_grab/FormDetailDeclaration'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_validation/modification/:id',
-        props: {
-            exact: true,
-        },
-        name: 'affectation_pour_validation_modification',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/validationDeclaration/agentValidateur/index'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/validation_de_declaration',
-        props: {
-            exact: true,
-        },
-        name: 'validateur_Declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/validation_de_declaration/:id',
-        props: {
-            exact: true,
-        },
-        name: 'validateur_Declaration_Detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/verificationDeclaration/agentVerificationDeclaration/index'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_verification',
-        props: {
-            exact: true,
-        },
-        name: 'verification_Declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/tableauDuBord'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/dashboard',
-        props: {
-            exact: true,
-        },
-        name: 'dashboard',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/affectation_pour_verification/:id',
-        props: {
-            exact: true,
-        },
-        name: 'verification_Declaration_detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/verificationDeclaration/agentVerificateur/index'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/verification_de_declaration',
-        props: {
-            exact: true,
-        },
-        name: 'Verificateur_Declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/verification_de_declaration/:id',
-        props: {
-            exact: true,
-        },
-        name: 'Verificateur_Declaration_Detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/declaration/rapport/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/rapprochement_de_declaration/edit_rapport/:id',
-        props: {
-            exact: true,
-        },
-        name: 'edit_rapport_declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/validationRapport/agentValidateurRapport/index'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/list_rapport',
-        props: {
-            exact: true,
-        },
-        name: 'consultaion_rapport',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/list_rapport/consultation',
-        props: {
-            exact: true,
-        },
-        name: 'consultaion_rapport_pour_validation',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/declaration/step_reception/consultation'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_saisie/declaration_consultation/:id',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_consultation',
         showWhenConnected: true,
     },
     {
@@ -492,223 +156,6 @@ const loadableComponents = [
             exact: true,
         },
         name: 'facture',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/publication_du_declaration/:id',
-        props: {
-            exact: true,
-        },
-        name: 'publication_du_declaration_detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/publicationEtablissement'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/publication_etablissement',
-        props: {
-            exact: true,
-        },
-        name: 'publication_etablissement',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/publicationDeclarant'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/publication_declarant',
-        props: {
-            exact: true,
-        },
-        name: 'publication_declarant',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declarationAssujetti/step_grab/listEtablissement'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_assujetti_saisie',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_assujetti_saisie',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/declarationAssujetti/step_grab'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_assujetti_saisie_declarant',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_assujetti_saisie_declarant',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_reception/addDeclarationAssujetti'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_reception_assujetti',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_reception_assujetti',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/declaration/step_reception/consultation'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declaration_assujetti_saisie/:id',
-        props: {
-            exact: true,
-        },
-        name: 'declaration_assujetti_consultation',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/declarationAssujetti/validation/index'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/validation_declaration_assujetti',
-        props: {
-            exact: true,
-        },
-        name: 'validation_declaration_assujetti',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/publicationDeclaration/publicationFormat'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/format_du_publication',
-        props: {
-            exact: true,
-        },
-        name: 'format_du_publiation',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declarant/addDeclarantInterne/addDeclarantInterne'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/add_declarant',
-        props: {
-            exact: true,
-        },
-        name: 'add_declarant',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/declarant/getDeclarantsInterne'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/get_declarants',
-        props: {
-            exact: true,
-        },
-        name: 'get_declarants',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/inscription/demande'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/liste_des_inscriptions',
-        props: {
-            exact: true,
-        },
-        name: 'liste_des_inscriptions',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/inscription/validation'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/validation_inscription/:id',
-        props: {
-            exact: true,
-        },
-        name: 'validation_inscription',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/declarant/detailsSanction/consultation'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declarant_interne_details/:id',
-        props: {
-            exact: true,
-        },
-        name: 'declarant_interne_details',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/declarant/editDeclarantInterne'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/declarant_interne_edit/:id',
-        props: {
-            exact: true,
-        },
-        name: 'declarant_interne_edit',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/stat'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/publier_stat',
-        props: {
-            exact: true,
-        },
-        name: 'publier_stat',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/stat/consulterStat'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/statistique',
-        props: {
-            exact: true,
-        },
-        name: 'statistique',
         showWhenConnected: true,
     },
     {
@@ -869,126 +316,6 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_grab_cours_des_comptes/index'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/cour_des_comptes/declaration_saisie',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_declaration_saisie',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_reception/addDeclarationCoursDesComptes'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/cour_des_comptes/declaration_reception',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_declaration_reception',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_grab_cours_des_comptes/saisieDeclarationCoursDesComptes'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/cour_des_comptes/saisie_declaration',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_saisie_declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/declaration/step_grab_cours_des_comptes/FormDetailDeclarationCoursDesComptes'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path:
-            '/cour_des_comptes/declaration_saisie/saisie_details_declaration/:id',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_declaration_saisie_detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import('../screens/declaration/step_reception/consultation'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path:
-            '/cour_des_comptes/declaration_saisie/declaration_consultation/:id',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_declaration_consultation',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/validationDeclaration/listDecValideCoursDesComptes'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/cour_des_comptes/validation_de_declaration',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_validateur_Declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/publicationDeclaration/publicationDecCoursDesComptes'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/cour_des_comptes/publication_du_declaration',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_publication_du_declaration',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () =>
-                import(
-                    '../screens/publicationDeclarant/publicationDeclarantCoursDesComptes'
-                ),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/cour_des_comptes/publication_declarant',
-        props: {
-            exact: true,
-        },
-        name: 'cour_des_comptes_publication_declarant',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
             loader: () => import('../screens/tableauDeBoard'),
             loading: () => <SpinnerHourGlass />,
         }),
@@ -1001,10 +328,118 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/tableauDuBord'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/dashboard',
+        props: {
+            exact: true,
+        },
+        name: 'dashboard',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () =>
+                import(
+                    '../components/declaration/step_reception/renderDetailsDeclaration'
+                ),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/declaration_saisie/succée',
+        props: {
+            exact: true,
+        },
+        name: 'declaration_saisie_success',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../components/consultation/index'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/cour_des_comptes/validation_de_declaration/:id',
+        path: '/affectation_pour_rapprochement/:id',
+        props: {
+            exact: true,
+        },
+        name: 'affectation_rapprochement_detail',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () =>
+                import(
+                    '../screens/declaration/step_grab/FormDetailDeclaration'
+                ),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/affectation_pour_rapprochement/modification/:id',
+        props: {
+            exact: true,
+        },
+        name: 'affectation_rapprochement_modification',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../components/consultation/index'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/rapprochement_de_declaration/:id',
+        props: {
+            exact: true,
+        },
+        name: 'rapprochement_declaration_detail',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () =>
+                import(
+                    '../screens/declaration/step_grab/FormDetailDeclaration'
+                ),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/rapprochement_de_declaration/modification/:id',
+        props: {
+            exact: true,
+        },
+        name: 'rapprochement_declaration_modification',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../components/consultation/index'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/affectation_pour_validation/:id',
+        props: {
+            exact: true,
+        },
+        name: 'affectation_pour_validation_detail',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () =>
+                import(
+                    '../screens/declaration/step_grab/FormDetailDeclaration'
+                ),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/affectation_pour_validation/modification/:id',
+        props: {
+            exact: true,
+        },
+        name: 'affectation_pour_validation_modification',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../components/consultation/index'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/validation_de_declaration/:id',
         props: {
             exact: true,
         },
@@ -1013,14 +448,50 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
-            loader: () => import('../components/consultation/index'),
+            loader: () => import('../screens/tableauDuBord'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/cour_des_comptes/publication_du_declaration/:id',
+        path: '/dashboard',
         props: {
             exact: true,
         },
-        name: 'publication_du_declaration_detail',
+        name: 'dashboard',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../components/consultation/index'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/affectation_pour_verification/:id',
+        props: {
+            exact: true,
+        },
+        name: 'verification_Declaration_detail',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../components/consultation/index'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/verification_de_declaration/:id',
+        props: {
+            exact: true,
+        },
+        name: 'Verificateur_Declaration_Detail',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/declaration/rapport/index'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/rapprochement_de_declaration/edit_rapport/:id',
+        props: {
+            exact: true,
+        },
+        name: 'edit_rapport_declaration',
         showWhenConnected: true,
     },
 ]
