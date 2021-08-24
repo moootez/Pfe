@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 /* eslint-disable radix */
+/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
@@ -11,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
 import Button from '../../components/ui/button'
 import getCommandeActions from '../../redux/commande/getCommande'
 import validerCommandeActions from '../../redux/commande/validerCommande'
@@ -154,7 +155,9 @@ const Index = props => {
                             return (
                                 <div style={{ width: 80 }}>
                                     <IconButton
-                                        onClick={() => exportPdf({ id: rowData.id })}
+                                        onClick={() =>
+                                            exportPdf({ id: rowData.id })
+                                        }
                                         color="primary"
                                     >
                                         <FileCopyIcon />
@@ -170,7 +173,9 @@ const Index = props => {
                             return (
                                 <div style={{ width: 80 }}>
                                     <IconButton
-                                        onClick={() => importCommande({ id: rowData.id })}
+                                        onClick={() =>
+                                            importCommande({ id: rowData.id })
+                                        }
                                         color="primary"
                                     >
                                         <FileCopyOutlinedIcon />

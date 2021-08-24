@@ -370,7 +370,7 @@ class Index extends React.Component {
                                         type="contained"
                                         label={
                                             isEmpty(payloadState)
-                                                ? 'رجوع'
+                                                ? 'Retour'
                                                 : 'إلغاء'
                                         }
                                         size="medium"

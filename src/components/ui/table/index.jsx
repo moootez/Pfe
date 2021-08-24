@@ -445,7 +445,7 @@ class index extends PureComponent {
                                             className={classes.button}
                                             onClick={() => scanAction(item)}
                                         >
-                                            إضافة نسخة
+                                            Importer une commande
                                         </Button>
                                     )}
                                     {(type === 'affectation' ||

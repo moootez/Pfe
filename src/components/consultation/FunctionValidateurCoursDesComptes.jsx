@@ -47,7 +47,7 @@ const FunctionValidateur = ({ intl, history }) => {
                     label="تحميل PDF"
                     clicked={exportPDFAction}
                 />
-                {/* bouton redirection  رجوع */}
+                {/* bouton redirection  Retour */}
                 <ButtonComponent
                     color="secondary"
                     type="contained"

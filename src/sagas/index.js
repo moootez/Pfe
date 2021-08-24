@@ -1,20 +1,16 @@
+/* eslint-disable import/no-unresolved */
 import { fork, all } from 'redux-saga/effects'
 import { loginSaga } from './login/index'
 import referencial from './referencial/index'
 import { wrapApi } from './wrapApi/index'
 import users from './user'
-import affectation from './affectation'
 import rapport from './rapport'
 import declaration from './declaration'
-import certificat from './certificat'
 import declarationGrab from './declaration_grab'
 import pdfs from './pdf'
 import roles from './roles'
-import publication from './publication'
-import etablissement from './etablissement/index'
 import declarantInterne from './declarantInterne'
 import commande from './commande'
-import inscription from './inscription'
 import getStatistique from './statistique/index'
 import parametres from './parametres/index'
 import history from './history/index'
@@ -51,15 +47,10 @@ const sagas = [
     ...users,
     ...pdfs,
     ...roles,
-    ...affectation,
     ...declaration,
-    ...certificat,
     ...rapport,
     ...declarationGrab,
-    ...publication,
-    ...etablissement,
     ...declarantInterne,
-    ...inscription,
     ...getStatistique,
     ...parametres,
     ...pageCms,

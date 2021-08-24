@@ -69,12 +69,12 @@ const FunctionValidateur = ({
                             color="secondary"
                             type="contained"
                             size="medium"
-                            label="الرجوع إلى المصالحة"
+                            label="الRetour إلى المصالحة"
                             clicked={() => nouveauRapprochementDeclaration()}
                         />
                     </div>
                 )}
-                {/* bouton redirection  رجوع */}
+                {/* bouton redirection  Retour */}
                 <ButtonComponent
                     color="secondary"
                     type="contained"

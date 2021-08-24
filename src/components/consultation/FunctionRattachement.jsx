@@ -20,7 +20,7 @@ const FunctionRattacheur = ({ intl, dataDeclaration, history, lng }) => {
                     bgColor="#e0e0e0"
                     type="contained"
                     size="medium"
-                    label="إضافة نسخة"
+                    label="Importer une commande"
                     clicked={() =>
                         history.push({
                             pathname: `/declaration_rattacher_saisie/rattacher_le_scan_de_la_declaration/${dataDeclaration.id}`,
@@ -52,7 +52,7 @@ const FunctionRattacheur = ({ intl, dataDeclaration, history, lng }) => {
                         })
                     }
                 />
-                {/* bouton redirection  رجوع */}
+                {/* bouton redirection  Retour */}
                 <ButtonComponent
                     // disabled={disable}
                     color="secondary"

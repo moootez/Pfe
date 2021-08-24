@@ -734,7 +734,7 @@ const EnhancedTable = ({
                                             className={classes.button}
                                             onClick={() => scanAction(row)}
                                         >
-                                            إضافة نسخة
+                                            Importer une commande
                                         </Button>
                                     )}
                                     {(type === 'affectation' ||

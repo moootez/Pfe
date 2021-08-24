@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, Fragment } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { CloudUploadSharp } from '@material-ui/icons'
@@ -51,7 +53,8 @@ const FormScanDeclaration = props => {
     const [scan, setScan] = useState([])
     const [errors, setErrors] = useState([])
     const { isError, errorsList, intl, history } = props
-    const { dataDeclaration } = ''
+    const { dataDeclaration } = 50
+    // history.location.state
 
     /* life cycle */
     useEffect(
@@ -75,7 +78,6 @@ const FormScanDeclaration = props => {
         isDragAccept,
         isDragReject,
     } = useDropzone({
-        accept: 'application/pdf,text/plain,text/xml',
         onDrop: acceptedFiles => {
             setFiles(
                 acceptedFiles.map(file =>
@@ -98,7 +100,7 @@ const FormScanDeclaration = props => {
             setErrors('')
         },
     })
-
+    console.log(files)
     const thumbs =
         files && files.length ? (
             <div style={thumb} key={files[files.length - 1].name}>
@@ -107,10 +109,14 @@ const FormScanDeclaration = props => {
                         id="pdf_doc"
                         title={files[files.length - 1].name}
                         src={files[files.length - 1].preview}
-                        type="text/csv"
+                        type="text/*"
                         width="400"
                         height="600"
-                        style={{ overflow: 'auto', width: '100%' }}
+                        style={{
+                            overflow: 'auto',
+                            width: '100%',
+                            display: 'none',
+                        }}
                     ></iframe>
                 </div>
             </div>
@@ -125,10 +131,10 @@ const FormScanDeclaration = props => {
     const uploadFile = () => {
         const { scanDecReq } = props
         const formData = new FormData()
-
+        // console.log(dataDeclaration)
         formData.append('document', scan)
         const obj = {
-            id_declaration: dataDeclaration.id,
+            id_declaration: 50,
             body: formData,
             history,
         }
@@ -141,16 +147,20 @@ const FormScanDeclaration = props => {
 
     return (
         <div style={{ padding: '1em' }}>
-            <PageTitle label="إضافة نسخة" />
+            <PageTitle label="Importer une commande" />
             <Fragment>
                 <div
                     {...getRootProps({ className: 'dropzone' })}
-                    className={`p-4 text-center ${isDragAccept ? 'border-success' : null
-                        } ${isDragReject || fileError ? 'border-danger' : null}`}
+                    className={`p-4 text-center ${
+                        isDragAccept ? 'border-success' : null
+                    } ${isDragReject || fileError ? 'border-danger' : null}`}
                     style={draggableInput}
                 >
                     <input {...getInputProps()} />
-                    <p>قم بسحب وإسقاط الملف هنا ، أو انقر لتحديد الملف</p>
+                    <p>
+                        Faites glisser et déposez le fichier ici, ou cliquez
+                        pour sélectionner le fichier
+                    </p>
                     <CloudUploadSharp color="secondary" fontSize="medium" />
                 </div>
                 <aside style={thumbsContainer}>{thumbs}</aside>
@@ -161,13 +171,13 @@ const FormScanDeclaration = props => {
                             color="secondary"
                             type="contained"
                             size="medium"
-                            label="تأكيد"
+                            label="Confirmer"
                             clicked={() => uploadFile()}
                         />
                         <ButtonComponent
                             color="secondary"
                             type="contained"
-                            label="رجوع"
+                            label="Retour"
                             size="medium"
                             clicked={() => {
                                 history.goBack()
@@ -179,7 +189,7 @@ const FormScanDeclaration = props => {
                         <ButtonComponent
                             color="secondary"
                             type="contained"
-                            label="رجوع"
+                            label="Retiur"
                             size="medium"
                             clicked={() => {
                                 history.goBack()

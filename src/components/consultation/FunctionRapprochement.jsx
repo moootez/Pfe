@@ -37,7 +37,7 @@ const FunctionRapprochement = ({ intl, dataDeclaration, history, lng }) => {
                         }
                     />
                 )}
-                {/* bouton redirection  رجوع */}
+                {/* bouton redirection  Retour */}
                 <ButtonComponent
                     color="secondary"
                     type="contained"

@@ -12,7 +12,6 @@ import DashboardHeader from '../../components/dashboard/header'
 import listOfRoutes from '../../routes/listOfRoutes'
 import './style.css'
 
-
 const drawerWidth = 260
 
 // style
@@ -187,12 +186,8 @@ export default function Index({ isLogged, userRole }) {
                     tabClicked={(e, openMenu) => selectHandler(e, openMenu)}
                 />
 
-
-                <div style={{ zIndex: 0, backgroundColor: 'rgba(194, 13, 32, 0.9)', border: '5px solid rgba(194, 13, 32, 0.9)' }}>
-
+                <div className="bgallpages" style={{ zIndex: 0 }}>
                     {listOfRoutes.map(route => route)}
-
-
                 </div>
             </main>
         </div>

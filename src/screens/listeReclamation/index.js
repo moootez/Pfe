@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
+/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -84,7 +85,7 @@ const Index = props => {
                                         value={
                                             (
                                                 (reclamationStatus || {})[
-                                                rowData.id
+                                                    rowData.id
                                                 ] || {}
                                             ).status
                                         }
@@ -102,7 +103,7 @@ const Index = props => {
                                         input={<Input />}
                                         disabled={
                                             rowData.status === 'Acceptée' ||
-                                                rowData.status === 'Refusée'
+                                            rowData.status === 'Refusée'
                                                 ? true
                                                 : null
                                         }
@@ -119,64 +120,64 @@ const Index = props => {
                                 </FormControl>
                                 {((reclamationStatus || {})[rowData.id] || {})
                                     .status === 'Refusée' && (
-                                        <TextField
-                                            type="text"
-                                            className="mt-2 w-100"
-                                            key={generateKey()}
-                                            label="Motif"
-                                            id="outlined-size-small"
-                                            defaultValue={
-                                                (
-                                                    (reclamationStatus || {})[
+                                    <TextField
+                                        type="text"
+                                        className="mt-2 w-100"
+                                        key={generateKey()}
+                                        label="Motif"
+                                        id="outlined-size-small"
+                                        defaultValue={
+                                            (
+                                                (reclamationStatus || {})[
                                                     rowData.id
-                                                    ] || {}
-                                                ).motif
-                                            }
-                                            variant="outlined"
-                                            onBlur={e =>
-                                                setReclamationStatus({
-                                                    ...reclamationStatus,
-                                                    [rowData.id]: {
-                                                        ...(reclamationStatus[
-                                                            rowData.id
-                                                        ] || {}),
-                                                        motif: e.target.value,
-                                                    },
-                                                })
-                                            }
-                                            size="small"
-                                        />
-                                    )}
+                                                ] || {}
+                                            ).motif
+                                        }
+                                        variant="outlined"
+                                        onBlur={e =>
+                                            setReclamationStatus({
+                                                ...reclamationStatus,
+                                                [rowData.id]: {
+                                                    ...(reclamationStatus[
+                                                        rowData.id
+                                                    ] || {}),
+                                                    motif: e.target.value,
+                                                },
+                                            })
+                                        }
+                                        size="small"
+                                    />
+                                )}
                                 {((reclamationStatus || {})[rowData.id] || {})
                                     .status === 'Acceptée' && (
-                                        <TextField
-                                            type="text"
-                                            className="mt-2 w-100"
-                                            key={generateKey()}
-                                            label="Action"
-                                            id="outlined-size-small"
-                                            defaultValue={
-                                                (
-                                                    (reclamationStatus || {})[
+                                    <TextField
+                                        type="text"
+                                        className="mt-2 w-100"
+                                        key={generateKey()}
+                                        label="Action"
+                                        id="outlined-size-small"
+                                        defaultValue={
+                                            (
+                                                (reclamationStatus || {})[
                                                     rowData.id
-                                                    ] || {}
-                                                ).action
-                                            }
-                                            variant="outlined"
-                                            onBlur={e =>
-                                                setReclamationStatus({
-                                                    ...reclamationStatus,
-                                                    [rowData.id]: {
-                                                        ...(reclamationStatus[
-                                                            rowData.id
-                                                        ] || {}),
-                                                        action: e.target.value,
-                                                    },
-                                                })
-                                            }
-                                            size="small"
-                                        />
-                                    )}
+                                                ] || {}
+                                            ).action
+                                        }
+                                        variant="outlined"
+                                        onBlur={e =>
+                                            setReclamationStatus({
+                                                ...reclamationStatus,
+                                                [rowData.id]: {
+                                                    ...(reclamationStatus[
+                                                        rowData.id
+                                                    ] || {}),
+                                                    action: e.target.value,
+                                                },
+                                            })
+                                        }
+                                        size="small"
+                                    />
+                                )}
                             </div>
                         ),
                     },
@@ -188,14 +189,14 @@ const Index = props => {
                             return (
                                 <div>
                                     {rowData.status === 'Acceptée' ||
-                                        rowData.status === 'Refusée' ? (
+                                    rowData.status === 'Refusée' ? (
                                         <span> </span>
                                     ) : (
                                         <IconButton
                                             onClick={() => {
                                                 const payload =
                                                     reclamationStatus[
-                                                    rowData.id
+                                                        rowData.id
                                                     ]
                                                 updateReclamation({
                                                     reclamation: rowData.id,
@@ -216,7 +217,7 @@ const Index = props => {
                 data={JSON.parse(JSON.stringify(reclamations)) || []}
                 options={{
                     headerStyle: {
-                        backgroundColor: '#00aa9b',
+                        backgroundColor: '#c20d20',
                         color: 'white',
                     },
                 }}

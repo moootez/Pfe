@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
 import { Grid } from '@material-ui/core'
-import Form from '../../../components/declaration/step_grab/homePage/Form'
+// import Form from '../../../components/declaration/step_grab/homePage/Form'
 import PageTitle from '../../../components/ui/pageTitle'
 import Button from '../../../components/ui/button'
-import getAllUsersActions from '../../../redux/user/getAllUsers'
-import getAllRolesActions from '../../../redux/roles/getAllRoles'
 // import ButtonComponent from '../../../components/ui/button'
 import Table from '../../../components/ui/table/table'
 
@@ -18,32 +16,17 @@ import Table from '../../../components/ui/table/table'
  *     lng,
  *     intl,
  *     history,
- *     allReferenciels,
- *     getAllUsersReq,
- *     getAllRolesReq,
- *     allRoles,
  *     allUsers,
  * }
  * @returns
  */
-const Index = ({
-    lng,
-    intl,
-    history,
-    allReferenciels,
-    getAllUsersReq,
-    getAllRolesReq,
-    allRoles,
-    allUsers,
-    syncUsers,
-}) => {
+const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
     /* hooks member */
     const type = 'user'
     const [inputClassName, setInputClassName] = useState('blured')
     const [ColorBorder, setColorBorder] = useState('red')
     const [searchData, setSearchData] = useState('')
     const [rows, setRows] = useState([])
-    const [payload, setPayload] = useState({})
     const [meta, setMeta] = useState([])
     const [limit, setLimit] = useState(5)
     const [page, setPage] = useState(1)
@@ -92,10 +75,7 @@ const Index = ({
     }
 
     /* life cycle */
-    useEffect(() => {
-        getAllRolesReq()
-        getAllUsersReq({ limit: 5, page: 1 })
-    }, [])
+    useEffect(() => {}, [])
 
     /* life cycle */
     useEffect(() => {
@@ -107,26 +87,6 @@ const Index = ({
 
     /* functions */
 
-    /**
-     * set payload
-     *
-     * @param {*} { target: { name, value } }
-     */
-    const fieldChangedHandler = ({ target: { name, value } }) => {
-        if (name === 'categorie') {
-            setPayload({ ...payload, [name]: value, fonction: [] })
-            payload.fonction = []
-        } else setPayload({ ...payload, [name]: value })
-        getAllUsersReq({
-            ...payload,
-            [name]: value,
-            order,
-            limit,
-            page,
-            key,
-            searchData,
-        })
-    }
     /**
      * set style input search
      *
@@ -196,7 +156,6 @@ const Index = ({
      */
     const paramConsultTab = index => {
         getAllUsersReq({
-            ...payload,
             limit: index.limit,
             page: index.page,
             order: index.order,
@@ -214,17 +173,7 @@ const Index = ({
             <Grid className="gridItem">
                 <PageTitle label="Gestion des client" />
             </Grid>
-            <Grid container>
-                <Form
-                    type={type}
-                    lng={lng}
-                    intl={intl}
-                    allReferenciels={allReferenciels}
-                    fieldChangedHandler={fieldChangedHandler}
-                    payload={payload}
-                    roles={allRoles}
-                />
-            </Grid>
+            <Grid container></Grid>
             <div
                 className="col-md-6 float-left"
                 style={{
@@ -289,10 +238,8 @@ const Index = ({
  */
 const mapStateToProps = state => {
     return {
-        allReferenciels: state.referencial.allReferencials.response,
         lng: state.info.language,
         allUsers: state.users.allUsers.response,
-        allRoles: state.roles.getAllRoles.response,
     }
 }
 
@@ -304,9 +251,6 @@ const mapStateToProps = state => {
  * @param {*} dispatch
  */
 const mapDispatchToProps = dispatch => ({
-    getAllUsersReq: payload =>
-        dispatch(getAllUsersActions.getAllUsersRequest(payload)),
-    getAllRolesReq: () => dispatch(getAllRolesActions.getAllRolesRequest()),
     syncUsers: () => dispatch({ type: 'SYNC_USERS' }),
 })
 /**
@@ -318,12 +262,9 @@ Index.defaultProps = {}
  */
 Index.propTypes = {
     intl: PropTypes.object.isRequired,
-    allReferenciels: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     lng: PropTypes.string.isRequired,
     getAllUsersReq: PropTypes.func.isRequired,
-    getAllRolesReq: PropTypes.func.isRequired,
-    allRoles: PropTypes.object.isRequired,
     allUsers: PropTypes.object.isRequired,
     syncUsers: PropTypes.func.isRequired,
 }
