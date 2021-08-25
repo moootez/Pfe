@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 /* eslint-disable radix */
 /* eslint-disable react/destructuring-assignment */
+import { red, green } from '@material-ui/core/colors'
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
@@ -126,7 +127,7 @@ const Index = props => {
                                                     rowData.id
                                                 )
                                             }
-                                            color="primary"
+                                            style={{ color: green[500] }}
                                             aria-label={statusAndTxt[newStatus]}
                                         >
                                             <CheckIcon />
@@ -139,7 +140,7 @@ const Index = props => {
                                                 rowData.id
                                             )
                                         }
-                                        color="secondary"
+                                        style={{ color: red[500] }}
                                         aria-label="Annuler"
                                     >
                                         <CloseIcon />
