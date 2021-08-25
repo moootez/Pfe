@@ -3,7 +3,6 @@
 /* eslint-disable radix */
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -42,14 +41,6 @@ const Index = props => {
     } = props
 
     const [allCommande, setAllCommande] = useState([])
-
-    const history = useHistory()
-
-    useEffect(() => {
-        if (localStorage.countlogin === 1) {
-            history.push('/dashboard')
-        }
-    }, [])
 
     useEffect(() => {
         getCommande({ user: userID, role })

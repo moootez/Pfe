@@ -82,12 +82,6 @@ const OperationReferencial = ({
             ? JSON.parse(JSON.stringify(history.location.state.values))
             : []
     /* life cycle */
-
-    // useEffect(() => {
-    //     if (localStorage.countlogin > 1) {
-    //         history.push('/dashboard')
-    //     }
-    // }, [])
     useEffect(() => {
         console.log('count changed', responseAdd)
         const isErrorExist = !!(
