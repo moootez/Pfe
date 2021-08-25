@@ -9,14 +9,25 @@
 @import 'base/globals';
 
 /* Components */
+.Card {
+    width: 450px;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid #e4e5e7;
+    box-shadow: 0 0 1em #eee;
+    margin: 80px auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
 /* Containers */
 
 /* Pages */
 /*Patch container fluid*/
 .container-fluid {
-    padding-right: 0px !important; 
-    padding-left: 0px !important; 
+    padding-right: 0px !important;
+    padding-left: 0px !important;
     background-color: #fff;
-    background: url(https://www.opaliarecordati.com/img/opalia-icon/background_repeat.png) center center repeat;
+    background: url(https://www.opaliarecordati.com/img/opalia-icon/background_repeat.png)
+        center center repeat;
 }

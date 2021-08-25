@@ -2,7 +2,6 @@
 /* eslint-disable global-require */
 /* eslint-disable radix */
 /* eslint-disable react/destructuring-assignment */
-
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
@@ -34,11 +33,6 @@ const Index = props => {
     const [commande, setCommande] = useState({})
     const [file, setFile] = useState(null)
 
-    useEffect(() => {
-        if (localStorage.countlogin === 1) {
-            history.push('/dashboard')
-        }
-    }, [])
     // 1 seul fois
     useEffect(() => {
         getAllProduct()

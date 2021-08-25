@@ -91,12 +91,6 @@ const Index = ({
         setRows(rowsTmp)
     }
 
-    useEffect(() => {
-        if (localStorage.countlogin > 1) {
-            history.push('/dashboard')
-        }
-    }, [])
-
     /* life cycle */
     useEffect(() => {
         getActualite()
