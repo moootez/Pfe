@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import Sidebar from '../../components/sidebar'
 import DashboardHeader from '../../components/dashboard/header'
 import listOfRoutes from '../../routes/listOfRoutes'
+import FirstPassChange from '../../components/changeFirstPass/ChangeFirstPass'
 import './style.css'
 
 const drawerWidth = 260
@@ -180,15 +181,38 @@ export default function Index({ isLogged, userRole }) {
                 }}
             >
                 {logged && <DashboardHeader />}
-                <Sidebar
+                {/* <Sidebar
                     userRole={userRole}
                     drawerIsOpen={open}
                     tabClicked={(e, openMenu) => selectHandler(e, openMenu)}
-                />
+                /> */}
 
-                <div className="bgallpages" style={{ zIndex: 0 }}>
+                {localStorage.countlogin > 1 ? (
+                    <>
+                        <Sidebar
+                            userRole={userRole}
+                            drawerIsOpen={open}
+                            tabClicked={(e, openMenu) =>
+                                selectHandler(e, openMenu)
+                            }
+                        />
+                        <div
+                            style={{
+                                zIndex: 0,
+                                backgroundColor: 'rgba(194, 13, 32, 0.9)',
+                                border: '5px solid rgba(194, 13, 32, 0.9)',
+                            }}
+                        >
+                            {listOfRoutes.map(route => route)}
+                        </div>
+                    </>
+                ) : (
+                    <FirstPassChange />
+                )}
+
+                {/* <div className="bgallpages" style={{ zIndex: 0 }}>
                     {listOfRoutes.map(route => route)}
-                </div>
+                </div> */}
             </main>
         </div>
     )

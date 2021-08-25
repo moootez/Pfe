@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     },
     expandOpen: {
         transform: 'rotate(180deg)',
-    }
+    },
 }))
 
 /**
@@ -95,6 +95,7 @@ const Index = ({
     useEffect(() => {
         getActualite()
     }, [])
+
     /* life cycle */
     useEffect(() => {
         if (filtredTable) {

@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 /* eslint-disable radix */
+/* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
@@ -31,6 +32,7 @@ const Index = props => {
     const [allProduct, setAllProduct] = useState([])
     const [commande, setCommande] = useState({})
     const [file, setFile] = useState(null)
+
     // 1 seul fois
     useEffect(() => {
         getAllProduct()
@@ -57,7 +59,7 @@ const Index = props => {
 
     const getTotalQt = rowData =>
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
-        parseInt(rowData.coefUcUs || 0) +
+            parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
     const getTotalPrix = rowData => getTotalQt(rowData) * parseInt(rowData.prix)
 
