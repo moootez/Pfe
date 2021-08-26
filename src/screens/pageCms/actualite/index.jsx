@@ -73,6 +73,7 @@ const Index = ({
                 rowsTmp = arrayFiltred.map((item, index) => ({
                     id: item.id,
                     index,
+                    title: item.titre,
                     theme: item.texte,
                     sujet: item.priorite,
                     image: item.image,
@@ -167,6 +168,17 @@ const Index = ({
                                     title="New"
                                 />
                                 <CardContent>
+                                    <Typography
+                                        variant="body2"
+                                        style={{
+                                            color: 'red',
+                                            fontSize: '1.1rem',
+                                        }}
+                                        component="h3"
+                                    >
+                                        {el.title}
+                                    </Typography>
+
                                     <Typography
                                         variant="body2"
                                         color="textSecondary"

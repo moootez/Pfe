@@ -224,6 +224,7 @@ const form = ({
                             //     (item.name !== 'numCin' && declarantExist)
                             // }
                         />
+
                         {/* {item.sm === 12 && !item.isCheck && <Divider />} */}
                     </Grid>
                 )
