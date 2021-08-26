@@ -6,6 +6,14 @@
 const setListInput = () => {
     return [
         {
+            name: 'titre',
+            sm: 6,
+            md: 4,
+            label: 'Titre',
+            placeholder: 'Titre',
+            lng: 'fr',
+        },
+        {
             name: 'texte',
             sm: 6,
             md: 9,
