@@ -31,8 +31,8 @@ const Index = props => {
 
     const [allProduct, setAllProduct] = useState([])
     const [commande, setCommande] = useState({})
-    const [file, setFile] = useState(null)
 
+    const [file] = useState(null)
     // 1 seul fois
     useEffect(() => {
         getAllProduct()
@@ -198,16 +198,29 @@ const Index = props => {
                 ]}
                 data={allProduct || []}
             />
-            <div className="m-3 text-right">
-                <Button variant="contained" component="label" className="mr-2">
-                    {file ? file.name : 'Upload File'}
-                    <input
-                        accept="text/csv"
-                        onChange={e => setFile(e.target.files[0])}
-                        type="file"
-                        hidden
-                    />
-                </Button>
+            <div
+                className="m-3 text-left"
+                style={{ float: 'left', paddingTop: '10px' }}
+            >
+                <a
+                    variant="contained"
+                    component="label"
+                    className="mr-2"
+                    href="http://localhost/BackendOPALIA/web/ExempleCsv.csv"
+                >
+                    <b>Exemple de fichier l&#39;import</b>
+                </a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a
+                    variant="contained"
+                    component="label"
+                    className="mr-2"
+                    href="declaration_rattacher_saisie/rattacher_le_scan_de_la_declaration/50"
+                >
+                    <b>Import d&#39;une commande</b>
+                </a>
+            </div>
+            <div className="m-3 text-right" style={{ paddingBottom: '20px' }}>
                 <Button
                     variant="contained"
                     color="primary"

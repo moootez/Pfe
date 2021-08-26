@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
 import { Grid } from '@material-ui/core'
-// import Form from '../../../components/declaration/step_grab/homePage/Form'
+import Form from '../../../components/declaration/step_grab/homePage/Form'
 import PageTitle from '../../../components/ui/pageTitle'
 import Button from '../../../components/ui/button'
+import getAllUsersActions from '../../../redux/user/getAllUsers'
+import getAllRolesActions from '../../../redux/roles/getAllRoles'
 // import ButtonComponent from '../../../components/ui/button'
+
 import Table from '../../../components/ui/table/table'
 
 /**
@@ -16,17 +19,32 @@ import Table from '../../../components/ui/table/table'
  *     lng,
  *     intl,
  *     history,
+ *     allReferenciels,
+ *     getAllUsersReq,
+ *     getAllRolesReq,
+ *     allRoles,
  *     allUsers,
  * }
  * @returns
  */
-const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
+const Index = ({
+    lng,
+    intl,
+    history,
+    allReferenciels,
+    getAllUsersReq,
+    getAllRolesReq,
+    allRoles,
+    allUsers,
+    syncUsers,
+}) => {
     /* hooks member */
     const type = 'user'
     const [inputClassName, setInputClassName] = useState('blured')
     const [ColorBorder, setColorBorder] = useState('red')
     const [searchData, setSearchData] = useState('')
     const [rows, setRows] = useState([])
+    const [payload, setPayload] = useState({})
     const [meta, setMeta] = useState([])
     const [limit, setLimit] = useState(5)
     const [page, setPage] = useState(1)
@@ -35,20 +53,25 @@ const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
 
     const headers = [
         {
-            id: 'prenomTripartiteAr',
-            label: intl.formatMessage({ id: 'labelPrenomTri' }),
+            id: 'prenom',
+            label: intl.formatMessage({ id: 'labelPrenom' }),
         },
         {
-            id: 'nomAr',
+            id: 'nom',
             label: intl.formatMessage({ id: 'labelNom' }),
         },
-        {
-            id: 'username',
-            label: intl.formatMessage({ id: 'username' }),
-        },
+
         {
             id: 'email',
             label: intl.formatMessage({ id: 'labelAdressemail' }),
+        },
+        {
+            id: 'firstLogin',
+            label: 'Nbr Connexions',
+        },
+        {
+            id: 'enable',
+            label: 'Actif',
         },
         {
             id: 'userRoles',
@@ -63,10 +86,11 @@ const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
         if (arrayFiltred && arrayFiltred.length > 0) {
             rowsTmp = arrayFiltred.map(item => ({
                 id: item.id,
-                prenomTripartiteAr: item.prenomTripartiteAr,
-                nomAr: item.nomAr,
-                username: item.username,
+                prenom: item.prenom,
+                nom: item.nom,
                 email: item.email,
+                firstLogin: item.firstLogin,
+                enable: item.enable ? 'Actif' : "En attente d'activation",
                 userRoles: item.userRoles.length > 0 && item.userRoles[0].role,
                 users: item,
             }))
@@ -75,7 +99,10 @@ const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
     }
 
     /* life cycle */
-    useEffect(() => {}, [])
+    useEffect(() => {
+        getAllRolesReq()
+        getAllUsersReq({ limit: 5, page: 1 })
+    }, [])
 
     /* life cycle */
     useEffect(() => {
@@ -87,6 +114,26 @@ const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
 
     /* functions */
 
+    /**
+     * set payload
+     *
+     * @param {*} { target: { name, value } }
+     */
+    const fieldChangedHandler = ({ target: { name, value } }) => {
+        if (name === 'categorie') {
+            setPayload({ ...payload, [name]: value, fonction: [] })
+            payload.fonction = []
+        } else setPayload({ ...payload, [name]: value })
+        getAllUsersReq({
+            ...payload,
+            [name]: value,
+            order,
+            limit,
+            page,
+            key,
+            searchData,
+        })
+    }
     /**
      * set style input search
      *
@@ -156,6 +203,7 @@ const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
      */
     const paramConsultTab = index => {
         getAllUsersReq({
+            ...payload,
             limit: index.limit,
             page: index.page,
             order: index.order,
@@ -173,7 +221,17 @@ const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
             <Grid className="gridItem">
                 <PageTitle label="Gestion des client" />
             </Grid>
-            <Grid container></Grid>
+            <Grid container>
+                <Form
+                    type={type}
+                    lng={lng}
+                    intl={intl}
+                    allReferenciels={allReferenciels}
+                    fieldChangedHandler={fieldChangedHandler}
+                    payload={payload}
+                    roles={allRoles}
+                />
+            </Grid>
             <div
                 className="col-md-6 float-left"
                 style={{
@@ -238,8 +296,10 @@ const Index = ({ lng, intl, history, getAllUsersReq, allUsers, syncUsers }) => {
  */
 const mapStateToProps = state => {
     return {
+        allReferenciels: state.referencial.allReferencials.response,
         lng: state.info.language,
         allUsers: state.users.allUsers.response,
+        allRoles: state.roles.getAllRoles.response,
     }
 }
 
@@ -251,6 +311,9 @@ const mapStateToProps = state => {
  * @param {*} dispatch
  */
 const mapDispatchToProps = dispatch => ({
+    getAllUsersReq: payload =>
+        dispatch(getAllUsersActions.getAllUsersRequest(payload)),
+    getAllRolesReq: () => dispatch(getAllRolesActions.getAllRolesRequest()),
     syncUsers: () => dispatch({ type: 'SYNC_USERS' }),
 })
 /**
@@ -262,9 +325,12 @@ Index.defaultProps = {}
  */
 Index.propTypes = {
     intl: PropTypes.object.isRequired,
+    allReferenciels: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     lng: PropTypes.string.isRequired,
     getAllUsersReq: PropTypes.func.isRequired,
+    getAllRolesReq: PropTypes.func.isRequired,
+    allRoles: PropTypes.object.isRequired,
     allUsers: PropTypes.object.isRequired,
     syncUsers: PropTypes.func.isRequired,
 }
