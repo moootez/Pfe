@@ -247,8 +247,8 @@ class Index extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                title: 'تذكير',
-                message: 'يرجى معالجة الأخطاء',
+                title: 'Rappel',
+                message: 'Veuillez corriger les erreurs',
             })
         else {
             changePasswordRequest({ ...payloadState, id: idUser })
@@ -268,7 +268,7 @@ class Index extends React.Component {
 
         return (
             <div className="ctn__declataion">
-                <PageTitle label="تعديل كلمة المرور" />
+                <PageTitle label="Modifier le mot de passe" />
                 {[] && (
                     <FormGroup>
                         <div className="centerDiv">
@@ -290,14 +290,14 @@ class Index extends React.Component {
                                         color="secondary"
                                         type="contained"
                                         size="medium"
-                                        label="تأكيد"
+                                        label="Confirmer"
                                         clicked={this.changePassword}
                                     />
                                     <ButtonComponent
                                         disabled={disable}
                                         color="secondary"
                                         type="contained"
-                                        label="إلغاء"
+                                        label="Annuler"
                                         size="medium"
                                         clicked={this.cancelAjout}
                                     />

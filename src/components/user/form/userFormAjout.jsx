@@ -26,7 +26,6 @@ import InputFormatted from '../../ui/numberFormat'
  *     lng,
  *     intl,
  *     declarantExist,
- *     allRoles,
  * }
  * @returns
  */
@@ -43,7 +42,6 @@ const userFormAjout = ({
     lng,
     intl,
     declarantExist,
-    allRoles,
 }) => {
     /**
      * inialisation des listes
@@ -51,14 +49,9 @@ const userFormAjout = ({
     let listGov = []
     let listCodePostalResidence = []
     let listDelegResidence = []
-    let listRoles = []
+    const listRoles = []
 
     try {
-        listRoles = allRoles.map(i => ({
-            label: i.role,
-            value: i.id,
-        }))
-
         listGov = allReferenciels.referenciels.RefGouvernorat.map(i => ({
             label:
                 lng === 'ar'
@@ -337,6 +330,5 @@ userFormAjout.propTypes = {
     isExist: PropTypes.bool.isRequired,
     isEditDeclaration: PropTypes.bool.isRequired,
     getDeclarantByCinOrPass: PropTypes.func,
-    allRoles: PropTypes.object,
 }
 export default userFormAjout

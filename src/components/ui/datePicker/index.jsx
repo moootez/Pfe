@@ -173,8 +173,8 @@ const index = ({
                         ...border,
                     }}
                     cancelLabel=""
-                    clearLabel="الغاء"
-                    okLabel="موافق"
+                    clearLabel="Annuler"
+                    okLabel="Valider"
                     format="dd/MM/yyyy"
                     margin="normal"
                     error={isError || error !== ''}

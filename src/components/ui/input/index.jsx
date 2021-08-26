@@ -214,8 +214,8 @@ const index = props => {
                         marginRight: '15px',
                     }}
                 >
-                    حقل لا يقل عن 10 أحرف. يجب أن يكون مزيجًا من الأحرف الكبيرة
-                    والصغيرة{' '}
+                    Un champ d&apos;au moins 10 caractères. Il doit s&apos;agir
+                    d&apos;une combinaison de majuscules et de minuscules{' '}
                 </span>
             )}
             {!errorText && verifEmail && (
@@ -226,7 +226,7 @@ const index = props => {
                         marginRight: '15px',
                     }}
                 >
-                    البريد الالكتروني غير صحيح{' '}
+                    Adresse Email incorrecte{' '}
                 </span>
             )}
 
@@ -238,11 +238,7 @@ const index = props => {
                         marginRight: '15px',
                     }}
                 >
-                    {name === 'intituleFr'
-                        ? 'الرجاء إدخال نص بالفرنسية'
-                        : name === 'intituleEn'
-                        ? 'الرجاء إدخال نص بالأنجليزية'
-                        : 'الرجاء إدخال نص بالعربية'}
+                    Veuillez saisir du texte en Français
                 </span>
             )}
         </FormControl>

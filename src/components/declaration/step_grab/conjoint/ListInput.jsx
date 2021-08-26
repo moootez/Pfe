@@ -25,8 +25,8 @@ const ListInput = (
             name: 'prenomTripartite',
             sm: 6,
             md: 4,
-            label: intl.formatMessage({ id: 'labelPrenomTri' }),
-            placeholder: intl.formatMessage({ id: 'labelPrenomTri' }),
+            label: intl.formatMessage({ id: 'labelPrenom' }),
+            placeholder: intl.formatMessage({ id: 'labelPrenom' }),
         },
         /*
          * pour input nom

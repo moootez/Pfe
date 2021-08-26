@@ -1,70 +1,44 @@
-import Data from '../../../data/dataDeclaration.json'
-
 /**
  *
  *
  * @param {*} intl
- * @param {*} listDelegResidence
- * @param {*} listGov
- * @param {*} listCodePostalResidence
- * @param {*} allRoles
  * @returns
  */
-const setListInput = (
-    intl,
-    listDelegResidence,
-    listGov,
-    listCodePostalResidence,
-    allRoles
-) => {
+const setListInput = intl => {
     return [
         {
-            name: 'prenomTripartiteAr',
+            name: 'prenom',
             sm: 6,
             md: 4,
             label: intl.formatMessage({ id: 'labelPrenom' }),
             placeholder: intl.formatMessage({ id: 'labelPrenom' }),
         },
         {
-            name: 'nomAr',
+            name: 'nom',
             sm: 6,
             md: 4,
             label: intl.formatMessage({ id: 'labelNom' }),
             placeholder: intl.formatMessage({ id: 'labelNom' }),
         },
         {
-            name: 'username',
+            name: 'fonction',
+            label: intl.formatMessage({ id: 'Fonction' }),
             sm: 6,
             md: 4,
-            label: "Nom d'utilisateur",
-            placeholder: "Nom d'utilisateur",
+            placeholder: 'Fonction',
+            required: false,
         },
         {
-            name: 'sexe',
-            label: intl.formatMessage({ id: 'labelSexe' }),
-            list: Data.listSexe,
-            isSelect: true,
-            selectAll: false,
+            name: 'direction',
+            label: intl.formatMessage({ id: 'Direction' }),
             sm: 6,
             md: 4,
+            placeholder: 'Direction',
+            required: false,
         },
         /*
-         * pour input gouvernoratResidence
-         */
-        /* {
-            name: 'gouvernoratResidence',
-            label: intl.formatMessage({ id: 'labelGouvernorat' }),
-            list: listGov,
-            isSelect: true,
-            isObject: true,
-            selectAll: false,
-            sm: 6,
-            md: 4,
-            required: false,
-        }, */
-        /*
          * pour input delegationResidence
-         */
+         
         {
             name: 'delegationResidence',
             label: intl.formatMessage({ id: 'labelDelegation' }),
@@ -78,7 +52,7 @@ const setListInput = (
         },
         /*
          * pour input codePostaleResidence
-         */
+        
         {
             name: 'codePostaleResidence',
             required: false,
@@ -88,7 +62,7 @@ const setListInput = (
         },
         /*
          * pour input adresseResidence
-         */
+         
         {
             name: 'adresseResidence',
             label: intl.formatMessage({ id: 'labelAddressResidence' }),
@@ -146,7 +120,16 @@ const setListInput = (
             name: 'userRoles',
             required: true,
             label: intl.formatMessage({ id: 'role' }),
-            list: allRoles,
+            list: [
+                {
+                    label: 'ROLE_ADMIN',
+                    value: 1,
+                },
+                {
+                    label: 'ROLE_ADV',
+                    value: 3,
+                },
+            ],
             isSelect: true,
             // isObject: true,
             selectAll: true,

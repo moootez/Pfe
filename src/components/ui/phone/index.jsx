@@ -93,7 +93,7 @@ const index = ({
                                 marginRight: '15px',
                             }}
                         >
-                            رقم الهاتف خاطئ{' '}
+                            Numéro de téléphone erroné{' '}
                         </span>
                     ))}
                 {isError && (

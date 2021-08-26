@@ -168,7 +168,7 @@ const Index = props => {
                         },
                     },
                     {
-                        title: 'Import (Copy Commande)',
+                        title: 'Dupliquer commande',
                         field: 'import',
                         render: rowData => {
                             return (

@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import ButtonComponent from '../../../components/ui/button'
 import scanDecActions from '../../../redux/declaration_grab/scan/index'
 import PageTitle from '../../../components/ui/pageTitle'
+// import ExelExemple from '../../../assets/file/ExempleCsv.csv'
 
 // style
 const thumbsContainer = {
@@ -189,12 +190,20 @@ const FormScanDeclaration = props => {
                         <ButtonComponent
                             color="secondary"
                             type="contained"
-                            label="Retiur"
+                            label="Exemple CSv"
+                            size="medium"
+                            clicked={() => {}}
+                        />
+                        <ButtonComponent
+                            color="secondary"
+                            type="contained"
+                            label="Retour"
                             size="medium"
                             clicked={() => {
                                 history.goBack()
                             }}
                         />
+                        <a herf="../../../assets/file/ExempleCsv.csv"> file</a>
                     </div>
                 )}
             </Fragment>
