@@ -49,9 +49,9 @@ const Index = props => {
         setAllProduct(JSON.parse(JSON.stringify(products)))
     }, [products])
 
-    const safeRequire = url => {
+    const safeRequire = (url, path, ext = null) => {
         try {
-            return `${baseUrl}../produits/${url}.png`
+            return `${baseUrl}${path}${url}${ext}`
         } catch {
             return unknown
         }
@@ -97,7 +97,11 @@ const Index = props => {
                         render: rowData => (
                             <img
                                 key={generateKey()}
-                                src={safeRequire(rowData.codeArticleX3)}
+                                src={safeRequire(
+                                    rowData.codeArticleX3,
+                                    '../produit/',
+                                    '.png'
+                                )}
                                 style={{ width: 100, borderRadius: '2%' }}
                                 alt="produit"
                             />
@@ -206,7 +210,7 @@ const Index = props => {
                     variant="contained"
                     component="label"
                     className="mr-2"
-                    href="http://localhost/BackendOPALIA/web/ExempleCsv.csv"
+                    href={safeRequire('ExempleCsv', '../', '.csv')}
                 >
                     <b>Exemple de fichier l&#39;import</b>
                 </a>
@@ -279,7 +283,4 @@ Index.propTypes = {
     history: PropTypes.object.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))
