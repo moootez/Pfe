@@ -60,6 +60,7 @@ const Index = ({
     const [rows, setRows] = useState([])
 
     const headers = [
+        'Titre',
         'Texte',
         'Priorite',
         intl.formatMessage({ id: 'dateCreaction' }),
@@ -73,7 +74,7 @@ const Index = ({
                 rowsTmp = arrayFiltred.map((item, index) => ({
                     id: item.id,
                     index,
-                    title: item.titre,
+                    titre: item.titre,
                     theme: item.texte,
                     sujet: item.priorite,
                     image: item.image,
@@ -184,6 +185,7 @@ const Index = ({
                                         color="textSecondary"
                                         component="p"
                                     >
+                                        {el.titre}
                                         {el.theme}
                                     </Typography>
                                     <p
@@ -297,7 +299,4 @@ Index.propTypes = {
     alertHide: PropTypes.func.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

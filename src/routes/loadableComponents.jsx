@@ -283,7 +283,7 @@ const loadableComponents = [
             loader: () => import('../screens/pageCms/actualite/index'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/actualite',
+        path: '/',
         props: {
             exact: true,
         },
@@ -444,18 +444,6 @@ const loadableComponents = [
             exact: true,
         },
         name: 'validateur_Declaration_Detail',
-        showWhenConnected: true,
-    },
-    {
-        loadableComponent: Loadable({
-            loader: () => import('../screens/tableauDuBord'),
-            loading: () => <SpinnerHourGlass />,
-        }),
-        path: '/dashboard',
-        props: {
-            exact: true,
-        },
-        name: 'dashboard',
         showWhenConnected: true,
     },
     {

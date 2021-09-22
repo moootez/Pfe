@@ -203,7 +203,6 @@ const FormScanDeclaration = props => {
                                 history.goBack()
                             }}
                         />
-                        <a herf="../../../assets/file/ExempleCsv.csv"> file</a>
                     </div>
                 )}
             </Fragment>
