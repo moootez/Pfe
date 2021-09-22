@@ -146,9 +146,9 @@ class Routes extends Component {
                                 : 'container-fluid'
                         }
                     >
-                        <section className="countryOpaliaHeader">
+                        {/* <section className="countryOpaliaHeader">
                             OPALIA RECORDATI SARL - Tunisia
-                        </section>
+                        </section> */}
 
                         <div className="App">
                             <Dashboard userRole={role} isLogged={connected} />

@@ -49,3 +49,22 @@
 	-webkit-transform: scale(1.1);
 	transform: scale(1.1);
 }
+.MuiPaper-root.MuiCard-root.MuiPaper-elevation1{
+	box-shadow: none!important;
+	border: 1px solid #c20d20;
+	border-top-left-radius: 25px!important;
+	border-top-right-radius: 25px!important;
+}
+.MuiCardContent-root{
+	height: 130px;
+}
+.swiper-button-prev:after, .swiper-button-next:after{
+	color: #c20d20;
+	font-weight: 700;
+}
+.MuiPaper-root.MuiCard-root.MuiPaper-elevation1 .makeStyles-media-19{
+	height: 180px;
+}
+.swiper-container.swiper-container-initialized.swiper-container-horizontal.swiper-container-pointer-events {
+	padding: 0 60px;
+}

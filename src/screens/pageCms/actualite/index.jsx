@@ -10,14 +10,28 @@ import {
     CardContent,
     Typography,
 } from '@material-ui/core'
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import ButtonComponent from '../../../components/ui/button'
 import getActualiteActions from '../../../redux/pageCms/actualite/getActualite'
 import deleteActualiteActions from '../../../redux/pageCms/actualite/deleteActualite'
 import Table from '../../../components/ui/table/index'
 import PageTitle from '../../../components/ui/pageTitle'
 import alertActions from '../../../redux/alert'
-import './styleActuSlider.css'
 
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
+import './styleActuSlider.css'
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+
+
+
+const page = window.location.pathname
 const useStyles = makeStyles(theme => ({
     root: {
         maxWidth: 345,
@@ -154,11 +168,70 @@ const Index = ({
 
     if (role === 'ROLE_CLIENT') {
         return (
-            <div style={{ padding: '1%' }}>
-                <Grid className="gridItem">
-                    <PageTitle label="Actualités" />
-                </Grid>
-                <div className="row">
+            <div style={{ padding: '1%' }} className="container-fluid">
+                {/* <Grid className="gridItem">
+                    <PageTitle />
+                </Grid> */}
+
+                {page === "/actualite" &&
+                <Swiper
+                    // install Swiper modules
+                    modules={[Navigation, Pagination, Scrollbar, A11y]}
+                    spaceBetween={20}
+                    slidesPerView={4}
+                    navigation
+                    breakpoints={{
+                        "0": {
+                            "slidesPerView": 1,
+                          },
+                        "480": {
+                          "slidesPerView": 2,
+                        },
+                        "1024": {
+                          "slidesPerView": 3,
+                        },
+                        "1200": {
+                          "slidesPerView": 4,
+                        }
+                      }}
+                >
+                
+                    {rows.map(el => (
+                        <SwiperSlide>
+                            <Card style={{ borderRadius: '0px' }}>
+                                <CardMedia
+                                    className={classes.media}
+                                    image={el.image}
+                                    title="New"
+                                />
+                                <CardContent>
+                                    <Typography
+                                        className="title-act"
+                                        variant="body2"
+                                        style={{
+                                            color: 'red',
+                                            fontSize: '1.1rem',
+                                        }}
+                                        component="h3"
+                                    >
+                                        {el.title}
+                                    </Typography>
+
+                                    <Typography
+                                        variant="body2"
+                                        color="textSecondary"
+                                        component="p"
+                                    >
+                                        {el.theme}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </SwiperSlide>
+                    ))}
+            </Swiper>
+            }
+
+                {/* <div className="row">
                     {rows.map(el => (
                         <div className="col-4 p-3">
                             <Card style={{ borderRadius: '0px' }}>
@@ -199,7 +272,7 @@ const Index = ({
                             </Card>
                         </div>
                     ))}
-                </div>
+                </div> */}
             </div>
         )
     }

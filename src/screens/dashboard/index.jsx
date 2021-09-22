@@ -7,7 +7,6 @@ import MenuIcon from '@material-ui/icons/Menu'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import { Redirect, Route, Switch } from 'react-router'
 import PropTypes from 'prop-types'
-import Sidebar from '../../components/sidebar'
 import DashboardHeader from '../../components/dashboard/header'
 import listOfRoutes from '../../routes/listOfRoutes'
 import FirstPassChange from '../../components/changeFirstPass/ChangeFirstPass'
@@ -189,18 +188,11 @@ export default function Index({ isLogged, userRole }) {
 
                 {localStorage.countlogin > 1 ? (
                     <>
-                        <Sidebar
-                            userRole={userRole}
-                            drawerIsOpen={open}
-                            tabClicked={(e, openMenu) =>
-                                selectHandler(e, openMenu)
-                            }
-                        />
+                        
                         <div
                             style={{
                                 zIndex: 0,
-                                backgroundColor: 'rgba(194, 13, 32, 0.9)',
-                                border: '5px solid rgba(194, 13, 32, 0.9)',
+                                border: '5px solid transparent',
                             }}
                         >
                             {listOfRoutes.map(route => route)}
