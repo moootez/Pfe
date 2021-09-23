@@ -7,7 +7,7 @@ import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { Grid, Divider, TextField, Button } from '@material-ui/core'
+import { Divider, TextField, Button } from '@material-ui/core'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import addNewCommandeActions from '../../redux/commande/newCommande'
 import uploadCommandeActions from '../../redux/commande/uploadCommande'
@@ -84,12 +84,12 @@ const Index = props => {
 
     return (
         <div className="column col-md-12">
-            <Grid className="gridItem">
+            {/* <Grid className="gridItem">
                 <PageTitle label="Creation du commande" />
-            </Grid>
+            </Grid> */}
             <Divider />
             <MaterialTable
-                title=""
+                title={<PageTitle label="Creation du commande" />}
                 columns={[
                     {
                         title: 'Image',

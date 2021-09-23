@@ -51,8 +51,7 @@ const Index = props => {
             </Grid> */}
             <Divider />
             <MaterialTable
-                title="Traitement des réclamations
-                "
+                title={<PageTitle label="Traitement des réclamations" />}
                 columns={[
                     { title: 'ID réclamation', field: 'id' },
                     { title: 'Code Client', field: 'client.codeInsc' },

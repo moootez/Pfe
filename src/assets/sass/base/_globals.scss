@@ -635,6 +635,17 @@ hr {
     color: #000!important;
     padding: 10px 0;
 }
+.blc_deconnexion button span svg{
+    color: #c20d20;
+    font-size: 16px;
+}
+table thead tr th{
+    background: #7fbb05!important;
+    color: #fff!important;
+}
+table tbody tr:hover{
+    background-color: rgb(226, 226, 226);
+}
 @media screen and(min-width: 960px) {
     .header .right-block .prof-access {
         top: 25%;
