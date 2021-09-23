@@ -42,8 +42,7 @@ function* loginSagas(payload) {
             yield localStorage.setItem('InluccToken', response.data.Token)
             yield localStorage.setItem(
                 'role',
-                // response.data.User.details.userRoles[0].role
-                'ROLE_ADMIN'
+                 response.data.User.details.userRoles[0].role
             )
             instance.defaults.headers.Authorization = `Bearer ${response.data.Token}`
             yield put(getLoaderActions.disableGeneraleLoader())

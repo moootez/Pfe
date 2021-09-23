@@ -10,6 +10,12 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import './footer.css'
 import Public from '@material-ui/icons/Public'
+import Fb from '../../assets/images/fb.png'
+import Linkedin from '../../assets/images/linkedin.png'
+import Youtube from '../../assets/images/youtube.png'
+import Logo from '../../assets/images/logo.png'
+import Logopalia from '../../assets/images/logo_opalia.PNG'
+
 
 /**
  *
@@ -18,68 +24,83 @@ import Public from '@material-ui/icons/Public'
  */
 const Index = () => {
     return (
-        <footer className="footerApp container">
-            <Grid container alignItems="center" justify="space-around">
-                <Grid item xs={12} sm={12} md={4} className="footleft">
+        <footer className="footerApp container-fluid">
+            <Grid container justify="space-around">
+                <Grid item xs={12} sm={12} md={2} className="footleft">
                     <a href="https://www.opaliarecordati.com/">
                         <img
-                            src="https://www.opaliarecordati.com/img/opalia-icon/opalia-logo.png"
-                            width="320px"
-                            alt="Opalia Recordati"
+                            src={Logopalia}
+                            alt="Logo-INLUCC"
+                            // style={{ height: 60 }}
                         />
                     </a>
-                    <span className="slogan">
+                    {/* <span className="slogan">
                         Construisons aujourd&apos;hui la sant&eacute; de demain
-                    </span>
+                    </span> */}
+
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={2}
+                    style={{ paddingLeft: '10px' }}
+                    className="footmid"
+                >
                     <div className="activHello helloWidget">
-                        <h3>Siège commercial</h3>
+                        <p>Siège commercial</p>
                         <div className="adressContact">
                             <p>
-                                27, Avenue de la Livre Sterling, les Berges du
-                                Lac 2 - 1053 Tunis
-                                <br />
+                                <label>27, Avenue de la Livre Sterling, les Berges du
+                                Lac 2 - 1053 Tunis</label>
                                 <label className="black-label">
                                     Tel : (+216) 71 19 63 57
                                 </label>
-                                <br />
                                 <label className="black-label">
                                     Fax : (+216) 71 19 63 59
                                 </label>
-                                <br />
                                 <a href="mailto:contact@opaliarecordati.tn">
                                     Email : contact@opaliarecordati.tn
                                 </a>
-                                <br />
                             </p>
                         </div>
-                        <h3>Site de production</h3>
-                        <div className="adressContact">
-                            <p>
-                                Z.I. Kalaat Al Andalouss – 2022 Ariana
-                                <br />
-                                <label className="black-label">
-                                    Tel : (+216) 70 55 90 70 / (+216) 70 55 90
-                                    64
-                                </label>
-                                <br />
-                                <label className="black-label">
-                                    Fax : (+216) 70 55 91 84
-                                </label>
-                            </p>
-                        </div>
+
                     </div>
                 </Grid>
                 <Grid
                     item
                     xs={12}
                     sm={12}
-                    md={4}
+                    md={3}
                     style={{ paddingLeft: '10px' }}
                     className="footmid"
                 >
-                    <h3>Qui sommes-nous ?</h3>
+                    <p>Site de production</p>
+                        <div className="adressContact">
+                            <p>
+                                <label>Z.I. Kalaat Al Andalouss – 2022 Ariana</label>
+                                <label className="black-label">
+                                    Tel : (+216) 70 55 90 70 / (+216) 70 55 90
+                                    64
+                                </label>
+                                <label className="black-label">
+                                    Fax : (+216) 70 55 91 84
+                                </label>
+                            </p>
+                        </div>
+
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={5}
+                    style={{ verticalAlign: 'top' }}
+                    className="footright"
+                >
+                     <h3>Qui sommes-nous ?</h3>
                     <p>
-                        &nbsp; Changement au capital d’Opalia Pharma, huitième
+                        Changement au capital d’Opalia Pharma, huitième
                         sur le marché pharmaceutique tunisien et troisième plus
                         grande entreprise pharmaceutique locale et, sans doute,
                         un nouvel élan de développement et de croissance. Le
@@ -92,7 +113,7 @@ const Index = () => {
                         participation d’Abraaj avec Opalia a permis à
                         l’entreprise de multiplier ses ventes par...{' '}
                     </p>
-                    <div className="aright">
+                    {/* <div className="aright">
                         <a
                             href="https://www.opaliarecordati.com/cms/notre_histoire.php"
                             target="_blank"
@@ -101,26 +122,22 @@ const Index = () => {
                         >
                             Notre histoire
                         </a>
-                    </div>
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={4}
-                    style={{ verticalAlign: 'top' }}
-                    className="footright"
-                >
-                    <h3>Nous suivre</h3>
-                    <div>
+                    </div> */}
+
+                    {/* <h3>Nous suivre</h3> */}
+                    <div className="blc_rs">
                         <a
                             href="https://www.facebook.com/OpaliaRecordati/"
                             target="_blank"
                         >
-                            <img
+                            {/* <img
                                 height="60px"
                                 src="https://www.opaliarecordati.com/img/icon_fb.png"
                                 alt="FB"
+                            /> */}
+                            <img
+                                src={Fb}
+                                alt="facebook"
                             />
                         </a>
                         <a
@@ -128,9 +145,8 @@ const Index = () => {
                             target="_blank"
                         >
                             <img
-                                height="60px"
-                                src="https://www.opaliarecordati.com/img/icon_linkedin.png"
-                                alt="Linkedin"
+                                src={Linkedin}
+                                alt="linkedin"
                             />
                         </a>
                         <a
@@ -138,12 +154,20 @@ const Index = () => {
                             target="_blank"
                         >
                             <img
-                                height="60px"
-                                src="https://www.opaliarecordati.com/img/icon_youtube.png"
-                                alt="Youtube"
+                                src={Youtube}
+                                alt="youtube"
                             />
                         </a>
                     </div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} className="blc_bottom_logo">
+                    <a href="/dashboard">
+                        <img
+                            src={Logo}
+                            alt="Logo-INLUCC"
+                            // style={{ height: 60 }}
+                        />
+                    </a>
                 </Grid>
             </Grid>
         </footer>
