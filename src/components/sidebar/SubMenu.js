@@ -21,14 +21,14 @@ const SubMenu = ({item}) => {
         <>
             <a href={item.link} id={item.id} onClick={showSubnav}>
                 <SidebarLabel>{item.title}</SidebarLabel>
-                <span>
+                {/* <span>
                     {item.subNav && subnav
                     ? item.iconOpened
                     : item.subNav
                     ? item.iconClosed
                     : null}
 
-                </span> 
+                </span>  */}
             </a>
             {subnav && (
                 <div className="sub_menu_blc">
