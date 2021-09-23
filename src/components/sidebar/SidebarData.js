@@ -1,5 +1,4 @@
 import React from 'react'
-import * as RiIcons from 'react-icons/ri'
 
 const SidebarData = [
     {
@@ -30,8 +29,6 @@ const SidebarData = [
         "title": "Commande",
         "defaultPermission": false,
         "roles": ["ROLE_ADV", "ROLE_CLIENT"],
-        "iconClosed": <RiIcons.RiArrowDownSFill />,
-        "iconOpened": <RiIcons.RiArrowUpSFill />,
         "subNav": [
             {
                 "id": 31,
@@ -62,8 +59,6 @@ const SidebarData = [
         "title": "Réclamations",
         "defaultPermission": false,
         "roles": ["ROLE_ADV", "ROLE_CLIENT"],
-        "iconClosed": <RiIcons.RiArrowDownSFill />,
-        "iconOpened": <RiIcons.RiArrowUpSFill />,
         "subNav": [
             {
                 "id": 41,
