@@ -5,7 +5,7 @@ import { create } from 'jss'
 import rtl from 'jss-rtl'
 import { JssProvider } from 'react-jss'
 import { createGenerateClassName, jssPreset } from '@material-ui/styles'
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import { createTheme , MuiThemeProvider } from '@material-ui/core/styles'
 import themeObject from '../theme'
 
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
@@ -49,7 +49,7 @@ class ThemeProvider extends PureComponent {
             isRtl = true
         }
 
-        const theme = createMuiTheme({
+        const theme = createTheme ({
             ...themeObject,
             direction: isRtl ? 'rtl' : 'ltr',
         })
