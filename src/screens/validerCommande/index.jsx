@@ -8,7 +8,7 @@ import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { Grid, Divider } from '@material-ui/core'
+import { Divider } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
@@ -75,9 +75,9 @@ const Index = props => {
 
     return (
         <div className="column col-md-12">
-            <Grid className="gridItem">
+            {/* <Grid className="gridItem">
                 <PageTitle label="Validation commande" />
-            </Grid>
+            </Grid> */}
             <Divider />
             {role !== 'ROLE_CLIENT' && (
                 <div>
@@ -88,7 +88,7 @@ const Index = props => {
                 </div>
             )}
             <MaterialTable
-                title=""
+                title= {<PageTitle label='Validation commande' />}
                 columns={[
                     {
                         title: 'ID',

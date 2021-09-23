@@ -620,3 +620,304 @@ hr {
     border-top: 38px solid #c20d20;
     border-left: 30px solid transparent;
 }
+
+.blc-sidebar{
+    position: relative;
+}
+.blc-sidebar:before{
+    content: '';
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    top: -15px;
+    left: 0;
+    background: linear-gradient(to right, rgb(157, 224, 245), rgba(33, 112, 231, 0.733));
+    z-index: 1;
+}
+.blc-sidebar .navbar{
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+.logo-img{
+    padding: 0 15px 15px 15px;
+}
+.logo-img img{
+    width: 90%;
+}
+.blc-top-header>p{
+    margin: 0 15px 15px;
+    color: #c20d20;
+}
+.blc-top-header .MuiIconButton-root:hover{
+    background-color: transparent!important;
+}
+.blc-top-header  .blc_deconnexion button{
+    color: #c20d20;
+    font-size: 13px;
+}
+.username{
+    font-size: 18px;
+    text-transform: capitalize;
+}
+.hight-index > nav > div > div .list-group .list-group-item a{
+    color: #353535 !important;
+}
+.navbar__links {
+    padding: 0;
+}
+.navbar__items{
+    list-style: none;
+    display: inline-block;
+}
+.sub_menu_blc {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #c5c5c6;
+    z-index: 10;
+}
+.navbar__items a:hover{
+    color: #7eba00;
+    text-decoration: none;
+}
+.blc-sidebar .navbar .sub_menu_blc a:hover{
+    color: #7eba00!important;
+}
+.blc-sidebar .navbar .sub_menu_blc a{
+    display: block;
+    color: #000!important;
+    padding: 10px 0;
+}
+.blc_deconnexion button span svg{
+    color: #c20d20;
+    font-size: 16px;
+}
+table thead tr th{
+    background: #7fbb05!important;
+    color: #fff!important;
+}
+table tbody tr:hover{
+    background-color: rgb(226, 226, 226);
+}
+@media screen and(min-width: 960px) {
+    .header .right-block .prof-access {
+        top: 25%;
+    }
+    .dashboard-main .dashboard-header .left-block .pageTitle h1 {
+        margin: 0 32%;
+        min-width: 50%;
+    }
+}
+@media screen and(max-width: 1200px) {
+    .dashboard-main .dashboard-header .right-block{
+        width: 100%;
+        max-width: 100%;
+        flex-grow: inherit;
+        flex-basis: inherit;
+    }
+    .blc-sidebar:before{
+        left: 15px;
+    }
+    .dashboard-main .dashboard-header .left-block{
+        width: 100%;
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+    .logo-img{
+        padding: 0;
+        text-align: center;
+        img {
+            width: auto;
+        }
+    }
+    .hight-index {
+        nav>div{
+            display: block;
+            text-align: center;
+        }
+    }
+    .hight-index a, .hight-index > nav > div > div{
+        display: inline-block;
+        padding: 5px 10px;
+    }
+}
+@media screen and(max-width: 991px) {
+    .gridItem {
+        padding: 0 !important;
+    }
+    .header {
+        .left-block {
+            .text-block {
+                width: 60%;
+            }
+            .tn-flag img {
+                height: 40px;
+                width: 55px;
+            }
+        }
+        .center-block .logo-img img {
+            height: 65px;
+            width: 95px;
+        }
+    }
+    div.centerDiv {
+        width: 100% !important;
+    }
+    .containerFr .header .center-block .logo-img {
+        float: right;
+    }
+    .containerAr .header .center-block .logo-img {
+        float: left;
+    }
+    .dashboard-main .dashboard-header {
+        display: block;
+        .right-block {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+        .notifications {
+            margin: auto 0;
+        }
+        .left-block .pageTitle h1 {
+            width: 100%;
+        }
+        .profile-status .disconnectButton {
+            bottom: 0;
+        }
+    }
+    .footleft img{
+        max-width: 150px;
+        margin: 0 auto;
+    }
+    footer img, footer span, footer p{
+        text-align: center!important;
+    }
+    .footerApp .MuiGrid-item {
+        padding: 10px!important;
+    }
+    .footerApp .MuiGrid-item.footright {
+        padding-right: 10px;
+        text-align: center;
+    }
+    .footerApp .MuiGrid-item.footright {
+        padding-right: 10px!important;
+    }
+    .blc_rs{
+        text-align: center!important;
+    }
+    
+}
+@media screen and(max-width: 767px) {
+    .navbar__items{
+        display: block;
+    }
+    .blc-sidebar:before{
+        top: -35px;
+    }
+    .header {
+        padding: 0;
+        .left-block .text-block {
+            padding-left: 5px;
+            p {
+                font-size: 11px;
+            }
+        }
+    }
+    .eLhNLq{
+        position: relative!important;
+        visibility: inherit!important;
+    }
+    .blc-sidebar .show-nav.navbar ul{
+        right: 0;
+        width: 100vw;
+        visibility: visible;
+    }
+    .dashboard-main .dashboard-header{
+        margin-bottom: 40px;
+    }
+    .blc-sidebar .navbar ul{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed!important;
+        right: -100vw;
+        bottom: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        padding: 2rem;
+        background: #828488;
+        color: #fff !important;
+        z-index: 12;
+        overflow-y: scroll;
+        visibility: hidden;
+        transition: all .5s ease-in-out;
+    }    
+    .hight-index a, .hight-index > nav > div > div, .blc-sidebar .navbar a{
+        color: #fff !important;
+        display: block;
+        padding: 10px;
+        font-size: 5vw;
+    }
+    .show-nav .burger_bar, .show-nav .burger_bar:before, .show-nav .burger_bar:after{
+        background: #fff;
+    }
+    .burger_bar, .burger_bar:before, .burger_bar:after{
+        display: block;
+        width: 40px;
+        height: 3px;
+        position: relative;
+        border-radius: 3px;
+        background: #828488;
+        transition: all .5s ease-in-out;
+    }
+    .show-nav .burger_bar:before{
+        transform: rotate(45deg);
+    }
+    .show-nav .burger_bar:after{
+        transform: rotate(-45deg);
+    }
+    .show-nav .burger_bar{background: transparent; width: 0;}
+    .navbar_burger{
+        display: block;
+        position: absolute;
+        top: -20px;
+        right: 1rem;
+        z-index: 13;
+        transition: all .5s ease-in-out;
+    }
+     .show-nav .navbar_burger{
+        position: fixed;
+        transition: all .5s ease-in-out;
+        top: 0;
+     }
+    .navbar_burger:hover{
+        cursor: pointer;
+    }
+    .burger_bar:before, .burger_bar:after{
+        content: '';
+        position: absolute;
+        left: 0;
+    }
+    .burger_bar:before{
+        transform: translateY(-12px);
+    }
+    .burger_bar:after{
+        transform: translateY(12px);
+    }
+    .logo-img img{
+        max-width: 150px;
+    }
+    .dashboard-main .dashboard-header .right-block .blc_conn_username{
+        top: 30px;
+        justify-content: inherit!important;
+        display: inherit!important;
+    }
+    .blc-top-header > p{
+        display: inline-block;
+    }
+    .sub_menu_blc{
+        position: relative;
+    }
+    .sub_menu_blc{border: none;}
+}
