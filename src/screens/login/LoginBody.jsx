@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FormLogin from './FormLogin'
 import LoginHeader from './Layoute/LoginHeader'
+import PartenaireLogin from './PartenaireLogin'
 import SendEmail from './sendEmail'
+
 
 /**
  * page login
@@ -13,9 +15,10 @@ import SendEmail from './sendEmail'
 const LoginBody = ({ page }) => {
     return (
         <div className="bg">
-            <div>
+            <div className="shadow-login">
                 <LoginHeader />
                 {page === 'sendEmail' ? <SendEmail /> : <FormLogin />}
+                <PartenaireLogin />
             </div>
         </div>
     )
