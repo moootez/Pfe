@@ -689,6 +689,12 @@ table tbody tr:hover{
     }
 }
 @media screen and(max-width: 991px) {
+    .shadow-login:after{
+        display: none;
+    }
+    .modal-login{
+        margin: 0 auto!important;
+    }
     .gridItem {
         padding: 0 !important;
     }
@@ -867,4 +873,13 @@ table tbody tr:hover{
         position: relative;
     }
     .sub_menu_blc{border: none;}
+    .blc_logo_left img {
+        margin-left: 0!important;
+    }
+    .blc_logo_left, .blc_logo_right{
+        text-align: center!important;
+    }
+    .blc_logo_right img{
+        margin-right: 0!important;
+    }
 }

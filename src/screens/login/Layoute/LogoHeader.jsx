@@ -1,5 +1,6 @@
 import React from 'react'
-import Logo from '../../../assets/images/logo.png'
+import Logo from '../../../assets/images/logo_opalia.PNG'
+import LogoRecordati from '../../../assets/images/logo_rec_white.png'
 import '../Login.css'
 
 /**
@@ -10,11 +11,12 @@ import '../Login.css'
 const LogoHeader = () => {
     return (
         <div className="row logo">
-            <div className=""> </div>
-            <div className="">
-                <img src={Logo} alt="logo" style={{ height: '10vh' }}></img>
+            <div className="blc_logo_left col-md-6">
+                <img src={Logo} alt="logo"></img>
             </div>
-            <div className=""> </div>
+            <div className="blc_logo_right col-md-6">
+                <img src={LogoRecordati} alt="logo" className="logo-rec"></img>
+            </div>
         </div>
     )
 }

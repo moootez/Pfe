@@ -78,13 +78,11 @@ class FormLogin extends Component {
 
         return (
             <div
-                className="d-flex justify-content-center align-items-center"
-                style={{ height: '80vh' }}
+                className="d-flex align-items-center"
+                style={{ position: 'relative',
+                    top: '30%', }}
             >
-                <div
-                    className="d-flex justify-content-center"
-                    style={{ width: '30%' }}
-                >
+                <div className="d-flex justify-content-center modal-login">
                     <div className="card-body form">
                         <div className="formPadding">
                             <div className="input-group form-group text-center">
@@ -92,9 +90,11 @@ class FormLogin extends Component {
                                     autoComplete="off"
                                     type="text"
                                     style={{
-                                        border: '#939393 1px solid',
+                                        border: 'transparent 1px solid',
                                         outline: 'none',
                                         fontWeight: 'Regular',
+                                        height: '65px',
+                                        textAlign: 'center'
                                     }}
                                     className="w-100"
                                     placeholder={intl.formatMessage({
@@ -111,10 +111,12 @@ class FormLogin extends Component {
                                     autoComplete="off"
                                     type="password"
                                     style={{
-                                        border: '#939393 1px solid',
+                                        border: 'transparent 1px solid',
                                         outline: 'none',
                                         fontWeight: 'Regular',
                                         justifyContent: 'center',
+                                        height: '65px',
+                                        textAlign: 'center'
                                     }}
                                     className="w-100"
                                     placeholder={intl.formatMessage({
@@ -125,6 +127,13 @@ class FormLogin extends Component {
                                     }
                                 />
                             </div>
+                            <div className="link_btn">
+                                <a href="/sendEmail">
+                                    {intl.formatMessage({
+                                        id: 'forgetPassword',
+                                    })}
+                                </a>
+                            </div>
                             <button
                                 type="submit"
                                 className="btn-submit w-100"
@@ -132,20 +141,6 @@ class FormLogin extends Component {
                             >
                                 Entrer
                             </button>
-                            <div className="link_btn text-center">
-                                <a
-                                    href="/sendEmail"
-                                    style={{
-                                        textDecoration: 'underline',
-                                        color: '#cd121a ',
-                                        // float: 'left',
-                                    }}
-                                >
-                                    {intl.formatMessage({
-                                        id: 'forgetPassword',
-                                    })}
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 .bg {
-    background: url('../../assets/images/bg.png');
-    background-size: contain;
-    background-position: center;
+    background: url('../../assets/images/bg-login.png') #fff;
+    background-size: cover;
+    background-position: top;
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
@@ -17,14 +17,16 @@
 }
 
 .btn-submit {
-    height: 30px;
+    height: 65px;
     border: 1px solid #cd121a;
-    color: #cd121a;
+    color: #fff;
+    background: #cd121a;
+    text-transform: uppercase;
 }
 
 .btn-submit:hover {
-    background-color: #cd121a;
-    color: white;
+    background-color: transparent;
+    color: #cd121a;
 }
 
 .rtl {
@@ -51,9 +53,10 @@
     /* position: abdolute; */
     padding: 0%;
     width: 100%;
-    margin: 6%;
-    background-color: rgba(235, 230, 235, 0.41);
-    opacity: 0.93;
+    /* opacity: 0.93; */
+    background: linear-gradient(#b5e2f5, #fff);
+    border-radius: 25px;
+    border: 2px solid #87868a;
 }
 
 .login_btn {
@@ -63,12 +66,20 @@
 
 .link_btn {
     padding-top: 20px;
+    padding-bottom: 40px;
     font-size: 15px;
-    margin-left: -10px;
+    text-align: right;
 }
-
+.link_btn a{
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+}
+.link_btn a:hover{
+    color: #cd121a;
+}
 .formPadding {
-    padding: 50px;
+    padding: 30px;
     margin: auto;
 }
 
@@ -89,6 +100,51 @@
     margin-right: 8px;
 }
 .logo {
-    justify-content: center;
-    padding: 10px 0px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+}
+.shadow-login {
+    position: relative;
+    height: 100vh;
+}
+.shadow-login:after{
+    content: '';
+    background: url('../../assets/images/shadow-login.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.modal-login{
+    width: 460px; 
+    margin-left: 7%
+}
+.footer-login{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.footer-login img{
+    width: 100%;
+}
+.logo-rec{
+    max-width: 310px;
+    margin-top: 30px;
+    /* margin-left: auto;
+    margin-right: 14%; */
+}
+.blc_logo_right {
+    text-align: right;
+}
+.blc_logo_left  img{
+    margin-left: 130px;
+}
+.blc_logo_right  img{
+    margin-right: 130px;
 }
