@@ -3,9 +3,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
+import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from '@material-ui/icons/Lock';
 import loginActions from '../../redux/login'
-import './Login.css'
 import alertActions from '../../redux/alert'
+import './Login.css'
+
 
 /**
  * interface login
@@ -85,7 +88,8 @@ class FormLogin extends Component {
                 <div className="d-flex justify-content-center modal-login">
                     <div className="card-body form">
                         <div className="formPadding">
-                            <div className="input-group form-group text-center">
+                            <div className="box-login input-group form-group text-center">
+                                <span className="icon-input"><PersonIcon /></span>
                                 <input
                                     autoComplete="off"
                                     type="text"
@@ -106,7 +110,8 @@ class FormLogin extends Component {
                                 />
                             </div>
 
-                            <div className="input-group form-group text-center">
+                            <div className="box-pswrd input-group form-group text-center">
+                            <span className="icon-input"><LockIcon /></span>
                                 <input
                                     autoComplete="off"
                                     type="password"

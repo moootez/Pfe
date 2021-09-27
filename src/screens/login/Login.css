@@ -148,3 +148,16 @@
 .blc_logo_right  img{
     margin-right: 130px;
 }
+.icon-input{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #1f75ba;
+    width: 65px;
+    height: 100%;
+    line-height: 100%;
+    color: #fff;
+}
+.icon-input svg{
+    height: 100%;
+}
