@@ -646,6 +646,37 @@ table thead tr th{
 table tbody tr:hover{
     background-color: rgb(226, 226, 226);
 }
+.box-top-dash >div{
+    background-color: #bd162e;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    color: #fff;
+}
+.box-top-dash {
+    background-color: #bd162e;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+.box-charts{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border: 1px solid #bd162e;
+}
+.box-charts svg{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+.dashboard-main{
+    overflow-x: hidden;
+}
 @media screen and(min-width: 960px) {
     .header .right-block .prof-access {
         top: 25%;
@@ -881,5 +912,8 @@ table tbody tr:hover{
     }
     .blc_logo_right img{
         margin-right: 0!important;
+    }
+    .box-top-dash{
+        margin-bottom: 20px;
     }
 }

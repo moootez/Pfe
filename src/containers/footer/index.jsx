@@ -24,7 +24,7 @@ import Logopalia from '../../assets/images/logo_opalia.PNG'
  */
 const Index = () => {
     return (
-        <footer className="footerApp container-fluid">
+        <footer className="footerApp">
             <Grid container justify="space-around">
                 <Grid item xs={12} sm={12} md={2} className="footleft">
                     <a href="https://www.opaliarecordati.com/">
