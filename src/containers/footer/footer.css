@@ -1,7 +1,7 @@
 .footerApp {
     width: 100%;
     margin: auto;
-    padding: 12px 12px 0 12px;
+    /* padding: 12px 12px 0 12px; */
     background-color: rgba(0,0,0,0.1);
     margin-top: 40px;
 }
