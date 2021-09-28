@@ -524,7 +524,7 @@ hr {
 }
 
 .hight-index a,
-.hight-index > nav > div > div {
+.hight-index > nav > div > div{
     color: #353535 !important;
     padding: 0px;
     font-size: 1.3rem !important;
@@ -677,16 +677,8 @@ table tbody tr:hover{
             width: auto;
         }
     }
-    .hight-index {
-        nav>div{
-            display: block;
-            text-align: center;
-        }
-    }
-    .hight-index a, .hight-index > nav > div > div{
-        display: inline-block;
-        padding: 5px 10px;
-    }
+    
+    
 }
 @media screen and(max-width: 991px) {
     .shadow-login:after{
@@ -760,6 +752,7 @@ table tbody tr:hover{
     }
     
 }
+
 @media screen and(max-width: 767px) {
     .navbar__items{
         display: block;
@@ -881,5 +874,24 @@ table tbody tr:hover{
     }
     .blc_logo_right img{
         margin-right: 0!important;
+    }
+    
+}
+@media only screen and (min-width : 1024px) {
+    .blc-sidebar .MuiCollapse-wrapperInner{
+        position: absolute;
+        top: 60px;
+    
+        
+    }
+    .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
+        width: auto;
+        float: left;
+        background: white;
+    }
+    .blc-sidebar .MuiCollapse-entered{
+        position: relative;
+        left: -150px;
+    
     }
 }
