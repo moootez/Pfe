@@ -14,7 +14,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { history } from '../../store'
 // import News from '../newsBar'
 import Logopalia from '../../assets/images/logo_opalia.PNG'
-import Sidebar from '../sidebar/Sidebar'
+import Sidebar from '../sidebar/index'
 
 /**
  *
