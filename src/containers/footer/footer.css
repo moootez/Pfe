@@ -2,10 +2,28 @@
     width: 100%;
     margin: auto;
     /* padding: 12px 12px 0 12px; */
-    background-color: rgba(0,0,0,0.1);
+    background: linear-gradient(#cfcfcf, #9a9a9a);
     margin-top: 40px;
+    position: relative;
 }
-
+.footerApp .blc-bottom-footer > div{
+    width: 100%;
+    display: block;
+    margin-right: 0;
+}
+.footerApp .blc-footer-top{
+    position: relative;
+}
+.footerApp .blc-footer-top:after{
+   content: '';
+   width: 413px;
+   height: 100%;
+   position: absolute;
+   background: url("../../assets/images/bg-footer.png") 0 0 no-repeat;
+   right: 0;
+   top: 0;
+   z-index: 0;
+}
 .iconFooter {
     font-size: 24px;
     margin: 0 5px;
@@ -134,7 +152,7 @@ footer span {
     position: absolute;
     bottom: 0;
     left: 0;
-    background: linear-gradient(to right, #00bd29, #fff);
+    background: linear-gradient(to right, #93c136, #fff);
     z-index: 1;
 }
 
@@ -158,6 +176,7 @@ footer span {
 }*/
 .footerApp .MuiGrid-item{
     padding: 30px;
+    z-index: 1;
 }
 .footerApp .MuiGrid-item.footright {
     padding-right: 60px;
