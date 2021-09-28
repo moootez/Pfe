@@ -25,7 +25,8 @@ import Logopalia from '../../assets/images/logo_opalia.PNG'
 const Index = () => {
     return (
         <footer className="footerApp">
-            <Grid container justify="space-around">
+                <div className="blc-footer-top">
+                <Grid container justify="space-around">
                 <Grid item xs={12} sm={12} md={2} className="footleft">
                     <a href="https://www.opaliarecordati.com/">
                         <img
@@ -160,16 +161,22 @@ const Index = () => {
                         </a>
                     </div>
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} className="blc_bottom_logo">
-                    <a href="/dashboard">
-                        <img
-                            src={Logo}
-                            alt="Logo-INLUCC"
-                            // style={{ height: 60 }}
-                        />
-                    </a>
                 </Grid>
-            </Grid>
+                </div>
+                <div className="blc-bottom-footer">
+                    <Grid>
+                        <Grid item xs={12} sm={12} md={12} className="blc_bottom_logo">
+                            <a href="/dashboard">
+                                <img
+                                    src={Logo}
+                                    alt="Logo-INLUCC"
+                                    // style={{ height: 60 }}
+                                />
+                            </a>
+                        </Grid>
+                    </Grid>
+                </div>
+                
         </footer>
     )
 }
