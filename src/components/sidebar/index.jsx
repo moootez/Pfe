@@ -145,23 +145,11 @@ const index = ({ history, role }) => {
                                     onClick={e => handleClickItem(e, item)}
                                     className={classes.listItem}
                                 >
-                                    <ListItemText
-                                        primary={
-                                            <Typography
-                                                className={classes.itemText}
-                                            >
-                                                {item.title}
-                                            </Typography>
-                                        }
-                                    />
+                                    <span>{item.title}</span>
                                     {open && selectedItem === item.id ? (
-                                        <ExpandLess
-                                            style={{ color: 'white' }}
-                                        />
+                                        <ExpandLess />
                                     ) : (
-                                        <ExpandMore
-                                            style={{ color: 'white' }}
-                                        />
+                                        <ExpandMore />
                                     )}
                                 </ListItem>
                                 <Collapse
@@ -191,7 +179,7 @@ const index = ({ history, role }) => {
                                                 >
                                                     <ListItemText
                                                         primary={
-                                                            <Typography
+                                                            <a href= {subitem.link}
                                                                 className={
                                                                     selectedSubItem ===
                                                                     subitem.id
@@ -200,7 +188,7 @@ const index = ({ history, role }) => {
                                                                 }
                                                             >
                                                                 {subitem.title}
-                                                            </Typography>
+                                                            </a>
                                                         }
                                                         className={
                                                             classes.nested
@@ -218,15 +206,7 @@ const index = ({ history, role }) => {
                                 onClick={e => handleClickSubItem(e, item)}
                                 className={classes.listItem}
                             >
-                                <ListItemText
-                                    primary={
-                                        <Typography
-                                            className={classes.itemText}
-                                        >
-                                            {item.title}
-                                        </Typography>
-                                    }
-                                />
+                                <a href={item.link} >{item.title}</a>
                             </ListItem>
                         )}
                     </Fragment>

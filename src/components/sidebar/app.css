@@ -14,9 +14,9 @@ a {
     color: #24b47e;
 }
 
-a:hover {
+/* a:hover {
     opacity: 0.5;
-}
+} */
 
 a:visited {
     color: #6b7c93;

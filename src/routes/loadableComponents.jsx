@@ -283,7 +283,7 @@ const loadableComponents = [
             loader: () => import('../screens/pageCms/actualite/index'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/',
+        path: '/actualite',
         props: {
             exact: true,
         },

@@ -83,7 +83,7 @@ const Index = props => {
     }
 
     return (
-        <div className="column col-md-12">
+        <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
                 <PageTitle label="Creation du commande" />
             </Grid> */}

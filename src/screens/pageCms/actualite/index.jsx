@@ -173,7 +173,6 @@ const Index = ({
                 {/* <Grid className="gridItem">
                     <PageTitle />
                 </Grid> */}
-
                 {page === "/actualite" &&
                 <Swiper
                     // install Swiper modules

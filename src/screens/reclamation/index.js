@@ -20,12 +20,13 @@ const Index = props => {
     // Set livraison on state
 
     return (
-        <div className="column col-md-12">
-            <Grid className="gridItem">
+        <div className="column col-md-12 style-table">
+            {/* <Grid className="gridItem">
                 <PageTitle label="Mes réclamations" />
-            </Grid>
+            </Grid> */}
             <Divider />
             <TableCollapse
+                title= "Mes réclamations"
                 apiCall={getAllReclamation}
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(
