@@ -78,7 +78,7 @@ const Index = props => {
 
     console.log(livraisons)
     return (
-        <div className="column col-md-12 text-center">
+        <div className="column col-md-12 text-center style-table">
             <Grid className="gridItem">
                 <PageTitle label="Ajouter une réclamation" />
             </Grid>

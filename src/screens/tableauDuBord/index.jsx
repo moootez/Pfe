@@ -64,13 +64,14 @@ const index = () => {
                 <SwiperSlide><img src={SliderDash3} alt="slider" /></SwiperSlide>
                 <SwiperSlide><img src={SliderDash4} alt="slider" /></SwiperSlide>
             </Swiper> 
+            <div className="blc-cnt-dash">
             <div className="row">
                 <div className="col-md-3 col-sm-6">
                     <div className="box-top-dash">
                         <Paper className="p-3">
                             <center>
                                 <b>Commandes</b>
-                                <span className="font-weight-bold d-block" Style="color: #fff;  font-size: 30px;">
+                                <span className="font-weight-bold d-block">
                                     {state.total.Nombre_commandes}
                                 </span>{' '}</center>
                         </Paper>                    
@@ -81,7 +82,7 @@ const index = () => {
                     <Paper className="p-3">
                             <center>
                                 <b>Commandes livrées</b>
-                                <span className="font-weight-bold d-block" Style="color: #fff;  font-size: 30px;">
+                                <span className="font-weight-bold d-block">
                                     {state.total.Nombre_commandes_livrees}
                                 </span>{' '}
                             </center>
@@ -93,7 +94,7 @@ const index = () => {
                         <Paper className="p-3">
                             <center>
                                 <b>Montant facture</b>
-                                <span className="font-weight-bold d-block" Style="color: #fff;  font-size: 30px;">
+                                <span className="font-weight-bold d-block">
                                     {state.total.Montant_facture_annee_en_cours}
                                 </span>{' '}</center>
 
@@ -105,7 +106,7 @@ const index = () => {
                         <Paper className="p-3">
                             <center>
                                 <b>Montant a régler</b>
-                                <span className="font-weight-bold d-block" Style="color: #fff;  font-size: 30px;">
+                                <span className="font-weight-bold d-block">
                                     {state.total.Montant_a_regler}
                                 </span>{' '}
                             </center>
@@ -175,7 +176,7 @@ const index = () => {
                         highcharts={Highcharts || {}}
                         options={{
                             chart: {
-                                type: 'column',
+                                type: 'spline',
                             },
                             title: {
                                 text: 'Montant TTC mois',
@@ -262,6 +263,7 @@ const index = () => {
                 />
                 </div>
                 
+            </div>
             </div>
             </div>
         </Fragment>

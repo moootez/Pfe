@@ -41,12 +41,13 @@ const Index = props => {
     }, [commandeDetails])
 
     return (
-        <div className="column col-md-12">
-            <Grid className="gridItem">
+        <div className="column col-md-12 style-table">
+            {/* <Grid className="gridItem">
                 <PageTitle label="Mes commandes" />
-            </Grid>
+            </Grid> */}
             <Divider />
             <TableCollapse
+                title="Mes commandes"
                 apiCall={getAllCommande}
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(commandes))}

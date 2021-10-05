@@ -13,7 +13,7 @@ import SimpleTable from '../simpleTable'
 const DetailPanelWithRowClick = props => {
     const subDataRef = useRef(null)
     // const [dataSub, setDataSub] = useState(useRef)
-    const { apiCall, dataApi, dataReturned, dataSubArray } = props
+    const { apiCall, dataApi, dataReturned, dataSubArray, title } = props
 
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
 
@@ -66,7 +66,7 @@ const DetailPanelWithRowClick = props => {
                     options={{ maxBodyHeight: '80vh' }}
                     columns={dataTable.header}
                     data={dataTable.data}
-                    title=""
+                    title={title}
                     onRowClick={(event, rowData, togglePanel) => {
                         togglePanel()
                     }}

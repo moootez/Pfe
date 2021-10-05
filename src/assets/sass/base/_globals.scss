@@ -286,6 +286,9 @@ body {
         color: $color_valencia_approx;
     }
 }
+.blc-cnt-dash{
+    padding: 0 15px;
+}
 .dashboard-main {
     flex: 1;
     flex-wrap: nowrap;
@@ -303,6 +306,7 @@ body {
         // }
         .right-block {
             display: block;
+            margin-top: 35px;
         }
         .profile-status {
             position: relative;
@@ -570,6 +574,30 @@ hr {
 }
 .blc-sidebar{
     position: relative;
+    // display: inline-block;
+    // width: 100%;
+}
+// .blc-sidebar > ul{
+//     display: inline-block;
+//     width: 100%;
+//     text-align: center;
+// }
+// .blc-sidebar > ul > div{
+//     float: none!important;
+//     display: inline-block!important;
+// }
+.blc-sidebar > ul > a{
+    border-bottom: none!important;
+    display: block;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #8a8b8e;
+    font-size: 18px;
+    font-weight: 700;
+}
+.blc-sidebar > ul > a:hover, .blc-sidebar > ul > a:focus{
+    color: #c20d20;
+    text-decoration: none;
 }
 .blc-sidebar:before{
     content: '';
@@ -646,13 +674,17 @@ table thead tr th{
 table tbody tr:hover{
     background-color: rgb(226, 226, 226);
 }
-.box-top-dash >div{
+.box-top-dash > div{
     background-color: #bd162e;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     color: #fff;
+}
+.box-top-dash > div > center > span{
+    color: #fff;  
+    font-size: 30px;
 }
 .box-top-dash {
     background-color: #bd162e;
@@ -679,6 +711,65 @@ table tbody tr:hover{
 }
 .slider_dash{
     margin-bottom: 40px;
+    margin-top: 40px;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button a{
+    color: #8a8b8e;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button span:hover {
+    color: #bd162e;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button a:hover{
+    color: #bd162e;
+    text-decoration: none;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
+    border: none;
+    color: #8a8b8e;
+    font-size: 18px;
+    font-weight: 700;
+    display: block;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.style-table h6{
+    font-size: 36px;
+    color: #000;
+    font-weight: 900;
+}
+.style-table{
+    margin-top: 40px;
+}
+
+@media only screen and (min-width : 1024px) {
+    .blc-sidebar .MuiCollapse-wrapperInner{
+        position: absolute;
+        top: 40px;
+        box-shadow: 2px 5px 5px #d4cfcf;
+        border: 1px solid #d4cfcf;
+        width: auto;
+        z-index: 9;
+        background-color: #fff;
+    }
+    .blc-sidebar .MuiCollapse-wrapperInner .MuiList-root{
+        padding: 15px 15px 10px;
+        background: #fff;
+        display: inline-block;
+    }
+    .blc-sidebar .MuiCollapse-wrapperInner a{
+        color: #8a8b8e;
+    }
+    .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
+        width: auto;
+        float: left;
+        background: white;
+    }
+    .blc-sidebar .MuiCollapse-entered{
+        position: relative;
+        left: -150px;
+    }
+
 }
 @media screen and(min-width: 960px) {
     .header .right-block .prof-access {
@@ -690,14 +781,14 @@ table tbody tr:hover{
     }
 }
 @media screen and(max-width: 1200px) {
+    .blc-sidebar .MuiCollapse-entered{
+        left: 20px;
+    }
     .dashboard-main .dashboard-header .right-block{
         width: 100%;
         max-width: 100%;
         flex-grow: inherit;
         flex-basis: inherit;
-    }
-    .blc-sidebar:before{
-        left: 15px;
     }
     .dashboard-main .dashboard-header .left-block{
         width: 100%;
@@ -711,8 +802,16 @@ table tbody tr:hover{
             width: auto;
         }
     }
-    
-    
+}
+@media screen and(max-width: 991px) {
+    .blc-sidebar .MuiCollapse-entered a{
+        display: block;
+        padding: 5px 30px;
+        color: #fff!important;
+    }
+    .blc-sidebar .MuiCollapse-entered{
+        background: #5d97ee;
+    }
 }
 @media screen and(max-width: 991px) {
     .shadow-login:after{
@@ -889,7 +988,7 @@ table tbody tr:hover{
         max-width: 150px;
     }
     .dashboard-main .dashboard-header .right-block .blc_conn_username{
-        top: 30px;
+        top: 16px;
         justify-content: inherit!important;
         display: inherit!important;
     }
@@ -909,23 +1008,14 @@ table tbody tr:hover{
     .blc_logo_right img{
         margin-right: 0!important;
     }
-    
-}
-@media only screen and (min-width : 1024px) {
-    .blc-sidebar .MuiCollapse-wrapperInner{
-        position: absolute;
-        top: 60px;
-    
-        
+    .box-top-dash{
+        margin-bottom: 20px;
     }
-    .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
-        width: auto;
-        float: left;
-        background: white;
+    .style-table .MuiToolbar-gutters {
+        display: block;
     }
-    .blc-sidebar .MuiCollapse-entered{
-        position: relative;
-        left: -150px;
+    .style-table table{
+        margin-top: 20px;
+    }
     
-    }
 }

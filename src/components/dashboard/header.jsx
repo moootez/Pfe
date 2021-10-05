@@ -35,7 +35,7 @@ const Header = props => {
     return (
         <Fragment>
             <header className="dashboard-header">
-                <Grid container className="row">
+                <Grid container>
                     <Grid md={2} xs={4} className="left-block">
                         {/* logo INLUCC  */}
                         <div className="logo-img" role="presentation">
@@ -46,35 +46,30 @@ const Header = props => {
                                     // style={{ height: 60 }}
                                 />
                             </a>
-
                         </div>
                     </Grid>
-
                     <Grid md={10} xs={8} sm className="right-block">
-                        
                         <div className="blc_conn_username d-flex justify-content-end align-items-center w-100">
                             <div className="d-flex flex-column blc-top-header">
-                            <p className="username">{username}</p>
-                            <p className="blc_deconnexion">
-                                <IconButton
-                                    aria-label="delete"
-                                    onClick={() => handleLogout()}
-                                >
-                                    <PowerSettingsNewIcon
-                                        style={{ color: '#c20d20' }}
-                                        fontSize="small"
-                                        label="yy"
-                                    />
-                                    Déconnexion
-                                </IconButton>
-                            
-                            </p>
+                                <p className="username">{username}</p>
+                                <p className="blc_deconnexion">
+                                    <IconButton
+                                        aria-label="delete"
+                                        onClick={() => handleLogout()}
+                                    >
+                                        <PowerSettingsNewIcon
+                                            style={{ color: '#c20d20' }}
+                                            fontSize="small"
+                                            label="yy"
+                                        />
+                                        Déconnexion
+                                    </IconButton>
+                                </p>
                             </div>
                         </div>
                         <div className="blc-sidebar">
                             <Router>
-                                <Sidebar
-                                />
+                                <Sidebar />
                             </Router>
                         </div>
                     </Grid>
