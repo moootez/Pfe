@@ -109,7 +109,6 @@ footer > div > div {
 
 .footmid h3, .footright h3, .footleft h3 {
 	color: #000000;
-    font-weight: 700 !important;
 }
 .footleft h3 {
     font-size: 1.14rem !important;
@@ -119,6 +118,7 @@ footer img, footer span, footer p {
     display: block;
     text-align: justify;
     margin-bottom: 0;
+    font-size: 12px;
 }
 
 footer span {
@@ -208,7 +208,7 @@ footer .copyright {
 }
 
 footer label {
-    font-size: 13px;
+    font-size: 12px;
     margin-right: 15px;
     display: block;
     margin-bottom: 0;

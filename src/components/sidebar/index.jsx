@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
         fontSize: '20px',
     },
     subItemText: {
-        fontSize: '17px',
+        fontSize: '15px',
     },
     listItem: {
         borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
