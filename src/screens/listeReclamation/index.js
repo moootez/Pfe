@@ -45,7 +45,7 @@ const Index = props => {
     // Set livraison on state
 
     return (
-        <div className="column col-md-12">
+        <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
                 <PageTitle label="Traitement des réclamations" />
             </Grid> */}

@@ -78,14 +78,14 @@ const Index = props => {
 
     console.log(livraisons)
     return (
-        <div className="column col-md-12 text-center style-table">
+        <div className="column col-md-12 text-center style-table form-reclam">
             <Grid className="gridItem">
                 <PageTitle label="Ajouter une réclamation" />
             </Grid>
             <Divider />
             <div className="row mt-3 mb-3">
-                <div className="d-flex col-6">
-                    <div className="col-6 mt-3">Code livraison</div>
+                <div className="d-flex col-6 row-form-reclam">
+                    <div className="col-6 mt-3"><p className="txt_form">Code livraison</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             <InputLabel id="select-livraison">
@@ -115,8 +115,8 @@ const Index = props => {
                     </div>
                 </div>
                 {/* Numero du produit */}
-                <div className="col-6 d-flex">
-                    <div className="col-6 mt-3">Code produit</div>
+                <div className="col-6 d-flex row-form-reclam">
+                    <div className="col-6 mt-3"><p className="txt_form">Code produit</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             <InputLabel id="select-produit">
@@ -143,8 +143,8 @@ const Index = props => {
                     </div>
                 </div>
                 {/* Numero de lot */}
-                <div className="col-6 d-flex">
-                    <div className="col-6 mt-3">Numéro de lot</div>
+                <div className="col-6 d-flex row-form-reclam">
+                    <div className="col-6 mt-3"><p className="txt_form">Numéro de lot</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             <TextField
@@ -152,7 +152,7 @@ const Index = props => {
                                     shrink: true,
                                 }}
                                 type="number"
-                                className="d-flex border mt-3"
+                                className="d-flex border"
                                 onChange={e => changeHandler('numLot', e)}
                                 label="Numéro de lot"
                             />
@@ -160,8 +160,8 @@ const Index = props => {
                     </div>
                 </div>
                 {/* Quantite reclame */}
-                <div className="col-6 d-flex">
-                    <div className="col-6 mt-3">Quantité réclamée</div>
+                <div className="col-6 d-flex row-form-reclam">
+                    <div className="col-6 mt-3"><p className="txt_form">Quantité réclamée</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             <TextField
@@ -169,7 +169,7 @@ const Index = props => {
                                     shrink: true,
                                 }}
                                 type="number"
-                                className="d-flex border mt-3"
+                                className="d-flex border "
                                 onChange={e => changeHandler('qte', e)}
                                 label="Quantité réclamée"
                             />
@@ -178,8 +178,8 @@ const Index = props => {
                 </div>
                 {/* Nature reclamation */}
                 {reclamation.nature !== 'Autres' ? (
-                    <div className="col-6 d-flex">
-                        <div className="col-6 mt-3">Nature réclamation</div>
+                    <div className="col-6 d-flex row-form-reclam">
+                        <div className="col-6 mt-3"><p className="txt_form">Nature réclamation</p></div>
                         <div className="col-6">
                             <FormControl className="w-100">
                                 <InputLabel id="select-nature">
@@ -203,9 +203,9 @@ const Index = props => {
                         </div>
                     </div>
                 ) : (
-                    <div className="col-6 d-flex">
+                    <div className="col-6 d-flex row-form-reclam">
                         <div className="col-6 mt-3">
-                            Préciser votre situation
+                        <p className="txt_form">Préciser votre situation</p>
                         </div>
                         <div className="col-6">
                             <FormControl className="w-100">
@@ -213,7 +213,7 @@ const Index = props => {
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
-                                    className="d-flex border mt-3"
+                                    className="d-flex border"
                                     onChange={e => changeHandler('qte', e)}
                                     label="Préciser votre situation"
                                 />
@@ -222,8 +222,8 @@ const Index = props => {
                     </div>
                 )}
                 {/* Gravite du reclamation */}
-                <div className="col-6 d-flex">
-                    <div className="col-6 mt-3">Gravité réclamation</div>
+                <div className="col-6 d-flex row-form-reclam">
+                    <div className="col-6 mt-3"><p className="txt_form">Gravité réclamation</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             <InputLabel id="select-gravite">

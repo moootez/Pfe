@@ -66,7 +66,7 @@ index.defaultProps = {
     size: 'medium',
     bgColor: '#cd121a',
     hoverColor: 'rgb(184, 22, 25)',
-    margin: '5px 5% 1%',
+    margin: '5px 10px 1% 0',
 }
 /**
  *  declaration des props

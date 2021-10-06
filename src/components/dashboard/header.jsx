@@ -14,6 +14,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { history } from '../../store'
 // import News from '../newsBar'
 import Logopalia from '../../assets/images/logo_opalia.PNG'
+import Logo from '../../assets/images/logo.png'
 import Sidebar from '../sidebar/index'
 
 /**
@@ -21,7 +22,7 @@ import Sidebar from '../sidebar/index'
  *
  * @returns
  */
-
+const page = window.location.pathname
 const Header = props => {
     const { logout, loggedUser } = props
     const { username } = loggedUser.User.details
@@ -40,11 +41,7 @@ const Header = props => {
                         {/* logo INLUCC  */}
                         <div className="logo-img" role="presentation">
                             <a href="/dashboard">
-                                <img
-                                    src={Logopalia}
-                                    alt="Logo-INLUCC"
-                                    // style={{ height: 60 }}
-                                />
+                            {page === "/actualite" ? <img src={Logopalia} alt="Logo-INLUCC" /> : <img src={Logo} alt="Logo-INLUCC" />}                                
                             </a>
                         </div>
                     </Grid>

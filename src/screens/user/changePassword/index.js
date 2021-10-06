@@ -1,6 +1,6 @@
 /* eslint-disable radix */
 import React from 'react'
-import { Grid, Divider, FormGroup } from '@material-ui/core'
+import { Grid, FormGroup } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, FormattedMessage } from 'react-intl'
@@ -284,7 +284,6 @@ class Index extends React.Component {
                                 />
                             </Grid>
                             <div style={{ textAlign: 'center', padding: 20 }}>
-                                <Divider />
                                 <div>
                                     <ButtonComponent
                                         color="secondary"

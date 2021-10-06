@@ -6,6 +6,8 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable react/no-unescaped-entities */
+
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import './footer.css'
@@ -81,7 +83,7 @@ const Index = () => {
                             <p>
                                 <label>Z.I. Kalaat Al Andalouss – 2022 Ariana</label>
                                 <label className="black-label">
-                                    Tel : (+216) 70 55 90 70 / (+216) 70 55 90
+                                    Tel : (+216) 70 55 90 70 / (+216) 70 55 90 64
                                     64
                                 </label>
                                 <label className="black-label">
@@ -100,20 +102,13 @@ const Index = () => {
                     className="footright"
                 >
                      <h3>Qui sommes-nous ?</h3>
+                    <div>
                     <p>
-                        Changement au capital d’Opalia Pharma, huitième
-                        sur le marché pharmaceutique tunisien et troisième plus
-                        grande entreprise pharmaceutique locale et, sans doute,
-                        un nouvel élan de développement et de croissance. Le
-                        Groupe Abraaj («Abraaj»), principal investisseur opérant
-                        sur des marchés mondiaux en croissance, a en effet
-                        annoncé sa pleine sortie du capital, cédant la totalité
-                        de sa participation à Recordati, une société
-                        pharmaceutique internationale cotée à la bourse
-                        italienne. Au cours des quatre dernières années, la
-                        participation d’Abraaj avec Opalia a permis à
-                        l’entreprise de multiplier ses ventes par...{' '}
+                    Laboratoire pionner des médicaments génériques créé en 1988, OPALIA Pharma, filiale du groupe multinational RECORDATI depuis 2013, se présente aujourd’hui parmi les leaders dans le domaine pharmaceutique en Tunisie. OPALIA PHARMA est reconnue pour sa compétence et son savoir-faire, et ce de la conception jusqu'à la fabrication et la distribution des médicaments.
                     </p>
+                    <p>OPALIA emploie plus de 300 salariés sélectionnés et qualifiés pour mettre à la disposition des patients et des professionnels de santé des médicaments génériques et innovants dans différents domaines thérapeutiques, sous différentes formes galéniques (les formes liquides à usage externe et interne, les formes pâteuses, les formes sèches ainsi que des produits injectables).</p>
+                    <p>OPALIA Pharma, Laboratoire pharmaceutique de renom, adopte un système de management de la qualité et de l'environnement certifié. Une réelle politique d’amélioration continue est déployée afin de satisfaire les attentes de ses clients et les exigences réglementaires nationales et internationales en vigueur, à savoir les Bonnes Pratiques de Fabrication ainsi que les normes ISO.</p>
+                    </div>
                     {/* <div className="aright">
                         <a
                             href="https://www.opaliarecordati.com/cms/notre_histoire.php"

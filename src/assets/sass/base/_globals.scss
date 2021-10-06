@@ -9,7 +9,7 @@ $color_asphalt_approx: #170312;
 $color_valencia_approx: rgb(213, 69, 64);
 
 .App {
-    min-height: 66vh;
+    min-height: 37vh;
     display: flex;
     flex-direction: row;
 }
@@ -306,7 +306,7 @@ body {
         // }
         .right-block {
             display: block;
-            margin-top: 35px;
+            margin-top: 10px;
         }
         .profile-status {
             position: relative;
@@ -382,7 +382,7 @@ body {
     background: $white;
     width: 100%;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .MuiTab-wrapper {
     font-size: 18px;
@@ -617,9 +617,9 @@ hr {
 .logo-img{
     padding: 0 15px 15px 15px;
 }
-.logo-img img{
-    width: 90%;
-}
+// .logo-img img{
+//     width: 90%;
+// }
 .blc-top-header>p{
     margin: 0 15px 15px;
     color: #c20d20;
@@ -681,6 +681,10 @@ table tbody tr:hover{
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     color: #fff;
+    font-size: 20px;
+}
+.box-top-dash > div > center > b{
+    font-weight: 400;
 }
 .box-top-dash > div > center > span{
     color: #fff;  
@@ -713,21 +717,21 @@ table tbody tr:hover{
     margin-bottom: 40px;
     margin-top: 40px;
 }
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button a{
+.blc-sidebar .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button a{
     color: #8a8b8e;
 }
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button span:hover {
+.blc-sidebar .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button span:hover {
     color: #bd162e;
 }
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button a:hover{
+.blc-sidebar .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button a:hover{
     color: #bd162e;
     text-decoration: none;
 }
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
+.blc-sidebar .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
     border: none;
     color: #8a8b8e;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 400;
     display: block;
     padding-top: 0;
     padding-bottom: 0;
@@ -741,11 +745,37 @@ table tbody tr:hover{
 .style-table{
     margin-top: 40px;
 }
-
+.slider_dash img{
+    width: 100%;
+}
+.style-table>.MuiPaper-root {
+    border: 1px solid #c2c2c2;
+}
+.btn_style_red button{
+    width: auto!important;
+}
+.txt_form{
+    color: #000;
+}
+.form-reclam label{
+    transform: none!important;
+    top: 5px;
+    left: 5px;
+}
+.form-reclam .MuiInput-formControl{
+   margin-top: 0!important;
+   height: 60px;
+}
+.form-reclam .MuiInputBase-input{
+    text-align: center;
+}
+.row-form-reclam{
+    margin-bottom: 20px;
+}
 @media only screen and (min-width : 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner{
         position: absolute;
-        top: 40px;
+        top: 30px;
         box-shadow: 2px 5px 5px #d4cfcf;
         border: 1px solid #d4cfcf;
         width: auto;
@@ -753,17 +783,18 @@ table tbody tr:hover{
         background-color: #fff;
     }
     .blc-sidebar .MuiCollapse-wrapperInner .MuiList-root{
-        padding: 15px 15px 10px;
+        padding: 5px 0 0;
         background: #fff;
         display: inline-block;
     }
     .blc-sidebar .MuiCollapse-wrapperInner a{
         color: #8a8b8e;
     }
-    .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
+    .blc-sidebar .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button{
         width: auto;
         float: left;
         background: white;
+        padding-right: 35px;
     }
     .blc-sidebar .MuiCollapse-entered{
         position: relative;
@@ -1001,12 +1032,18 @@ table tbody tr:hover{
     .sub_menu_blc{border: none;}
     .blc_logo_left img {
         margin-left: 0!important;
+        width: 170px;
+    }
+    .logo{
+        height: auto!important;
+        margin: 0!important;
     }
     .blc_logo_left, .blc_logo_right{
         text-align: center!important;
     }
     .blc_logo_right img{
         margin-right: 0!important;
+        width: 170px;
     }
     .box-top-dash{
         margin-bottom: 20px;
@@ -1016,6 +1053,9 @@ table tbody tr:hover{
     }
     .style-table table{
         margin-top: 20px;
+    }
+    .shadow-login{
+        background: rgba(0,0,0,0.5);
     }
     
 }
