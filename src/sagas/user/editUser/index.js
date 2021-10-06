@@ -18,12 +18,6 @@ function* editUserSagas({ response }) {
         if (res.status === 200 || res.status === 201 || res.status === 202) {
             yield all([
                 yield put(editUserActions.editUserSuccess(res.data)),
-                // yield put(
-                //     loginActions.loginSuccess({
-                //         User: { details: res.data.data },
-                //         Token: localStorage.getItem('inluccToken'),
-                //     })
-                // ),
                 yield put(getAllUsersActions.getAllUsersRequest()),
             ])
             yield put(goBack())

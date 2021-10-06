@@ -4,7 +4,7 @@ pipeline {
  
     environment {
         CI = 'false'
-        server_pass = credentials('serveur_inlucc_57_password')
+        server_pass = credentials('serveur_opalia_57_password')
     }
     stages {
     
@@ -12,10 +12,10 @@ pipeline {
 
     agent any
     steps{
-        dir ("/var/lib/jenkins/workspace/FrontINLUCC"){
+        dir ("/var/lib/jenkins/workspace/FrontOPALIA"){
            withSonarQubeEnv('sonar_mouheb') {
                sh '/sonar-scanner-3.2.0.1227-linux/bin/sonar-scanner \
-  -Dsonar.projectKey=Font_INLUCC \
+  -Dsonar.projectKey=Font_OPALIA \
   -Dsonar.sources=. \
   -Dsonar.host.url=http://10.1.1.113 \
   -Dsonar.login=b931b196318cfebdea4a7c0f6cda7a7f7209d81f '
@@ -63,20 +63,20 @@ pipeline {
         steps {
        
             script {
-                withCredentials([string(credentialsId: 'serveur_inlucc_57_password', variable: 'serveur_inlucc_57_password')]) {
+                withCredentials([string(credentialsId: 'serveur_opalia_57_password', variable: 'serveur_opalia_57_password')]) {
                 def remote = [:]
-                remote.name = 'serveurinlucc57'
+                remote.name = 'serveuropalia57'
                 remote.host = '10.1.1.57'
                 remote.user = 'root'
-                remote.password =serveur_inlucc_57_password
+                remote.password =serveur_opalia_57_password
                 remote.allowAnyHosts = true
 
                 
                 stage('Remote SSH') {
-                  sshCommand remote: remote, command: " rm -rf /var/www/html/InluccSs1/FrontINLUCC/build "
+                  sshCommand remote: remote, command: " rm -rf /var/www/html/OpaliaSs1/FrontOPALIA/build "
                    //sshCommand remote: remote, command: " rm -rf /var/www/html/FrontMFPEExterne/build "
-                sshPut remote: remote, from: '/var/lib/jenkins/workspace/FrontINLUCC/build', into: '/var/www/html/InluccSs1/FrontINLUCC'
-                //sshPut remote: remote, from: '/var/lib/jenkins/workspace/FrontINLUCC/build', into: '/var/www/html/FrontMFPEExterne'
+                sshPut remote: remote, from: '/var/lib/jenkins/workspace/FrontOPALIA/build', into: '/var/www/html/OpaliaSs1/FrontOPALIA'
+                //sshPut remote: remote, from: '/var/lib/jenkins/workspace/FrontOPALIA/build', into: '/var/www/html/FrontMFPEExterne'
            
            
            
@@ -89,10 +89,10 @@ pipeline {
     
     stage('notifications'){
     steps {
-        mail bcc: 'Notif INLUCC Front BO Web ', body: '''
+        mail bcc: 'Notif OPALIA Front BO Web ', body: '''
         
         Le build Jenkinsb  est terminé avec succès  .  \n  
-        ''', cc: 'haythem.baklouti@gfi-tunisie.com,manel.ktata@gfi-tunisie.com,omar.gargouri@gfi-tunisie.com,wahid.mgaidi@gfi-tunisie.com,mohamed.abaied@gfi-tunisie.com,zouhaeir.sbaiti@gfi-tunisie.com,mokhles.mnakbi@gfi-tunisie.com,safouane.fatin@gfi-tunisie.com', from: 'jenkins@gfi-tunisie.com', replyTo: '', subject: 'Notif Devops Front INLUCC BO', to: 'houssem.khaldi@gfi-tunisie.com'
+        ''', cc: 'haythem.baklouti@gfi-tunisie.com,manel.ktata@gfi-tunisie.com,omar.gargouri@gfi-tunisie.com,wahid.mgaidi@gfi-tunisie.com,mohamed.abaied@gfi-tunisie.com,zouhaeir.sbaiti@gfi-tunisie.com,mokhles.mnakbi@gfi-tunisie.com,safouane.fatin@gfi-tunisie.com', from: 'jenkins@gfi-tunisie.com', replyTo: '', subject: 'Notif Devops Front OPALIA BO', to: 'houssem.khaldi@gfi-tunisie.com'
     
         }
             }

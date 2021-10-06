@@ -39,20 +39,20 @@ function* wrapApiPut(payload) {
 function* wrapApiCall() {
     try {
         const { login } = yield select()
-        const { InluccToken } = window.localStorage
+        const { OpaliaToken } = window.localStorage
         if (login.response) {
             if (login.response.Token) {
                 if (
                     jwtDecode(login.response.Token).exp < Date.now() / 1000 ||
-                    !InluccToken
+                    !OpaliaToken
                 ) {
-                    localStorage.setItem('InluccToken', '')
+                    localStorage.setItem('OpaliaToken', '')
                     yield put({ type: 'SIGNOUT_REQUEST' })
                 } else {
                     instance.defaults.headers.Authorization = `Bearer ${login.response.Token}`
                 }
             } else {
-                localStorage.setItem('InluccToken', '')
+                localStorage.setItem('OpaliaToken', '')
                 yield put({ type: 'SIGNOUT_REQUEST' })
             }
         }

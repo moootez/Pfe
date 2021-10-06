@@ -38,10 +38,9 @@ const Header = props => {
             <header className="dashboard-header">
                 <Grid container>
                     <Grid md={2} xs={4} className="left-block">
-                        {/* logo INLUCC  */}
                         <div className="logo-img" role="presentation">
                             <a href="/dashboard">
-                            {page === "/actualite" ? <img src={Logopalia} alt="Logo-INLUCC" /> : <img src={Logo} alt="Logo-INLUCC" />}                                
+                            {page === "/actualite" ? <img src={Logopalia} alt="Logo-OPALIA" /> : <img src={Logo} alt="Logo-OPALIA" />}                                
                             </a>
                         </div>
                     </Grid>

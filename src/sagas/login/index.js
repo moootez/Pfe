@@ -39,7 +39,7 @@ function* loginSagas(payload) {
                 'email',
                 response.data.User.details.email
             )
-            yield localStorage.setItem('InluccToken', response.data.Token)
+            yield localStorage.setItem('OpaliaToken', response.data.Token)
             yield localStorage.setItem(
                 'role',
                  response.data.User.details.userRoles[0].role
