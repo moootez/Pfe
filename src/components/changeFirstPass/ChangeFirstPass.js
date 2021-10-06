@@ -31,7 +31,7 @@ const FirstPassChange = () => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${localStorage.InluccToken}`,
+                        Authorization: `Bearer ${localStorage.OpaliaToken}`,
                     },
                 }
             )

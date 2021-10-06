@@ -33,7 +33,7 @@ const Index = () => {
                     <a href="https://www.opaliarecordati.com/">
                         <img
                             src={Logopalia}
-                            alt="Logo-INLUCC"
+                            alt="Logo-OPALIA"
                             // style={{ height: 60 }}
                         />
                     </a>
@@ -164,7 +164,7 @@ const Index = () => {
                             <a href="/dashboard">
                                 <img
                                     src={Logo}
-                                    alt="Logo-INLUCC"
+                                    alt="Logo-OPALIA"
                                     // style={{ height: 60 }}
                                 />
                             </a>

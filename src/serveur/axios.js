@@ -2,11 +2,11 @@ import axios from 'axios'
 import baseUrl from './baseUrl'
 
 /* memeber */
-const { InluccToken } = window.localStorage
+const { OpaliaToken } = window.localStorage
 
 let authorisation = ''
-if (InluccToken) {
-    authorisation = { Authorization: `Bearer ${InluccToken}` }
+if (OpaliaToken) {
+    authorisation = { Authorization: `Bearer ${OpaliaToken}` }
 } else {
     authorisation = ''
 }

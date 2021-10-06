@@ -90,7 +90,7 @@ export const rootReducer = (state, action) => {
         })
         /*eslint-disable */
         state = undefined
-        localStorage.setItem('InluccToken', '')
+        localStorage.setItem('OpaliaToken', '')
     }
     return appReducer(state, action)
 }

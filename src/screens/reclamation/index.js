@@ -34,7 +34,7 @@ const Index = props => {
                 { title: 'Motif', field: 'motif' },
                 { title: 'Numéro Lot', field: 'numLot' },
                 { title: 'action', field: 'action' },
-                { title: 'Created At', field: 'createdAt' }
+                { title: 'Date Création', field: 'createdAt' }
             ]}
             data={JSON.parse(JSON.stringify(reclamations)) || []}
         />
