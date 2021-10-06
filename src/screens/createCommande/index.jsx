@@ -99,10 +99,10 @@ const Index = props => {
                                 key={generateKey()}
                                 src={safeRequire(
                                     rowData.codeArticleX3,
-                                    '../produit/',
+                                    '../produits/',
                                     '.png'
                                 )}
-                                style={{ width: 100, borderRadius: '2%' }}
+                                style={{ width: 150, borderRadius: '2%' }}
                                 alt="produit"
                             />
                         ),

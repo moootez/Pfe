@@ -5,6 +5,7 @@ import React, { useEffect, useState  } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
+import { Divider } from '@material-ui/core'
 import getAllReclamations from '../../redux/reclamation/getReclamation'
 import MaterialTable from 'material-table'
 
@@ -17,28 +18,28 @@ const Index = props => {
 
     return (
         <div className="column col-md-12 style-table">
-            {console.log(reclamations)}
+             <Divider />
         <MaterialTable
-                    title="Mes réclamations"
-                    columns={[
-                        { title: 'ID', field: 'id'},
-                        { title: 'Client', field: 'client.codeInsc' },
-                        { title: 'Date Livraison', field: 'dateLivraison' },
-                        { title: 'Code Livraison', field: 'codeLivraison' },
-                        { title: 'Code Article', field: 'codeArticle' },
-                        { title: 'Quantite', field: 'quantite' },
-                        { title: 'Nature', field: 'nature' },
-                        { title: 'Gravite', field: 'gravite' },
-                        { title: 'Status', field: 'status' },
-                        { title: 'Motif', field: 'motif' },
-                        { title: 'Numéro Lot', field: 'numLot' },
-                        { title: 'action', field: 'action' },
-                        { title: 'Created At', field: 'createdAt' }
-                    ]}
-                    data={JSON.parse(JSON.stringify(reclamations)) || []}
-                />
-                </div>
-                )
+            title="Mes réclamations"
+            columns={[
+                { title: 'ID', field: 'id'},
+                { title: 'Client', field: 'client.codeInsc' },
+                { title: 'Date Livraison', field: 'dateLivraison' },
+                { title: 'Code Livraison', field: 'codeLivraison' },
+                { title: 'Code Article', field: 'codeArticle' },
+                { title: 'Quantite', field: 'quantite' },
+                { title: 'Nature', field: 'nature' },
+                { title: 'Gravite', field: 'gravite' },
+                { title: 'Status', field: 'status' },
+                { title: 'Motif', field: 'motif' },
+                { title: 'Numéro Lot', field: 'numLot' },
+                { title: 'action', field: 'action' },
+                { title: 'Created At', field: 'createdAt' }
+            ]}
+            data={JSON.parse(JSON.stringify(reclamations)) || []}
+        />
+        </div>
+        )
             
 }
 

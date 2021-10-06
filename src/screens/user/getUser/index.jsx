@@ -255,9 +255,13 @@ const Index = ({
                 />
             </div>
 
-            <div className="float-right m-3">
+            <div className="float-right m-3 btn_style_red">
                 <Button
                     clicked={syncUsers}
+                    color="white"
+                    margin=" 3% 0 1% "
+                    type="contained"
+                    size="medium"
                     label="Synchronisation utilisateurs"
                 />
             </div>

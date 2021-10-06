@@ -9,6 +9,7 @@ import {
     CardMedia,
     CardContent,
     Typography,
+    Divider
 } from '@material-ui/core'
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
@@ -98,6 +99,7 @@ const Index = ({
                 rowsTmp = arrayFiltred.map((item, index) => ({
                     id: item.id,
                     index,
+                    titre: item.titre,
                     theme: item.texte,
                     sujet: item.priorite,
                     createdAt: item.createdAt && item.createdAt.substr(0, 11),
@@ -214,7 +216,7 @@ const Index = ({
                                         }}
                                         component="h3"
                                     >
-                                        {el.title}
+                                        {el.titre}
                                     </Typography>
 
                                     <Typography
@@ -231,60 +233,19 @@ const Index = ({
             </Swiper>
             }
 
-                {/* <div className="row">
-                    {rows.map(el => (
-                        <div className="col-4 p-3">
-                            <Card style={{ borderRadius: '0px' }}>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={el.image}
-                                    title="New"
-                                />
-                                <CardContent>
-                                    <Typography
-                                        variant="body2"
-                                        style={{
-                                            color: 'red',
-                                            fontSize: '1.1rem',
-                                        }}
-                                        component="h3"
-                                    >
-                                        {el.title}
-                                    </Typography>
-
-                                    <Typography
-                                        variant="body2"
-                                        color="textSecondary"
-                                        component="p"
-                                    >
-                                        {el.titre}
-                                        {el.theme}
-                                    </Typography>
-                                    <p
-                                        style={{
-                                            fontSize: 10,
-                                            color: 'black',
-                                            float: 'right',
-                                        }}
-                                    >
-                                        {el.createdAt}
-                                    </p>
-                                </CardContent>
-                            </Card>
-                        </div>
-                    ))}
-                </div> */}
             </div>
         )
     }
 
     return (
-        <div style={{ padding: '1%' }}>
+        <div style={{ padding: '0 1% 1% 1%' }}  className="style-table">
+             <Divider />
             <Grid className="gridItem">
                 <PageTitle label="Actualités" />
             </Grid>
-            <div style={{ marginTop: '3%' }} />
-            <div style={{ marginTop: '42px' }}>
+           
+            <div style={{ marginTop: '0' }} />
+            <div>
                 <ButtonComponent
                     color="white"
                     type="contained"

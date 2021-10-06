@@ -1,6 +1,6 @@
 /* eslint-disable radix */
 import React from 'react'
-import { Grid, Divider, FormGroup } from '@material-ui/core'
+import { Grid, FormGroup } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
@@ -214,13 +214,13 @@ Ajouter des Actualite "
                             />
                         </Grid>
                         <div style={{ textAlign: 'center', padding: 20 }}>
-                            <Divider />
                             <div>
                                 <ButtonComponent
                                     color="secondary"
                                     type="contained"
                                     size="medium"
                                     label="Confirmer"
+                                    className= "m-3"
                                     clicked={this.addActualite}
                                 />
                                 <ButtonComponent
