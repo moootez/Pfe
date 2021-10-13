@@ -14,7 +14,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
-import Button from '../../components/ui/button'
+// import Button from '../../components/ui/button'
 import getCommandeActions from '../../redux/commande/getCommande'
 import validerCommandeActions from '../../redux/commande/validerCommande'
 import exportPdfCommandeActions from '../../redux/commande/exportPdf'
@@ -37,7 +37,7 @@ const Index = props => {
         exportPdf,
         importCommande,
         pdfLink,
-        syncProduits,
+        // syncProduits,
         role,
     } = props
 
@@ -79,115 +79,217 @@ const Index = props => {
                 <PageTitle label="Validation commande" />
             </Grid> */}
             <Divider />
-            {role !== 'ROLE_CLIENT' && (
+            {/* {role !== 'ROLE_CLIENT' && (
                 <div>
                     <Button
                         clicked={syncProduits}
                         label="Synchronisation produits"
                     />
                 </div>
-            )}
-            <MaterialTable
-                title= {<PageTitle label='Validation commande' />}
-                columns={[
+            )} */}
+            {
+                 role !== 'ROLE_CLIENT' 
+                 ?  <MaterialTable
+                 title= {<PageTitle label='Validation commande' />}
+                 columns={[
                     {
                         title: 'ID',
                         field: 'id',
                     },
                     {
-                        title: 'Code Inscription',
+                        title: 'Client',
                         field: 'client.codeInsc',
                     },
-                    { title: 'Adresse', field: 'client.ligneAdresse' },
-                    { title: 'Ville', field: 'client.ville' },
                     { title: 'Status', field: 'status' },
-                    {
-                        title: 'Validation',
-                        field: 'validation',
-                        render: rowData => {
-                            let newStatus = 'VALIDATION_OPALIA'
-                            const refusStatus =
-                                role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
-                            if (rowData.status === 'BROUILLON') {
-                                newStatus = 'VALIDATION_CLIENT'
-                            } else if (rowData.status === 'VALIDATION_CLIENT') {
-                                newStatus = 'VALIDATION_OPALIA'
-                            }
 
-                            const toValide =
-                                rowData.status !== 'VALIDATION_OPALIA'
 
-                            return (
-                                <div style={{ width: 80 }}>
-                                    {toValide && (
-                                        <IconButton
-                                            onClick={() =>
-                                                handleSubmit(
-                                                    newStatus,
-                                                    rowData.id
-                                                )
-                                            }
-                                            style={{ color: green[500] }}
-                                            aria-label={statusAndTxt[newStatus]}
-                                        >
-                                            <CheckIcon />
-                                        </IconButton>
-                                    )}
-                                    <IconButton
-                                        onClick={() =>
-                                            handleSubmit(
-                                                refusStatus,
-                                                rowData.id
-                                            )
-                                        }
-                                        style={{ color: red[500] }}
-                                        aria-label="Annuler"
-                                    >
-                                        <CloseIcon />
-                                    </IconButton>
-                                </div>
-                            )
-                        },
-                    },
-                    {
-                        title: 'Export Pdf Commande',
-                        field: 'export',
-                        render: rowData => {
-                            return (
-                                <div style={{ width: 80 }}>
-                                    <IconButton
-                                        onClick={() =>
-                                            exportPdf({ id: rowData.id })
-                                        }
-                                        color="primary"
-                                    >
-                                        <FileCopyIcon />
-                                    </IconButton>
-                                </div>
-                            )
-                        },
-                    },
-                    {
-                        title: 'Dupliquer commande',
-                        field: 'import',
-                        render: rowData => {
-                            return (
-                                <div style={{ width: 80 }}>
-                                    <IconButton
-                                        onClick={() =>
-                                            importCommande({ id: rowData.id })
-                                        }
-                                        color="primary"
-                                    >
-                                        <FileCopyOutlinedIcon />
-                                    </IconButton>
-                                </div>
-                            )
-                        },
-                    },
-                ]}
-                data={allCommande || []}
-            />
+
+                    //  {
+                    //      title: 'Date de création',
+                    //      field: 'createdAt',
+                    //  },
+                     // { title: 'Adresse', field: 'client.ligneAdresse' },
+                     // { title: 'Ville', field: 'client.ville' },
+                     {
+                         title: 'Validation',
+                         field: 'validation',
+                         render: rowData => {
+                             let newStatus = 'VALIDATION_OPALIA'
+                             const refusStatus =
+                                 role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
+                             if (rowData.status === 'BROUILLON') {
+                                 newStatus = 'VALIDATION_CLIENT'
+                             } else if (rowData.status === 'VALIDATION_CLIENT') {
+                                 newStatus = 'VALIDATION_OPALIA'
+                             }
+ 
+                             const toValide =
+                                 rowData.status !== 'VALIDATION_OPALIA'
+ 
+                             return (
+                                 <div style={{ width: 80 }}>
+                                     {toValide && (
+                                         <IconButton
+                                             onClick={() =>
+                                                 handleSubmit(
+                                                     newStatus,
+                                                     rowData.id
+                                                 )
+                                             }
+                                             style={{ color: green[500] }}
+                                             aria-label={statusAndTxt[newStatus]}
+                                         >
+                                             <CheckIcon />
+                                         </IconButton>
+                                     )}
+                                     <IconButton
+                                         onClick={() =>
+                                             handleSubmit(
+                                                 refusStatus,
+                                                 rowData.id
+                                             )
+                                         }
+                                         style={{ color: red[500] }}
+                                         aria-label="Annuler"
+                                     >
+                                         <CloseIcon />
+                                     </IconButton>
+                                 </div>
+                             )
+                         },
+                     },
+                     {
+                         title: 'Export Pdf Commande',
+                         field: 'export',
+                         render: rowData => {
+                             return (
+                                 <div style={{ width: 80 }}>
+                                     <IconButton
+                                         onClick={() =>
+                                             exportPdf({ id: rowData.id })
+                                         }
+                                         color="primary"
+                                     >
+                                         <FileCopyIcon />
+                                     </IconButton>
+                                 </div>
+                             )
+                         },
+                     },
+
+                 ]}
+                 data={allCommande || []}
+             /> 
+            : 
+            <MaterialTable
+                 title= {<PageTitle label='Validation commande' />}
+                 columns={[
+                     {
+                         title: 'ID',
+                         field: 'id',
+                     },
+                     {
+                         title: 'Date de création',
+                         field: 'createdAt',
+                     },
+                     // {
+                     //     title: 'Code Inscription',
+                     //     field: 'client.codeInsc',
+                     // },
+                     // { title: 'Adresse', field: 'client.ligneAdresse' },
+                     // { title: 'Ville', field: 'client.ville' },
+                     // { title: 'Status', field: 'status' },
+                     {
+                         title: 'Validation',
+                         field: 'validation',
+                         render: rowData => {
+                             let newStatus = 'VALIDATION_OPALIA'
+                             const refusStatus =
+                                 role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
+                             if (rowData.status === 'BROUILLON') {
+                                 newStatus = 'VALIDATION_CLIENT'
+                             } else if (rowData.status === 'VALIDATION_CLIENT') {
+                                 newStatus = 'VALIDATION_OPALIA'
+                             }
+ 
+                             const toValide =
+                                 rowData.status !== 'VALIDATION_OPALIA'
+ 
+                             return (
+                                 <div style={{ width: 80 }}>
+                                     {toValide && (
+                                         <IconButton
+                                             onClick={() =>
+                                                 handleSubmit(
+                                                     newStatus,
+                                                     rowData.id
+                                                 )
+                                             }
+                                             style={{ color: green[500] }}
+                                             aria-label={statusAndTxt[newStatus]}
+                                         >
+                                             <CheckIcon />
+                                         </IconButton>
+                                     )}
+                                     <IconButton
+                                         onClick={() =>
+                                             handleSubmit(
+                                                 refusStatus,
+                                                 rowData.id
+                                             )
+                                         }
+                                         style={{ color: red[500] }}
+                                         aria-label="Annuler"
+                                     >
+                                         <CloseIcon />
+                                     </IconButton>
+                                 </div>
+                             )
+                         },
+                     },
+                     {
+                         title: 'Export Pdf Commande',
+                         field: 'export',
+                         render: rowData => {
+                             return (
+                                 <div style={{ width: 80 }}>
+                                     <IconButton
+                                         onClick={() =>
+                                             exportPdf({ id: rowData.id })
+                                         }
+                                         color="primary"
+                                     >
+                                         <FileCopyIcon />
+                                     </IconButton>
+                                 </div>
+                             )
+                         },
+                     },
+                     {
+                         title: 'Dupliquer commande',
+                         field: 'import',
+                         render: rowData => {
+                             return (
+                                 <div style={{ width: 80 }}>
+                                     <IconButton
+                                         onClick={() =>
+                                             importCommande({ id: rowData.id })
+                                         }
+                                         color="primary"
+                                     >
+                                         <FileCopyOutlinedIcon />
+                                     </IconButton>
+                                 </div>
+                             )
+                         },
+                     },
+                 ]}
+                 data={allCommande || []}
+             /> 
+
+            }
+           
+            {console.log(allCommande)}
         </div>
     )
 }
@@ -209,7 +311,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(exportPdfCommandeActions.exportPdfCommandeRequest(payload)),
     importCommande: payload =>
         dispatch(importCommandeActions.uploadCommandeRequest(payload)),
-    syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
+    // syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
 // obtenir les données from  store state
@@ -240,7 +342,7 @@ Index.propTypes = {
     importCommande: PropTypes.func.isRequired,
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
-    syncProduits: PropTypes.func.isRequired,
+    // syncProduits: PropTypes.func.isRequired,
 }
 
 export default connect(

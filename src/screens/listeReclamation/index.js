@@ -53,8 +53,8 @@ const Index = props => {
             <MaterialTable
                 title={<PageTitle label="Traitement des réclamations" />}
                 columns={[
-                    { title: 'ID réclamation', field: 'id' },
-                    { title: 'Code Client', field: 'client.codeInsc' },
+                    { title: 'Code réclamation', field: 'id' },
+                    { title: 'Client', field: 'client.codeInsc' },
                     { title: 'Date livraison', field: 'dateLivraison' },
                     { title: 'Code livraison', field: 'codeLivraison' },
                     { title: 'Code Produit', field: 'codeArticle' },

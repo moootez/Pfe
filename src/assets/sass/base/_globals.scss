@@ -772,6 +772,23 @@ table tbody tr:hover{
 .row-form-reclam{
     margin-bottom: 20px;
 }
+.box-login input{
+    border: transparent 1px solid;
+    outline: none;
+    font-weight: 400;
+    justify-content: center;
+    height: 65px;
+    text-align: center;
+}
+.blc_reinit_password .MuiInputLabel-formControl{
+    left: 20px;
+}
+.MuiButton-root.btn-submit-cmd{
+    border: 1px solid rgb(205, 18, 26);
+    color: rgb(255, 255, 255);
+    background: rgb(205, 18, 26);
+}
+.style-table table th{padding: 16px 5px;}
 @media only screen and (min-width : 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner{
         position: absolute;

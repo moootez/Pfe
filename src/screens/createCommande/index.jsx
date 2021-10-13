@@ -29,9 +29,19 @@ const Index = props => {
         uploadNewCommande,
     } = props
 
+    // const [QteVrac, setQteVrac] = useState(0)
+    // const checkQteVrac = e => {
+    //     setQteVrac(e.target.value)
+    //     if (QteVrac < 0) {
+    //         alert("false")
+    //     } else {
+    //         alert("true")
+    //     }
+    // }
+    // console.log(QteVrac)
+
     const [allProduct, setAllProduct] = useState([])
     const [commande, setCommande] = useState({})
-
     const [file] = useState(null)
     // 1 seul fois
     useEffect(() => {
@@ -107,50 +117,51 @@ const Index = props => {
                             />
                         ),
                     },
-                    { title: 'CodeArticle', field: 'codeArticleX3' },
+                    { title: 'Code Article', field: 'codeArticleX3' },
                     { title: 'Designation', field: 'designation1' },
 
-                    { title: 'Categorie', field: 'categorie' },
                     { title: 'Prix', field: 'prix' },
-                    // { title: 'Coef UC', field: 'coefUcUs' },
-                    // {
-                    //     title: 'Qté carton',
-                    //     field: 'qtc',
-                    //     render: rowData => (
-                    //         <div style={{ width: 80 }}>
-                    //             <TextField
-                    //                 disabled={!rowData.actif}
-                    //                 type="number"
-                    //                 key={generateKey()}
-                    //                 label="Quantité"
-                    //                 id="outlined-size-small"
-                    //                 defaultValue={
-                    //                     (commande[rowData.codeArticleX3] || {})
-                    //                         .qtc || 0
-                    //                 }
-                    //                 variant="outlined"
-                    //                 onBlur={e =>
-                    //                     setCommande({
-                    //                         ...commande,
-                    //                         [rowData.codeArticleX3]: {
-                    //                             ...(commande[
-                    //                                 rowData.codeArticleX3
-                    //                             ] || {}),
-                    //                             qtc: e.target.value,
-                    //                         },
-                    //                     })
-                    //                 }
-                    //                 size="small"
-                    //             />
-                    //         </div>
-                    //     ),
-                    // },
+                    { title: 'Coef UC', field: 'coefUcUs' },
+                    {
+                        title: 'Qté carton',
+                        field: 'qtc',
+                        render: rowData => (
+                            <div style={{ width: 80 }}>
+                                <TextField
+                                    disabled={!rowData.actif}
+                                    type="number"
+                                    key={generateKey()}
+                                    label="Quantité"
+                                    id="outlined-size-small"
+                                    defaultValue={
+                                        (commande[rowData.codeArticleX3] || {})
+                                            .qtc || 0
+                                    }
+                                    variant="outlined"
+                                    onBlur={e =>
+                                        setCommande({
+                                            ...commande,
+                                            [rowData.codeArticleX3]: {
+                                                ...(commande[
+                                                    rowData.codeArticleX3
+                                                ] || {}),
+                                                qtc: e.target.value,
+                                            },
+                                        })
+                                    }
+                                    size="small"
+                                />
+                            </div>
+                        ),
+                    },
                     {
                         title: 'Qté vrac',
                         field: 'qtv',
                         render: rowData => (
                             <div style={{ width: 80 }}>
                                 <TextField
+                                    // onChange={e=>checkQteVrac(e)}
+                                    // value={QteVrac}
                                     type="number"
                                     key={generateKey()}
                                     label="Quantité"
@@ -177,17 +188,17 @@ const Index = props => {
                             </div>
                         ),
                     },
-                    // {
-                    //     title: 'Qté total',
-                    //     field: 'qtt',
-                    //     render: rowData => {
-                    //         return (
-                    //             <div key={generateKey()} style={{ width: 80 }}>
-                    //                 <p>{getTotalQt(rowData)}</p>
-                    //             </div>
-                    //         )
-                    //     },
-                    // },
+                    {
+                        title: 'Qté total',
+                        field: 'qtt',
+                        render: rowData => {
+                            return (
+                                <div key={generateKey()} style={{ width: 80 }}>
+                                    <p>{getTotalQt(rowData)}</p>
+                                </div>
+                            )
+                        },
+                    },
                     {
                         title: 'Prix total',
                         field: 'pt',
@@ -226,8 +237,7 @@ const Index = props => {
             </div>
             <div className="m-3 text-right" style={{ paddingBottom: '20px' }}>
                 <Button
-                    variant="contained"
-                    color="primary"
+                    className="btn-submit-cmd"
                     onClick={handleSubmit}
                 >
                     Enregistrer la commande
