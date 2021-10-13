@@ -93,11 +93,15 @@ class SendEmail extends Component {
      */
     render() {
         return (
-            <div className="d-flex justify-content-center align-items-center pt-5">
-                <div className="d-flex justify-content-center h-100 w-25">
+            <div 
+                className="d-flex align-items-center"
+                style={{ position: 'relative',
+                top: '30%', }}
+            >
+                <div className="d-flex justify-content-center modal-login">
                     <div className="card-body form">
                         <div className="formPadding">
-                            <div className="input-group form-group text-center">
+                            <div className="box-login input-group form-group text-center">
                                 <input
                                     autoComplete="off"
                                     type="text"

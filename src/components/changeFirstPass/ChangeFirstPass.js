@@ -11,6 +11,10 @@ const FirstPassChange = () => {
     const ButtonStyle = {
         marginTop: '35px',
     }
+    const ReinitPassword = {
+        border: "1px solid #e0e0e0",
+        padding: "20px" 
+    }
     const checkInput = e => {
         setPassword(e.target.value)
         if (e.target.value.length >= 8) {
@@ -45,7 +49,7 @@ const FirstPassChange = () => {
         }
     }
     return (
-        <div className="Card">
+        <div className="Card blc_reinit_password">
             <form>
                 <TextField
                     value={password}
@@ -53,7 +57,8 @@ const FirstPassChange = () => {
                     onChange={e => checkInput(e)}
                     fullWidth
                     required
-                    label="Nouveaux Mot de passe"
+                    label="Nouveau mot de passe"
+                    style= {ReinitPassword}
                 />
                 <Button
                     disabled={disabled}

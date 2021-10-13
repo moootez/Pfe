@@ -36,10 +36,12 @@ const Index = props => {
         getAllLivraison,
         livraisons,
         commandes,
-        getCommande,
+        getCommande,    
         newReclamation,
         history,
     } = props
+    
+   
 
     const [reclamation, setReclamation] = useState({})
 
@@ -76,16 +78,30 @@ const Index = props => {
         setReclamation(r => ({ ...r, [name]: value }))
     }
 
+
+
+    // const [numberPos, setnumberPos] = useState('')
+    // const [disabled, setDisabled] = useState(true)
+    // const checkNumberPos = (e) => {
+    //     setnumberPos(e.target.value)
+    //     if (e.target.value >= 0) {
+    //         setDisabled(false)
+    //     } else {
+    //         setDisabled(true)
+    //     }
+    // }
+
+
     console.log(livraisons)
     return (
         <div className="column col-md-12 text-center style-table form-reclam">
             <Grid className="gridItem">
-                <PageTitle label="Ajouter une réclamation" />
+                <PageTitle label="Déposer une réclamation" />
             </Grid>
             <Divider />
             <div className="row mt-3 mb-3">
                 <div className="d-flex col-6 row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Code livraison</p></div>
+                    <div className="col-6 mt-3"><p className="txt_form">Code livraison <span className="text-danger"> * </span></p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             {/* <InputLabel id="select-livraison">
@@ -98,6 +114,7 @@ const Index = props => {
                                 value={(reclamation || {}).livraison}
                                 onChange={e => changeHandler('livraison', e)}
                                 input={<Input />}
+                                required
                             >
                                 {(livraisons instanceof Array
                                     ? livraisons
@@ -116,7 +133,7 @@ const Index = props => {
                 </div>
                 {/* Numero du produit */}
                 <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Code produit</p></div>
+                    <div className="col-6 mt-3"><p className="txt_form">Code produit <span className="text-danger"> * </span></p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             {/* <InputLabel id="select-produit">
@@ -139,6 +156,7 @@ const Index = props => {
                                     </MenuItem>
                                 ))}
                             </Select>
+
                         </FormControl>
                     </div>
                 </div>
@@ -148,12 +166,14 @@ const Index = props => {
                     <div className="col-6">
                         <FormControl className="w-100">
                             <TextField
+                                // onChange={e => checkNumberPos(e)}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
                                 type="number"
                                 className="d-flex border"
-                                onChange={e => changeHandler('numLot', e)}
+                                // value={numberPos}
+                                // onChange={e => changeHandler('numLot', e)}
                             />
                         </FormControl>
                     </div>
@@ -170,6 +190,7 @@ const Index = props => {
                                 type="number"
                                 className="d-flex border "
                                 onChange={e => changeHandler('qte', e)}
+                                name='qte_rec'
                             />
                         </FormControl>
                     </div>
@@ -177,7 +198,7 @@ const Index = props => {
                 {/* Nature reclamation */}
                 {reclamation.nature !== 'Autres' ? (
                     <div className="col-6 d-flex row-form-reclam">
-                        <div className="col-6 mt-3"><p className="txt_form">Nature réclamation</p></div>
+                        <div className="col-6 mt-3"><p className="txt_form">Nature réclamation <span className="text-danger"> * </span></p></div>
                         <div className="col-6">
                             <FormControl className="w-100">
                                 {/* <InputLabel id="select-nature">
@@ -221,7 +242,7 @@ const Index = props => {
                 )}
                 {/* Gravite du reclamation */}
                 <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Gravité réclamation</p></div>
+                    <div className="col-6 mt-3"><p className="txt_form">Gravité réclamation <span className="text-danger"> * </span></p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             {/* <InputLabel id="select-gravite">
