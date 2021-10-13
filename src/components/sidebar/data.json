@@ -4,9 +4,10 @@
         "name": "sidebar",
         "items": [
             {
-                "id": 7,
+                "id": 70,
                 "link": "/dashboard",
                 "title": "Tableau de bord",
+                "className": "button",
                 "defaultPermission": false,
                 "subitems": null,
                 "roles": ["ROLE_ADV", "ROLE_CLIENT"]
@@ -14,7 +15,6 @@
             {
                 "id": 1,
                 "title": "Actualités",
-                "className": "menu",
                 "link": "/actualite",
                 "defaultPermission": true,
                 "subitems": null,
@@ -29,7 +29,7 @@
                 "defaultPermission": true
             },
             {
-                "id": 3,
+                "id": "commande",
                 "link": "/commandeRoute",
                 "title": "Commande",
                 "defaultPermission": false,
@@ -59,7 +59,7 @@
                 ]
             },
             {
-                "id": 4,
+                "id": "reclamation",
                 "link": "/reclamation",
                 "title": "Réclamations",
                 "defaultPermission": false,

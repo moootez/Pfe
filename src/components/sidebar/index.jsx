@@ -3,6 +3,10 @@
 /* eslint-disable import/order */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-debugger */
+/* eslint-disable no-unreachable */
+/* eslint-disable import/newline-after-import */
+/* eslint-disable no-shadow */
+
 import React, { Fragment, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 // import Immutable from 'seamless-immutable'
@@ -17,8 +21,8 @@ import { withRouter, Link } from 'react-router-dom'
 import SiteNav, { ContentGroup } from 'react-site-nav'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import data from './data.json'
-import './app.css'
-import { blue } from '@material-ui/core/colors'
+// import './app.css'
+// import { blue } from '@material-ui/core/colors'
 
 /* style */
 /**
@@ -39,7 +43,7 @@ const useStyles = makeStyles(theme => ({
         fontSize: '20px',
     },
     subItemText: {
-        fontSize: '15px',
+        fontSize: '17px',
     },
     listItem: {
         borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
@@ -48,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     selectedSubText: {
         fontSize: '17px',
         fontWeight: 'bold',
-        background: 'red',
+        color: 'red',
     },
 }))
 
@@ -60,11 +64,21 @@ const useStyles = makeStyles(theme => ({
  */
 const index = ({ history, role }) => {
     const classes = useStyles()
-    console.log(classes)
+    const Str = history.location.pathname
+    // eslint-disable-next-line react/prop-types
+    const path = Str.substring(
+        // eslint-disable-next-line react/prop-types
+        Str.lastIndexOf('/') - 1
+        // eslint-disable-next-line react/prop-types
+        // Str.lastIndexOf(':')
+    )
+
     const [selectedItem, setSelectedItem] = useState(1)
+
     const [selectedSubItem, setSelectedSubItem] = useState(1)
     const [open, setOpen] = useState(false)
     const [itemsMenu, setItemsMenu] = useState([])
+    const [buttonColor, setButtonColor] = useState()
     /* functions */
     /**
      * select item in sidbar
@@ -80,6 +94,7 @@ const index = ({ history, role }) => {
 
     /* life cycle */
     useEffect(() => {
+        const buttonColor = document.getElementsByClassName('button')
         try {
             if (role) {
                 // const ecran = Immutable.asMutable([role])
@@ -107,6 +122,10 @@ const index = ({ history, role }) => {
             console.log(e)
         }
     }, [])
+    const tabClicked = e => {
+        console.log('rrrr', e)
+    }
+
     /**
      * select sous menu
      *
@@ -117,9 +136,8 @@ const index = ({ history, role }) => {
         setSelectedSubItem(item.id)
         handleSelectItem(e, item)
         setOpen(false)
-        // tabClicked(e, true)
+        tabClicked(e, true)
     }
-
     /**
      * select menu
      *
@@ -145,11 +163,31 @@ const index = ({ history, role }) => {
                                     onClick={e => handleClickItem(e, item)}
                                     className={classes.listItem}
                                 >
-                                    <span>{item.title}</span>
+                                    <span
+                                        style={
+                                            Str.includes(item.id)
+                                                ? { color: '#bd162e' }
+                                                : { color: '#8a8b8e' }
+                                        }
+                                    >
+                                        {item.title}
+                                    </span>
                                     {open && selectedItem === item.id ? (
-                                        <ExpandLess />
+                                        <ExpandLess
+                                            style={
+                                                Str.includes(item.id)
+                                                    ? { color: '#bd162e' }
+                                                    : { color: '#8a8b8e' }
+                                            }
+                                        />
                                     ) : (
-                                        <ExpandMore />
+                                        <ExpandMore
+                                            style={
+                                                Str.includes(item.id)
+                                                    ? { color: '#bd162e' }
+                                                    : { color: '#8a8b8e' }
+                                            }
+                                        />
                                     )}
                                 </ListItem>
                                 <Collapse
@@ -179,7 +217,10 @@ const index = ({ history, role }) => {
                                                 >
                                                     <ListItemText
                                                         primary={
-                                                            <a href= {subitem.link}
+                                                            <a
+                                                                href={
+                                                                    subitem.link
+                                                                }
                                                                 className={
                                                                     selectedSubItem ===
                                                                     subitem.id
@@ -206,7 +247,17 @@ const index = ({ history, role }) => {
                                 onClick={e => handleClickSubItem(e, item)}
                                 className={classes.listItem}
                             >
-                                <a href={item.link} >{item.title}</a>
+                                <a
+                                    href={item.link}
+                                    id={item.id}
+                                    style={
+                                        Str === item.link
+                                            ? { color: '#bd162e' }
+                                            : { color: '#8a8b8e' }
+                                    }
+                                >
+                                    {item.title}
+                                </a>
                             </ListItem>
                         )}
                     </Fragment>
