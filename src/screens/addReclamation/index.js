@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
 import { Grid, Divider } from '@material-ui/core'
 import Select from '@material-ui/core/Select'
-import InputLabel from '@material-ui/core/InputLabel'
+// import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
@@ -88,9 +88,9 @@ const Index = props => {
                     <div className="col-6 mt-3"><p className="txt_form">Code livraison</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            <InputLabel id="select-livraison">
+                            {/* <InputLabel id="select-livraison">
                                 Code livraison
-                            </InputLabel>
+                            </InputLabel> */}
                             <Select
                                 className="border"
                                 id="demo-mutiple-name"
@@ -119,9 +119,9 @@ const Index = props => {
                     <div className="col-6 mt-3"><p className="txt_form">Code produit</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            <InputLabel id="select-produit">
+                            {/* <InputLabel id="select-produit">
                                 Code produit
-                            </InputLabel>
+                            </InputLabel> */}
                             <Select
                                 className="border"
                                 id="demo-mutiple-name"
@@ -154,7 +154,6 @@ const Index = props => {
                                 type="number"
                                 className="d-flex border"
                                 onChange={e => changeHandler('numLot', e)}
-                                label="Numéro de lot"
                             />
                         </FormControl>
                     </div>
@@ -171,7 +170,6 @@ const Index = props => {
                                 type="number"
                                 className="d-flex border "
                                 onChange={e => changeHandler('qte', e)}
-                                label="Quantité réclamée"
                             />
                         </FormControl>
                     </div>
@@ -182,9 +180,9 @@ const Index = props => {
                         <div className="col-6 mt-3"><p className="txt_form">Nature réclamation</p></div>
                         <div className="col-6">
                             <FormControl className="w-100">
-                                <InputLabel id="select-nature">
+                                {/* <InputLabel id="select-nature">
                                     Nature réclamation
-                                </InputLabel>
+                                </InputLabel> */}
                                 <Select
                                     className="border"
                                     id="demo-mutiple-name"
@@ -226,9 +224,9 @@ const Index = props => {
                     <div className="col-6 mt-3"><p className="txt_form">Gravité réclamation</p></div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            <InputLabel id="select-gravite">
+                            {/* <InputLabel id="select-gravite">
                                 Gravité réclamation
-                            </InputLabel>
+                            </InputLabel> */}
                             <Select
                                 className="border"
                                 id="demo-mutiple-name"
