@@ -108,7 +108,7 @@ class Index extends React.Component {
                 Object.keys(nextProps.response.data.data).forEach(key => {
                     const item = nextProps.response.data.data[key]
                     if (item) {
-                        const errorText = item.ar
+                        const errorText = item.fr
                         errorsList[key] = errorText
                     }
                 })
@@ -128,7 +128,7 @@ class Index extends React.Component {
                 Object.keys(nextProps.responseEdit.data.data).forEach(key => {
                     const item = nextProps.responseEdit.data.data[key]
                     if (item) {
-                        const errorText = item.ar
+                        const errorText = item.fr
                         errorsList[key] = errorText
                     }
                 })

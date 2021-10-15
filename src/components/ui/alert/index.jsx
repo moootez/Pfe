@@ -17,7 +17,7 @@ import alertActions from '../../../redux/alert'
  *         warning = false,
  *         error = false,
  *         success = false,
- *         language = 'ar',
+ *         language = 'fr',
  *         info = false,
  *         message = '',
  *         title = '',
@@ -137,7 +137,7 @@ const mapStateToProps = state => {
  */
 index.defaultProps = {
     onConfirm: () => {},
-    language: 'ar',
+    language: 'fr',
 }
 /**
  *  declaration des props

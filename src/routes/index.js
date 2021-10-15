@@ -67,7 +67,6 @@ class Routes extends Component {
             wrapApiCall,
             wrapApiCallFailure,
             wrapApiPut,
-            language,
         } = this.props
         try {
             const self = this
@@ -94,7 +93,7 @@ class Routes extends Component {
                     err.then(e => {
                         if (e.config && !e.config.url.includes('notification/'))
                             self.props.alertShow(true, {
-                                title: language === 'ar' ? 'Erreur' : 'Erreur',
+                                title:  'Erreur',
                                 warning: false,
                                 info: false,
                                 error: true,
@@ -103,7 +102,7 @@ class Routes extends Component {
                                     error.response !== undefined &&
                                     error.response.data &&
                                     error.response.data.message &&
-                                    error.response.data.message.ar,
+                                    error.response.data.message.fr,
                             })
                         self.props.wrapApiPutFailure(e.toString())
                     })

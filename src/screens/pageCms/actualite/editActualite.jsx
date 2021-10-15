@@ -85,7 +85,7 @@ class editActualite extends React.Component {
                 Object.keys(nextProps.response.data.data).forEach(key => {
                     const item = nextProps.response.data.data[key]
                     if (item) {
-                        const errorText = item.ar
+                        const errorText = item.fr
                         errorsList[key] = errorText
                     }
                 })
