@@ -75,6 +75,8 @@ const Index = props => {
 
     const changeHandler = (name, e) => {
         const { value } = e.target
+        if (value >= 0) { setReclamation(r => ({ ...r, [name]: value })) }
+        else console.log('rrre', value)
         setReclamation(r => ({ ...r, [name]: value }))
     }
 
@@ -166,14 +168,14 @@ const Index = props => {
                     <div className="col-6">
                         <FormControl className="w-100">
                             <TextField
-                                // onChange={e => checkNumberPos(e)}
+                                // error="tttt"
+                                // helperText="frrr"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
                                 type="number"
                                 className="d-flex border"
-                                // value={numberPos}
-                                // onChange={e => changeHandler('numLot', e)}
+                                onChange={e => changeHandler('numLot', e)}
                             />
                         </FormControl>
                     </div>

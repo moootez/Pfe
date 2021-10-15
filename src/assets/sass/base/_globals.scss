@@ -789,6 +789,9 @@ table tbody tr:hover{
     background: rgb(205, 18, 26);
 }
 .style-table table th{padding: 16px 5px;}
+.border {
+    border: 1px solid #bdbcbc !important;
+}
 @media only screen and (min-width : 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner{
         position: absolute;

@@ -94,12 +94,9 @@ const Index = props => {
 
     return (
         <div className="column col-md-12 style-table">
-            {/* <Grid className="gridItem">
-                <PageTitle label="Creation du commande" />
-            </Grid> */}
             <Divider />
             <MaterialTable
-                title={<PageTitle label="Creation du commande" />}
+                title={<PageTitle label="Création du commande" />}
                 columns={[
                     {
                         title: 'Image',
