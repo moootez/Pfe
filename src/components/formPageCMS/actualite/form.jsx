@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid } from '@material-ui/core'
+import { Divider, Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Button, Modal } from 'react-bootstrap'
 import FormControl from '@material-ui/core/FormControl'
@@ -7,6 +7,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import setListInput from './setListInput'
 import InputText from '../../ui/input'
 import DateField from '../../ui/datePicker'
+import SelectList from '../../ui/select'
 
 /**
  *
@@ -192,6 +193,37 @@ const form = ({
                             //     declarantExist
                             // }
                         />
+                    </Grid>
+                )
+            else if (item.isSelect)
+                return (
+                    <Grid
+                        item
+                        xs={12}
+                        md={item.md}
+                        sm={item.sm}
+                        className="gridItem"
+                        key={`${item.name}`}
+                    >
+                        <SelectList
+                            onchange={e => {
+                                fieldChangedHandler(e, item.name, null)
+                            }}
+                            required={item.required}
+                            name={item.name}
+                            label={item.label}
+                            width={item.widh}
+                            list={item.list}
+                            selectedItem={payload[item.name]}
+                            errorText={errorsList[item.name]}
+                            isError={
+                                isError &&
+                                Object.keys(errorsList).includes(item.name)
+                            }
+                            // declarantExist={declarantExist}
+                            selectAll={item.selectAll}
+                        />
+                        {item.sm === 12 && !item.isCheck && <Divider />}
                     </Grid>
                 )
             else
