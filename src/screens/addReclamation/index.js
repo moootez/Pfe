@@ -77,16 +77,13 @@ const Index = props => {
                 info: false,
                 error: true,
                 success: false,
-                message: 'quantité ou numéro de lot négatif ',
+                message: 'Quantité ou numéro de lot négatif ',
             })
         } else addReclamation(newPayload)
     }
 
     const changeHandler = (name, e) => {
         const { value } = e.target
-        if (value >= 0) {
-            setReclamation(r => ({ ...r, [name]: value }))
-        } else console.log('rrre', value)
         setReclamation(r => ({ ...r, [name]: value }))
     }
 
