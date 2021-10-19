@@ -17,6 +17,7 @@ import getAllLivraisons from '../../redux/referencial/getAllReferencial'
 import addReclamationActions from '../../redux/reclamation/newReclamation'
 import PageTitle from '../../components/ui/pageTitle'
 import Button from '../../components/ui/button'
+import alertActions from '../../redux/alert'
 
 const natureReclamation = [
     'Périmé',
@@ -31,17 +32,16 @@ const graviteReclamation = ['Mineur', 'Majeur', 'Critique']
 
 const Index = props => {
     const {
+        alertShow,
         addReclamation,
         userID,
         getAllLivraison,
         livraisons,
         commandes,
-        getCommande,    
+        getCommande,
         newReclamation,
         history,
     } = props
-    
-   
 
     const [reclamation, setReclamation] = useState({})
 
@@ -69,18 +69,26 @@ const Index = props => {
             nature: reclamation.nature,
             gravite: reclamation.gravite,
             status: null,
+            numLot: reclamation.numLot,
         }
-        addReclamation(newPayload)
+        if (newPayload.quantite <= 0 || newPayload.numLot <= 0) {
+            alertShow(true, {
+                warning: false,
+                info: false,
+                error: true,
+                success: false,
+                message: 'quantité ou numéro de lot négatif ',
+            })
+        } else addReclamation(newPayload)
     }
 
     const changeHandler = (name, e) => {
         const { value } = e.target
-        if (value >= 0) { setReclamation(r => ({ ...r, [name]: value })) }
-        else console.log('rrre', value)
+        if (value >= 0) {
+            setReclamation(r => ({ ...r, [name]: value }))
+        } else console.log('rrre', value)
         setReclamation(r => ({ ...r, [name]: value }))
     }
-
-
 
     // const [numberPos, setnumberPos] = useState('')
     // const [disabled, setDisabled] = useState(true)
@@ -93,7 +101,6 @@ const Index = props => {
     //     }
     // }
 
-
     console.log(livraisons)
     return (
         <div className="column col-md-12 text-center style-table form-reclam">
@@ -103,7 +110,12 @@ const Index = props => {
             <Divider />
             <div className="row mt-3 mb-3">
                 <div className="d-flex col-6 row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Code livraison <span className="text-danger"> * </span></p></div>
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">
+                            Code livraison{' '}
+                            <span className="text-danger"> * </span>
+                        </p>
+                    </div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             {/* <InputLabel id="select-livraison">
@@ -135,7 +147,12 @@ const Index = props => {
                 </div>
                 {/* Numero du produit */}
                 <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Code produit <span className="text-danger"> * </span></p></div>
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">
+                            Code produit{' '}
+                            <span className="text-danger"> * </span>
+                        </p>
+                    </div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             {/* <InputLabel id="select-produit">
@@ -158,13 +175,14 @@ const Index = props => {
                                     </MenuItem>
                                 ))}
                             </Select>
-
                         </FormControl>
                     </div>
                 </div>
                 {/* Numero de lot */}
                 <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Numéro de lot</p></div>
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">Numéro de lot</p>
+                    </div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             <TextField
@@ -182,7 +200,9 @@ const Index = props => {
                 </div>
                 {/* Quantite reclame */}
                 <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Quantité réclamée</p></div>
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">Quantité réclamée</p>
+                    </div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             <TextField
@@ -192,7 +212,7 @@ const Index = props => {
                                 type="number"
                                 className="d-flex border "
                                 onChange={e => changeHandler('qte', e)}
-                                name='qte_rec'
+                                name="qte_rec"
                             />
                         </FormControl>
                     </div>
@@ -200,7 +220,12 @@ const Index = props => {
                 {/* Nature reclamation */}
                 {reclamation.nature !== 'Autres' ? (
                     <div className="col-6 d-flex row-form-reclam">
-                        <div className="col-6 mt-3"><p className="txt_form">Nature réclamation <span className="text-danger"> * </span></p></div>
+                        <div className="col-6 mt-3">
+                            <p className="txt_form">
+                                Nature réclamation{' '}
+                                <span className="text-danger"> * </span>
+                            </p>
+                        </div>
                         <div className="col-6">
                             <FormControl className="w-100">
                                 {/* <InputLabel id="select-nature">
@@ -226,7 +251,7 @@ const Index = props => {
                 ) : (
                     <div className="col-6 d-flex row-form-reclam">
                         <div className="col-6 mt-3">
-                        <p className="txt_form">Préciser votre situation</p>
+                            <p className="txt_form">Préciser votre situation</p>
                         </div>
                         <div className="col-6">
                             <FormControl className="w-100">
@@ -244,7 +269,12 @@ const Index = props => {
                 )}
                 {/* Gravite du reclamation */}
                 <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3"><p className="txt_form">Gravité réclamation <span className="text-danger"> * </span></p></div>
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">
+                            Gravité réclamation{' '}
+                            <span className="text-danger"> * </span>
+                        </p>
+                    </div>
                     <div className="col-6">
                         <FormControl className="w-100">
                             {/* <InputLabel id="select-gravite">
@@ -283,6 +313,7 @@ Index.propTypes = {
     getCommande: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
     livraisons: PropTypes.array,
+    alertShow: PropTypes.func.isRequired,
 }
 
 Index.defaultProps = {
@@ -303,6 +334,18 @@ const mapDispatchToProps = dispatch => ({
     getCommande: data => dispatch(getCommandes.getStatistiqueRequest(data)),
     addReclamation: payload =>
         dispatch(addReclamationActions.addNewReclamationRequest(payload)),
+    alertShow: (show, info) =>
+        dispatch(
+            alertActions.alertShow(show, {
+                onConfirm: info.onConfirm,
+                warning: info.warning,
+                info: info.info,
+                error: info.error,
+                success: info.success,
+                message: info.message,
+                title: info.title,
+            })
+        ),
 })
 
 // obtenir les données from  store state
