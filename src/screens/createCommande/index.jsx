@@ -2,6 +2,10 @@
 /* eslint-disable global-require */
 /* eslint-disable radix */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable prefer-destructuring */
+
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
@@ -28,18 +32,29 @@ const Index = props => {
         newCommande,
         uploadNewCommande,
     } = props
+    const [ColorBorder, setColorBorder] = useState('green')
+    const [QteVrac, setQteVrac] = useState([])
+    const [QteCarton, setQteCarton] = useState([])
+    const checkQteVrac = e => {
+        const value = e.target.value
+        if (value >= 0) {
+            setColorBorder('green')
+        } else {
+            setColorBorder('red')
+        }
 
-    // const [QteVrac, setQteVrac] = useState(0)
-    // const checkQteVrac = e => {
-    //     setQteVrac(e.target.value)
-    //     if (QteVrac < 0) {
-    //         alert("false")
-    //     } else {
-    //         alert("true")
-    //     }
-    // }
-    // console.log(QteVrac)
+        // setQteVrac(e.target.value)
+    }
+    const checkQteCarton = e => {
+        const value = e.target.value
+        if (value >= 0) {
+            setColorBorder('green')
+        } else {
+            setColorBorder('red')
+        }
 
+        // setQteVrac(e.target.value)
+    }
     const [allProduct, setAllProduct] = useState([])
     const [commande, setCommande] = useState({})
     const [file] = useState(null)
@@ -66,13 +81,14 @@ const Index = props => {
             return unknown
         }
     }
-
-    const getTotalQt = rowData =>
+    let getTotalQt = 8
+    getTotalQt = rowData =>
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
             parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
-    const getTotalPrix = rowData => getTotalQt(rowData) * parseInt(rowData.prix)
 
+    // console.log(getTotalQt(rowData));
+    const getTotalPrix = rowData => getTotalQt(rowData) * parseInt(rowData.prix)
     const handleSubmit = () => {
         if (!file) {
             const payload = Object.entries(commande).map(elem => ({
@@ -125,6 +141,8 @@ const Index = props => {
                         render: rowData => (
                             <div style={{ width: 80 }}>
                                 <TextField
+                                    onChange={e => checkQteCarton(e)}
+                                    inputProps={{ min: 0 }}
                                     disabled={!rowData.actif}
                                     type="number"
                                     key={generateKey()}
@@ -157,8 +175,9 @@ const Index = props => {
                         render: rowData => (
                             <div style={{ width: 80 }}>
                                 <TextField
-                                    // onChange={e=>checkQteVrac(e)}
+                                    onChange={e => checkQteVrac(e)}
                                     // value={QteVrac}
+                                    inputProps={{ min: 0 }}
                                     type="number"
                                     key={generateKey()}
                                     label="Quantité"
@@ -169,6 +188,10 @@ const Index = props => {
                                     }
                                     variant="outlined"
                                     size="small"
+                                    style={{
+                                        border: '2px solid'.ColorBorder,
+                                        height: 'calc(0.5em + 1.5rem + 2px)',
+                                    }}
                                     onBlur={e =>
                                         setCommande({
                                             ...commande,
@@ -233,10 +256,7 @@ const Index = props => {
                 </a>
             </div>
             <div className="m-3 text-right" style={{ paddingBottom: '20px' }}>
-                <Button
-                    className="btn-submit-cmd"
-                    onClick={handleSubmit}
-                >
+                <Button className="btn-submit-cmd" onClick={handleSubmit}>
                     Enregistrer la commande
                 </Button>
             </div>
@@ -290,4 +310,7 @@ Index.propTypes = {
     history: PropTypes.object.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(injectIntl(Index))
