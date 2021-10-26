@@ -17,10 +17,10 @@ import 'swiper/swiper.scss';
 
 
 const apiConsumer = [
-    { endPoint: 'dashbord/list/kpi', name: 'total' },
-    { endPoint: 'dashbord/list/top5', name: 'top5' },
-    { endPoint: 'dashbord/list/montant-ttc-mois', name: 'montant' },
-    { endPoint: 'dashbord/list/delai-reception', name: 'delai' },
+    { endPoint: 'dashbord/list/kpi/'.localStorage.codeInsc, name: 'total' },
+    { endPoint: 'dashbord/list/top5/'.localStorage.codeInsc, name: 'top5' },
+    { endPoint: 'dashbord/list/montant-ttc-mois'.localStorage.codeInsc, name: 'montant' },
+    { endPoint: 'dashbord/list/delai-reception'.localStorage.codeInsc, name: 'delai' },
 ]
 
 const consumeAPI = (endPoint, setState, state, name) => {
