@@ -25,11 +25,11 @@ const Index = props => {
             </Grid> */}
             <Divider />
             <MaterialTable
-            title="Réglements"
+            title="Règlements"
             columns={[
                 { title: 'N° Règlement', field: 'No_reglement'},
                 { title: 'Montant', field: 'Montant'},
-                { title: 'Mode réglement', field: 'Mode_reglement'},
+                { title: 'Mode règlement', field: 'Mode_reglement'},
                 { title: 'Date échéance', field: 'Date_echeance'},
                 { title: 'N° Facture', field: 'No_reglement'},
             ]}

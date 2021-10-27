@@ -62,7 +62,7 @@ const Index = props => {
                     { title: 'Nature', field: 'nature' },
                     { title: 'Gravité', field: 'gravite' },
                     {
-                        title: 'Status',
+                        title: 'Statut',
                         field: 'status',
                         render: rowData => (
                             <div style={{ width: 300 }}>

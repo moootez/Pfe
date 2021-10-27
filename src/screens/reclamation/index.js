@@ -30,7 +30,7 @@ const Index = props => {
                 { title: 'Quantite', field: 'quantite' },
                 { title: 'Nature', field: 'nature' },
                 { title: 'Gravite', field: 'gravite' },
-                { title: 'Status', field: 'status' },
+                { title: 'Statut', field: 'status' },
                 { title: 'Motif', field: 'motif' },
                 { title: 'Numéro Lot', field: 'numLot' },
                 { title: 'action', field: 'action' }

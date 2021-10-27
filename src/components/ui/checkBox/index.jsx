@@ -20,7 +20,7 @@ export default function index({ label, name, onchange, selectedValue }) {
     /**
      * hooks numbers
      */
-    const [defaultValue, setDefaultValue] = useState(selectedValue)
+    const [defaultValue, setDefaultValue] = useState(true)
     /**
      * change checked
      *

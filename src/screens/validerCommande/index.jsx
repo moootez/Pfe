@@ -90,7 +90,7 @@ const Index = props => {
             {
                  role !== 'ROLE_CLIENT' 
                  ?  <MaterialTable
-                 title= {<PageTitle label='Validation commande' />}
+                 title= {<PageTitle label='Commandes à valider' />}
                  columns={[
                     {
                         title: 'ID',
@@ -159,7 +159,7 @@ const Index = props => {
                          },
                      },
                      {
-                         title: 'Export Pdf Commande',
+                         title: 'Export Pdf',
                          field: 'export',
                          render: rowData => {
                              return (
@@ -182,7 +182,7 @@ const Index = props => {
              /> 
             : 
             <MaterialTable
-                 title= {<PageTitle label='Validation commande' />}
+                 title= {<PageTitle label='Commandes à valider' />}
                  columns={[
                      {
                          title: 'ID',
@@ -248,7 +248,7 @@ const Index = props => {
                          },
                      },
                      {
-                         title: 'Export Pdf Commande',
+                         title: 'Export Pdf',
                          field: 'export',
                          render: rowData => {
                              return (

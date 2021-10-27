@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Divider, TextField, Button } from '@material-ui/core'
+import alertActions from '../../redux/alert'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import addNewCommandeActions from '../../redux/commande/newCommande'
 import uploadCommandeActions from '../../redux/commande/uploadCommande'
@@ -31,6 +32,7 @@ const Index = props => {
         history,
         newCommande,
         uploadNewCommande,
+        alertShow,
     } = props
     const [ColorBorder, setColorBorder] = useState('green')
     const [QteVrac, setQteVrac] = useState([])
@@ -97,7 +99,18 @@ const Index = props => {
                     allProduct.find(el => el.codeArticleX3 === elem[0])
                 ),
             }))
-            addCommande({ produits: payload, user: userID })
+            if (payload.length !== 0) {
+                addCommande({ produits: payload, user: userID })
+            } else {
+                alertShow(true, {
+                    warning: false,
+                    info: false,
+                    error: true,
+                    success: false,
+                    message: 'Votre commande est vide',
+                })
+            }
+            
         } else {
             const formData = new FormData()
 
@@ -112,7 +125,7 @@ const Index = props => {
         <div className="column col-md-12 style-table">
             <Divider />
             <MaterialTable
-                title={<PageTitle label="Création du commande" />}
+                title={<PageTitle label="Créer une commande" />}
                 columns={[
                     {
                         title: 'Image',
@@ -278,6 +291,18 @@ const mapDispatchToProps = dispatch => ({
         dispatch(addNewCommandeActions.addNewCommandeRequest(payload)),
     uploadCommande: payload =>
         dispatch(uploadCommandeActions.uploadCommandeRequest(payload)),
+    alertShow: (show, info) =>
+    dispatch(
+        alertActions.alertShow(show, {
+            onConfirm: info.onConfirm,
+            warning: info.warning,
+            info: info.info,
+            error: info.error,
+            success: info.success,
+            message: info.message,
+            title: info.title,
+        })
+    ),
 })
 
 // obtenir les données from  store state
@@ -308,6 +333,7 @@ Index.propTypes = {
     newCommande: PropTypes.any.isRequired,
     uploadNewCommande: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    alertShow: PropTypes.func.isRequired,
 }
 
 export default connect(

@@ -198,8 +198,7 @@ class addActualite extends React.Component {
         return (
             <div className="ctn__declataion">
                 <PageTitle
-                    label="
-Ajouter des Actualite "
+                    label="Ajouter des Actualités "
                 />
                 <FormGroup>
                     <div className="centerDiv">
