@@ -71,7 +71,7 @@ const Index = props => {
             status: null,
             numLot: reclamation.numLot,
         }
-        if (newPayload.quantite <= 0 || newPayload.numLot <= 0) {
+        if (newPayload.quantite <= 0) {
             alertShow(true, {
                 warning: false,
                 info: false,
@@ -188,7 +188,7 @@ const Index = props => {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                type="number"
+                                type="text"
                                 className="d-flex border"
                                 onChange={e => changeHandler('numLot', e)}
                             />

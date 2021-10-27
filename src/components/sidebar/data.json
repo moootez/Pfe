@@ -31,7 +31,7 @@
             {
                 "id": "commande",
                 "link": "/commandeRoute",
-                "title": "Commande",
+                "title": "Commandes",
                 "defaultPermission": false,
                 "roles": ["ROLE_ADV", "ROLE_CLIENT"],
                 "subitems": [
@@ -75,7 +75,7 @@
                     {
                         "id": 42,
                         "link": "/ajout-reclamation",
-                        "title": "Déposer une reclamation",
+                        "title": "Déposer une réclamation",
                         "defaultPermission": true,
                         "roles": ["ROLE_CLIENT"]
                     },
@@ -107,7 +107,7 @@
             {
                 "id": 7,
                 "link": "/reglement",
-                "title": "Réglements",
+                "title": "Règlements",
                 "defaultPermission": false,
                 "subitems": null,
                 "roles": ["ROLE_CLIENT"]

@@ -47,7 +47,7 @@ const Index = props => {
             </Grid> */}
             <Divider />
             <TableCollapse
-                title="Livraison"
+                title="Livraisons"
                 apiCall={getAllLivraison}
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(livraisons))}

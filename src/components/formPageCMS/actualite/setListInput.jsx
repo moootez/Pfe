@@ -56,7 +56,7 @@ const setListInput = () => {
             selectAll: true,
             sm: 6,
             md: 3,
-            placeholder: 'Priorite',
+            placeholder: 'Priorité',
             lng: 'fr',
         },
 

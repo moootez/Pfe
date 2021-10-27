@@ -77,7 +77,7 @@ const Index = ({
     const headers = [
         'Titre',
         'Texte',
-        'Priorite',
+        'Priorité',
         intl.formatMessage({ id: 'dateCreaction' }),
         'Actions',
     ]

@@ -219,7 +219,7 @@ const Index = ({
     return (
         <div style={{ padding: '1%' }}>
             <Grid className="gridItem">
-                <PageTitle label="Gestion des client" />
+                <PageTitle label="Gestion des utilisateurs" />
             </Grid>
             <Grid container>
                 <Form
