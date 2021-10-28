@@ -18,7 +18,7 @@ import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
 import getCommandeActions from '../../redux/commande/getCommande'
 import validerCommandeActions from '../../redux/commande/validerCommande'
 import exportPdfCommandeActions from '../../redux/commande/exportPdf'
-import importCommandeActions from '../../redux/commande/uploadCommande'
+import dupliquerCommandeActions from '../../redux/commande/dupliquerCommande'
 import PageTitle from '../../components/ui/pageTitle'
 
 const statusAndTxt = {
@@ -35,7 +35,7 @@ const Index = props => {
         userID,
         validerCommande,
         exportPdf,
-        importCommande,
+        dupliquerCommande,
         pdfLink,
         // syncProduits,
         role,
@@ -267,13 +267,13 @@ const Index = props => {
                      },
                      {
                          title: 'Dupliquer commande',
-                         field: 'import',
+                         field: 'dupliquer',
                          render: rowData => {
                              return (
                                  <div style={{ width: 80 }}>
                                      <IconButton
                                          onClick={() =>
-                                             importCommande({ id: rowData.id })
+                                            dupliquerCommande({ id: rowData.id })
                                          }
                                          color="primary"
                                      >
@@ -309,8 +309,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(validerCommandeActions.validerCommandeRequest(payload)),
     exportPdf: payload =>
         dispatch(exportPdfCommandeActions.exportPdfCommandeRequest(payload)),
-    importCommande: payload =>
-        dispatch(importCommandeActions.uploadCommandeRequest(payload)),
+    dupliquerCommande: payload =>
+        dispatch(dupliquerCommandeActions.dupliquerCommandeRequest(payload)),
     // syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
@@ -339,7 +339,7 @@ Index.propTypes = {
     getCommande: PropTypes.func.isRequired,
     validerCommande: PropTypes.func.isRequired,
     exportPdf: PropTypes.func.isRequired,
-    importCommande: PropTypes.func.isRequired,
+    dupliquerCommande: PropTypes.func.isRequired,
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     // syncProduits: PropTypes.func.isRequired,

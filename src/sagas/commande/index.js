@@ -3,6 +3,7 @@ import addNewCommandeSaga from './newCommande'
 import getCommandeSaga from './getCommande'
 import validerCommandeSaga from './validerCommande'
 import uploadCommandeSaga from './uploadCommande'
+import dupliquerCommandeSaga from './dupliquerCommande'
 import exportPdfCommandeSaga from './exportPdf'
 
 /**
@@ -14,6 +15,7 @@ const commandeSagas = [
     getCommandeSaga,
     validerCommandeSaga,
     uploadCommandeSaga,
+    dupliquerCommandeSaga,
     exportPdfCommandeSaga,
 ]
 
