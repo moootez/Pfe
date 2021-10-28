@@ -87,77 +87,93 @@ const Index = props => {
                     />
                 </div>
             )}
-            {
-                 role !== 'ROLE_CLIENT' 
-                 ?  <MaterialTable
+                <MaterialTable
                  title= {<PageTitle label='Commandes à valider' />}
                  columns={[
                     {
                         title: 'ID',
                         field: 'id',
                     },
-                    {
+                   
+                   
+                    role === 'ROLE_CLIENT' ?
+                     {
+                          title: 'Date de création',
+                          field: 'createdAt',
+                     }
+                     :
+                     { title: 'Statut', field: 'status' },
+                     role !== 'ROLE_CLIENT' ?
+                     {
                         title: 'Client',
                         field: 'client.codeInsc',
+                    }:
+                    {
+                        title: 'Dupliquer commande',
+                        field: 'dupliquer',
+                        render: rowData => {
+                            return (
+                                <div style={{ width: 80 }}>
+                                    <IconButton
+                                        onClick={() =>
+                                           dupliquerCommande({ id: rowData.id })
+                                        }
+                                        color="primary"
+                                    >
+                                        <FileCopyOutlinedIcon />
+                                    </IconButton>
+                                </div>
+                            )
+                        },
                     },
-                    { title: 'Status', field: 'status' },
+                    {
+                        title: 'Validation',
+                        field: 'validation',
+                        render: rowData => {
+                            let newStatus = 'VALIDATION_OPALIA'
+                            const refusStatus =
+                                role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
+                            if (rowData.status === 'BROUILLON') {
+                                newStatus = 'VALIDATION_CLIENT'
+                            } else if (rowData.status === 'VALIDATION_CLIENT') {
+                                newStatus = 'VALIDATION_OPALIA'
+                            }
 
+                            const toValide =
+                                rowData.status !== 'VALIDATION_OPALIA'
 
-
-                    //  {
-                    //      title: 'Date de création',
-                    //      field: 'createdAt',
-                    //  },
-                     // { title: 'Adresse', field: 'client.ligneAdresse' },
-                     // { title: 'Ville', field: 'client.ville' },
-                     {
-                         title: 'Validation',
-                         field: 'validation',
-                         render: rowData => {
-                             let newStatus = 'VALIDATION_OPALIA'
-                             const refusStatus =
-                                 role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
-                             if (rowData.status === 'BROUILLON') {
-                                 newStatus = 'VALIDATION_CLIENT'
-                             } else if (rowData.status === 'VALIDATION_CLIENT') {
-                                 newStatus = 'VALIDATION_OPALIA'
-                             }
- 
-                             const toValide =
-                                 rowData.status !== 'VALIDATION_OPALIA'
- 
-                             return (
-                                 <div style={{ width: 80 }}>
-                                     {toValide && (
-                                         <IconButton
-                                             onClick={() =>
-                                                 handleSubmit(
-                                                     newStatus,
-                                                     rowData.id
-                                                 )
-                                             }
-                                             style={{ color: green[500] }}
-                                             aria-label={statusAndTxt[newStatus]}
-                                         >
-                                             <CheckIcon />
-                                         </IconButton>
-                                     )}
-                                     <IconButton
-                                         onClick={() =>
-                                             handleSubmit(
-                                                 refusStatus,
-                                                 rowData.id
-                                             )
-                                         }
-                                         style={{ color: red[500] }}
-                                         aria-label="Annuler"
-                                     >
-                                         <CloseIcon />
-                                     </IconButton>
-                                 </div>
-                             )
-                         },
-                     },
+                            return (
+                                <div style={{ width: 80 }}>
+                                    {toValide && (
+                                        <IconButton
+                                            onClick={() =>
+                                                handleSubmit(
+                                                    newStatus,
+                                                    rowData.id
+                                                )
+                                            }
+                                            style={{ color: green[500] }}
+                                            aria-label={statusAndTxt[newStatus]}
+                                        >
+                                            <CheckIcon />
+                                        </IconButton>
+                                    )}
+                                    <IconButton
+                                        onClick={() =>
+                                            handleSubmit(
+                                                refusStatus,
+                                                rowData.id
+                                            )
+                                        }
+                                        style={{ color: red[500] }}
+                                        aria-label="Annuler"
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                </div>
+                            )
+                        },
+                    },
                      {
                          title: 'Export Pdf',
                          field: 'export',
@@ -176,120 +192,12 @@ const Index = props => {
                              )
                          },
                      },
+                     
 
                  ]}
                  data={allCommande || []}
              /> 
-            : 
-            <MaterialTable
-                 title= {<PageTitle label='Commandes à valider' />}
-                 columns={[
-                     {
-                         title: 'ID',
-                         field: 'id',
-                     },
-                     {
-                         title: 'Date de création',
-                         field: 'createdAt',
-                     },
-                     // {
-                     //     title: 'Code Inscription',
-                     //     field: 'client.codeInsc',
-                     // },
-                     // { title: 'Adresse', field: 'client.ligneAdresse' },
-                     // { title: 'Ville', field: 'client.ville' },
-                     // { title: 'Status', field: 'status' },
-                     {
-                         title: 'Validation',
-                         field: 'validation',
-                         render: rowData => {
-                             let newStatus = 'VALIDATION_OPALIA'
-                             const refusStatus =
-                                 role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
-                             if (rowData.status === 'BROUILLON') {
-                                 newStatus = 'VALIDATION_CLIENT'
-                             } else if (rowData.status === 'VALIDATION_CLIENT') {
-                                 newStatus = 'VALIDATION_OPALIA'
-                             }
- 
-                             const toValide =
-                                 rowData.status !== 'VALIDATION_OPALIA'
- 
-                             return (
-                                 <div style={{ width: 80 }}>
-                                     {toValide && (
-                                         <IconButton
-                                             onClick={() =>
-                                                 handleSubmit(
-                                                     newStatus,
-                                                     rowData.id
-                                                 )
-                                             }
-                                             style={{ color: green[500] }}
-                                             aria-label={statusAndTxt[newStatus]}
-                                         >
-                                             <CheckIcon />
-                                         </IconButton>
-                                     )}
-                                     <IconButton
-                                         onClick={() =>
-                                             handleSubmit(
-                                                 refusStatus,
-                                                 rowData.id
-                                             )
-                                         }
-                                         style={{ color: red[500] }}
-                                         aria-label="Annuler"
-                                     >
-                                         <CloseIcon />
-                                     </IconButton>
-                                 </div>
-                             )
-                         },
-                     },
-                     {
-                         title: 'Export Pdf',
-                         field: 'export',
-                         render: rowData => {
-                             return (
-                                 <div style={{ width: 80 }}>
-                                     <IconButton
-                                         onClick={() =>
-                                             exportPdf({ id: rowData.id })
-                                         }
-                                         color="primary"
-                                     >
-                                         <FileCopyIcon />
-                                     </IconButton>
-                                 </div>
-                             )
-                         },
-                     },
-                     {
-                         title: 'Dupliquer commande',
-                         field: 'dupliquer',
-                         render: rowData => {
-                             return (
-                                 <div style={{ width: 80 }}>
-                                     <IconButton
-                                         onClick={() =>
-                                            dupliquerCommande({ id: rowData.id })
-                                         }
-                                         color="primary"
-                                     >
-                                         <FileCopyOutlinedIcon />
-                                     </IconButton>
-                                 </div>
-                             )
-                         },
-                     },
-                 ]}
-                 data={allCommande || []}
-             /> 
-
-            }
            
-            {console.log(allCommande)}
         </div>
     )
 }
@@ -311,7 +219,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(exportPdfCommandeActions.exportPdfCommandeRequest(payload)),
     dupliquerCommande: payload =>
         dispatch(dupliquerCommandeActions.dupliquerCommandeRequest(payload)),
-    // syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
+        syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
 // obtenir les données from  store state

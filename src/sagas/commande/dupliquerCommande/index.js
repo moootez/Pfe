@@ -35,7 +35,7 @@ function* dupliquerCommandeSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Commande dupliquer avec succes',
+                        message: 'Commande dupliquée avec succes',
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),

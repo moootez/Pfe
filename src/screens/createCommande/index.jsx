@@ -256,7 +256,7 @@ const Index = props => {
                     className="mr-2"
                     href={safeRequire('ExempleCsv', '../', '.csv')}
                 >
-                    <b>Exemple de fichier l&#39;import</b>
+                    <b>Exemple de fichier à importer</b>
                 </a>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a
