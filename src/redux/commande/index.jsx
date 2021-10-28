@@ -4,6 +4,7 @@ import { reducer as newCommande } from './newCommande'
 import { reducer as getCommande } from './getCommande'
 import { reducer as validerCommande } from './validerCommande'
 import { reducer as uploadCommande } from './uploadCommande'
+import { reducer as dupliquerCommande } from './dupliquerCommande'
 import { reducer as exportPdf } from './exportPdf'
 /*
  * render all redux reducers actions
@@ -18,5 +19,6 @@ export default combineReducers({
     getCommande,
     validerCommande,
     uploadCommande,
+    dupliquerCommande,
     exportPdf,
 })
