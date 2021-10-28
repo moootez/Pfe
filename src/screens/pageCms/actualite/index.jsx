@@ -38,7 +38,8 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 345,
     },
     media: {
-        height: '130px',
+        height: '300px',
+        backgroundSize:'contain'
     },
     expand: {
         transform: 'rotate(0deg)',

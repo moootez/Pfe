@@ -175,7 +175,7 @@ footer span {
     height: 460px;
 }*/
 .footerApp .MuiGrid-item{
-    padding: 30px;
+    padding: 20px 20px 0 20px;
     z-index: 1;
 }
 .footerApp .MuiGrid-item.footright {

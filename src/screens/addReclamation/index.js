@@ -77,7 +77,7 @@ const Index = props => {
                 info: false,
                 error: true,
                 success: false,
-                message: 'Quantité ou numéro de lot négatif ',
+                message: 'Quantité négative ',
             })
         } else addReclamation(newPayload)
     }
@@ -203,6 +203,7 @@ const Index = props => {
                     <div className="col-6">
                         <FormControl className="w-100">
                             <TextField
+                                inputProps={{ min: 1 }}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
