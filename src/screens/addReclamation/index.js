@@ -67,6 +67,7 @@ const Index = props => {
             codeArticle: reclamation.produit,
             quantite: reclamation.qte,
             nature: reclamation.nature,
+            natureAutre: reclamation.natureAutre,
             gravite: reclamation.gravite,
             status: null,
             numLot: reclamation.numLot,
@@ -258,7 +259,9 @@ const Index = props => {
                                         shrink: true,
                                     }}
                                     className="d-flex border"
-                                    onChange={e => changeHandler('qte', e)}
+                                    onChange={e =>
+                                        changeHandler('natureAutre', e)
+                                    }
                                     label="Préciser votre situation"
                                 />
                             </FormControl>

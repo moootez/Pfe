@@ -94,12 +94,12 @@ const Index = props => {
     const handleSubmit = () => {
         if (!file) {
             const payload = Object.entries(commande).map(elem => ({
+                Code_PCT: elem[1].Code_PCT,
                 Code_article: elem[0],
+                Designation: elem[1].Designation,
                 QTY: getTotalQt(
                     allProduct.find(el => el.codeArticleX3 === elem[0])
                 ),
-                Code_PCT: elem[1].Code_PCT,
-                Designation: elem[1].Designation,
             }))
             if (payload.length !== 0) {
                 addCommande({ produits: payload, user: userID })
