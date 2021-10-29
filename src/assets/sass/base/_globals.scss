@@ -805,6 +805,9 @@ table tbody tr:hover {
 .border {
     border: 1px solid #bdbcbc !important;
 }
+.highcharts-credits{
+    display: none;
+}
 @media only screen and (min-width: 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner {
         position: absolute;
