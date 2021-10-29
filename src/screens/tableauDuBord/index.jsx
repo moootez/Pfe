@@ -65,10 +65,10 @@ const index = () => {
                 className="slider_dash"
             >
                 <SwiperSlide>
-                    <img src={SliderDash1} alt="slider" />
+                    <img src={SliderDash2} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash2} alt="slider" />
+                    <img src={SliderDash1} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img src={SliderDash3} alt="slider" />
@@ -107,7 +107,7 @@ const index = () => {
                         <div className="box-top-dash">
                             <Paper className="p-3">
                                 <center>
-                                    <b>Montant facture</b>
+                                    <b>Montants facture</b>
                                     <span className="font-weight-bold d-block">
                                         {
                                             state.total
@@ -122,7 +122,7 @@ const index = () => {
                         <div className="box-top-dash">
                             <Paper className="p-3">
                                 <center>
-                                    <b>Montant a régler</b>
+                                    <b>Montants à régler</b>
                                     <span className="font-weight-bold d-block">
                                         {state.total.Montant_a_regler}
                                     </span>{' '}
