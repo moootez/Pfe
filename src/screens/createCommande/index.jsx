@@ -98,6 +98,8 @@ const Index = props => {
                 QTY: getTotalQt(
                     allProduct.find(el => el.codeArticleX3 === elem[0])
                 ),
+                Code_PCT: elem[1].Code_PCT,
+                Designation: elem[1].Designation,
             }))
             if (payload.length !== 0) {
                 addCommande({ produits: payload, user: userID })
@@ -110,7 +112,6 @@ const Index = props => {
                     message: 'Votre commande est vide',
                 })
             }
-            
         } else {
             const formData = new FormData()
 
@@ -131,9 +132,9 @@ const Index = props => {
                         title: 'Image',
                         field: 'codeArticleX3',
                         cellStyle: {
-                            width:'10%',
-                            textAlign: 'center'
-                          },
+                            width: '10%',
+                            textAlign: 'center',
+                        },
                         render: rowData => (
                             <img
                                 key={generateKey()}
@@ -147,29 +148,49 @@ const Index = props => {
                             />
                         ),
                     },
-                    { title: 'Code Article', field: 'codeArticleX3', cellStyle: {
-                        width:'8%',
-                        textAlign: 'center'
-                      }},
-                      { title: 'Code PCT', field: 'codePct', cellStyle: {
-                        width:'8%',
-                      }},
-                    { title: 'Designation', field: 'designation1', cellStyle: {
-                        width:'16%',
-                        textAlign: 'center'
-                      }},
+                    {
+                        title: 'Code Article',
+                        field: 'codeArticleX3',
+                        cellStyle: {
+                            width: '8%',
+                            textAlign: 'center',
+                        },
+                    },
+                    {
+                        title: 'Code PCT',
+                        field: 'codePct',
+                        cellStyle: {
+                            width: '8%',
+                        },
+                    },
+                    {
+                        title: 'Designation',
+                        field: 'designation1',
+                        cellStyle: {
+                            width: '16%',
+                            textAlign: 'center',
+                        },
+                    },
 
-                    { title: 'Prix', field: 'prix', cellStyle: {
-                        textAlign: 'center'
-                      }},
-                    { title: 'Colisage', field: 'coefUcUs', cellStyle: {
-                        textAlign: 'center'
-                      }},
+                    {
+                        title: 'Prix',
+                        field: 'prix',
+                        cellStyle: {
+                            textAlign: 'center',
+                        },
+                    },
+                    {
+                        title: 'Colisage',
+                        field: 'coefUcUs',
+                        cellStyle: {
+                            textAlign: 'center',
+                        },
+                    },
                     {
                         title: 'Qté carton',
                         field: 'qtc',
                         cellStyle: {
-                            textAlign: 'center'
+                            textAlign: 'center',
                         },
                         render: rowData => (
                             <div style={{ width: 80 }}>
@@ -194,6 +215,9 @@ const Index = props => {
                                                     rowData.codeArticleX3
                                                 ] || {}),
                                                 qtc: e.target.value,
+                                                Code_PCT: rowData.codePct,
+                                                Designation:
+                                                    rowData.designation1,
                                             },
                                         })
                                     }
@@ -206,7 +230,7 @@ const Index = props => {
                         title: 'Qté vrac',
                         field: 'qtv',
                         cellStyle: {
-                            textAlign: 'center'
+                            textAlign: 'center',
                         },
                         render: rowData => (
                             <div style={{ width: 80 }}>
@@ -236,6 +260,9 @@ const Index = props => {
                                                     rowData.codeArticleX3
                                                 ] || {}),
                                                 qtv: e.target.value,
+                                                Code_PCT: rowData.codePct,
+                                                Designation:
+                                                    rowData.designation1,
                                             },
                                         })
                                     }
@@ -246,10 +273,11 @@ const Index = props => {
                     },
                     {
                         title: 'Qté total',
-                        field: 'qtt', cellStyle: {
-                            width:'7%',
-                            textAlign: 'center'
-                          },
+                        field: 'qtt',
+                        cellStyle: {
+                            width: '7%',
+                            textAlign: 'center',
+                        },
                         render: rowData => {
                             return (
                                 <div key={generateKey()} style={{ width: 80 }}>
@@ -262,9 +290,9 @@ const Index = props => {
                         title: 'Prix total',
                         field: 'pt',
                         cellStyle: {
-                            width:'7%',
-                            textAlign: 'center'
-                          },
+                            width: '7%',
+                            textAlign: 'center',
+                        },
                         render: rowData => {
                             return (
                                 <div key={generateKey()} style={{ width: 80 }}>
@@ -322,17 +350,17 @@ const mapDispatchToProps = dispatch => ({
     uploadCommande: payload =>
         dispatch(uploadCommandeActions.uploadCommandeRequest(payload)),
     alertShow: (show, info) =>
-    dispatch(
-        alertActions.alertShow(show, {
-            onConfirm: info.onConfirm,
-            warning: info.warning,
-            info: info.info,
-            error: info.error,
-            success: info.success,
-            message: info.message,
-            title: info.title,
-        })
-    ),
+        dispatch(
+            alertActions.alertShow(show, {
+                onConfirm: info.onConfirm,
+                warning: info.warning,
+                info: info.info,
+                error: info.error,
+                success: info.success,
+                message: info.message,
+                title: info.title,
+            })
+        ),
 })
 
 // obtenir les données from  store state
