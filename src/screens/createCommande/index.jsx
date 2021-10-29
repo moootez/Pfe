@@ -130,6 +130,10 @@ const Index = props => {
                     {
                         title: 'Image',
                         field: 'codeArticleX3',
+                        cellStyle: {
+                            width:'10%',
+                            textAlign: 'center'
+                          },
                         render: rowData => (
                             <img
                                 key={generateKey()}
@@ -143,14 +147,30 @@ const Index = props => {
                             />
                         ),
                     },
-                    { title: 'Code Article', field: 'codeArticleX3' },
-                    { title: 'Designation', field: 'designation1' },
+                    { title: 'Code Article', field: 'codeArticleX3', cellStyle: {
+                        width:'8%',
+                        textAlign: 'center'
+                      }},
+                      { title: 'Code PCT', field: 'codePct', cellStyle: {
+                        width:'8%',
+                      }},
+                    { title: 'Designation', field: 'designation1', cellStyle: {
+                        width:'16%',
+                        textAlign: 'center'
+                      }},
 
-                    { title: 'Prix', field: 'prix' },
-                    { title: 'Coef UC', field: 'coefUcUs' },
+                    { title: 'Prix', field: 'prix', cellStyle: {
+                        textAlign: 'center'
+                      }},
+                    { title: 'Colisage', field: 'coefUcUs', cellStyle: {
+                        textAlign: 'center'
+                      }},
                     {
                         title: 'Qté carton',
                         field: 'qtc',
+                        cellStyle: {
+                            textAlign: 'center'
+                        },
                         render: rowData => (
                             <div style={{ width: 80 }}>
                                 <TextField
@@ -185,6 +205,9 @@ const Index = props => {
                     {
                         title: 'Qté vrac',
                         field: 'qtv',
+                        cellStyle: {
+                            textAlign: 'center'
+                        },
                         render: rowData => (
                             <div style={{ width: 80 }}>
                                 <TextField
@@ -223,7 +246,10 @@ const Index = props => {
                     },
                     {
                         title: 'Qté total',
-                        field: 'qtt',
+                        field: 'qtt', cellStyle: {
+                            width:'7%',
+                            textAlign: 'center'
+                          },
                         render: rowData => {
                             return (
                                 <div key={generateKey()} style={{ width: 80 }}>
@@ -235,6 +261,10 @@ const Index = props => {
                     {
                         title: 'Prix total',
                         field: 'pt',
+                        cellStyle: {
+                            width:'7%',
+                            textAlign: 'center'
+                          },
                         render: rowData => {
                             return (
                                 <div key={generateKey()} style={{ width: 80 }}>

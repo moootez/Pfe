@@ -100,10 +100,13 @@
     margin-right: 8px;
 }
 .logo {
-    position: absolute;
-    top: 10px;
-    left: 0;
+
     width: 100%;
+    z-index: 9;
+    background: #fff;
+    padding: 15px 0;
+    border-bottom: 5px solid #af0a1e;
+    margin: 0;
 }
 .shadow-login {
     position: relative;
@@ -135,19 +138,20 @@
     width: 100%;
 }
 .logo-rec{
-    max-width: 310px;
-    margin-top: 30px;
-    /* margin-left: auto;
+    max-width: 270px;
+    /*margin-top: 30px;
+     margin-left: auto;
     margin-right: 14%; */
 }
-.blc_logo_right {
+.blc_logo_left {
     text-align: right;
 }
 .blc_logo_left  img{
-    margin-left: 130px;
+    margin-right: 50px;
+    max-width: 130px;
 }
 .blc_logo_right  img{
-    margin-right: 130px;
+    margin-left: 14%;
 }
 .icon-input{
     position: absolute;

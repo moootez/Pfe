@@ -14,13 +14,16 @@ import SendEmail from './sendEmail'
  */
 const LoginBody = ({ page }) => {
     return (
-        <div className="bg">
+        <div>
+            <LoginHeader />
+            <div className="bg">
             <div className="shadow-login">
-                <LoginHeader />
                 {page === 'sendEmail' ? <SendEmail /> : <FormLogin />}
                 <PartenaireLogin />
             </div>
         </div>
+        </div>
+        
     )
 }
 /**

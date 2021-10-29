@@ -83,7 +83,7 @@ class FormLogin extends Component {
             <div
                 className="d-flex align-items-center"
                 style={{ position: 'relative',
-                    top: '30%', }}
+                    top: '20%', }}
             >
                 <div className="d-flex justify-content-center modal-login">
                     <div className="card-body form">
