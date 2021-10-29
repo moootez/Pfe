@@ -21,6 +21,14 @@
                 "roles": ["ROLE_ADMIN", "ROLE_ADV", "ROLE_CLIENT"]
             },
             {
+                "id": 1,
+                "title": "Gestion des actualités",
+                "link": "/actualite/gestion",
+                "defaultPermission": true,
+                "subitems": null,
+                "roles": ["ROLE_ADMIN", "ROLE_ADV"]
+            },
+            {
                 "id": 2,
                 "title": "Gestion des utilisateurs",
                 "link": "/user",

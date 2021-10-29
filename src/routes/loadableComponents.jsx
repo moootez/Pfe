@@ -292,6 +292,18 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/pageCms/actualite/gestionActualite'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/actualite/gestion',
+        props: {
+            exact: true,
+        },
+        name: 'Gestion actualite',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/pageCms/actualite/editActualite'),
             loading: () => <SpinnerHourGlass />,
         }),
