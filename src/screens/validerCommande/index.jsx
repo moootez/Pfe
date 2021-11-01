@@ -113,7 +113,7 @@ const Index = props => {
                         field: 'dupliquer',
                         render: rowData => {
                             return (
-                                <div style={{ width: 80 }}>
+                                <div>
                                     <IconButton
                                         onClick={() =>
                                            dupliquerCommande({ id: rowData.id })
@@ -143,7 +143,7 @@ const Index = props => {
                                 rowData.status !== 'VALIDATION_OPALIA'
 
                             return (
-                                <div style={{ width: 80 }}>
+                                <div>
                                     {toValide && (
                                         <IconButton
                                             onClick={() =>
@@ -179,7 +179,7 @@ const Index = props => {
                          field: 'export',
                          render: rowData => {
                              return (
-                                 <div style={{ width: 80 }}>
+                                 <div>
                                      <IconButton
                                          onClick={() =>
                                              exportPdf({ id: rowData.id })
