@@ -47,7 +47,7 @@ const Header = props => {
                     <Grid md={10} xs={8} sm className="right-block">
                         <div className="blc_conn_username d-flex justify-content-end align-items-center w-100">
                             <div className="d-flex flex-column blc-top-header">
-                                <p className="username">Bienvenu {username}</p>
+                                <p className="username">Bienvenue {username}</p>
                                 <p className="blc_deconnexion">
                                     <IconButton
                                         aria-label="delete"

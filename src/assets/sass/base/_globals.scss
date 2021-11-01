@@ -799,11 +799,14 @@ table tbody tr:hover {
     color: rgb(255, 255, 255);
     background: rgb(205, 18, 26);
 }
-.style-table table th {
+.style-table table th, .style-table table tr td {
     text-align: center;
 }
 .border {
     border: 1px solid #bdbcbc !important;
+}
+.highcharts-credits{
+    display: none;
 }
 @media only screen and (min-width: 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner {

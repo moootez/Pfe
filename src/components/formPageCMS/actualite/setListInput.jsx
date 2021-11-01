@@ -25,7 +25,7 @@ const setListInput = () => {
         {
             name: 'priorite',
             required: true,
-            label: 'PRIORITE',
+            label: 'PRIORITE(ordre décroissant)',
             list: [
                 {
                     label: '1',

@@ -8,8 +8,8 @@ import Highcharts from 'highcharts'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Paper from '@material-ui/core/Paper'
 import baseUrl from '../../serveur/baseUrl'
-import SliderDash1 from '../../assets/images/banner-dash1.gif'
-import SliderDash2 from '../../assets/images/banner-dash2.gif'
+import SliderDash2 from '../../assets/images/banner-dash1.gif'
+import SliderDash1 from '../../assets/images/banner-dash2.gif'
 import SliderDash3 from '../../assets/images/banner-dash3.gif'
 import SliderDash4 from '../../assets/images/banner-dash4.gif'
 // Import Swiper styles
@@ -65,10 +65,10 @@ const index = () => {
                 className="slider_dash"
             >
                 <SwiperSlide>
-                    <img src={SliderDash2} alt="slider" />
+                    <img src={SliderDash1} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash1} alt="slider" />
+                    <img src={SliderDash2} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img src={SliderDash3} alt="slider" />
