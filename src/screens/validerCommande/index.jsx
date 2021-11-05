@@ -131,8 +131,8 @@ const Index = props => {
                         field: 'validation',
                         render: rowData => {
                             let newStatus = 'VALIDATION_OPALIA'
-                            const refusStatus =
-                                role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
+                            const refusStatus = 'BROUILLON'
+                                // role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
                             if (rowData.status === 'BROUILLON') {
                                 newStatus = 'VALIDATION_CLIENT'
                             } else if (rowData.status === 'VALIDATION_CLIENT') {
