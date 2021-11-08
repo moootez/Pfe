@@ -808,6 +808,10 @@ table tbody tr:hover {
 .highcharts-credits{
     display: none;
 }
+.swiper-button-prev:after, .swiper-button-next:after{
+	color: #c20d20;
+	font-weight: 700;
+}
 @media only screen and (min-width: 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner {
         position: absolute;

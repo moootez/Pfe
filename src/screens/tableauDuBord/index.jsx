@@ -5,6 +5,7 @@ import axios from 'axios'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 // Import Swiper React components
+import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Paper from '@material-ui/core/Paper'
 import baseUrl from '../../serveur/baseUrl'
@@ -14,6 +15,10 @@ import SliderDash3 from '../../assets/images/banner-dash3.gif'
 import SliderDash4 from '../../assets/images/banner-dash4.gif'
 // Import Swiper styles
 import 'swiper/swiper.scss'
+import 'swiper/components/navigation/navigation.scss';
+
+SwiperCore.use([Navigation]);
+
 
 const apiConsumer = [
     { endPoint: `dashbord/list/kpi/${localStorage.codeInsc}`, name: 'total' },
@@ -60,6 +65,7 @@ const index = () => {
             <Swiper
                 spaceBetween={0}
                 slidesPerView={1}
+                navigation
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={swiper => console.log(swiper)}
                 className="slider_dash"
