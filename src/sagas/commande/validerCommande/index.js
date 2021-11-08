@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+/* eslint-disable no-unused-vars */
 import axios from 'axios'
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
 import validerCommandeAction, {
@@ -36,15 +37,26 @@ function* validerCommandeSagas({ response }) {
         })
         if (res.status === 200 || res.status === 201) {
             let x = ' '
-            if (res.data.data.status === BROUILLON) {
+            if (
+                response.status === 'BROUILLON' ||
+                response.status === 'ANNULER'
+            ) {
                 x = 'Commande annulée'
             } else if (
-                res.data.data.status === VALIDATION ||
-                res.data.data.status === VALIDATION_CLIENT ||
-                res.data.data === ''
+                response.status === 'VALIDATION_OPALIA' ||
+                response.status === 'VALIDATION_CLIENT'
             ) {
                 x = 'Commande validée'
             }
+            // if (res.data.data.status === BROUILLON) {
+            //     x = 'Commande annulée'
+            // } else if (
+            //     res.data.data.status === VALIDATION ||
+            //     res.data.data.status === VALIDATION_CLIENT ||
+            //     res.data.data === ''
+            // ) {
+            //     x = 'Commande validée'
+            // }
 
             yield all([
                 yield put(

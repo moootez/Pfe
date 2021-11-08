@@ -40,6 +40,11 @@ const Index = props => {
         setDataSubArray({ ...dataSubArray, dataReturned: commandeDetails })
     }, [commandeDetails])
 
+    const [data, setData] = useState({})
+    useEffect(() => {
+        setData(dataSubArray)
+    })
+
     return (
         <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
