@@ -23,7 +23,7 @@ const Index = props => {
             title="Mes réclamations"
             columns={[
                 { title: 'ID', field: 'id'},
-                { title: 'Client', field: 'client.codeInsc' },
+                //  { title: 'Client', field: 'client.codeInsc' },
                 { title: 'Date Livraison', field: 'dateLivraison' },
                 { title: 'Code Livraison', field: 'codeLivraison' },
                 { title: 'Code Article', field: 'codeArticle' },
