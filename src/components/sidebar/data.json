@@ -10,7 +10,7 @@
                 "className": "button",
                 "defaultPermission": false,
                 "subitems": null,
-                "roles": ["ROLE_ADV", "ROLE_CLIENT"]
+                "roles": ["ROLE_CLIENT"]
             },
             {
                 "id": 1,
