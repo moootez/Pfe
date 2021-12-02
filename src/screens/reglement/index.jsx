@@ -7,7 +7,8 @@ import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Grid, Divider } from '@material-ui/core'
 import getAllReglements from '../../redux/declarantInterne/getSanctionById'
-import MaterialTable from 'material-table'
+import TableCollapse from '../../components/tableWithCollapse'
+import PageTitle from '../../components/ui/pageTitle'
 
 const Index = props => {
     const { userID, reglements, getAllReglement } = props
@@ -20,28 +21,13 @@ const Index = props => {
 
     return (
         <div className="column col-md-12 style-table">
-            {/* <Grid className="gridItem">
-                <PageTitle label="Réglements" />
-            </Grid> */}
             <Divider />
-            <MaterialTable
-            title="Règlements"
-            columns={[
-                { title: 'N° Règlement', field: 'No_reglement'},
-                { title: 'Montant', field: 'Montant'},
-                { title: 'Mode règlement', field: 'Mode_reglement'},
-                { title: 'Date échéance', field: 'Date_echeance'},
-                { title: 'N° Facture', field: 'No_reglement'},
-            ]}
-            data={JSON.parse(JSON.stringify(reglements)) || []}
-        />
-            {/* <TableCollapse
-                title="Réglements" 
-
+            <TableCollapse
+                title="Réglements"
                 apiCall={getAllReglement}
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(reglements))}
-            /> */}
+            />
         </div>
     )
 }

@@ -89,8 +89,8 @@ const Index = props => {
             parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
 
-    // console.log(getTotalQt(rowData));
-    const getTotalPrix = rowData => getTotalQt(rowData) * parseInt(rowData.prix)
+    const getTotalPrix = rowData =>
+        Math.round(getTotalQt(rowData) * rowData.prix * 1000) / 1000
     const handleSubmit = () => {
         if (!file) {
             const payload = Object.entries(commande).map(elem => ({
@@ -102,7 +102,11 @@ const Index = props => {
                 ),
             }))
             if (payload.length !== 0) {
-                addCommande({ produits: payload, user: userID })
+                addCommande({
+                    produits: payload,
+                    user: userID,
+                    source: 'creation',
+                })
             } else {
                 alertShow(true, {
                     warning: false,
