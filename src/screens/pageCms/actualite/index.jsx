@@ -3,26 +3,19 @@ import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
-import {
-    Card,
-    CardMedia,
-    CardContent,
-    Typography,
-} from '@material-ui/core'
+import { Card, CardMedia, CardContent, Typography } from '@material-ui/core'
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import getActualiteActions from '../../../redux/pageCms/actualite/getActualite'
 // Import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
+import 'swiper/swiper.scss'
+import 'swiper/components/navigation/navigation.scss'
+import 'swiper/components/pagination/pagination.scss'
+import 'swiper/components/scrollbar/scrollbar.scss'
 import './styleActuSlider.css'
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
-
-
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
 
 const page = window.location.pathname
 const useStyles = makeStyles(theme => ({
@@ -31,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     },
     media: {
         height: '300px',
-        backgroundSize:'contain'
+        backgroundSize: 'contain',
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -51,10 +44,7 @@ const useStyles = makeStyles(theme => ({
  * @param {*} { lng, intl, history, filtredTable, getActualite, alertHide, alertShow }
  * @returns
  */
-const Index = ({
-    filtredTable,
-    getActualite,
-}) => {
+const Index = ({ filtredTable, getActualite }) => {
     const classes = useStyles()
     /* hooks member */
     const [rows, setRows] = useState([])
@@ -62,15 +52,15 @@ const Index = ({
     const setTable = arrayFiltred => {
         let rowsTmp = []
         if (arrayFiltred && arrayFiltred.length > 0) {
-                rowsTmp = arrayFiltred.map((item, index) => ({
-                    id: item.id,
-                    index,
-                    titre: item.titre,
-                    theme: item.texte,
-                    sujet: item.priorite,
-                    image: item.image,
-                    createdAt: item.createdAt && item.createdAt.substr(0, 11),
-                }))
+            rowsTmp = arrayFiltred.map((item, index) => ({
+                id: item.id,
+                index,
+                titre: item.titre,
+                theme: item.texte,
+                sujet: item.priorite,
+                image: item.image,
+                createdAt: item.createdAt && item.createdAt.substr(0, 11),
+            }))
         }
         setRows(rowsTmp)
     }
@@ -87,35 +77,34 @@ const Index = ({
         }
     }, [filtredTable])
 
-
-        return (
-            <div style={{ padding: '1%' }} className="container-fluid">
-                {/* <Grid className="gridItem">
+    return (
+        <div style={{ padding: '1%' }} className="container-fluid">
+            {/* <Grid className="gridItem">
                     <PageTitle />
                 </Grid> */}
-                {page === "/actualite" &&
+            {page === '/actualite' && (
                 <Swiper
                     // install Swiper modules
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
                     spaceBetween={20}
                     slidesPerView={4}
+                    centerInsufficientSlides="true"
                     navigation
                     breakpoints={{
-                        "0": {
-                            "slidesPerView": 1,
-                          },
-                        "480": {
-                          "slidesPerView": 2,
+                        '0': {
+                            slidesPerView: 1,
                         },
-                        "1024": {
-                          "slidesPerView": 3,
+                        '480': {
+                            slidesPerView: 2,
                         },
-                        "1200": {
-                          "slidesPerView": 4,
-                        }
-                      }}
+                        '1024': {
+                            slidesPerView: 3,
+                        },
+                        '1200': {
+                            slidesPerView: 4,
+                        },
+                    }}
                 >
-                
                     {rows.map(el => (
                         <SwiperSlide>
                             <Card style={{ borderRadius: '0px' }}>
@@ -148,11 +137,10 @@ const Index = ({
                             </Card>
                         </SwiperSlide>
                     ))}
-            </Swiper>
-            }
-
-            </div>
-        )
+                </Swiper>
+            )}
+        </div>
+    )
 }
 
 // obtenir les données from  store state
@@ -188,4 +176,7 @@ Index.propTypes = {
     filtredTable: PropTypes.array,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(injectIntl(Index))

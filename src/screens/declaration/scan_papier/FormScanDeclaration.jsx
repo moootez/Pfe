@@ -135,6 +135,7 @@ const FormScanDeclaration = props => {
         // console.log(dataDeclaration)
         formData.append('document', scan)
         formData.append('user', localStorage.codeInsc)
+        formData.append('source', 'import')
         const obj = {
             id_declaration: 50,
             body: formData,

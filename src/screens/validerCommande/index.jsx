@@ -87,51 +87,52 @@ const Index = props => {
                     />
                 </div>
             )}
-                <MaterialTable
-                 title= {<PageTitle label='Commandes à valider' />}
-                 columns={[
+            <MaterialTable
+                title={<PageTitle label="Commandes à valider" />}
+                columns={[
                     {
                         title: 'ID',
                         field: 'id',
                     },
-                   
-                   
-                    role === 'ROLE_CLIENT' ?
-                     {
-                          title: 'Date de création',
-                          field: 'createdAt',
-                     }
-                     :
-                     { title: 'Statut', field: 'status' },
-                     role !== 'ROLE_CLIENT' ?
-                     {
-                        title: 'Client',
-                        field: 'client.codeInsc',
-                    }:
-                    {
-                        title: 'Dupliquer commande',
-                        field: 'dupliquer',
-                        render: rowData => {
-                            return (
-                                <div>
-                                    <IconButton
-                                        onClick={() =>
-                                           dupliquerCommande({ id: rowData.id })
-                                        }
-                                        color="primary"
-                                    >
-                                        <FileCopyOutlinedIcon />
-                                    </IconButton>
-                                </div>
-                            )
-                        },
-                    },
+
+                    role === 'ROLE_CLIENT'
+                        ? {
+                              title: 'Date de création',
+                              field: 'createdAt',
+                          }
+                        : { title: 'Statut', field: 'status' },
+                    role !== 'ROLE_CLIENT'
+                        ? {
+                              title: 'Client',
+                              field: 'client.codeInsc',
+                          }
+                        : {
+                              title: 'Dupliquer commande',
+                              field: 'dupliquer',
+                              render: rowData => {
+                                  return (
+                                      <div>
+                                          <IconButton
+                                              onClick={() =>
+                                                  dupliquerCommande({
+                                                      id: rowData.id,
+                                                      source: 'duplication',
+                                                  })
+                                              }
+                                              color="primary"
+                                          >
+                                              <FileCopyOutlinedIcon />
+                                          </IconButton>
+                                      </div>
+                                  )
+                              },
+                          },
                     {
                         title: 'Validation',
                         field: 'validation',
                         render: rowData => {
                             let newStatus = 'VALIDATION_OPALIA'
-                            const refusStatus = 
+                            const refusStatus =
                                 role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
                             if (rowData.status === 'BROUILLON') {
                                 newStatus = 'VALIDATION_CLIENT'
@@ -174,30 +175,27 @@ const Index = props => {
                             )
                         },
                     },
-                     {
-                         title: 'Export Pdf',
-                         field: 'export',
-                         render: rowData => {
-                             return (
-                                 <div>
-                                     <IconButton
-                                         onClick={() =>
-                                             exportPdf({ id: rowData.id })
-                                         }
-                                         color="primary"
-                                     >
-                                         <FileCopyIcon />
-                                     </IconButton>
-                                 </div>
-                             )
-                         },
-                     },
-                     
-
-                 ]}
-                 data={allCommande || []}
-             /> 
-           
+                    {
+                        title: 'Export Pdf',
+                        field: 'export',
+                        render: rowData => {
+                            return (
+                                <div>
+                                    <IconButton
+                                        onClick={() =>
+                                            exportPdf({ id: rowData.id })
+                                        }
+                                        color="primary"
+                                    >
+                                        <FileCopyIcon />
+                                    </IconButton>
+                                </div>
+                            )
+                        },
+                    },
+                ]}
+                data={allCommande || []}
+            />
         </div>
     )
 }
@@ -219,7 +217,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(exportPdfCommandeActions.exportPdfCommandeRequest(payload)),
     dupliquerCommande: payload =>
         dispatch(dupliquerCommandeActions.dupliquerCommandeRequest(payload)),
-        syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
+    syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
 // obtenir les données from  store state

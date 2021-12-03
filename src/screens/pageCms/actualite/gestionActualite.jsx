@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
-import {
-    Grid,
-    Divider
-} from '@material-ui/core'
+import { Grid, Divider } from '@material-ui/core'
 // import Swiper core and required modules
 import ButtonComponent from '../../../components/ui/button'
 import getActualiteActions from '../../../redux/pageCms/actualite/getActualite'
@@ -13,7 +10,6 @@ import deleteActualiteActions from '../../../redux/pageCms/actualite/deleteActua
 import Table from '../../../components/ui/table/index'
 import PageTitle from '../../../components/ui/pageTitle'
 import alertActions from '../../../redux/alert'
-
 
 /**
  *
@@ -109,7 +105,7 @@ const Index = ({
             info: false,
             error: false,
             success: false,
-            title: `Voulez-vous vraiment supprimer ${item.texte}`,
+            title: `Voulez-vous vraiment supprimer ${item.titre}`,
             onConfirm: () => {
                 deleteActualite(item.id)
                 setTimeout(() => {
@@ -132,12 +128,12 @@ const Index = ({
     }
 
     return (
-        <div style={{ padding: '0 1% 1% 1%' }}  className="style-table">
-             <Divider />
+        <div style={{ padding: '0 1% 1% 1%' }} className="style-table">
+            <Divider />
             <Grid className="gridItem">
                 <PageTitle label="Actualités" />
             </Grid>
-           
+
             <div style={{ marginTop: '0' }} />
             <div>
                 <ButtonComponent
@@ -226,4 +222,7 @@ Index.propTypes = {
     alertHide: PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(injectIntl(Index))
