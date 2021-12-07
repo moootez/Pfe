@@ -44,6 +44,8 @@ const Index = props => {
     } = props
 
     const [reclamation, setReclamation] = useState({})
+    const [errorsList, setErrorsList] = useState({})
+    const [isError, setIsError] = useState(false)
 
     useEffect(() => {
         getAllLivraison({ user: userID })
@@ -54,10 +56,41 @@ const Index = props => {
             getCommande({ user: userID, commande: reclamation.livraison })
     }, [reclamation.livraison])
 
+    let errorredirect = null
+
     useEffect(() => {
-        if (newReclamation.loading === true)
+        if (props.newReclamation.error === true) {
+            errorredirect = false
+            try {
+                Object.keys(props.newReclamation.response.data.data).forEach(
+                    key => {
+                        const item =
+                            props.newReclamation.response.data.data[key]
+                        if (item) {
+                            const errorText = item.fr
+                            errorsList[key] = errorText
+                        }
+                    }
+                )
+            } catch (e) {
+                console.log(e)
+            }
+            setIsError(true)
+            setErrorsList(errorsList)
+        } else if (errorredirect) {
+            // if (errorredirect === false) {
             setTimeout(() => history.push('/mes-reclamation'), 1000)
+            //  }
+            errorredirect = true
+        }
+
+        console.log('errorredirect', errorredirect)
     }, [newReclamation.loading])
+
+    // useEffect(() => {
+    //     if (newReclamation.loading === true)
+    //         setTimeout(() => history.push('/mes-reclamation'), 1000)
+    // }, [newReclamation.loading])
 
     const submitReclamation = () => {
         const newPayload = {
@@ -140,6 +173,16 @@ const Index = props => {
                                     </MenuItem>
                                 ))}
                             </Select>
+                            {isError && (
+                                <span
+                                    style={{
+                                        color: '#f44336',
+                                        fontSize: '0.8rem',
+                                    }}
+                                >
+                                    {errorsList.codeLivraison}
+                                </span>
+                            )}
                         </FormControl>
                     </div>
                 </div>

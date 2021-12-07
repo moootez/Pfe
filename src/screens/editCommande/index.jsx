@@ -57,7 +57,6 @@ class editCommande extends React.Component {
         this.setState({
             postCMD: this.newCmd,
         })
-        console.log('x', this.newCmd)
     }
 
     safeRequire = (url, path, ext = null) => {
@@ -70,7 +69,6 @@ class editCommande extends React.Component {
 
     editCommande = () => {
         const { postCMD, id } = this.state
-        console.log('paylo', postCMD, id)
         const { editCommandeRequest } = this.props
         editCommandeRequest({ ...postCMD, id: id })
     }
