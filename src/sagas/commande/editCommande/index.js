@@ -17,22 +17,17 @@ import { Patch } from '../../../serveur/axios'
  */
 function* editCommandeSagas({ response }) {
     try {
-        console.log('ok', response)
         const { id } = response
         delete response.id
-        const tab = []
         // const result = Object.entries(response)
 
         // result.forEach(element => {
         //     tab.push = element
         // });
 
-        console.log('mimomimo', tab)
-
         const res = yield Patch(`${baseUrl}commande/${id}`, response)
 
         if (res.status === 201) {
-            console.log('response after delete', response)
             yield all([
                 yield put(editCommandeAction.editCommandeSuccess(response)),
                 yield put(
