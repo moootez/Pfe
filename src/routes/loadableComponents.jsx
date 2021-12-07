@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+
 import React from 'react'
 import Loadable from 'react-loadable'
 import { SpinnerHourGlass } from '../components/spinner'
@@ -108,6 +110,18 @@ const loadableComponents = [
             exact: true,
         },
         name: 'publication_du_declaration',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/editCommande'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/edit-commande',
+        props: {
+            exact: true,
+        },
+        name: 'Validation',
         showWhenConnected: true,
     },
     {
@@ -292,7 +306,8 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
-            loader: () => import('../screens/pageCms/actualite/gestionActualite'),
+            loader: () =>
+                import('../screens/pageCms/actualite/gestionActualite'),
             loading: () => <SpinnerHourGlass />,
         }),
         path: '/actualite/gestion',

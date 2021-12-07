@@ -4,7 +4,7 @@ $black: Black;
 $white: white;
 $color_viking_approx: #61c5e5;
 $black_53: rgba(0, 0, 0, 0.53);
-$black_12: rgba(255, 255, 255, 0.12);
+$black_12: rgba(0, 0, 0, 0.12);
 $color_asphalt_approx: #170312;
 $color_valencia_approx: rgb(213, 69, 64);
 
@@ -523,9 +523,9 @@ div.centerDiv {
 .text-center {
     color: white;
 }
-hr {
-    background-color: #717175 !important;
-}
+// hr {
+//     background-color: #717175 !important;
+// }
 
 .hight-index a,
 .hight-index > nav > div > div {
@@ -719,7 +719,7 @@ table tbody tr:hover {
     overflow-x: hidden;
 }
 .slider_dash {
-    margin: 40px 15px!important
+    margin: 40px 15px !important;
 }
 .blc-sidebar
     .MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button
@@ -799,18 +799,20 @@ table tbody tr:hover {
     color: rgb(255, 255, 255);
     background: rgb(205, 18, 26);
 }
-.style-table table th, .style-table table tr td {
+.style-table table th,
+.style-table table tr td {
     text-align: center;
 }
 .border {
     border: 1px solid #bdbcbc !important;
 }
-.highcharts-credits{
+.highcharts-credits {
     display: none;
 }
-.swiper-button-prev:after, .swiper-button-next:after{
-	color: #c20d20;
-	font-weight: 700;
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    color: #c20d20;
+    font-weight: 700;
 }
 @media only screen and (min-width: 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner {
