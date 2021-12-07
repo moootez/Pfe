@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable radix */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-unused-vars */
+
 import { red, green } from '@material-ui/core/colors'
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
@@ -9,6 +11,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
@@ -39,6 +42,7 @@ const Index = props => {
         pdfLink,
         syncProduits,
         role,
+        history,
     } = props
 
     const [allCommande, setAllCommande] = useState([])
@@ -70,6 +74,16 @@ const Index = props => {
             commande: idCommande,
             user: userID,
             role,
+        })
+    }
+
+    const editCMD = rowData => {
+        history.push({
+            pathname: `/edit-commande/`,
+            state: {
+                index: rowData,
+                idCMD: rowData.id,
+            },
         })
     }
 
@@ -157,6 +171,15 @@ const Index = props => {
                                             aria-label={statusAndTxt[newStatus]}
                                         >
                                             <CheckIcon />
+                                        </IconButton>
+                                    )}
+                                    {role === 'ROLE_CLIENT' && (
+                                        <IconButton
+                                            onClick={() => editCMD(rowData)}
+                                            aria-label={statusAndTxt[newStatus]}
+                                            style={{ color: '#1c79be' }}
+                                        >
+                                            <EditIcon />
                                         </IconButton>
                                     )}
                                     <IconButton
@@ -249,6 +272,7 @@ Index.propTypes = {
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     syncProduits: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
 }
 
 export default connect(
