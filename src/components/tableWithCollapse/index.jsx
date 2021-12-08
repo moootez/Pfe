@@ -58,7 +58,6 @@ const DetailPanelWithRowClick = props => {
               },
           }
         : {}
-
     return (
         <>
             {dataTable.header.length && dataTable.data.length ? (
@@ -95,9 +94,7 @@ const DetailPanelWithRowClick = props => {
                     {...detailPanel}
                 />
             ) : (
-                <h1 className="text-center m-3">
-                    Merci de contacter votre webmaster!!
-                </h1>
+                <h1>Merci de contacter votre webmaster!!</h1>
             )}
         </>
     )

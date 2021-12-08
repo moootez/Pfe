@@ -25,7 +25,7 @@ import generateKey from '../../shared/utility'
 // import TableCollapse from '../../components/tableWithCollapse'
 import PageTitle from '../../components/ui/pageTitle'
 
-const statut = ['Reçue', 'En cours', 'Refusée', 'Acceptée']
+const status = ['Reçue', 'En cours', 'Refusée', 'Acceptée']
 
 const Index = props => {
     const {
@@ -36,7 +36,7 @@ const Index = props => {
         updateReclamation,
     } = props
 
-    const [reclamationStatut, setReclamationStatut] = useState({})
+    const [reclamationStatus, setReclamationStatus] = useState({})
 
     useEffect(() => {
         getAllReclamation({ user: userID, role })
@@ -63,13 +63,13 @@ const Index = props => {
                     { title: 'Gravité', field: 'gravite' },
                     {
                         title: 'Statut',
-                        field: 'statut',
+                        field: 'status',
                         render: rowData => (
                             <div style={{ width: 300 }}>
                                 <FormControl className="w-100">
-                                    {rowData.statut ? (
+                                    {rowData.status ? (
                                         <InputLabel id="select-gravite">
-                                            {rowData.statut}
+                                            {rowData.status}
                                         </InputLabel>
                                     ) : (
                                         <InputLabel id="select-gravite">
@@ -83,31 +83,31 @@ const Index = props => {
                                         labelId="select-gravite"
                                         value={
                                             (
-                                                (reclamationStatut || {})[
+                                                (reclamationStatus || {})[
                                                     rowData.id
                                                 ] || {}
-                                            ).statut
+                                            ).status
                                         }
                                         onChange={e =>
-                                            setReclamationStatut({
-                                                ...reclamationStatut,
+                                            setReclamationStatus({
+                                                ...reclamationStatus,
                                                 [rowData.id]: {
-                                                    ...(reclamationStatut[
+                                                    ...(reclamationStatus[
                                                         rowData.id
                                                     ] || {}),
-                                                    statut: e.target.value,
+                                                    status: e.target.value,
                                                 },
                                             })
                                         }
                                         input={<Input />}
                                         disabled={
-                                            rowData.statut === 'Acceptée' ||
-                                            rowData.statut === 'Refusée'
+                                            rowData.status === 'Acceptée' ||
+                                            rowData.status === 'Refusée'
                                                 ? true
                                                 : null
                                         }
                                     >
-                                        {statut.map(element => (
+                                        {status.map(element => (
                                             <MenuItem
                                                 key={element}
                                                 value={element}
@@ -117,8 +117,8 @@ const Index = props => {
                                         ))}
                                     </Select>
                                 </FormControl>
-                                {((reclamationStatut || {})[rowData.id] || {})
-                                    .statut === 'Refusée' && (
+                                {((reclamationStatus || {})[rowData.id] || {})
+                                    .status === 'Refusée' && (
                                     <TextField
                                         type="text"
                                         className="mt-2 w-100"
@@ -127,17 +127,17 @@ const Index = props => {
                                         id="outlined-size-small"
                                         defaultValue={
                                             (
-                                                (reclamationStatut || {})[
+                                                (reclamationStatus || {})[
                                                     rowData.id
                                                 ] || {}
                                             ).motif
                                         }
                                         variant="outlined"
                                         onBlur={e =>
-                                            setReclamationStatut({
-                                                ...reclamationStatut,
+                                            setReclamationStatus({
+                                                ...reclamationStatus,
                                                 [rowData.id]: {
-                                                    ...(reclamationStatut[
+                                                    ...(reclamationStatus[
                                                         rowData.id
                                                     ] || {}),
                                                     motif: e.target.value,
@@ -147,8 +147,8 @@ const Index = props => {
                                         size="small"
                                     />
                                 )}
-                                {((reclamationStatut || {})[rowData.id] || {})
-                                    .statut === 'Acceptée' && (
+                                {((reclamationStatus || {})[rowData.id] || {})
+                                    .status === 'Acceptée' && (
                                     <TextField
                                         type="text"
                                         className="mt-2 w-100"
@@ -157,17 +157,17 @@ const Index = props => {
                                         id="outlined-size-small"
                                         defaultValue={
                                             (
-                                                (reclamationStatut || {})[
+                                                (reclamationStatus || {})[
                                                     rowData.id
                                                 ] || {}
                                             ).action
                                         }
                                         variant="outlined"
                                         onBlur={e =>
-                                            setReclamationStatut({
-                                                ...reclamationStatut,
+                                            setReclamationStatus({
+                                                ...reclamationStatus,
                                                 [rowData.id]: {
-                                                    ...(reclamationStatut[
+                                                    ...(reclamationStatus[
                                                         rowData.id
                                                     ] || {}),
                                                     action: e.target.value,
@@ -184,17 +184,17 @@ const Index = props => {
                         title: 'Validation',
                         field: 'validation',
                         render: rowData => {
-                            console.log(rowData.statut)
+                            console.log(rowData.status)
                             return (
                                 <div>
-                                    {rowData.statut === 'Acceptée' ||
-                                    rowData.statut === 'Refusée' ? (
+                                    {rowData.status === 'Acceptée' ||
+                                    rowData.status === 'Refusée' ? (
                                         <span> </span>
                                     ) : (
                                         <IconButton
                                             onClick={() => {
                                                 const payload =
-                                                    reclamationStatut[
+                                                    reclamationStatus[
                                                         rowData.id
                                                     ]
                                                 updateReclamation({
@@ -203,7 +203,7 @@ const Index = props => {
                                                 })
                                             }}
                                             color="primary"
-                                            aria-label="Changer statut"
+                                            aria-label="Changer status"
                                         >
                                             <SendIcon />
                                         </IconButton>
