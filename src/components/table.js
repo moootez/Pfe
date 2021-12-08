@@ -51,6 +51,9 @@ const styles = theme => ({
         fontSize: '15px',
         textAlign: 'center',
     },
+    headerSize: {
+        fontSize: 20,
+    },
     fab: {
         textAlign: 'center',
         margin: theme.spacing(1),
@@ -208,7 +211,11 @@ class CustomizedTable extends PureComponent {
                                     return (
                                         <CustomTableCell key={generateKey()}>
                                             <p className={classes.headTable}>
-                                                <b>
+                                                <b
+                                                    className={
+                                                        classes.headerSize
+                                                    }
+                                                >
                                                     {
                                                         Data.listInputHeaders[
                                                             head

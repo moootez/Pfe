@@ -154,7 +154,9 @@ function EnhancedTableHead(props) {
                                     onClick={createSortHandler(headCell.id)}
                                     style={{ fontSize: '1.02rem' }}
                                 >
-                                    <b>{headCell.label}</b>
+                                    <b className="headerSize">
+                                        {headCell.label}
+                                    </b>
                                     {orderBy === headCell.id ? (
                                         <span
                                             className={classes.visuallyHidden}
@@ -819,13 +821,16 @@ const EnhancedTable = ({
                 {pagination && (
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
+                        labelRowsPerPage={
+                            lng === 'ar' ? 'خطوط لكل صفحة' : 'Lignes par page'
+                        }
                         component="div"
                         count={meta.total}
                         rowsPerPage={rowsPerPage}
                         page={page - 1}
                         onChangePage={handleChangePage}
                         onChangeRowsPerPage={handleChangeRowsPerPage}
-                        labelRowsPerPage=""
+                        // labelRowsPerPage=""
                         labelDisplayedRows={({ from, to, count }) =>
                             lng === 'ar'
                                 ? `خطوط لكل صفحة ${to}-${from} من ${count}`

@@ -91,7 +91,7 @@ const index = () => {
                         <div className="box-top-dash">
                             <Paper className="p-3">
                                 <center>
-                                    <b>Commandes</b>
+                                    <b>Commandes totales</b>
                                     <span className="font-weight-bold d-block">
                                         {state.total.Nombre_commandes}
                                     </span>{' '}
@@ -115,7 +115,7 @@ const index = () => {
                         <div className="box-top-dash">
                             <Paper className="p-3">
                                 <center>
-                                    <b>Montants facture</b>
+                                    <b>Montant total des factures(TTC)</b>
                                     <span className="font-weight-bold d-block">
                                         {
                                             state.total
@@ -130,7 +130,7 @@ const index = () => {
                         <div className="box-top-dash">
                             <Paper className="p-3">
                                 <center>
-                                    <b>Montants à régler</b>
+                                    <b>Montant à régler (TTC)</b>
                                     <span className="font-weight-bold d-block">
                                         {state.total.Montant_a_regler}
                                     </span>{' '}
@@ -206,7 +206,7 @@ const index = () => {
                                         type: 'spline',
                                     },
                                     title: {
-                                        text: 'Montant TTC mois',
+                                        text: 'CA par mois TTC TND',
                                     },
                                     xAxis: {
                                         categories: (state.montant || []).map(

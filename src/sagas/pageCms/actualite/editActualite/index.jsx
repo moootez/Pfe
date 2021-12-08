@@ -25,7 +25,7 @@ function* editActualiteSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Modifier avec succès',
+                        message: 'Actualité modifiée avec succès !',
                     })
                 ),
                 yield put(goBack()),

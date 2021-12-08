@@ -130,6 +130,9 @@ const Index = props => {
         <div className="column col-md-12 style-table">
             <Divider />
             <MaterialTable
+                options={{
+                    headerStyle: { fontSize: 20 },
+                }}
                 title={<PageTitle label="Créer une commande" />}
                 columns={[
                     {
@@ -168,7 +171,7 @@ const Index = props => {
                         },
                     },
                     {
-                        title: 'Designation',
+                        title: 'Désignation',
                         field: 'designation1',
                         cellStyle: {
                             width: '16%',
@@ -191,7 +194,7 @@ const Index = props => {
                         },
                     },
                     {
-                        title: 'Qté carton',
+                        title: 'Qté en cartons',
                         field: 'qtc',
                         cellStyle: {
                             textAlign: 'center',
@@ -276,7 +279,7 @@ const Index = props => {
                         ),
                     },
                     {
-                        title: 'Qté total',
+                        title: 'Qté totale',
                         field: 'qtt',
                         cellStyle: {
                             width: '7%',
@@ -306,6 +309,24 @@ const Index = props => {
                         },
                     },
                 ]}
+                localization={{
+                    pagination: {
+                        labelDisplayedRows: '{from}-{to} de {count}',
+                        labelRowsSelect: 'lignes par page',
+                        labelRowsPerPage: 'lignes par page:',
+                        firstAriaLabel: 'Première page',
+                        firstTooltip: 'Première page',
+                        previousAriaLabel: 'Page précédente',
+                        previousTooltip: 'Page précédente',
+                        nextAriaLabel: 'Page suivante',
+                        nextTooltip: 'Page suivante',
+                        lastAriaLabel: 'Dernière page',
+                        lastTooltip: 'Dernière page',
+                    },
+                    toolbar: {
+                        searchPlaceholder: 'Rechercher',
+                    },
+                }}
                 data={allProduct || []}
             />
             <div

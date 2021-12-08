@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
-import React, { useEffect, useState  } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
@@ -18,75 +18,78 @@ const Index = props => {
 
     return (
         <div className="column col-md-12 style-table">
-             <Divider />
-        <MaterialTable
-            title="Mes réclamations"
-            columns={[
-                { title: 'ID', field: 'id'},
-                //  { title: 'Client', field: 'client.codeInsc' },
-                { title: 'Date Livraison', field: 'dateLivraison' },
-                { title: 'Code Livraison', field: 'codeLivraison' },
-                { title: 'Code Article', field: 'codeArticle' },
-                { title: 'Quantite', field: 'quantite' },
-                { title: 'Nature', field: 'nature' },
-                { title: 'Gravite', field: 'gravite' },
-                { title: 'Statut', field: 'status' },
-                { title: 'Motif', field: 'motif' },
-                { title: 'Numéro Lot', field: 'numLot' },
-                { title: 'action', field: 'action' }
-            ]}
-            localization={{
-                body: {
-                    emptyDataSourceMessage: "Pas d'enregistreent à afficher",
-                    addTooltip: 'Ajouter',
-                    deleteTooltip: 'Supprimer',
-                    editTooltip: 'Editer',
-                    filterRow: {
-                        filterTooltip: 'Filtrer'
+            <Divider />
+            <MaterialTable
+                title="Mes réclamations"
+                options={{
+                    headerStyle: { fontSize: 20 },
+                }}
+                columns={[
+                    { title: 'ID', field: 'id' },
+                    //  { title: 'Client', field: 'client.codeInsc' },
+                    { title: 'Date Livraison', field: 'dateLivraison' },
+                    { title: 'Code Livraison', field: 'codeLivraison' },
+                    { title: 'Code Article', field: 'codeArticle' },
+                    { title: 'Quantité', field: 'quantite' },
+                    { title: 'Nature', field: 'nature' },
+                    { title: 'Gravité', field: 'gravite' },
+                    { title: 'Statut', field: 'status' },
+                    { title: 'Motif de refus', field: 'motif' },
+                    { title: 'Numéro Lot', field: 'numLot' },
+                    { title: 'Action', field: 'action' },
+                ]}
+                localization={{
+                    body: {
+                        emptyDataSourceMessage:
+                            "Pas d'enregistreent à afficher",
+                        addTooltip: 'Ajouter',
+                        deleteTooltip: 'Supprimer',
+                        editTooltip: 'Editer',
+                        filterRow: {
+                            filterTooltip: 'Filtrer',
+                        },
+                        editRow: {
+                            deleteText: 'Voulez-vous supprimer cette ligne?',
+                            cancelTooltip: 'Annuler',
+                            saveTooltip: 'Enregistrer',
+                        },
                     },
-                    editRow: {
-                        deleteText: 'Voulez-vous supprimer cette ligne?',
-                        cancelTooltip: 'Annuler',
-                        saveTooltip: 'Enregistrer'
-                    }
-                },
-                grouping: {
-                    placeholder: "Tirer l'entête ...",
-                    groupedBy: 'Grouper par:'
-                },
-                header: {
-                    actions: 'Actions'
-                },
-                pagination: {
-                    labelDisplayedRows: '{from}-{to} de {count}',
-                    labelRowsSelect: 'lignes',
-                    labelRowsPerPage: 'lignes par page:',
-                    firstAriaLabel: 'Première page',
-                    firstTooltip: 'Première page',
-                    previousAriaLabel: 'Page précédente',
-                    previousTooltip: 'Page précédente',
-                    nextAriaLabel: 'Page suivante',
-                    nextTooltip: 'Page suivante',
-                    lastAriaLabel: 'Dernière page',
-                    lastTooltip: 'Dernière page'
-                },
-                toolbar: {
-                    addRemoveColumns: 'Ajouter ou supprimer des colonnes',
-                    nRowsSelected: '{0} ligne(s) sélectionée(s)',
-                    showColumnsTitle: 'Voir les colonnes',
-                    showColumnsAriaLabel: 'Voir les colonnes',
-                    exportTitle: 'Exporter',
-                    exportAriaLabel: 'Exporter',
-                    exportName: 'Exporter en CSV',
-                    searchTooltip: 'Chercher',
-                    searchPlaceholder: 'Chercher'
-                }
-            }}
-            data={JSON.parse(JSON.stringify(reclamations)) || []}
-        />
+                    grouping: {
+                        placeholder: "Tirer l'entête ...",
+                        groupedBy: 'Grouper par:',
+                    },
+                    header: {
+                        actions: 'Actions',
+                    },
+                    pagination: {
+                        labelDisplayedRows: '{from}-{to} de {count}',
+                        labelRowsSelect: 'lignes par page',
+                        labelRowsPerPage: 'lignes par page:',
+                        firstAriaLabel: 'Première page',
+                        firstTooltip: 'Première page',
+                        previousAriaLabel: 'Page précédente',
+                        previousTooltip: 'Page précédente',
+                        nextAriaLabel: 'Page suivante',
+                        nextTooltip: 'Page suivante',
+                        lastAriaLabel: 'Dernière page',
+                        lastTooltip: 'Dernière page',
+                    },
+                    toolbar: {
+                        addRemoveColumns: 'Ajouter ou supprimer des colonnes',
+                        nRowsSelected: '{0} ligne(s) sélectionée(s)',
+                        showColumnsTitle: 'Voir les colonnes',
+                        showColumnsAriaLabel: 'Voir les colonnes',
+                        exportTitle: 'Exporter',
+                        exportAriaLabel: 'Exporter',
+                        exportName: 'Exporter en CSV',
+                        searchTooltip: 'Rechercher',
+                        searchPlaceholder: 'Rechercher',
+                    },
+                }}
+                data={JSON.parse(JSON.stringify(reclamations)) || []}
+            />
         </div>
-        )
-            
+    )
 }
 
 /* redux */

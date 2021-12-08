@@ -160,7 +160,7 @@ const FormScanDeclaration = props => {
                     style={draggableInput}
                 >
                     <input {...getInputProps()} />
-                    <p>
+                    <p style={{ color: '#000' }}>
                         Faites glisser et déposez le fichier ici, ou cliquez
                         pour sélectionner le fichier
                     </p>
