@@ -246,11 +246,7 @@ const Index = props => {
                                 input={<Input />}
                                 required
                             >
-                                {console.log(
-                                    reclamation,
-                                    fileteredCommandes,
-                                    'reclamations'
-                                )}
+                                {console.log(reclamation, 'reclamations')}
                                 {(commandes instanceof Array
                                     ? commandes
                                     : []
