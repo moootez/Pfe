@@ -253,7 +253,7 @@ class index extends PureComponent {
                                         key={generateKey()}
                                         className={classes.headTable}
                                     >
-                                        <b> {head}</b>
+                                        <b className="headerSize"> {head}</b>
                                     </CustomTableCell>
                                 )
                             })}

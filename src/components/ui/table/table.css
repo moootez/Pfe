@@ -4,3 +4,6 @@
 .focus {
     cursor: grab;
 }
+.headerSize {
+    font-size: 20px;
+}
