@@ -46,6 +46,7 @@ const Index = props => {
     const [reclamation, setReclamation] = useState({})
     const [errorsList, setErrorsList] = useState({})
     const [isError, setIsError] = useState(false)
+    const fileteredCommandes = []
 
     useEffect(() => {
         getAllLivraison({ user: userID })
@@ -207,15 +208,39 @@ const Index = props => {
                                 onChange={e => changeHandler('produit', e)}
                                 input={<Input />}
                             >
-                                {(commandes || []).map(element => (
-                                    <MenuItem
-                                        key={element.Code_article}
-                                        value={element.Code_article}
-                                    >
-                                        {element.Code_article}
-                                    </MenuItem>
-                                ))}
+                                {(commandes || []).forEach(commande => {
+                                    if (
+                                        fileteredCommandes.indexOf(
+                                            commande.Code_article
+                                        ) === -1
+                                    ) {
+                                        fileteredCommandes.push(
+                                            commande.Code_article
+                                        )
+                                        console.log(
+                                            commande.Code_article,
+                                            'filteredCommandes'
+                                        )
+                                    }
+                                })}
+                                {(fileteredCommandes || []).map(element => {
+                                    return (
+                                        <MenuItem key={element} value={element}>
+                                            {element}
+                                        </MenuItem>
+                                    )
+                                })}
                             </Select>
+                            {isError && (
+                                <span
+                                    style={{
+                                        color: '#f44336',
+                                        fontSize: '0.8rem',
+                                    }}
+                                >
+                                    {errorsList.codeArticle}
+                                </span>
+                            )}
                         </FormControl>
                     </div>
                 </div>
@@ -287,6 +312,16 @@ const Index = props => {
                                         </MenuItem>
                                     ))}
                                 </Select>
+                                {isError && (
+                                    <span
+                                        style={{
+                                            color: '#f44336',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        {errorsList.nature}
+                                    </span>
+                                )}
                             </FormControl>
                         </div>
                     </div>
@@ -307,6 +342,16 @@ const Index = props => {
                                     }
                                     label="Préciser votre situation"
                                 />
+                                {isError && (
+                                    <span
+                                        style={{
+                                            color: '#f44336',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        {errorsList.nature}
+                                    </span>
+                                )}
                             </FormControl>
                         </div>
                     </div>
@@ -338,6 +383,16 @@ const Index = props => {
                                     </MenuItem>
                                 ))}
                             </Select>
+                            {isError && (
+                                <span
+                                    style={{
+                                        color: '#f44336',
+                                        fontSize: '0.8rem',
+                                    }}
+                                >
+                                    {errorsList.gravite}
+                                </span>
+                            )}
                         </FormControl>
                     </div>
                 </div>
