@@ -217,10 +217,6 @@ const Index = props => {
                                         fileteredCommandes.push(
                                             commande.Code_article
                                         )
-                                        console.log(
-                                            commande.Code_article,
-                                            'filteredCommandes'
-                                        )
                                     }
                                 })}
                                 {(fileteredCommandes || []).map(element => {
@@ -251,7 +247,34 @@ const Index = props => {
                     </div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            <TextField
+                            <Select
+                                className="border"
+                                id="demo-mutiple-name"
+                                labelId="select-lot"
+                                value={(reclamation || {}).produit}
+                                onChange={e => changeHandler('Lot', e)}
+                                input={<Input />}
+                                required
+                            >
+                                {console.log(reclamation, 'reclamations')}
+                                {(commandes instanceof Array
+                                    ? commandes
+                                    : []
+                                ).map(element => {
+                                    return (
+                                        element.Code_article ===
+                                            reclamation.produit && (
+                                            <MenuItem
+                                                key={element.Lot}
+                                                value={element.Lot}
+                                            >
+                                                {element.Lot}
+                                            </MenuItem>
+                                        )
+                                    )
+                                })}
+                            </Select>
+                            {/*  <TextField
                                 // error="tttt"
                                 // helperText="frrr"
                                 InputLabelProps={{
@@ -260,7 +283,7 @@ const Index = props => {
                                 type="text"
                                 className="d-flex border"
                                 onChange={e => changeHandler('numLot', e)}
-                            />
+                            />  */}
                         </FormControl>
                     </div>
                 </div>
