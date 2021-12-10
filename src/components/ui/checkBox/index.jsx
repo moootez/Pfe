@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -20,7 +20,7 @@ export default function index({ label, name, onchange, selectedValue }) {
     /**
      * hooks numbers
      */
-    const [defaultValue, setDefaultValue] = useState(true)
+    // const [defaultValue, setDefaultValue] = useState(true)
     /**
      * change checked
      *
@@ -28,14 +28,15 @@ export default function index({ label, name, onchange, selectedValue }) {
      */
     const handleChange = e => {
         onchange(e.target.name, e.target.checked)
-        setDefaultValue(e.target.checked)
+        // setDefaultValue(e.target.checked)
     }
+
     return (
         <FormGroup className="font-weight-bold text-uppercase text-primary" row>
             <FormControlLabel
                 control={
                     <Checkbox
-                        checked={defaultValue || selectedValue}
+                        checked={selectedValue}
                         onChange={handleChange}
                         value={selectedValue}
                         color="primary"
