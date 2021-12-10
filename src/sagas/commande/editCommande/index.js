@@ -25,8 +25,7 @@ function* editCommandeSagas({ response }) {
         //     tab.push = element
         // });
 
-        const res = yield Patch(`${baseUrl}commande/${id}`, response)
-
+        const res = yield Patch(`${baseUrl}commande/${id}`, { data: response })
         if (res.status === 201) {
             yield all([
                 yield put(editCommandeAction.editCommandeSuccess(response)),
