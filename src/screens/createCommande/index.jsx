@@ -93,6 +93,7 @@ const Index = props => {
         Math.round(getTotalQt(rowData) * rowData.prix * 1000) / 1000
     const handleSubmit = () => {
         if (!file) {
+            console.log('elem', commande)
             const payload = Object.entries(commande).map(elem => ({
                 Code_PCT: elem[1].Code_PCT,
                 Code_article: elem[0],
@@ -100,6 +101,7 @@ const Index = props => {
                 QTY: getTotalQt(
                     allProduct.find(el => el.codeArticleX3 === elem[0])
                 ),
+                prix: elem[1].prix,
             }))
             if (payload.length !== 0) {
                 addCommande({
@@ -225,6 +227,7 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
+                                                prix: rowData.prix,
                                             },
                                         })
                                     }
@@ -270,6 +273,7 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
+                                                prix: rowData.prix,
                                             },
                                         })
                                     }

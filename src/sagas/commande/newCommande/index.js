@@ -14,6 +14,7 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  * @param {*} { response }
  */
 function* addNewCommandeSagas({ response }) {
+    console.log('ata', response)
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
