@@ -78,8 +78,9 @@ const Index = ({
                 fonction: item.fonction,
                 direction: item.direction,
                 firstLogin: item.firstLogin,
-                enable: item.enable ? 'Actif' : "En attente d'activation",
+                enable: item.enable, // ? 'Actif' : "En attente d'activation",
                 userRoles: item.userRoles.length > 0 && item.userRoles[0].role,
+                // users:item,
             }))
         }
         setRows(rowsTmp)

@@ -1,6 +1,6 @@
 /* eslint-disable radix */
 import React from 'react'
-import { Grid , FormGroup } from '@material-ui/core'
+import { Grid, FormGroup } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
@@ -117,7 +117,7 @@ class editActualite extends React.Component {
             if (fileToLoad && fileToLoad.size <= 150000) {
                 let file = ''
                 // eslint-disable-next-line func-names
-                fileReader.onload = function (fileLoadedEvent) {
+                fileReader.onload = function(fileLoadedEvent) {
                     file = fileLoadedEvent.target.result
                     base64.push(file)
                 }
@@ -135,7 +135,7 @@ class editActualite extends React.Component {
                     info: false,
                     error: true,
                     success: false,
-                    message: `Image de grande taille, il faut choisir une image de taille inferieur à 150000ko`,
+                    message: `Image de grande taille, il faut choisir une image de taille inferieur à 150Ko`,
                 })
             }
         }
@@ -193,7 +193,7 @@ class editActualite extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                message: `Image de grande taille, il faut choisir une image de taille inferieur à 150000ko`,
+                message: `Image de grande taille, il faut choisir une image de taille inferieur à 150Ko`,
             })
     }
 

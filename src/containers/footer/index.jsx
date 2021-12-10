@@ -105,7 +105,7 @@ const Index = () => {
                         <div>
                             <p>
                                 Laboratoire pionnier des médicaments génériques
-                                créé en 1988, OPALIA Pharma, filiale du groupe
+                                créé en 1988, OPALIA PHARMA, filiale du groupe
                                 multinational RECORDATI depuis 2013, se présente
                                 aujourd’hui parmi les leaders dans le domaine
                                 pharmaceutique en Tunisie. OPALIA PHARMA est

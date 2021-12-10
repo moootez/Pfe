@@ -121,7 +121,7 @@ class addActualite extends React.Component {
                     info: false,
                     error: true,
                     success: false,
-                    message: `Image de grande taille, il faut choisir une image de taille inferieur à 150000ko`,
+                    message: `Image de grande taille, il faut choisir une image de taille inferieur à 150Ko`,
                 })
             }
         } else {
@@ -180,7 +180,7 @@ class addActualite extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                message: `Image de grande taille, il faut choisir une image de taille inferieur à 150000ko`,
+                message: `Image de grande taille, il faut choisir une image de taille inferieur à 150Ko`,
             })
     }
 
@@ -197,9 +197,7 @@ class addActualite extends React.Component {
 
         return (
             <div className="ctn__declataion">
-                <PageTitle
-                    label="Ajouter des Actualités "
-                />
+                <PageTitle label="Ajouter des Actualités " />
                 <FormGroup>
                     <div className="centerDiv">
                         <Grid container>
@@ -219,7 +217,7 @@ class addActualite extends React.Component {
                                     type="contained"
                                     size="medium"
                                     label="Confirmer"
-                                    className= "m-3"
+                                    className="m-3"
                                     clicked={this.addActualite}
                                 />
                                 <ButtonComponent

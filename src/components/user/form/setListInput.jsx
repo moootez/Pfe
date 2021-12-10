@@ -37,39 +37,6 @@ const setListInput = intl => {
             required: false,
         },
         /*
-         * pour input delegationResidence
-         
-        {
-            name: 'delegationResidence',
-            label: intl.formatMessage({ id: 'labelDelegation' }),
-            // list: listDelegResidence,
-            // isSelect: false,
-            // isObject: true,
-            // selectAll: false,
-            sm: 6,
-            md: 4,
-            required: false,
-        },
-        /*
-         * pour input codePostaleResidence
-        
-        {
-            name: 'codePostaleResidence',
-            required: false,
-            label: intl.formatMessage({ id: 'labelCodePostal' }),
-            sm: 6,
-            md: 4,
-        },
-        /*
-         * pour input adresseResidence
-         
-        {
-            name: 'adresseResidence',
-            label: intl.formatMessage({ id: 'labelAddressResidence' }),
-            sm: 6,
-            md: 4,
-        },
-        /*
          * pour input tel
          */
         {
@@ -120,6 +87,7 @@ const setListInput = intl => {
             name: 'userRoles',
             required: true,
             label: intl.formatMessage({ id: 'role' }),
+
             list: [
                 {
                     label: 'ROLE_ADMIN',
@@ -135,10 +103,12 @@ const setListInput = intl => {
             selectAll: true,
             sm: 6,
             md: 4,
+            disabled: true,
+            ecran: true,
         },
         {
             name: 'enable',
-            label: intl.formatMessage({ id: 'Actif' }),
+            label: intl.formatMessage({ id: 'enable' }),
             isCheck: true,
             sm: 6,
             md: 4,
