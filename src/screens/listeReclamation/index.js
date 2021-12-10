@@ -73,7 +73,7 @@ const Index = props => {
                                         </InputLabel>
                                     ) : (
                                         <InputLabel id="select-gravite">
-                                            Status
+                                            Statut
                                         </InputLabel>
                                     )}
 
@@ -213,11 +213,30 @@ const Index = props => {
                         },
                     },
                 ]}
+                localization={{
+                    pagination: {
+                        labelDisplayedRows: '{from}-{to} de {count}',
+                        labelRowsSelect: 'lignes par page',
+                        labelRowsPerPage: 'lignes par page:',
+                        firstAriaLabel: 'Première page',
+                        firstTooltip: 'Première page',
+                        previousAriaLabel: 'Page précédente',
+                        previousTooltip: 'Page précédente',
+                        nextAriaLabel: 'Page suivante',
+                        nextTooltip: 'Page suivante',
+                        lastAriaLabel: 'Dernière page',
+                        lastTooltip: 'Dernière page',
+                    },
+                    toolbar: {
+                        searchPlaceholder: 'Rechercher',
+                    },
+                }}
                 data={JSON.parse(JSON.stringify(reclamations)) || []}
                 options={{
                     headerStyle: {
                         backgroundColor: '#c20d20',
                         color: 'white',
+                        fontSize: 20,
                     },
                 }}
             />

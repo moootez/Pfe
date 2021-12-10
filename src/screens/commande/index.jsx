@@ -51,6 +51,7 @@ const Index = props => {
                 <PageTitle label="Mes commandes" />
             </Grid> */}
             <Divider />
+
             <TableCollapse
                 title="Mes commandes"
                 apiCall={getAllCommande}

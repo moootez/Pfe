@@ -44,6 +44,9 @@ const Index = props => {
     } = props
 
     const [reclamation, setReclamation] = useState({})
+    const [errorsList, setErrorsList] = useState({})
+    const [isError, setIsError] = useState(false)
+    const fileteredCommandes = []
 
     useEffect(() => {
         getAllLivraison({ user: userID })
@@ -54,10 +57,41 @@ const Index = props => {
             getCommande({ user: userID, commande: reclamation.livraison })
     }, [reclamation.livraison])
 
+    let errorredirect = null
+
     useEffect(() => {
-        if (newReclamation.loading === true)
+        if (props.newReclamation.error === true) {
+            errorredirect = false
+            try {
+                Object.keys(props.newReclamation.response.data.data).forEach(
+                    key => {
+                        const item =
+                            props.newReclamation.response.data.data[key]
+                        if (item) {
+                            const errorText = item.fr
+                            errorsList[key] = errorText
+                        }
+                    }
+                )
+            } catch (e) {
+                console.log(e)
+            }
+            setIsError(true)
+            setErrorsList(errorsList)
+        } else if (errorredirect) {
+            // if (errorredirect === false) {
             setTimeout(() => history.push('/mes-reclamation'), 1000)
+            //  }
+            errorredirect = true
+        }
+
+        console.log('errorredirect', errorredirect)
     }, [newReclamation.loading])
+
+    // useEffect(() => {
+    //     if (newReclamation.loading === true)
+    //         setTimeout(() => history.push('/mes-reclamation'), 1000)
+    // }, [newReclamation.loading])
 
     const submitReclamation = () => {
         const newPayload = {
@@ -140,6 +174,16 @@ const Index = props => {
                                     </MenuItem>
                                 ))}
                             </Select>
+                            {isError && (
+                                <span
+                                    style={{
+                                        color: '#f44336',
+                                        fontSize: '0.8rem',
+                                    }}
+                                >
+                                    {errorsList.codeLivraison}
+                                </span>
+                            )}
                         </FormControl>
                     </div>
                 </div>
@@ -164,15 +208,35 @@ const Index = props => {
                                 onChange={e => changeHandler('produit', e)}
                                 input={<Input />}
                             >
-                                {(commandes || []).map(element => (
-                                    <MenuItem
-                                        key={element.Code_article}
-                                        value={element.Code_article}
-                                    >
-                                        {element.Code_article}
-                                    </MenuItem>
-                                ))}
+                                {(commandes || []).forEach(commande => {
+                                    if (
+                                        fileteredCommandes.indexOf(
+                                            commande.Code_article
+                                        ) === -1
+                                    ) {
+                                        fileteredCommandes.push(
+                                            commande.Code_article
+                                        )
+                                    }
+                                })}
+                                {(fileteredCommandes || []).map(element => {
+                                    return (
+                                        <MenuItem key={element} value={element}>
+                                            {element}
+                                        </MenuItem>
+                                    )
+                                })}
                             </Select>
+                            {isError && (
+                                <span
+                                    style={{
+                                        color: '#f44336',
+                                        fontSize: '0.8rem',
+                                    }}
+                                >
+                                    {errorsList.codeArticle}
+                                </span>
+                            )}
                         </FormControl>
                     </div>
                 </div>
@@ -183,7 +247,34 @@ const Index = props => {
                     </div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            <TextField
+                            <Select
+                                className="border"
+                                id="demo-mutiple-name"
+                                labelId="select-lot"
+                                value={(reclamation || {}).produit}
+                                onChange={e => changeHandler('Lot', e)}
+                                input={<Input />}
+                                required
+                            >
+                                {console.log(reclamation, 'reclamations')}
+                                {(commandes instanceof Array
+                                    ? commandes
+                                    : []
+                                ).map(element => {
+                                    return (
+                                        element.Code_article ===
+                                            reclamation.produit && (
+                                            <MenuItem
+                                                key={element.Lot}
+                                                value={element.Lot}
+                                            >
+                                                {element.Lot}
+                                            </MenuItem>
+                                        )
+                                    )
+                                })}
+                            </Select>
+                            {/*  <TextField
                                 // error="tttt"
                                 // helperText="frrr"
                                 InputLabelProps={{
@@ -192,7 +283,7 @@ const Index = props => {
                                 type="text"
                                 className="d-flex border"
                                 onChange={e => changeHandler('numLot', e)}
-                            />
+                            />  */}
                         </FormControl>
                     </div>
                 </div>
@@ -244,6 +335,16 @@ const Index = props => {
                                         </MenuItem>
                                     ))}
                                 </Select>
+                                {isError && (
+                                    <span
+                                        style={{
+                                            color: '#f44336',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        {errorsList.nature}
+                                    </span>
+                                )}
                             </FormControl>
                         </div>
                     </div>
@@ -264,6 +365,16 @@ const Index = props => {
                                     }
                                     label="Préciser votre situation"
                                 />
+                                {isError && (
+                                    <span
+                                        style={{
+                                            color: '#f44336',
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        {errorsList.nature}
+                                    </span>
+                                )}
                             </FormControl>
                         </div>
                     </div>
@@ -295,6 +406,16 @@ const Index = props => {
                                     </MenuItem>
                                 ))}
                             </Select>
+                            {isError && (
+                                <span
+                                    style={{
+                                        color: '#f44336',
+                                        fontSize: '0.8rem',
+                                    }}
+                                >
+                                    {errorsList.gravite}
+                                </span>
+                            )}
                         </FormControl>
                     </div>
                 </div>

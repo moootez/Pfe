@@ -32,7 +32,7 @@ const DetailPanelWithRowClick = props => {
         // header.push({ field: 'action', title: 'Action1' })
         setDataTable({
             header,
-            data: (dataReturned instanceof Array ? dataReturned : [])
+            data: dataReturned instanceof Array ? dataReturned : [],
             /* .map(
                 el => ({ ...el, action: <PictureAsPdfIcon /> })
             ), */
@@ -45,26 +45,47 @@ const DetailPanelWithRowClick = props => {
 
     const detailPanel = dataSubArray
         ? {
-            detailPanel: rowData => {
-                return (
-                    // dataSubArray.dataApi is A function to get useful data from row data
-                    <SimpleTable
-                        {...rowData}
-                        {...dataSubArray}
-                        dataApi={dataSubArray.dataApi(rowData)}
-                        dataReturned={subDataRef.current}
-                    />
-                )
-            },
-        }
+              detailPanel: rowData => {
+                  return (
+                      // dataSubArray.dataApi is A function to get useful data from row data
+                      <SimpleTable
+                          {...rowData}
+                          {...dataSubArray}
+                          dataApi={dataSubArray.dataApi(rowData)}
+                          dataReturned={subDataRef.current}
+                      />
+                  )
+              },
+          }
         : {}
-
     return (
         <>
             {dataTable.header.length && dataTable.data.length ? (
                 <MaterialTable
-                    options={{ maxBodyHeight: '80vh' }}
+                    options={{
+                        maxBodyHeight: '80vh',
+                        headerStyle: { fontSize: 20 },
+                    }}
+                    dataTable
                     columns={dataTable.header}
+                    localization={{
+                        pagination: {
+                            labelDisplayedRows: '{from}-{to} de {count}',
+                            labelRowsSelect: 'lignes par page',
+                            labelRowsPerPage: 'lignes par page:',
+                            firstAriaLabel: 'Première page',
+                            firstTooltip: 'Première page',
+                            previousAriaLabel: 'Page précédente',
+                            previousTooltip: 'Page précédente',
+                            nextAriaLabel: 'Page suivante',
+                            nextTooltip: 'Page suivante',
+                            lastAriaLabel: 'Dernière page',
+                            lastTooltip: 'Dernière page',
+                        },
+                        toolbar: {
+                            searchPlaceholder: 'Rechercher',
+                        },
+                    }}
                     data={dataTable.data}
                     title={title}
                     onRowClick={(event, rowData, togglePanel) => {
@@ -73,7 +94,7 @@ const DetailPanelWithRowClick = props => {
                     {...detailPanel}
                 />
             ) : (
-                <p className="text-center m-3">Pas de données disponible!!</p>
+                <h1>Merci de contacter votre webmaster!!</h1>
             )}
         </>
     )
