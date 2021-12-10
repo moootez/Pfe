@@ -5,6 +5,7 @@ import validerCommandeSaga from './validerCommande'
 import uploadCommandeSaga from './uploadCommande'
 import dupliquerCommandeSaga from './dupliquerCommande'
 import exportPdfCommandeSaga from './exportPdf'
+import editCommandeSaga from './editCommande'
 
 /**
  * export all function saga (API)
@@ -17,6 +18,7 @@ const commandeSagas = [
     uploadCommandeSaga,
     dupliquerCommandeSaga,
     exportPdfCommandeSaga,
+    editCommandeSaga,
 ]
 
 export default commandeSagas

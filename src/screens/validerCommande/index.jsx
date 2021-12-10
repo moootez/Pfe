@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 /* eslint-disable radix */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-unused-vars */
+
 import { red, green } from '@material-ui/core/colors'
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
@@ -9,6 +11,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
@@ -20,6 +23,7 @@ import validerCommandeActions from '../../redux/commande/validerCommande'
 import exportPdfCommandeActions from '../../redux/commande/exportPdf'
 import dupliquerCommandeActions from '../../redux/commande/dupliquerCommande'
 import PageTitle from '../../components/ui/pageTitle'
+import alertActions from '../../redux/alert'
 
 const statusAndTxt = {
     BROUILLON: 'Valider',
@@ -27,11 +31,18 @@ const statusAndTxt = {
     VALIDATION_OPALIA: 'Valider',
     ANNULEE: 'Annuler',
 }
-
+/**
+ *
+ *
+ * @param {*} { lng, intl, history, filtredTable, getActualite, alertHide, alertShow }
+ * @returns
+ */
 const Index = props => {
     const {
         commandes,
         getCommande,
+        alertHide,
+        alertShow,
         userID,
         validerCommande,
         exportPdf,
@@ -39,6 +50,7 @@ const Index = props => {
         pdfLink,
         syncProduits,
         role,
+        history,
     } = props
 
     const [allCommande, setAllCommande] = useState([])
@@ -73,6 +85,16 @@ const Index = props => {
         })
     }
 
+    const editCMD = rowData => {
+        history.push({
+            pathname: `/edit-commande/`,
+            state: {
+                index: rowData,
+                idCMD: rowData.id,
+            },
+        })
+    }
+
     return (
         <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
@@ -89,12 +111,14 @@ const Index = props => {
             )}
             <MaterialTable
                 title={<PageTitle label="Commandes à valider" />}
+                options={{
+                    headerStyle: { fontSize: 20 },
+                }}
                 columns={[
                     {
                         title: 'ID',
                         field: 'id',
                     },
-
                     role === 'ROLE_CLIENT'
                         ? {
                               title: 'Date de création',
@@ -148,10 +172,24 @@ const Index = props => {
                                     {toValide && (
                                         <IconButton
                                             onClick={() =>
-                                                handleSubmit(
-                                                    newStatus,
-                                                    rowData.id
-                                                )
+                                                alertShow(true, {
+                                                    warning: false,
+                                                    info: true,
+                                                    error: false,
+                                                    success: false,
+                                                    title: `Voulez-vous vraiment valider`,
+                                                    onConfirm: () => {
+                                                        handleSubmit(
+                                                            newStatus,
+                                                            rowData.id
+                                                        )
+                                                        // deleteActualite(item.id)
+                                                        setTimeout(() => {
+                                                            alertHide()
+                                                            getCommande()
+                                                        }, 2000)
+                                                    },
+                                                })
                                             }
                                             style={{ color: green[500] }}
                                             aria-label={statusAndTxt[newStatus]}
@@ -159,12 +197,34 @@ const Index = props => {
                                             <CheckIcon />
                                         </IconButton>
                                     )}
+                                    {role === 'ROLE_CLIENT' && (
+                                        <IconButton
+                                            onClick={() => editCMD(rowData)}
+                                            aria-label={statusAndTxt[newStatus]}
+                                            style={{ color: '#1c79be' }}
+                                        >
+                                            <EditIcon />
+                                        </IconButton>
+                                    )}
                                     <IconButton
                                         onClick={() =>
-                                            handleSubmit(
-                                                refusStatus,
-                                                rowData.id
-                                            )
+                                            alertShow(true, {
+                                                warning: true,
+                                                info: false,
+                                                error: false,
+                                                success: false,
+                                                title: `Voulez-vous vraiment supprimer`,
+                                                onConfirm: () => {
+                                                    handleSubmit(
+                                                        refusStatus,
+                                                        rowData.id
+                                                    )
+                                                    setTimeout(() => {
+                                                        alertHide()
+                                                        getCommande()
+                                                    }, 2000)
+                                                },
+                                            })
                                         }
                                         style={{ color: red[500] }}
                                         aria-label="Annuler"
@@ -194,6 +254,25 @@ const Index = props => {
                         },
                     },
                 ]}
+                localization={{
+                    pagination: {
+                        labelDisplayedRows: '{from}-{to} de {count}',
+                        labelRowsSelect: 'lignes par page',
+                        labelRowsPerPage: 'lignes par page:',
+                        firstAriaLabel: 'Première page',
+                        firstTooltip: 'Première page',
+                        previousAriaLabel: 'Page précédente',
+                        previousTooltip: 'Page précédente',
+                        nextAriaLabel: 'Page suivante',
+                        nextTooltip: 'Page suivante',
+                        lastAriaLabel: 'Dernière page',
+                        lastTooltip: 'Dernière page',
+                    },
+                    toolbar: {
+                        searchPlaceholder: 'Rechercher',
+                        emptyDataSourceMessage: 'pas de rien',
+                    },
+                }}
                 data={allCommande || []}
             />
         </div>
@@ -215,6 +294,19 @@ const mapDispatchToProps = dispatch => ({
         dispatch(validerCommandeActions.validerCommandeRequest(payload)),
     exportPdf: payload =>
         dispatch(exportPdfCommandeActions.exportPdfCommandeRequest(payload)),
+    alertShow: (show, info) =>
+        dispatch(
+            alertActions.alertShow(show, {
+                onConfirm: info.onConfirm,
+                warning: info.warning,
+                info: info.info,
+                error: info.error,
+                success: info.success,
+                message: info.message,
+                title: info.title,
+            })
+        ),
+    alertHide: () => dispatch(alertActions.alertHide()),
     dupliquerCommande: payload =>
         dispatch(dupliquerCommandeActions.dupliquerCommandeRequest(payload)),
     syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
@@ -245,10 +337,13 @@ Index.propTypes = {
     getCommande: PropTypes.func.isRequired,
     validerCommande: PropTypes.func.isRequired,
     exportPdf: PropTypes.func.isRequired,
+    alertShow: PropTypes.func.isRequired,
+    alertHide: PropTypes.func.isRequired,
     dupliquerCommande: PropTypes.func.isRequired,
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     syncProduits: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
 }
 
 export default connect(
