@@ -138,7 +138,7 @@ const setListInput = intl => {
         },
         {
             name: 'enable',
-            label: intl.formatMessage({ id: 'enable' }),
+            label: intl.formatMessage({ id: 'Actif' }),
             isCheck: true,
             sm: 6,
             md: 4,

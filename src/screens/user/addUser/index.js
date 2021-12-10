@@ -196,10 +196,12 @@ class Index extends React.Component {
         const { payloadState } = this.state
 
         if (history.location.state.type === 'edit') {
+            const enable = checked
             this.payload = payloadState
             this.setState({
-                payloadState: { ...this.payload, [name]: checked },
+                payloadState: { ...this.payload, enable },
             })
+            console.log(payloadState.enable, 'payloadState')
         } else {
             this.payload[name] = checked
             this.setState({ [name]: checked })
