@@ -79,6 +79,7 @@ const FormScanDeclaration = props => {
         isDragAccept,
         isDragReject,
     } = useDropzone({
+        accept:'text/*, application/vnd.ms-excel',
         onDrop: acceptedFiles => {
             setFiles(
                 acceptedFiles.map(file =>
@@ -101,7 +102,6 @@ const FormScanDeclaration = props => {
             setErrors('')
         },
     })
-    console.log(files)
     const thumbs =
         files && files.length ? (
             <div style={thumb} key={files[files.length - 1].name}>
@@ -132,10 +132,11 @@ const FormScanDeclaration = props => {
     const uploadFile = () => {
         const { scanDecReq } = props
         const formData = new FormData()
-        // console.log(dataDeclaration)
+        console.log(scan.type)
         formData.append('document', scan)
         formData.append('user', localStorage.codeInsc)
         formData.append('source', 'import')
+        formData.append('extension', scan.type)
         const obj = {
             id_declaration: 50,
             body: formData,
