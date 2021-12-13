@@ -30,7 +30,15 @@ function* updateReclamationSagas({ response }) {
             data: response,
         })
         console.log(res, 'res')
-        if (res.data.data.status === 'Acceptée') {
+        const message = `Réclamation ${res.data.data.status} avec succès`
+        const message2 = `Réclamation ${res.data.data.status}`
+        console.log(message, 'message')
+        console.log(message2, 'message2')
+        console.log(res.data.data.status, 'statut')
+        if (
+            res.data.data.status === 'Acceptée' ||
+            res.data.data.status === 'Reçue'
+        ) {
             yield all([
                 yield put(
                     updateReclamationAction.updateReclamationSuccess(
@@ -44,13 +52,17 @@ function* updateReclamationSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Réclamation acceptée avec succès',
+                        message: [message],
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         }
-        if (res.data.data.status === 'Reçue') {
+
+        if (
+            res.data.data.status === 'En cours' ||
+            res.data.data.status === 'Refusée'
+        ) {
             yield all([
                 yield put(
                     updateReclamationAction.updateReclamationSuccess(
@@ -64,47 +76,7 @@ function* updateReclamationSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Réclamation reçue avec succès',
-                    })
-                ),
-                yield put(getLoaderActions.disableGeneraleLoader()),
-            ])
-        }
-        if (res.data.data.status === 'En cours') {
-            yield all([
-                yield put(
-                    updateReclamationAction.updateReclamationSuccess(
-                        res.data.data
-                    )
-                ),
-                yield put(
-                    alertActions.alertShow(true, {
-                        onConfirm: false,
-                        warning: false,
-                        info: false,
-                        error: false,
-                        success: true,
-                        message: 'Réclamation En cours',
-                    })
-                ),
-                yield put(getLoaderActions.disableGeneraleLoader()),
-            ])
-        }
-        if (res.data.data.status === 'Refusée') {
-            yield all([
-                yield put(
-                    updateReclamationAction.updateReclamationSuccess(
-                        res.data.data
-                    )
-                ),
-                yield put(
-                    alertActions.alertShow(true, {
-                        onConfirm: false,
-                        warning: false,
-                        info: false,
-                        error: false,
-                        success: true,
-                        message: 'Réclamation refusée',
+                        message: [message2],
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),
