@@ -29,12 +29,8 @@ function* updateReclamationSagas({ response }) {
             timeout: 3000,
             data: response,
         })
-        console.log(res, 'res')
         const message = `Réclamation ${res.data.data.status} avec succès`
         const message2 = `Réclamation ${res.data.data.status}`
-        console.log(message, 'message')
-        console.log(message2, 'message2')
-        console.log(res.data.data.status, 'statut')
         if (
             res.data.data.status === 'Acceptée' ||
             res.data.data.status === 'Reçue'
