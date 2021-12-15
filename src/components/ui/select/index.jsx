@@ -14,7 +14,7 @@ import generateKey from '../../../shared/utility'
  *     placeholder,
  *     list,
  *     name,
- *     ecran,
+ *      isExist,
  *     onchange,
  *     required,
  *     selectedItem,
@@ -32,15 +32,18 @@ const index = ({
     placeholder,
     list,
     name,
-    ecran,
+    isExist,
     onchange,
     required,
     selectedItem,
+    selectedItemRubrique,
+    selectedItemSousRubrique,
     selectAll,
     isError,
     disabled,
     errorText,
     id,
+    declarantExist,
     attributes = {},
 }) => {
     /**
@@ -66,7 +69,15 @@ const index = ({
     }
     return (
         <FormControl className={name === 'typeDeclaration' ? 'w-50' : 'w-100'}>
-            <label htmlFor="select">
+            <label
+                htmlFor="select"
+                className={
+                    name !== 'typeDeclaration'
+                        ? 'mt-3 mr-2 mb-0 ml-2 font-weight-bold text-uppercase text-primary'
+                        : null
+                }
+                style={name === 'typeDeclaration' ? { marginRight: '50%' } : {}}
+            >
                 {label}
                 {required ? <span className="text-danger"> * </span> : ''}
             </label>
@@ -75,23 +86,30 @@ const index = ({
                 className="mt-1"
                 error={isError}
                 direction="rtl"
+                disabled={
+                    (isExist &&
+                        [
+                            'fonction',
+                            'categorie',
+                            'etablissement',
+                            'ministere',
+                        ].includes(name)) ||
+                    disabled
+                }
                 id="select"
                 select
                 name={name}
                 style={
-                    name === 'userRoles' && ecran
+                    name === 'typeDeclaration'
                         ? {
                               ...style,
                               marginRight: '50%',
                               width: '100%',
-                              color: 'red',
-                              display: 'none',
                           }
                         : {
                               ...style,
                               marginLeft: 8,
                               marginRight: 8,
-                              backgroundColor: 'green',
                           }
                 }
                 label={placeholder}
@@ -110,6 +128,15 @@ const index = ({
                         value={option.value}
                         name={name}
                         key={generateKey()}
+                        disabled={
+                            name === 'typeDeclaration'
+                                ? declarantExist === null
+                                    ? option.id === 2
+                                    : declarantExist === false
+                                    ? option.id === 2
+                                    : option.id === 1
+                                : false
+                        }
                         style={
                             option.publiable === false
                                 ? { display: 'none' }
@@ -131,6 +158,8 @@ index.defaultProps = {
     placeholder: ' ',
     label: '',
     selectedItem: 0,
+    selectedItemRubrique: 0,
+    selectedItemSousRubrique: 0,
     isError: false,
     required: true,
     disabled: false,
@@ -139,8 +168,9 @@ index.defaultProps = {
     id: null,
     name: null,
     list: [],
-    selectAll: false,
-    ecran: false,
+    selectAll: true,
+    isExist: false,
+    declarantExist: null,
 }
 /**
  *  declaration des props
@@ -150,15 +180,18 @@ index.propTypes = {
     placeholder: PropTypes.string,
     list: PropTypes.array,
     selectedItem: PropTypes.number,
+    selectedItemRubrique: PropTypes.number,
+    selectedItemSousRubrique: PropTypes.number,
     selectAll: PropTypes.bool,
     errorText: PropTypes.string,
     name: PropTypes.string,
     id: PropTypes.number,
     isError: PropTypes.bool,
     disabled: PropTypes.bool,
-    ecran: PropTypes.bool,
+    isExist: PropTypes.bool,
     required: PropTypes.bool,
     attributes: PropTypes.object,
+    declarantExist: PropTypes.object,
     onchange: PropTypes.func,
 }
 
