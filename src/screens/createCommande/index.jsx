@@ -103,6 +103,7 @@ const Index = props => {
     let totalprix = null
     const getTotalPrix2 = rowData => {
         totalprix += getTotalPrix(rowData)
+
         InnerHTMlFn(totalprix)
         return totalprix
     }
