@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 /* eslint-disable radix */
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
@@ -11,6 +12,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
+import Checkbox from '@material-ui/core/Checkbox'
+import ListItemText from '@material-ui/core/ListItemText'
 import PropTypes from 'prop-types'
 import getCommandes from '../../redux/statistique/getStatistique'
 import getAllLivraisons from '../../redux/referencial/getAllReferencial'
@@ -116,12 +119,17 @@ const Index = props => {
             })
         } else addReclamation(newPayload)
     }
-
+    const [lots, setLots] = useState([])
     const changeHandler = (name, e) => {
         const { value } = e.target
         setReclamation(r => ({ ...r, [name]: value }))
     }
 
+    const changeHandlerLot = (name, e) => {
+        const { value } = e.target
+        setLots(value)
+        setReclamation(r => ({ ...r, [name]: value }))
+    }
     // const [numberPos, setnumberPos] = useState('')
     // const [disabled, setDisabled] = useState(true)
     // const checkNumberPos = (e) => {
@@ -239,10 +247,14 @@ const Index = props => {
                         <FormControl className="w-100">
                             <Select
                                 className="border"
-                                id="demo-mutiple-name"
-                                labelId="select-lot"
-                                value={(reclamation || {}).produit}
-                                onChange={e => changeHandler('Lot', e)}
+                                multiple
+                                labelId="demo-multiple-checkbox-label"
+                                id="demo-mutiple-checkbox"
+                                // labelId="select-lot"
+                                // value={(reclamation || {}).produit}
+                                value={lots || []}
+                                renderValue={selected => selected.join(', ')}
+                                onChange={e => changeHandlerLot('Lot', e)}
                                 input={<Input />}
                                 required
                             >
@@ -250,15 +262,24 @@ const Index = props => {
                                 {(commandes instanceof Array
                                     ? commandes
                                     : []
-                                ).map(element => {
+                                ).map((element, index) => {
                                     return (
                                         element.Code_article ===
                                             reclamation.produit && (
                                             <MenuItem
-                                                key={element.Lot}
-                                                value={element.Lot}
+                                                key={`${element.LOT}-${index}`}
+                                                value={element.LOT}
                                             >
-                                                {element.Lot}
+                                                <Checkbox
+                                                    checked={
+                                                        lots.indexOf(
+                                                            element.LOT
+                                                        ) > -1
+                                                    }
+                                                />
+                                                <ListItemText
+                                                    primary={element.LOT}
+                                                />
                                             </MenuItem>
                                         )
                                     )
@@ -280,7 +301,7 @@ const Index = props => {
                 {/* Quantite reclame */}
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
-                        <p className="txt_form">Quantité réclamée</p>
+                        <p className="txt_form">Quantité concernée</p>
                     </div>
                     <div className="col-6">
                         <FormControl className="w-100">
