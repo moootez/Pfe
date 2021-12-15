@@ -102,16 +102,7 @@ const Index = props => {
     }
     let totalprix = null
     const getTotalPrix2 = rowData => {
-        if (totalprix === 0) {
-            if (getTotalPrix(rowData) !== 0) {
-                totalprix = getTotalPrix(rowData)
-            }
-        } else if (totalprix !== 0) {
-            if (getTotalPrix(rowData) !== 0) {
-                totalprix += getTotalPrix(rowData)
-            }
-        }
-        console.log(rowData, 'rows')
+        totalprix += getTotalPrix(rowData)
         InnerHTMlFn(totalprix)
         return totalprix
     }
