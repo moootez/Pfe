@@ -5,14 +5,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { injectIntl, FormattedMessage } from 'react-intl'
-import getDeclarantActions from '../../../redux/declaration/getDeclarantByCinOrPass'
 import addUserActions from '../../../redux/user/addUser'
 import editUserActions from '../../../redux/user/editUser'
-import getAllReferenceActions from '../../../redux/referencial/getAllReferencial'
 import alertActions from '../../../redux/alert'
 import RenderFormEdit from '../../../components/user/form/userForm'
 import PageTitle from '../../../components/ui/pageTitle'
-import getAllRolesActions from '../../../redux/roles/getAllRoles'
 import ButtonComponent from '../../../components/ui/button'
 import RenderFormAdd from '../../../components/user/form/userFormAjout'
 
@@ -24,7 +21,6 @@ import RenderFormAdd from '../../../components/user/form/userFormAjout'
  */
 class Index extends React.Component {
     static propTypes = {
-        allReferenciels: PropTypes.object,
         lng: PropTypes.string.isRequired,
         response: PropTypes.object,
         responseEdit: PropTypes.object,
@@ -33,17 +29,12 @@ class Index extends React.Component {
             goBack: PropTypes.func.isRequired,
             location: PropTypes.object.isRequired,
         }).isRequired,
-        getDeclarantByCinOrPass: PropTypes.func.isRequired,
         addUserRequest: PropTypes.func.isRequired,
         editUserRequest: PropTypes.func.isRequired,
         alertShow: PropTypes.func.isRequired,
-        allRoles: PropTypes.object,
-        getAllRolesReq: PropTypes.func.isRequired,
     }
 
     static defaultProps = {
-        allReferenciels: {},
-        allRoles: {},
         response: null,
         responseEdit: null,
     }
@@ -62,14 +53,6 @@ class Index extends React.Component {
             isError: false,
             errorsList: {},
             isEditDeclaration: false,
-            itemToSend: [
-                'gouvernoratResidence',
-                'delegationResidence',
-                'nationalite',
-                'gouvernoratEtablissement',
-                'delegationEtablissement',
-                'codePostaleResidence',
-            ],
             role: ['userRoles'],
             payloadState: {},
         }
@@ -85,11 +68,11 @@ class Index extends React.Component {
      * @memberof
      */
     componentDidMount() {
-        const { history, getAllRolesReq } = this.props
+        const { history } = this.props
         const { type } = history.location.state
         if (type === 'edit')
             this.setState({ payloadState: history.location.state.user })
-        getAllRolesReq()
+        // getAllRolesReq()
     }
 
     /* life cycle */
@@ -196,10 +179,12 @@ class Index extends React.Component {
         const { payloadState } = this.state
 
         if (history.location.state.type === 'edit') {
+            const enable = checked
             this.payload = payloadState
             this.setState({
-                payloadState: { ...this.payload, [name]: checked },
+                payloadState: { ...this.payload, enable },
             })
+            console.log(payloadState.enable, 'payloadState')
         } else {
             this.payload[name] = checked
             this.setState({ [name]: checked })
@@ -377,14 +362,7 @@ class Index extends React.Component {
      * @memberof Actions
      */
     render() {
-        const {
-            allReferenciels,
-            lng,
-            intl,
-            getDeclarantByCinOrPass,
-            allRoles,
-            history,
-        } = this.props
+        const { lng, intl, history } = this.props
         const {
             isError,
             errorsList,
@@ -407,12 +385,8 @@ class Index extends React.Component {
                             <Grid container>
                                 {history.location.state.type === 'edit' ? (
                                     <RenderFormEdit
-                                        getDeclarantByCinOrPass={
-                                            getDeclarantByCinOrPass
-                                        }
                                         lng={lng}
                                         intl={intl}
-                                        allReferenciels={allReferenciels}
                                         onChangeNumberTel={
                                             this.onChangeNumberTel
                                         }
@@ -425,17 +399,12 @@ class Index extends React.Component {
                                         fieldChangedHandler={
                                             this.fieldChangedHandler
                                         }
-                                        allRoles={allRoles}
                                         type={history.location.state.type}
                                     />
                                 ) : (
                                     <RenderFormAdd
-                                        getDeclarantByCinOrPass={
-                                            getDeclarantByCinOrPass
-                                        }
                                         lng={lng}
                                         intl={intl}
-                                        allReferenciels={allReferenciels}
                                         onChangeNumberTel={
                                             this.onChangeNumberTel
                                         }
@@ -448,7 +417,6 @@ class Index extends React.Component {
                                         fieldChangedHandler={
                                             this.fieldChangedHandler
                                         }
-                                        allRoles={allRoles}
                                         type={history.location.state.type}
                                     />
                                 )}
@@ -497,9 +465,7 @@ const mapStateToProps = state => {
     return {
         response: state.users.addUser.response,
         responseEdit: state.users.editUser.response,
-        allReferenciels: state.referencial.allReferencials.response,
         lng: state.info.language,
-        allRoles: state.roles.getAllRoles.response,
     }
 }
 // dispatch action
@@ -510,14 +476,9 @@ const mapStateToProps = state => {
  * @param {*} dispatch
  */
 const mapDispatchToProps = dispatch => ({
-    getDeclarantByCinOrPass: payload =>
-        dispatch(getDeclarantActions.getDeclarantByCinOrPassRequest(payload)),
     addUserRequest: payload => dispatch(addUserActions.addUserRequest(payload)),
     editUserRequest: payload =>
         dispatch(editUserActions.editUserRequest(payload)),
-    getAllReferentiels: () =>
-        dispatch(getAllReferenceActions.getAllReferenceRequest()),
-    getAllRolesReq: () => dispatch(getAllRolesActions.getAllRolesRequest()),
     alertShow: (show, info) =>
         dispatch(
             alertActions.alertShow(show, {

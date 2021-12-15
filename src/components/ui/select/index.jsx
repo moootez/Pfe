@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import { MenuItem } from '@material-ui/core'
 // import { FormattedMessage } from 'react-intl'
 import generateKey from '../../../shared/utility'
-
+/* eslint-disable no-unused-vars */
 /**
  *
  *
@@ -14,18 +14,15 @@ import generateKey from '../../../shared/utility'
  *     placeholder,
  *     list,
  *     name,
- *     isExist,
+ *     ecran,
  *     onchange,
  *     required,
  *     selectedItem,
- *     selectedItemRubrique,
- *     selectedItemSousRubrique,
  *     selectAll,
  *     isError,
  *     disabled,
  *     errorText,
  *     id,
- *     declarantExist,
  *     attributes = {},
  * }
  * @returns
@@ -35,18 +32,15 @@ const index = ({
     placeholder,
     list,
     name,
-    isExist,
+    ecran,
     onchange,
     required,
     selectedItem,
-    selectedItemRubrique,
-    selectedItemSousRubrique,
     selectAll,
     isError,
     disabled,
     errorText,
     id,
-    declarantExist,
     attributes = {},
 }) => {
     /**
@@ -72,57 +66,36 @@ const index = ({
     }
     return (
         <FormControl className={name === 'typeDeclaration' ? 'w-50' : 'w-100'}>
-            <label
-                htmlFor="select"
-                className={
-                    name !== 'typeDeclaration'
-                        ? 'mt-3 mr-2 mb-0 ml-2 font-weight-bold text-uppercase text-primary'
-                        : null
-                }
-                style={name === 'typeDeclaration' ? { marginRight: '50%' } : {}}
-            >
+            <label htmlFor="select">
                 {label}
                 {required ? <span className="text-danger"> * </span> : ''}
             </label>
+            {console.log('disabled', disabled)}
             <TextField
                 className="mt-1"
                 error={isError}
                 direction="rtl"
-                disabled={
-                    (isExist &&
-                        [
-                            'fonction',
-                            'categorie',
-                            'etablissement',
-                            'ministere',
-                        ].includes(name)) ||
-                    disabled
-                }
                 id="select"
                 select
                 name={name}
                 style={
-                    name === 'typeDeclaration'
+                    name === 'userRoles' && ecran
                         ? {
                               ...style,
                               marginRight: '50%',
                               width: '100%',
+                              color: 'red',
+                              display: 'none',
                           }
                         : {
                               ...style,
                               marginLeft: 8,
                               marginRight: 8,
-                              backgroundCwolor: 'white',
+                              backgroundColor: 'green',
                           }
                 }
                 label={placeholder}
-                value={
-                    label === 'العنوان'
-                        ? selectedItemRubrique
-                        : label === 'العنوان الفرعي'
-                        ? selectedItemSousRubrique
-                        : selectedItem
-                }
+                value={selectedItem}
                 onChange={e => handleChange(e)}
                 margin="normal"
                 variant="outlined"
@@ -134,24 +107,9 @@ const index = ({
                     : list || []
                 ).map(option => (
                     <MenuItem
-                        value={
-                            label === 'العنوان' || label === 'العنوان الفرعي'
-                                ? option.id
-                                : label === 'طبيعة النص القانوني'
-                                ? option.label
-                                : option.value
-                        }
+                        value={option.value}
                         name={name}
                         key={generateKey()}
-                        disabled={
-                            name === 'typeDeclaration'
-                                ? declarantExist === null
-                                    ? option.id === 2
-                                    : declarantExist === false
-                                    ? option.id === 2
-                                    : option.id === 1
-                                : false
-                        }
                         style={
                             option.publiable === false
                                 ? { display: 'none' }
@@ -173,8 +131,6 @@ index.defaultProps = {
     placeholder: ' ',
     label: '',
     selectedItem: 0,
-    selectedItemRubrique: 0,
-    selectedItemSousRubrique: 0,
     isError: false,
     required: true,
     disabled: false,
@@ -183,9 +139,8 @@ index.defaultProps = {
     id: null,
     name: null,
     list: [],
-    selectAll: true,
-    isExist: false,
-    declarantExist: null,
+    selectAll: false,
+    ecran: false,
 }
 /**
  *  declaration des props
@@ -195,19 +150,16 @@ index.propTypes = {
     placeholder: PropTypes.string,
     list: PropTypes.array,
     selectedItem: PropTypes.number,
-    selectedItemRubrique: PropTypes.number,
-    selectedItemSousRubrique: PropTypes.number,
     selectAll: PropTypes.bool,
-    onchange: PropTypes.func,
     errorText: PropTypes.string,
     name: PropTypes.string,
     id: PropTypes.number,
     isError: PropTypes.bool,
     disabled: PropTypes.bool,
-    isExist: PropTypes.bool,
+    ecran: PropTypes.bool,
     required: PropTypes.bool,
     attributes: PropTypes.object,
-    declarantExist: PropTypes.object,
+    onchange: PropTypes.func,
 }
 
 export default index
