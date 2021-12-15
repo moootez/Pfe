@@ -132,35 +132,37 @@ const userForm = ({
                         className="gridItem"
                         key={`${item.name}`}
                     >
-                        <SelectList
-                            onchange={e => {
-                                fieldChangedHandler(e, item.name, null)
-                            }}
-                            required={item.required}
-                            name={item.name}
-                            label={item.label}
-                            isExist={isExist}
-                            lng={lng}
-                            width={item.widh}
-                            list={item.list}
-                            selectedItem={
-                                item.isObject === true
-                                    ? payload[item.name] &&
-                                      payload[item.name].id
-                                    : item.name === 'userRoles'
-                                    ? payload[item.name] &&
-                                      payload[item.name][0].id
-                                    : payload[item.name]
-                            }
-                            errorText={errorsList[item.name]}
-                            isError={
-                                isError &&
-                                Object.keys(errorsList).includes(item.name)
-                            }
-                            declarantExist={declarantExist}
-                            selectAll={item.selectAll}
-                        />
-                        {item.sm === 12 && !item.isCheck && <Divider />}
+                        <div className="select_role">
+                            <SelectList
+                                onchange={e => {
+                                    fieldChangedHandler(e, item.name, null)
+                                }}
+                                required={item.required}
+                                name={item.name}
+                                label={item.label}
+                                isExist={isExist}
+                                lng={lng}
+                                width={item.widh}
+                                list={item.list}
+                                selectedItem={
+                                    item.isObject === true
+                                        ? payload[item.name] &&
+                                          payload[item.name].id
+                                        : item.name === 'userRoles'
+                                        ? payload[item.name] &&
+                                          payload[item.name][0].id
+                                        : payload[item.name]
+                                }
+                                errorText={errorsList[item.name]}
+                                isError={
+                                    isError &&
+                                    Object.keys(errorsList).includes(item.name)
+                                }
+                                declarantExist={declarantExist}
+                                selectAll={item.selectAll}
+                            />
+                            {item.sm === 12 && !item.isCheck && <Divider />}
+                        </div>
                     </Grid>
                 )
             else if (item.isRadio)
