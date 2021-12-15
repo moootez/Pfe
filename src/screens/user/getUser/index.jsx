@@ -46,8 +46,8 @@ const Index = ({
     const [rows, setRows] = useState([])
     const [payload, setPayload] = useState({})
     const [meta, setMeta] = useState([])
-    const [limit, setLimit] = useState(5)
-    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState({})
+    const [page, setPage] = useState({})
     const [key, setKey] = useState('')
     const [order, setOrder] = useState('')
 
@@ -90,7 +90,7 @@ const Index = ({
     /* life cycle */
     useEffect(() => {
         getAllRolesReq()
-        getAllUsersReq({ limit: 5, page: 1 })
+        getAllUsersReq()
     }, [])
 
     /* life cycle */

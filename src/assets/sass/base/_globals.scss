@@ -814,6 +814,14 @@ table tbody tr:hover {
     color: #c20d20;
     font-weight: 700;
 }
+.blcEdit {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.blcEdit .select_role {
+    display: none;
+}
 @media only screen and (min-width: 1024px) {
     .blc-sidebar .MuiCollapse-wrapperInner {
         position: absolute;

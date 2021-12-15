@@ -384,23 +384,27 @@ class Index extends React.Component {
                         <div className="centerDiv">
                             <Grid container>
                                 {history.location.state.type === 'edit' ? (
-                                    <RenderFormEdit
-                                        lng={lng}
-                                        intl={intl}
-                                        onChangeNumberTel={
-                                            this.onChangeNumberTel
-                                        }
-                                        setCheck={this.setCheck}
-                                        isExist={isExist}
-                                        isEditDeclaration={isEditDeclaration}
-                                        payload={payloadState}
-                                        isError={isError}
-                                        errorsList={errorsList}
-                                        fieldChangedHandler={
-                                            this.fieldChangedHandler
-                                        }
-                                        type={history.location.state.type}
-                                    />
+                                    <div className="blcEdit">
+                                        <RenderFormEdit
+                                            lng={lng}
+                                            intl={intl}
+                                            onChangeNumberTel={
+                                                this.onChangeNumberTel
+                                            }
+                                            setCheck={this.setCheck}
+                                            isExist={isExist}
+                                            isEditDeclaration={
+                                                isEditDeclaration
+                                            }
+                                            payload={payloadState}
+                                            isError={isError}
+                                            errorsList={errorsList}
+                                            fieldChangedHandler={
+                                                this.fieldChangedHandler
+                                            }
+                                            type={history.location.state.type}
+                                        />
+                                    </div>
                                 ) : (
                                     <RenderFormAdd
                                         lng={lng}
