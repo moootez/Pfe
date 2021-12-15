@@ -12,7 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Input from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
-import Checkbox from '@material-ui/core/Checkbox'
 import ListItemText from '@material-ui/core/ListItemText'
 import PropTypes from 'prop-types'
 import getCommandes from '../../redux/statistique/getStatistique'
@@ -127,8 +126,8 @@ const Index = props => {
 
     const changeHandlerLot = (name, e) => {
         const { value } = e.target
-        setLots(value)
-        setReclamation(r => ({ ...r, [name]: value }))
+        setLots([...lots, value])
+        setReclamation(r => ({ ...r, [name]: [...lots, value] }))
     }
     // const [numberPos, setnumberPos] = useState('')
     // const [disabled, setDisabled] = useState(true)
@@ -257,18 +256,19 @@ const Index = props => {
                         <FormControl className="w-100">
                             <Select
                                 className="border"
-                                multiple
                                 labelId="demo-multiple-checkbox-label"
                                 id="demo-mutiple-checkbox"
-                                // labelId="select-lot"
-                                // value={(reclamation || {}).produit}
-                                value={lots || []}
-                                renderValue={selected => selected.join(', ')}
+                                value={lots}
+                                renderValue={selected => selected.join(',')}
                                 onChange={e => changeHandlerLot('Lot', e)}
                                 input={<Input />}
                                 required
                             >
-                                {console.log(reclamation, 'reclamations')}
+                                {console.log(
+                                    reclamation,
+                                    commandes,
+                                    'reclamations'
+                                )}
                                 {(commandes instanceof Array
                                     ? commandes
                                     : []
@@ -277,18 +277,11 @@ const Index = props => {
                                         element.Code_article ===
                                             reclamation.produit && (
                                             <MenuItem
-                                                key={`${element.LOT}-${index}`}
-                                                value={element.LOT}
+                                                key={`${element.Lot}-${index}`}
+                                                value={element.Lot}
                                             >
-                                                <Checkbox
-                                                    checked={
-                                                        lots.indexOf(
-                                                            element.LOT
-                                                        ) > -1
-                                                    }
-                                                />
                                                 <ListItemText
-                                                    primary={element.LOT}
+                                                    primary={element.Lot}
                                                 />
                                             </MenuItem>
                                         )
