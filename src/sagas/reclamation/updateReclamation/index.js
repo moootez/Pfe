@@ -29,7 +29,12 @@ function* updateReclamationSagas({ response }) {
             timeout: 3000,
             data: response,
         })
-        if (res.status === 200) {
+        const message = `Réclamation ${res.data.data.status} avec succès`
+        const message2 = `Réclamation ${res.data.data.status}`
+        if (
+            res.data.data.status === 'Acceptée' ||
+            res.data.data.status === 'Reçue'
+        ) {
             yield all([
                 yield put(
                     updateReclamationAction.updateReclamationSuccess(
@@ -43,7 +48,31 @@ function* updateReclamationSagas({ response }) {
                         info: false,
                         error: false,
                         success: true,
-                        message: 'Changement de status avec succes',
+                        message: [message],
+                    })
+                ),
+                yield put(getLoaderActions.disableGeneraleLoader()),
+            ])
+        }
+
+        if (
+            res.data.data.status === 'En cours' ||
+            res.data.data.status === 'Refusée'
+        ) {
+            yield all([
+                yield put(
+                    updateReclamationAction.updateReclamationSuccess(
+                        res.data.data
+                    )
+                ),
+                yield put(
+                    alertActions.alertShow(true, {
+                        onConfirm: false,
+                        warning: false,
+                        info: false,
+                        error: false,
+                        success: true,
+                        message: [message2],
                     })
                 ),
                 yield put(getLoaderActions.disableGeneraleLoader()),

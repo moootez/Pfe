@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import { MenuItem } from '@material-ui/core'
 // import { FormattedMessage } from 'react-intl'
 import generateKey from '../../../shared/utility'
-
+/* eslint-disable no-unused-vars */
 /**
  *
  *
@@ -14,18 +14,15 @@ import generateKey from '../../../shared/utility'
  *     placeholder,
  *     list,
  *     name,
- *     isExist,
+ *      isExist,
  *     onchange,
  *     required,
  *     selectedItem,
- *     selectedItemRubrique,
- *     selectedItemSousRubrique,
  *     selectAll,
  *     isError,
  *     disabled,
  *     errorText,
  *     id,
- *     declarantExist,
  *     attributes = {},
  * }
  * @returns
@@ -84,6 +81,7 @@ const index = ({
                 {label}
                 {required ? <span className="text-danger"> * </span> : ''}
             </label>
+            {console.log('disabled', disabled)}
             <TextField
                 className="mt-1"
                 error={isError}
@@ -112,17 +110,10 @@ const index = ({
                               ...style,
                               marginLeft: 8,
                               marginRight: 8,
-                              backgroundCwolor: 'white',
                           }
                 }
                 label={placeholder}
-                value={
-                    label === 'العنوان'
-                        ? selectedItemRubrique
-                        : label === 'العنوان الفرعي'
-                        ? selectedItemSousRubrique
-                        : selectedItem
-                }
+                value={selectedItem}
                 onChange={e => handleChange(e)}
                 margin="normal"
                 variant="outlined"
@@ -134,13 +125,7 @@ const index = ({
                     : list || []
                 ).map(option => (
                     <MenuItem
-                        value={
-                            label === 'العنوان' || label === 'العنوان الفرعي'
-                                ? option.id
-                                : label === 'طبيعة النص القانوني'
-                                ? option.label
-                                : option.value
-                        }
+                        value={option.value}
                         name={name}
                         key={generateKey()}
                         disabled={
@@ -198,7 +183,6 @@ index.propTypes = {
     selectedItemRubrique: PropTypes.number,
     selectedItemSousRubrique: PropTypes.number,
     selectAll: PropTypes.bool,
-    onchange: PropTypes.func,
     errorText: PropTypes.string,
     name: PropTypes.string,
     id: PropTypes.number,
@@ -208,6 +192,7 @@ index.propTypes = {
     required: PropTypes.bool,
     attributes: PropTypes.object,
     declarantExist: PropTypes.object,
+    onchange: PropTypes.func,
 }
 
 export default index

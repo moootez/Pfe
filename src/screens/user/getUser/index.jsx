@@ -10,8 +10,8 @@ import getAllUsersActions from '../../../redux/user/getAllUsers'
 import getAllRolesActions from '../../../redux/roles/getAllRoles'
 // import ButtonComponent from '../../../components/ui/button'
 
-import Table from '../../../components/ui/table/table'
-
+import Table from '../../../components/ui/table/index'
+/* eslint-disable no-return-assign */
 /**
  *
  *
@@ -46,37 +46,22 @@ const Index = ({
     const [rows, setRows] = useState([])
     const [payload, setPayload] = useState({})
     const [meta, setMeta] = useState([])
-    const [limit, setLimit] = useState(5)
-    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState({})
+    const [page, setPage] = useState({})
     const [key, setKey] = useState('')
     const [order, setOrder] = useState('')
 
     const headers = [
-        {
-            id: 'prenom',
-            label: intl.formatMessage({ id: 'labelPrenom' }),
-        },
-        {
-            id: 'nom',
-            label: intl.formatMessage({ id: 'labelNom' }),
-        },
-
-        {
-            id: 'email',
-            label: intl.formatMessage({ id: 'labelAdressemail' }),
-        },
-        {
-            id: 'firstLogin',
-            label: 'Nbr Connexions',
-        },
-        {
-            id: 'enable',
-            label: 'Actif',
-        },
-        {
-            id: 'userRoles',
-            label: intl.formatMessage({ id: 'role' }),
-        },
+        intl.formatMessage({ id: 'labelPrenom' }),
+        intl.formatMessage({ id: 'labelNom' }),
+        intl.formatMessage({ id: 'labelAdressemail' }),
+        intl.formatMessage({ id: 'labeltel' }),
+        'Fonction',
+        'Direction',
+        'Nbr Connexions',
+        'Actif',
+        intl.formatMessage({ id: 'role' }),
+        'Action',
     ]
 
     const search = intl.formatMessage({ id: 'Recherche' })
@@ -89,19 +74,23 @@ const Index = ({
                 prenom: item.prenom,
                 nom: item.nom,
                 email: item.email,
+                tel: item.tel,
+                fonction: item.fonction,
+                direction: item.direction,
                 firstLogin: item.firstLogin,
-                enable: item.enable ? 'Actif' : "En attente d'activation",
+                enable: item.enable, // ? 'Actif' : "En attente d'activation",
                 userRoles: item.userRoles.length > 0 && item.userRoles[0].role,
-                users: item,
+                // users:item,
             }))
         }
         setRows(rowsTmp)
+        console.log(rowsTmp, 'aaa')
     }
 
     /* life cycle */
     useEffect(() => {
         getAllRolesReq()
-        getAllUsersReq({ limit: 5, page: 1 })
+        getAllUsersReq()
     }, [])
 
     /* life cycle */
@@ -186,10 +175,11 @@ const Index = ({
      * @param {*} row
      */
     const editAction = row => {
+        console.log(row, 'row')
         history.push({
             pathname: 'edit_user',
             state: {
-                user: row.users,
+                user: row,
                 id: row.id,
                 type: 'edit',
             },
@@ -279,7 +269,7 @@ const Index = ({
             <Table
                 lng={lng}
                 headers={headers}
-                rowsS={rows}
+                rows={rows}
                 history={history}
                 intl={intl}
                 type={type}
