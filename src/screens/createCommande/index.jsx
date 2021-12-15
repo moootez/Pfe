@@ -5,11 +5,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable prefer-destructuring */
+/* eslint-disable  no-return-assign */
+/* eslint-disable no-unreachable */
+/* eslint-disable jsx-a11y/heading-has-content */
+/* eslint-disable no-shadow */
+/* eslint-disable react/button-has-type */
 
 import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import PropTypes, { number } from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Divider, TextField, Button } from '@material-ui/core'
 import alertActions from '../../redux/alert'
@@ -84,6 +89,7 @@ const Index = props => {
         }
     }
     let getTotalQt = 8
+
     getTotalQt = rowData =>
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
             parseInt(rowData.coefUcUs || 0) +
@@ -91,9 +97,19 @@ const Index = props => {
 
     const getTotalPrix = rowData =>
         Math.round(getTotalQt(rowData) * rowData.prix * 1000) / 1000
+    function InnerHTMlFn(totalprix) {
+        document.getElementById('demo').innerHTML = totalprix
+    }
+    let totalprix = null
+    const getTotalPrix2 = rowData => {
+        totalprix += getTotalPrix(rowData)
+
+        InnerHTMlFn(totalprix)
+        return totalprix
+    }
+
     const handleSubmit = () => {
         if (!file) {
-            console.log('elem', commande)
             const payload = Object.entries(commande).map(elem => ({
                 Code_PCT: elem[1].Code_PCT,
                 Code_article: elem[0],
@@ -101,7 +117,6 @@ const Index = props => {
                 QTY: getTotalQt(
                     allProduct.find(el => el.codeArticleX3 === elem[0])
                 ),
-                prix: elem[1].prix,
             }))
             if (payload.length !== 0) {
                 addCommande({
@@ -131,6 +146,12 @@ const Index = props => {
     return (
         <div className="column col-md-12 style-table">
             <Divider />
+            <tr>
+                <td>Total :</td>
+                <td>
+                    <p id="demo"></p>
+                </td>
+            </tr>
             <MaterialTable
                 options={{
                     headerStyle: { fontSize: 20 },
@@ -227,7 +248,6 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
-                                                prix: rowData.prix,
                                             },
                                         })
                                     }
@@ -273,7 +293,6 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
-                                                prix: rowData.prix,
                                             },
                                         })
                                     }
@@ -307,7 +326,11 @@ const Index = props => {
                         render: rowData => {
                             return (
                                 <div key={generateKey()} style={{ width: 80 }}>
-                                    <p>{getTotalPrix(rowData)}</p>
+                                    <p>
+                                        {getTotalPrix2(rowData)}
+                                        <br />
+                                        {getTotalPrix(rowData)}
+                                    </p>
                                 </div>
                             )
                         },
@@ -363,6 +386,7 @@ const Index = props => {
         </div>
     )
 }
+
 /* redux */
 
 // dispatch action
