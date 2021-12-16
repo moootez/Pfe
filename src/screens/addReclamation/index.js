@@ -260,15 +260,11 @@ const Index = props => {
                                 id="demo-mutiple-checkbox"
                                 value={lots}
                                 renderValue={selected => selected.join(',')}
-                                onChange={e => changeHandlerLot('Lot', e)}
+                                onChange={e => changeHandlerLot('numLot', e)}
                                 input={<Input />}
                                 required
                             >
-                                {console.log(
-                                    reclamation,
-                                    commandes,
-                                    'reclamations'
-                                )}
+                                {console.log(reclamation, 'reclamations')}
                                 {(commandes instanceof Array
                                     ? commandes
                                     : []
