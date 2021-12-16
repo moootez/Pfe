@@ -72,10 +72,10 @@ const DetailPanelWithRowClick = props => {
     return (
         <>
             {!show ? (
-                <h1 className={classes.txt}>
-                    Merci de patienter quelques secondes, votre donnée est en
-                    cours de traitement
-                </h1>
+                <h4 className={classes.txt}>
+                    Merci de patienter quelques secondes, vos données sont en
+                    cours de traitement.
+                </h4>
             ) : dataTable.header.length && dataTable.data.length ? (
                 <MaterialTable
                     options={{
@@ -110,9 +110,9 @@ const DetailPanelWithRowClick = props => {
                     {...detailPanel}
                 />
             ) : (
-                <h1 className={classes.txt}>
+                <h4 className={classes.txt}>
                     Merci de contacter votre webmaster!!
-                </h1>
+                </h4>
             )}
         </>
     )
