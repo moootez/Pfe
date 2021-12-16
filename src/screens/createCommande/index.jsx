@@ -16,6 +16,7 @@ import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
 import PropTypes, { number } from 'prop-types'
 import { injectIntl } from 'react-intl'
+import { makeStyles } from '@material-ui/styles'
 import { Divider, TextField, Button } from '@material-ui/core'
 import alertActions from '../../redux/alert'
 import getAllProductActions from '../../redux/commande/getAllProduct'
@@ -26,6 +27,15 @@ import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
 
+const useStyles = makeStyles(theme => ({
+    txt: {
+        display: 'flex',
+        marginLeft: '90%',
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#000',
+    },
+}))
 // destrict
 const Index = props => {
     const {
@@ -42,6 +52,8 @@ const Index = props => {
     const [ColorBorder, setColorBorder] = useState('green')
     const [QteVrac, setQteVrac] = useState([])
     const [QteCarton, setQteCarton] = useState([])
+    const classes = useStyles()
+
     const checkQteVrac = e => {
         const value = e.target.value
         if (value >= 0) {
@@ -94,20 +106,18 @@ const Index = props => {
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
             parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
-
     const getTotalPrix = rowData =>
         Math.round(getTotalQt(rowData) * rowData.prix * 1000) / 1000
-    function InnerHTMlFn(totalprix) {
-        document.getElementById('demo').innerHTML = totalprix
-    }
-    let totalprix = null
-    const getTotalPrix2 = rowData => {
-        totalprix += getTotalPrix(rowData)
 
-        InnerHTMlFn(totalprix)
-        return totalprix
-    }
-
+    // function InnerHTMlFn(totalprix) {
+    //     document.getElementById('demo').innerHTML = totalprix
+    // }
+    // let totalprix = null
+    // const getTotalPrix2 = rowData => {
+    //     totalprix += getTotalPrix(rowData)
+    //     InnerHTMlFn(totalprix)
+    //     return totalprix
+    // }
     const handleSubmit = () => {
         if (!file) {
             const payload = Object.entries(commande).map(elem => ({
@@ -117,6 +127,7 @@ const Index = props => {
                 QTY: getTotalQt(
                     allProduct.find(el => el.codeArticleX3 === elem[0])
                 ),
+                prix: elem[1].prix,
             }))
             if (payload.length !== 0) {
                 addCommande({
@@ -146,12 +157,7 @@ const Index = props => {
     return (
         <div className="column col-md-12 style-table">
             <Divider />
-            <tr>
-                <td>Total :</td>
-                <td>
-                    <p id="demo"></p>
-                </td>
-            </tr>
+
             <MaterialTable
                 options={{
                     headerStyle: { fontSize: 20 },
@@ -248,6 +254,7 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
+                                                prix: rowData.prix,
                                             },
                                         })
                                     }
@@ -293,6 +300,7 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
+                                                prix: rowData.prix,
                                             },
                                         })
                                     }
@@ -325,12 +333,12 @@ const Index = props => {
                         },
                         render: rowData => {
                             return (
-                                <div key={generateKey()} style={{ width: 80 }}>
-                                    <p>
-                                        {getTotalPrix2(rowData)}
-                                        <br />
-                                        {getTotalPrix(rowData)}
-                                    </p>
+                                <div
+                                    key={generateKey()}
+                                    style={{ width: 80 }}
+                                    // handleChnage={getTotalPrix2(rowData)}
+                                >
+                                    <p>{getTotalPrix(rowData)}</p>
                                 </div>
                             )
                         },
@@ -379,6 +387,10 @@ const Index = props => {
                 </a>
             </div>
             <div className="m-3 text-right" style={{ paddingBottom: '20px' }}>
+                {/* <div className={classes.txt}>
+                    Prix total : <p id="demo"></p>
+                </div> */}
+
                 <Button className="btn-submit-cmd" onClick={handleSubmit}>
                     Enregistrer la commande
                 </Button>
