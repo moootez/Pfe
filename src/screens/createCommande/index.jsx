@@ -127,6 +127,7 @@ const Index = props => {
                 QTY: getTotalQt(
                     allProduct.find(el => el.codeArticleX3 === elem[0])
                 ),
+                prix: elem[1].prix,
             }))
             if (payload.length !== 0) {
                 addCommande({
@@ -253,6 +254,7 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
+                                                prix: rowData.prix,
                                             },
                                         })
                                     }
@@ -298,6 +300,7 @@ const Index = props => {
                                                 Code_PCT: rowData.codePct,
                                                 Designation:
                                                     rowData.designation1,
+                                                prix: rowData.prix,
                                             },
                                         })
                                     }
