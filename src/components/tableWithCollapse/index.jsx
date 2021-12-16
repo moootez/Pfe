@@ -6,20 +6,31 @@
 import React, { useState, useEffect, useRef } from 'react'
 import MaterialTable from 'material-table'
 import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/styles'
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
 import { removeBottomDash } from '../../shared/utility'
 import SimpleTable from '../simpleTable'
 
+const useStyles = makeStyles(theme => ({
+    txt: {
+        marginLeft: '20%',
+        fontWeight: 'bold',
+        color: '#000',
+    },
+}))
 const DetailPanelWithRowClick = props => {
     const subDataRef = useRef(null)
     // const [dataSub, setDataSub] = useState(useRef)
     const { apiCall, dataApi, dataReturned, dataSubArray, title } = props
+    const [show, setShow] = useState(false)
+    const classes = useStyles()
 
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
 
     useEffect(() => {
         apiCall(dataApi)
     }, [])
+    setTimeout(() => setShow(true), 2000)
 
     // Set livraison on state
     useEffect(() => {
@@ -60,7 +71,12 @@ const DetailPanelWithRowClick = props => {
         : {}
     return (
         <>
-            {dataTable.header.length && dataTable.data.length ? (
+            {!show ? (
+                <h1 className={classes.txt}>
+                    Merci de patienter quelques secondes, votre donnée est en
+                    cours de traitement
+                </h1>
+            ) : dataTable.header.length && dataTable.data.length ? (
                 <MaterialTable
                     options={{
                         maxBodyHeight: '80vh',
@@ -94,7 +110,9 @@ const DetailPanelWithRowClick = props => {
                     {...detailPanel}
                 />
             ) : (
-                <h1>Merci de contacter votre webmaster!!</h1>
+                <h1 className={classes.txt}>
+                    Merci de contacter votre webmaster!!
+                </h1>
             )}
         </>
     )
