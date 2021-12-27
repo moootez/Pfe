@@ -121,7 +121,7 @@ class addActualite extends React.Component {
                     info: false,
                     error: true,
                     success: false,
-                    message: `Image de grande taille, il faut choisir une image de taille inferieur à 150Ko`,
+                    message: `Image de grande taille, il faut choisir une image de taille inférieure à 150Ko`,
                 })
             }
         } else {
@@ -180,7 +180,7 @@ class addActualite extends React.Component {
                 info: false,
                 error: true,
                 success: false,
-                message: `Image de grande taille, il faut choisir une image de taille inferieur à 150Ko`,
+                message: `Image de grande taille, il faut choisir une image de taille inférieure à 150Ko`,
             })
     }
 
