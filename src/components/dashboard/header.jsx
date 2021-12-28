@@ -1,14 +1,14 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import React, { Fragment } from 'react'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Grid } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 // import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 // import {sidebar} from '../sidebar/index'
 import { history } from '../../store'
@@ -29,7 +29,8 @@ const Header = props => {
 
     const handleLogout = () => {
         logout()
-        history.push('/dashboard')
+        history.push('/actualite')
+        window.location.reload()
     }
 
     // render
@@ -40,7 +41,7 @@ const Header = props => {
                     <Grid md={2} xs={4} className="left-block">
                         <div className="logo-img" role="presentation">
                             <a href="/dashboard">
-                                <img src={Logo} alt="Logo-OPALIA" />                           
+                                <img src={Logo} alt="Logo-OPALIA" />
                             </a>
                         </div>
                     </Grid>
