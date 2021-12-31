@@ -1,10 +1,10 @@
 /* eslint-disable import/prefer-default-export */
+/* eslint-disable no-restricted-globals */
 import { takeLatest, put, all } from 'redux-saga/effects' // eslint-disable-line
 import axios from 'axios'
 import loginActions, { loginTypes } from '../../redux/login/index'
-import getAllRef from '../../redux/referencial/getAllReferencial'
+
 import alertActions from '../../redux/alert'
-import getActualiteActions from '../../redux/pageCms/actualite/getActualite/index'
 import baseUrl from '../../serveur/baseUrl'
 import getLoaderActions from '../../redux/wrapApi/index'
 import instance from '../../serveur/axios'
@@ -22,12 +22,6 @@ function* loginSagas(payload) {
             method: 'post',
             url: `${baseUrl}user/auth/login`,
             data: payload.response,
-            headers: {
-                'Accept-Version': 1,
-                Accept: 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json; charset=utf-8',
-            },
         })
 
         if (response.data.Token) {
@@ -50,13 +44,9 @@ function* loginSagas(payload) {
             )
             instance.defaults.headers.Authorization = `Bearer ${response.data.Token}`
             yield put(getLoaderActions.disableGeneraleLoader())
-            yield put(getAllRef.getAllReferenceSuccess(true))
+           
             yield put(loginActions.loginSuccess(response.data))
-            yield put(
-                getActualiteActions.getActualiteRequest({
-                    dontNavigate: true,
-                })
-            )
+            
         } else {
             yield put(getLoaderActions.disableGeneraleLoader())
             yield all([

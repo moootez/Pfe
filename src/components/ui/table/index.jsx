@@ -236,11 +236,10 @@ class index extends PureComponent {
             fn,
             getReceviedAction,
             editAction,
-            history,
             deleteRef,
         } = this.props
         const { page, rowsPerPage, rowsS } = this.state
-        console.log('history1', history)
+    
 
         return (
             <Paper className={classes.root}>

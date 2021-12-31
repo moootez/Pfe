@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Route } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import '../assets/sass/style.scss'
 import instance from '../serveur/axios'
 import wrapApiActions from '../redux/wrapApi'
@@ -29,7 +29,6 @@ class Routes extends Component {
         wrapApiCallFailure: PropTypes.func.isRequired,
         generalLoader: PropTypes.bool.isRequired,
         language: PropTypes.string.isRequired,
-        allReferenciels: PropTypes.object,
         connected: PropTypes.bool.isRequired,
         FirstConnect: PropTypes.bool,
         loggedUser: PropTypes.object,
@@ -42,7 +41,6 @@ class Routes extends Component {
      * @memberof Routes
      */
     static defaultProps = {
-        allReferenciels: {},
         loggedUser: null,
         FirstConnect: false,
     }
@@ -128,7 +126,6 @@ class Routes extends Component {
             connected,
             loggedUser,
             // FirstConnect,
-            allReferenciels,
         } = this.props
         const role = loggedUser
             ? (loggedUser.User.details.userRoles[0] || {}).role
@@ -137,7 +134,7 @@ class Routes extends Component {
             <Fragment>
                 <SpinnerDot show={generalLoader} />
                 <Alert />
-                {connected && allReferenciels ? (
+                {connected ? (
                     <div
                         className={
                             language === 'ar'
@@ -145,6 +142,11 @@ class Routes extends Component {
                                 : 'container-fluid'
                         }
                     >
+                        <Switch>
+                            <Route exact path=" ">
+                                <Redirect to="/actualite" />
+                            </Route>
+                        </Switch>
                         {/* <section className="countryOpaliaHeader">
                             OPALIA RECORDATI SARL - Tunisia
                         </section> */}
@@ -155,9 +157,12 @@ class Routes extends Component {
 
                         <Footer />
                     </div>
+                    
                 ) : (
                     <div>
                         <Route path="/" component={Login} />
+                        
+                        
                     </div>
                 )}
             </Fragment>
@@ -171,7 +176,7 @@ class Routes extends Component {
  * @param {*} state
  * @returns
  */
-const mapStateToProps = ({ login, wrapApi, info, referencial }) => {
+const mapStateToProps = ({ login, wrapApi, info }) => {
     return {
         connected: login.connected,
         FirstConnect: false,
@@ -180,7 +185,6 @@ const mapStateToProps = ({ login, wrapApi, info, referencial }) => {
         //     i => i.role === 'ROLE_CITOYEN'
         // ) !== undefined,
         loggedUser: login.response,
-        allReferenciels: referencial.allReferencials.response,
         generalLoader: wrapApi.generalLoader,
         language: info.language,
     }
