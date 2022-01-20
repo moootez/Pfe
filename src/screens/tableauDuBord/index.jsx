@@ -1,5 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable no-unused-vars */
+/* eslint-disable operator-assignment */
+
 import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import HighchartsReact from 'highcharts-react-official'
@@ -30,6 +32,10 @@ const apiConsumer = [
         endPoint: `dashbord/list/delai-reception/${localStorage.codeInsc}`,
         name: 'delai',
     },
+    {
+        endPoint: `reclamation/getDashboard/${localStorage.codeInsc}`,
+        name: 'reclamation',
+    },
 ]
 
 const consumeAPI = (endPoint, setState, state, name) => {
@@ -42,7 +48,7 @@ const consumeAPI = (endPoint, setState, state, name) => {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json; charset=utf-8',
         },
-        timeout: 3000,
+        timeout: 10000,
     })
         .then(res => {
             setState(old => ({ ...old, [name]: res.data }))
@@ -58,6 +64,17 @@ const index = () => {
             consumeAPI(el.endPoint, setState, state, el.name)
         )
     }, [])
+
+    const reclamationTraite =
+        state.reclamation !== undefined &&
+        (state.reclamation || {}).reclamationTraite.map(element =>
+            Number(element)
+        )
+    const reclamationTotal =
+        state.reclamation !== undefined &&
+        (state.reclamation || {}).reclamationTotal.map(element =>
+            Number(element)
+        )
 
     return (
         <Fragment>
@@ -293,6 +310,82 @@ const index = () => {
                                             ),
                                         },
                                     ],
+                                }}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-md-6 p-3">
+                        <div className="box-charts">
+                            <HighchartsReact
+                                highcharts={Highcharts || {}}
+                                options={{
+                                    chart: {
+                                        type: 'column',
+                                    },
+                                    title: {
+                                        text: 'Réclamations',
+                                    },
+                                    legend: {
+                                        align: 'right',
+                                        verticalAlign: 'middle',
+                                        layout: 'vertical',
+                                    },
+                                    xAxis: {
+                                        categories: (state.reclamation || {})
+                                            .categories,
+                                        labels: {
+                                            x: -10,
+                                        },
+                                    },
+                                    yAxis: {
+                                        allowDecimals: false,
+                                        title: {
+                                            text: '',
+                                        },
+                                    },
+
+                                    series: [
+                                        {
+                                            name: 'Réclamations traités',
+                                            data: reclamationTraite,
+                                        },
+                                        {
+                                            name: 'Total réclamations',
+                                            data: reclamationTotal,
+                                        },
+                                    ],
+                                    responsive: {
+                                        rules: [
+                                            {
+                                                condition: {
+                                                    maxWidth: 500,
+                                                },
+                                                chartOptions: {
+                                                    legend: {
+                                                        align: 'center',
+                                                        verticalAlign: 'bottom',
+                                                        layout: 'horizontal',
+                                                    },
+                                                    yAxis: {
+                                                        labels: {
+                                                            align: 'left',
+                                                            x: 0,
+                                                            y: -5,
+                                                        },
+                                                        title: {
+                                                            text: null,
+                                                        },
+                                                    },
+                                                    subtitle: {
+                                                        text: null,
+                                                    },
+                                                    credits: {
+                                                        enabled: false,
+                                                    },
+                                                },
+                                            },
+                                        ],
+                                    },
                                 }}
                             />
                         </div>
