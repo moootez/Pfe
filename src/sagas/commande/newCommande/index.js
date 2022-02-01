@@ -26,7 +26,7 @@ function* addNewCommandeSagas({ response }) {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
             },
-            timeout: 3000,
+            timeout: 8000,
             data: response,
         })
         if (res.status === 200) {

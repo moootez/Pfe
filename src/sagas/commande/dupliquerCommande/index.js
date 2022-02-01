@@ -21,12 +21,14 @@ function* dupliquerCommandeSagas({ response }) {
                 'Accept-Version': 1,
                 'Access-Control-Allow-Origin': '*',
             },
-            timeout: 3000,
+            timeout: 8000,
         })
         if (res.status === 200) {
             yield all([
                 yield put(
-                    dupliquerCommandeAction.dupliquerCommandeSuccess(res.data.data)
+                    dupliquerCommandeAction.dupliquerCommandeSuccess(
+                        res.data.data
+                    )
                 ),
                 yield put(
                     alertActions.alertShow(true, {
@@ -41,7 +43,9 @@ function* dupliquerCommandeSagas({ response }) {
                 yield put(getLoaderActions.disableGeneraleLoader()),
             ])
         } else {
-            yield put(dupliquerCommandeAction.dupliquerCommandeFailure(res.data.data))
+            yield put(
+                dupliquerCommandeAction.dupliquerCommandeFailure(res.data.data)
+            )
             yield put(getLoaderActions.disableGeneraleLoader())
         }
     } catch (error) {
