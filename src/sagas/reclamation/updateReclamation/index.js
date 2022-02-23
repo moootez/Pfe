@@ -26,7 +26,7 @@ function* updateReclamationSagas({ response }) {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
             },
-            timeout: 3000,
+            timeout: 10000,
             data: response,
         })
         const message = `Réclamation ${res.data.data.status} avec succès`

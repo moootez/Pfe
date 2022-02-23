@@ -41,7 +41,7 @@ function* scanDecSagas({ response }) {
         } else {
             yield put(scanDecActions.scanDecFailure(res.data))
         }
-        if (res.data) {
+        if (res.status === 200) {
             yield put(
                 alertActions.alertShow(true, {
                     onConfirm: false,
@@ -54,7 +54,17 @@ function* scanDecSagas({ response }) {
             )
         }
     } catch (error) {
-        yield put(scanDecActions.scanDecFailure(error))
+        yield put(
+            alertActions.alertShow(true, {
+                onConfirm: false,
+                warning: false,
+                info: false,
+                error: true,
+                success: false,
+                message: `${error.response.data.message.ar}`,
+            })
+        )
+        // yield put(scanDecActions.scanDecFailure(error))
     }
 }
 

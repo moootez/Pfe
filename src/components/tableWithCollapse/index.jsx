@@ -30,7 +30,7 @@ const DetailPanelWithRowClick = props => {
     useEffect(() => {
         apiCall(dataApi)
     }, [])
-    setTimeout(() => setShow(true), 2000)
+    setTimeout(() => setShow(true), 10000)
 
     // Set livraison on state
     useEffect(() => {

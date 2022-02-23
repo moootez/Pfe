@@ -22,7 +22,7 @@ function* syncProduitsSagas() {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
             },
-            timeout: 3000,
+            timeout: 10000,
         })
         if (res.status === 200) {
             yield all([

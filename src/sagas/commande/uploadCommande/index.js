@@ -21,7 +21,7 @@ function* uploadCommandeSagas({ response }) {
                 'Accept-Version': 1,
                 'Access-Control-Allow-Origin': '*',
             },
-            timeout: 3000,
+            timeout: 8000,
         })
         if (res.status === 200) {
             yield all([

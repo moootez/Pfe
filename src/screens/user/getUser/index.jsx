@@ -52,6 +52,7 @@ const Index = ({
     const [order, setOrder] = useState('')
 
     const headers = [
+        'codeClient',
         intl.formatMessage({ id: 'labelPrenom' }),
         intl.formatMessage({ id: 'labelNom' }),
         intl.formatMessage({ id: 'labelAdressemail' }),
@@ -71,6 +72,7 @@ const Index = ({
         if (arrayFiltred && arrayFiltred.length > 0) {
             rowsTmp = arrayFiltred.map(item => ({
                 id: item.id,
+                codeClient: item.codeInsc,
                 prenom: item.prenom,
                 nom: item.nom,
                 email: item.email,

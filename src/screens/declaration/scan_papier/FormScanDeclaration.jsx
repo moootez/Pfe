@@ -65,7 +65,6 @@ const FormScanDeclaration = props => {
         },
         [files]
     )
-
     /* functions */
 
     const handleUpload = file => {
@@ -79,13 +78,16 @@ const FormScanDeclaration = props => {
         isDragAccept,
         isDragReject,
     } = useDropzone({
-        accept:'text/*, application/vnd.ms-excel',
+        accept: 'text/*, application/vnd.ms-excel',
         onDrop: acceptedFiles => {
             setFiles(
                 acceptedFiles.map(file =>
-                    Object.assign(file, {
-                        preview: URL.createObjectURL(file),
-                    })
+                    Object.assign(
+                        file
+                        //     , {
+                        //     preview: URL.createObjectURL(file),
+                        // }
+                    )
                 )
             )
             handleUpload(acceptedFiles[0])
@@ -161,10 +163,14 @@ const FormScanDeclaration = props => {
                     style={draggableInput}
                 >
                     <input {...getInputProps()} />
-                    <p style={{ color: '#000' }}>
-                        Faites glisser et déposez le fichier ici, ou cliquez
-                        pour sélectionner le fichier
-                    </p>
+                    {files && files.length ? (
+                        <p style={{ color: '#000' }}>{files[0].name}</p>
+                    ) : (
+                        <p style={{ color: '#000' }}>
+                            Faites glisser et déposez le fichier ici, ou cliquez
+                            pour sélectionner le fichier
+                        </p>
+                    )}
                     <CloudUploadSharp color="secondary" fontSize="medium" />
                 </div>
                 <aside style={thumbsContainer}>{thumbs}</aside>

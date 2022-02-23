@@ -1,6 +1,9 @@
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable no-unused-vars */
 /* eslint-disable operator-assignment */
+/* eslint-disable no-return-assign */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-plusplus */
 
 import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
@@ -23,15 +26,15 @@ SwiperCore.use([Navigation, Autoplay])
 
 const apiConsumer = [
     { endPoint: `dashbord/list/kpi/${localStorage.codeInsc}`, name: 'total' },
-    { endPoint: `dashbord/list/top5/${localStorage.codeInsc}`, name: 'top5' },
+    // { endPoint: `dashbord/list/top5/${localStorage.codeInsc}`, name: 'top5' },
     {
         endPoint: `dashbord/list/montant-ttc-mois/${localStorage.codeInsc}`,
         name: 'montant',
     },
-    {
-        endPoint: `dashbord/list/delai-reception/${localStorage.codeInsc}`,
-        name: 'delai',
-    },
+    // {
+    //     endPoint: `dashbord/list/delai-reception/${localStorage.codeInsc}`,
+    //     name: 'delai',
+    // },
     {
         endPoint: `reclamation/getDashboard/${localStorage.codeInsc}`,
         name: 'reclamation',
@@ -48,7 +51,7 @@ const consumeAPI = (endPoint, setState, state, name) => {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json; charset=utf-8',
         },
-        timeout: 10000,
+        timeout: 30000,
     })
         .then(res => {
             setState(old => ({ ...old, [name]: res.data }))
@@ -65,6 +68,7 @@ const index = () => {
         )
     }, [])
 
+    // graph reclamation
     const reclamationTraite =
         state.reclamation !== undefined &&
         (state.reclamation || {}).reclamationTraite.map(element =>
@@ -75,6 +79,33 @@ const index = () => {
         (state.reclamation || {}).reclamationTotal.map(element =>
             Number(element)
         )
+    // graph TTC
+    const TTC = state.montant !== undefined && state.montant
+    const Mois1 = Array(12)
+    const Mois2 = Array(12)
+    const newDate = new Date()
+    const date = newDate.getFullYear()
+
+    if (TTC) {
+        TTC[date - 1].map(element => (Mois1[element[0] - 1] = element[1]))
+    }
+
+    for (let i = 0; i < Mois1.length; i++) {
+        if (Mois1[i] == null) {
+            Mois1[i] = 0
+        }
+    }
+
+    if (TTC) {
+        TTC[date].map(element => (Mois2[element[0] - 1] = element[1]))
+    }
+
+    for (let i = 0; i < Mois2.length; i++) {
+        if (Mois2[i] == null) {
+            Mois2[i] = 0
+        }
+    }
+    console.log('montant', Mois1, Mois2)
 
     return (
         <Fragment>
@@ -155,7 +186,7 @@ const index = () => {
                             </Paper>
                         </div>
                     </div>
-                    <div className="col-md-6 p-3">
+                    {/* <div className="col-md-6 p-3">
                         <div className="box-charts">
                             <HighchartsReact
                                 highcharts={Highcharts || {}}
@@ -213,7 +244,7 @@ const index = () => {
                                 }}
                             />
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col-md-6 p-3">
                         <div className="box-charts">
                             <HighchartsReact
@@ -226,9 +257,20 @@ const index = () => {
                                         text: 'CA par mois TTC TND',
                                     },
                                     xAxis: {
-                                        categories: (state.montant || []).map(
-                                            el => el[0]
-                                        ),
+                                        categories: [
+                                            'janvier',
+                                            'février',
+                                            'mars',
+                                            'avril',
+                                            'mai',
+                                            'juin',
+                                            'juillet',
+                                            'aout',
+                                            'septembre',
+                                            'octobre',
+                                            'novembre',
+                                            'decembre',
+                                        ],
                                         crosshair: true,
                                     },
                                     yAxis: {
@@ -255,16 +297,19 @@ const index = () => {
                                     },
                                     series: [
                                         {
-                                            data: (state.montant || []).map(
-                                                el => el[1]
-                                            ),
+                                            name: date - 1,
+                                            data: Mois1,
+                                        },
+                                        {
+                                            name: date,
+                                            data: Mois2,
                                         },
                                     ],
                                 }}
                             />
                         </div>
                     </div>
-                    <div className="col-md-6 p-3">
+                    {/* <div className="col-md-6 p-3">
                         <div className="box-charts">
                             <HighchartsReact
                                 highcharts={Highcharts || {}}
@@ -313,7 +358,7 @@ const index = () => {
                                 }}
                             />
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col-md-6 p-3">
                         <div className="box-charts">
                             <HighchartsReact

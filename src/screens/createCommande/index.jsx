@@ -77,6 +77,7 @@ const Index = props => {
     const [allProduct, setAllProduct] = useState([])
     const [commande, setCommande] = useState({})
     const [file] = useState(null)
+
     // 1 seul fois
     useEffect(() => {
         getAllProduct()
@@ -84,6 +85,7 @@ const Index = props => {
 
     //  exceution mors de changement du parametre
     // exp [newCommande.loading, uploadNewCommande.loading]
+
     useEffect(() => {
         if (newCommande.loading === true || uploadNewCommande.loading === true)
             setTimeout(() => history.push('/validation-commande'), 1000)
@@ -92,6 +94,12 @@ const Index = props => {
     useEffect(() => {
         setAllProduct(JSON.parse(JSON.stringify(products)))
     }, [products])
+
+    let all
+    if (allProduct !== null) {
+        all = allProduct.length
+        console.log('all', allProduct.length)
+    }
 
     const safeRequire = (url, path, ext = null) => {
         try {
@@ -161,6 +169,13 @@ const Index = props => {
             <MaterialTable
                 options={{
                     headerStyle: { fontSize: 20 },
+                    pageSize: 5,
+                    pageSizeOptions: [
+                        5,
+                        10,
+                        20,
+                        { value: all, label: 'Afficher Tous' },
+                    ],
                 }}
                 title={<PageTitle label="Créer une commande" />}
                 columns={[
