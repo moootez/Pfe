@@ -71,7 +71,9 @@ const index = props => {
     const passw =
         inputValue !== '' &&
         name === 'password' &&
-        !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}$/g.test(value)
+        // !/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_]).{8,}$/g.test(value)
+        !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?! .*\s).{8,}$/g.test(value)
+    // !/^(?=.*\d)(?=.*X)(?=.*[a-z])(?=.*[A-Z]).{10,}$/g.test(value)
     const error = isError || verifEmail || veriftext || passw
 
     return (
@@ -92,8 +94,8 @@ const index = props => {
                 className={`${classes.textField} mt-1 `}
                 value={
                     name === 'intituleFr' ||
-                    name === 'intituleAr' ||
-                    name === 'intituleEn'
+                        name === 'intituleAr' ||
+                        name === 'intituleEn'
                         ? inputValue
                         : defaultValue
                 }
@@ -152,13 +154,8 @@ const index = props => {
                         name === 'password' ||
                         name === 'confirmerPassword'
                     ) {
-                        if (
-                            /^[a-z0-9]+$/i.test(e.target.value) ||
-                            e.target.value === ''
-                        ) {
-                            onchange(e, id)
-                            setInputValue(e.target.value)
-                        }
+                        onchange(e, id)
+                        setInputValue(e.target.value)
                     } else if (name === 'pin' || name === 'confimerPin') {
                         if (
                             /^[0-9]+$/i.test(e.target.value) ||
@@ -214,8 +211,9 @@ const index = props => {
                         marginRight: '15px',
                     }}
                 >
-                    Un champ d&apos;au moins 10 caractères. Il doit s&apos;agir
-                    d&apos;une combinaison de majuscules et de minuscules{' '}
+                    Un champ d&apos;au moins 8 caractères. Il contient au moins une lettre minuscule
+                    , une lettre majuscule, un chiffre numérique, et un caractère spécial
+                    {' '}
                 </span>
             )}
             {!errorText && verifEmail && (
@@ -260,9 +258,9 @@ index.defaultProps = {
     errorText: '',
     lng: 'ar',
     attributes: {},
-    isExistMatricule: () => {},
-    onchange: () => {},
-    getDeclarantByCinOrPass: () => {},
+    isExistMatricule: () => { },
+    onchange: () => { },
+    getDeclarantByCinOrPass: () => { },
 }
 /**
  *  declaration des props
