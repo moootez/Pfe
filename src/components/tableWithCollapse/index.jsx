@@ -24,8 +24,8 @@ const DetailPanelWithRowClick = props => {
     const { apiCall, dataApi, dataReturned, dataSubArray, title } = props
     const [show, setShow] = useState(false)
     const classes = useStyles()
-
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
+    const [allList, setAllList] = useState(0);
 
     useEffect(() => {
         apiCall(dataApi)
@@ -51,23 +51,27 @@ const DetailPanelWithRowClick = props => {
     }, [JSON.stringify(dataReturned)])
 
     useEffect(() => {
+        if (dataTable.data !== null) setAllList(dataTable.data.length)
+    }, [dataTable])
+
+    useEffect(() => {
         subDataRef.current = (dataSubArray || {}).dataReturned
     }, [JSON.stringify((dataSubArray || {}).dataReturned)])
 
     const detailPanel = dataSubArray
         ? {
-              detailPanel: rowData => {
-                  return (
-                      // dataSubArray.dataApi is A function to get useful data from row data
-                      <SimpleTable
-                          {...rowData}
-                          {...dataSubArray}
-                          dataApi={dataSubArray.dataApi(rowData)}
-                          dataReturned={subDataRef.current}
-                      />
-                  )
-              },
-          }
+            detailPanel: rowData => {
+                return (
+                    // dataSubArray.dataApi is A function to get useful data from row data
+                    <SimpleTable
+                        {...rowData}
+                        {...dataSubArray}
+                        dataApi={dataSubArray.dataApi(rowData)}
+                        dataReturned={subDataRef.current}
+                    />
+                )
+            },
+        }
         : {}
     return (
         <>
@@ -81,6 +85,12 @@ const DetailPanelWithRowClick = props => {
                     options={{
                         maxBodyHeight: '80vh',
                         headerStyle: { fontSize: 20 },
+                        pageSizeOptions: [
+                            5,
+                            10,
+                            20,
+                            { value: allList, label: 'Afficher Tous' },
+                        ],
                     }}
                     dataTable
                     columns={dataTable.header}
