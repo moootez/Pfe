@@ -11,9 +11,14 @@ import MaterialTable from 'material-table'
 
 const Index = props => {
     const { userID, reclamations, getAllReclamation } = props
+    const [allList, setAllList] = useState(0);
     useEffect(() => {
         getAllReclamation({ user: userID })
     }, [])
+
+    useEffect(() => {
+        if (reclamations !== null) setAllList(reclamations.length)
+    }, [reclamations])
     // Set livraison on state
 
     return (
@@ -23,6 +28,12 @@ const Index = props => {
                 title="Mes réclamations"
                 options={{
                     headerStyle: { fontSize: 20 },
+                    pageSizeOptions: reclamations.length !== 0 && [
+                        5,
+                        10,
+                        20,
+                        { value: allList, label: 'Afficher Tous' },
+                    ],
                 }}
                 columns={[
                     { title: 'ID', field: 'id' },

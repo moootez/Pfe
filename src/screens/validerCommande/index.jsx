@@ -54,10 +54,15 @@ const Index = props => {
     } = props
 
     const [allCommande, setAllCommande] = useState([])
+    const [allList, setAllList] = useState(0);
 
     useEffect(() => {
         getCommande({ user: userID, role })
     }, [])
+
+    useEffect(() => {
+        if (allCommande !== null) setAllList(allCommande.length)
+    }, [allCommande])
 
     useEffect(() => {
         let newCommandes
@@ -94,7 +99,6 @@ const Index = props => {
             },
         })
     }
-
     return (
         <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
@@ -113,6 +117,12 @@ const Index = props => {
                 title={<PageTitle label="Commandes à valider" />}
                 options={{
                     headerStyle: { fontSize: 20 },
+                    pageSizeOptions: allCommande.length !== 0 && [
+                        5,
+                        10,
+                        20,
+                        { value: allList, label: 'Afficher Tous' },
+                    ],
                 }}
                 columns={[
                     {
@@ -121,36 +131,36 @@ const Index = props => {
                     },
                     role === 'ROLE_CLIENT'
                         ? {
-                              title: 'Date de création',
-                              field: 'createdAt',
-                          }
+                            title: 'Date de création',
+                            field: 'createdAt',
+                        }
                         : { title: 'Statut', field: 'status' },
                     role !== 'ROLE_CLIENT'
                         ? {
-                              title: 'Client',
-                              field: 'client.codeInsc',
-                          }
+                            title: 'Client',
+                            field: 'client.codeInsc',
+                        }
                         : {
-                              title: 'Dupliquer commande',
-                              field: 'dupliquer',
-                              render: rowData => {
-                                  return (
-                                      <div>
-                                          <IconButton
-                                              onClick={() =>
-                                                  dupliquerCommande({
-                                                      id: rowData.id,
-                                                      source: 'duplication',
-                                                  })
-                                              }
-                                              color="primary"
-                                          >
-                                              <FileCopyOutlinedIcon />
-                                          </IconButton>
-                                      </div>
-                                  )
-                              },
-                          },
+                            title: 'Dupliquer commande',
+                            field: 'dupliquer',
+                            render: rowData => {
+                                return (
+                                    <div>
+                                        <IconButton
+                                            onClick={() =>
+                                                dupliquerCommande({
+                                                    id: rowData.id,
+                                                    source: 'duplication',
+                                                })
+                                            }
+                                            color="primary"
+                                        >
+                                            <FileCopyOutlinedIcon />
+                                        </IconButton>
+                                    </div>
+                                )
+                            },
+                        },
                     {
                         title: 'Validation',
                         field: 'validation',
