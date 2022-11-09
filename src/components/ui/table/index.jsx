@@ -496,6 +496,7 @@ class index extends PureComponent {
                                     {(type === 'listTextJuridique' ||
                                         type === 'listLien' ||
                                         type === 'listRapport' ||
+                                        type === 'user' ||
                                         type === 'listActualite' ||
                                         type === 'listFaq') && (
                                             <Fab
