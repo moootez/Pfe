@@ -6,6 +6,7 @@ import { getUsersByRoleSaga } from './getUsersByRole'
 import { changePasswordSaga } from './changePassword'
 import { resetPasswordSaga } from './resetPassword'
 import { sendEmailSaga } from './sendEmail'
+import deleteUserSaga from './deleteUser'
 
 /**
  * export all function saga (API)
@@ -15,10 +16,11 @@ const userSagas = [
     getUserByTokenSaga,
     getUsersByRoleSaga,
     addUserSaga,
-    editUserSaga,
+    deleteUserSaga,
     changePasswordSaga,
     sendEmailSaga,
     resetPasswordSaga,
+    editUserSaga,
 ]
 
 export default userSagas

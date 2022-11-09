@@ -8,13 +8,13 @@ import PageTitle from '../../../components/ui/pageTitle'
 import Button from '../../../components/ui/button'
 import getAllUsersActions from '../../../redux/user/getAllUsers'
 import getAllRolesActions from '../../../redux/roles/getAllRoles'
-// import ButtonComponent from '../../../components/ui/button'
-
+import alertActions from '../../../redux/alert'
 import Table from '../../../components/ui/table/index'
+import deleteUserActions from '../../../redux/user/deleteUser'
 /* eslint-disable no-return-assign */
 /**
  *
- *
+ * 
  * @param {*} {
  *     lng,
  *     intl,
@@ -37,6 +37,9 @@ const Index = ({
     allRoles,
     allUsers,
     syncUsers,
+    alertHide,
+    alertShow,
+    deleteUser
 }) => {
     /* hooks member */
     const type = 'user'
@@ -208,6 +211,28 @@ const Index = ({
         setOrder(index.order)
     }
 
+    /**
+ * delete
+ *
+ * @param {*} row
+ */
+    const deleteRef = item => {
+        alertShow(true, {
+            warning: true,
+            info: false,
+            error: false,
+            success: false,
+            title: `Voulez-vous vraiment supprimer ${item.prenom} ${item.nom}`,
+            onConfirm: () => {
+                deleteUser(item.id)
+                setTimeout(() => {
+                    alertHide()
+                    getAllUsersReq()
+                }, 2000)
+            },
+        })
+    }
+
     return (
         <div style={{ padding: '1%' }}>
             <Grid className="gridItem">
@@ -276,6 +301,7 @@ const Index = ({
                 intl={intl}
                 type={type}
                 editAction={editAction}
+                deleteRef={deleteRef}
                 paramTab={paramConsultTab}
                 meta={meta}
             />
@@ -311,6 +337,21 @@ const mapDispatchToProps = dispatch => ({
         dispatch(getAllUsersActions.getAllUsersRequest(payload)),
     getAllRolesReq: () => dispatch(getAllRolesActions.getAllRolesRequest()),
     syncUsers: () => dispatch({ type: 'SYNC_USERS' }),
+    alertShow: (show, info) =>
+        dispatch(
+            alertActions.alertShow(show, {
+                onConfirm: info.onConfirm,
+                warning: info.warning,
+                info: info.info,
+                error: info.error,
+                success: info.success,
+                message: info.message,
+                title: info.title,
+            })
+        ),
+    alertHide: () => dispatch(alertActions.alertHide()),
+    deleteUser: payload =>
+        dispatch(deleteUserActions.deleteUserRequest(payload)),
 })
 /**
  *  Inialisation
@@ -329,6 +370,9 @@ Index.propTypes = {
     allRoles: PropTypes.object.isRequired,
     allUsers: PropTypes.object.isRequired,
     syncUsers: PropTypes.func.isRequired,
+    alertShow: PropTypes.func.isRequired,
+    alertHide: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired,
 }
 
 export default connect(
