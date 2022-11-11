@@ -23,6 +23,8 @@ function* validerCommandeSagas({ response }) {
     try {
         const { commande, status, user, role } = response
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'post',
             url: `${baseUrl}commande/change-status/${commande}`,
@@ -31,6 +33,7 @@ function* validerCommandeSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
             data: { status },

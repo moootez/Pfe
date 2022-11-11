@@ -13,6 +13,7 @@ import baseUrl from '../../../serveur/baseUrl'
  */
 function* getAllRolesSagas() {
     try {
+        const { OpaliaToken } = window.localStorage
         const responseAdd = yield axios({
             method: 'get',
             url: `${baseUrl}user/roles/`,
@@ -21,6 +22,7 @@ function* getAllRolesSagas() {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

@@ -16,6 +16,8 @@ import getLoaderActions from '../../../redux/wrapApi/index'
 function* exportPdfCommandeSagas({ response }) {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'post',
             url: `${baseUrl}commande/export`,
@@ -24,6 +26,7 @@ function* exportPdfCommandeSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 8000,
             data: response,

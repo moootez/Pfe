@@ -14,6 +14,8 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  */
 function* getCommandeSagas({ response }) {
     try {
+        const { OpaliaToken } = window.localStorage
+
         const { user, role } = response
         const endpoint =
             role === 'ROLE_ADV' || role === 'ROLE_ADMIN' ? 'all' : user
@@ -26,6 +28,7 @@ function* getCommandeSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

@@ -16,6 +16,8 @@ function* getDeclarantInterneSagas({ response }) {
     try {
         const { user, commande } = response
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'get',
             url: `${baseUrl}appelCrm/Commande_ligne/${commande}/${user}`,
@@ -24,6 +26,7 @@ function* getDeclarantInterneSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

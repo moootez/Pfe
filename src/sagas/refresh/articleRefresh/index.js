@@ -13,6 +13,8 @@ import getLoaderActions from '../../../redux/wrapApi/index'
 function* syncProduitsSagas() {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'get',
             url: `${baseUrl}article/get/syncronisationCrm`,
@@ -21,6 +23,7 @@ function* syncProduitsSagas() {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

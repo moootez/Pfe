@@ -16,6 +16,8 @@ function* getAllReferencialSagas(payload) {
     const { user } = payload.response
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const response = yield axios({
             method: 'get',
             url: `${baseUrl}appelCrm/Livraison_entete/${user}`,
@@ -24,6 +26,7 @@ function* getAllReferencialSagas(payload) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })
