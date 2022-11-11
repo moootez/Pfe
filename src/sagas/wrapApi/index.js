@@ -43,7 +43,7 @@ function* wrapApiCall() {
         if (login.response) {
             if (login.response.Token) {
                 if (
-                    jwtDecode(login.response.Token).exp < Date.now() / 1000 ||
+                    login.response.expirationDate < Date.now() / 1000 ||
                     !OpaliaToken
                 ) {
                     localStorage.setItem('OpaliaToken', '')
