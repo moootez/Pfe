@@ -92,7 +92,6 @@ class index extends PureComponent {
             rowsPerPage: 5,
             arrayDec: [],
             rowsS: Immutable.asMutable(props.rows.slice(0, 5)),
-            allList: null
         }
     }
 
@@ -240,7 +239,7 @@ class index extends PureComponent {
             editAction,
             deleteRef,
         } = this.props
-        const { page, rowsPerPage, rowsS, allList } = this.state
+        const { page, rowsPerPage, rowsS } = this.state
 
         return (
             <Paper className={classes.root}>
@@ -284,9 +283,9 @@ class index extends PureComponent {
                                                     key={generateKey()}
                                                 >
                                                     {key !==
-                                                        'codeDeclaration' ? (
+                                                    'codeDeclaration' ? (
                                                         key !==
-                                                            'rapport_De_Contrôle' ? (
+                                                        'rapport_De_Contrôle' ? (
                                                             item[key] && (
                                                                 <div>
                                                                     {item[
@@ -325,7 +324,7 @@ class index extends PureComponent {
                                                                     href={
                                                                         type ===
                                                                             'saisieAssujetti' ||
-                                                                            type ===
+                                                                        type ===
                                                                             'validationAssujetti'
                                                                             ? ' '
                                                                             : null
@@ -454,26 +453,26 @@ class index extends PureComponent {
                                         type === 'publication' ||
                                         type === 'publicationEtablissement' ||
                                         type === 'publierDeclarant') && (
-                                            <Checkbox
-                                                variant="contained"
-                                                color="primary"
-                                                style={{
-                                                    margin: 'auto',
-                                                    marginTop: '0.6em',
-                                                }}
-                                                onChange={e =>
-                                                    this.handleChange(e, item)
-                                                }
-                                                disabled={
-                                                    (type === 'validation' &&
-                                                        item.status ===
+                                        <Checkbox
+                                            variant="contained"
+                                            color="primary"
+                                            style={{
+                                                margin: 'auto',
+                                                marginTop: '0.6em',
+                                            }}
+                                            onChange={e =>
+                                                this.handleChange(e, item)
+                                            }
+                                            disabled={
+                                                (type === 'validation' &&
+                                                    item.status ===
                                                         'مصادق عليها') ||
-                                                    (type === 'affectation' &&
-                                                        item.status ===
+                                                (type === 'affectation' &&
+                                                    item.status ===
                                                         'تمت مقاربتها')
-                                                }
-                                            />
-                                        )}
+                                            }
+                                        />
+                                    )}
                                     {(type === 'user' ||
                                         type === 'listQuide' ||
                                         type === 'listTextJuridique' ||
@@ -481,17 +480,17 @@ class index extends PureComponent {
                                         type === 'listRapport' ||
                                         type === 'listActualite' ||
                                         type === 'listFaq') && (
-                                            <Fab
-                                                color="secondary"
-                                                aria-label="edit"
-                                                className={classes.fab}
-                                                size="small"
-                                            >
-                                                <EditIcon
-                                                    onClick={() => editAction(item)}
-                                                />
-                                            </Fab>
-                                        )}
+                                        <Fab
+                                            color="secondary"
+                                            aria-label="edit"
+                                            className={classes.fab}
+                                            size="small"
+                                        >
+                                            <EditIcon
+                                                onClick={() => editAction(item)}
+                                            />
+                                        </Fab>
+                                    )}
 
                                     {(type === 'listTextJuridique' ||
                                         type === 'listLien' ||
@@ -499,24 +498,32 @@ class index extends PureComponent {
                                         type === 'user' ||
                                         type === 'listActualite' ||
                                         type === 'listFaq') && (
-                                            <Fab
-                                                aria-label="delete"
-                                                className={classes.fab}
-                                                size="small"
-                                            >
-                                                <DeleteIcon
-                                                    onClick={() => deleteRef(item)}
-                                                    color="primary"
-                                                />
-                                            </Fab>
-                                        )}
+                                        <Fab
+                                            aria-label="delete"
+                                            className={classes.fab}
+                                            size="small"
+                                        >
+                                            <DeleteIcon
+                                                onClick={() => deleteRef(item)}
+                                                color="primary"
+                                            />
+                                        </Fab>
+                                    )}
                                 </TableRow>
                             ))}
                     </TableBody>
                     <TableFooter style={{ backgroundColor: '#f4f4f4' }}>
                         <TableRow>
                             <TablePagination
-                                rowsPerPageOptions={[5, 10, 25, { value: rows.length, label: 'Afficher Tous' }]}
+                                rowsPerPageOptions={[
+                                    5,
+                                    10,
+                                    25,
+                                    {
+                                        value: rows.length,
+                                        label: 'Afficher Tous',
+                                    },
+                                ]}
                                 labelRowsPerPage={
                                     lng === 'ar'
                                         ? 'خطوط لكل صفحة'
@@ -569,16 +576,16 @@ index.propTypes = {
  */
 index.defaultProps = {
     saisieAction: null,
-    getReceviedAction: () => { },
+    getReceviedAction: () => {},
     scanAction: null,
     status: '',
     type: '',
     searchValue: '',
     row: {},
     rows: [],
-    setArrayDecAffecter: () => { },
-    fn: () => { },
-    editAction: () => { },
-    deleteRef: () => { },
+    setArrayDecAffecter: () => {},
+    fn: () => {},
+    editAction: () => {},
+    deleteRef: () => {},
 }
 export default withStyles(styles)(index)
