@@ -509,6 +509,19 @@ const loadableComponents = [
         name: 'edit_rapport_declaration',
         showWhenConnected: true,
     },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/parametreGlobale/parametreGlobale'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/prametreGlobale',
+        props: {
+            exact: true,
+        },
+        role: ['ROLE_ADMIN'],
+        name: 'prametre_globale',
+        showWhenConnected: true,
+    },
 ]
 
 export default loadableComponents
