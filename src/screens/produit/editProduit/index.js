@@ -9,7 +9,6 @@ import PageTitle from '../../../components/ui/pageTitle'
 import ButtonComponent from '../../../components/ui/button'
 import alertActions from '../../../redux/alert'
 import { Patch } from '../../../serveur/axios'
-import getAllProductActions from '../../../redux/commande/getAllProduct'
 
 /**
  * edit actualité
@@ -24,7 +23,6 @@ class editActualite extends React.Component {
         intl: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired,
         alertShow: PropTypes.func.isRequired,
-        getAllProduct: PropTypes.func.isRequired,
     }
 
     static defaultProps = {
@@ -41,10 +39,8 @@ class editActualite extends React.Component {
         super(props)
         this.state = {
             isError: false,
-            errorPDF: false,
             errorsList: {},
             payloadState: {},
-            idActualite: {},
             imageState: null,
         }
 
@@ -66,7 +62,6 @@ class editActualite extends React.Component {
         this.setState({
             payloadState: name,
             imageState: name,
-            idActualite: name,
         })
     }
 
@@ -123,9 +118,6 @@ class editActualite extends React.Component {
                 }
                 // Convert data to base64
                 fileReader.readAsDataURL(fileToLoad)
-                this.setState({
-                    errorPDF: false,
-                })
             }
             // else {
             //     this.setState({
@@ -281,7 +273,6 @@ const mapStateToProps = state => {
  * @param {*} dispatch
  */
 const mapDispatchToProps = dispatch => ({
-    getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
     alertShow: (show, info) =>
         dispatch(
             alertActions.alertShow(show, {
