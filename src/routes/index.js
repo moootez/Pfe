@@ -105,7 +105,7 @@ class Routes extends Component {
                             self.props.wrapApiPutFailure(e.toString())
                         })
                         return Promise.reject(error)
-                    }
+                    } return null
                 }
             )
         } catch (err) {

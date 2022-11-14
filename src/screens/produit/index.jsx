@@ -18,6 +18,8 @@ import PropTypes, { number } from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/styles'
 import { Divider, TextField, Button } from '@material-ui/core'
+import Fab from '@material-ui/core/Fab'
+import EditIcon from '@material-ui/icons/Edit'
 import alertActions from '../../redux/alert'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import addNewCommandeActions from '../../redux/commande/newCommande'
@@ -26,8 +28,7 @@ import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
-import Fab from '@material-ui/core/Fab'
-import EditIcon from '@material-ui/icons/Edit'
+
 
 const useStyles = makeStyles(theme => ({
     txt: {
@@ -114,10 +115,8 @@ const Index = props => {
 
     getTotalQt = rowData =>
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
-            parseInt(rowData.coefUcUs || 0) +
+        parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
-    const getTotalPrix = rowData =>
-        Math.round(getTotalQt(rowData) * rowData.prix * 1000) / 1000
 
     // function InnerHTMlFn(totalprix) {
     //     document.getElementById('demo').innerHTML = totalprix

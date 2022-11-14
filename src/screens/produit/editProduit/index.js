@@ -4,7 +4,6 @@ import { Grid, FormGroup } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
-import editActualiteActions from '../../../redux/pageCms/actualite/editActualite'
 import RenderForm from '../../../components/formProduit/produit/form'
 import PageTitle from '../../../components/ui/pageTitle'
 import ButtonComponent from '../../../components/ui/button'
@@ -24,7 +23,6 @@ class editActualite extends React.Component {
         response: PropTypes.object,
         intl: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired,
-        editActualiteReq: PropTypes.func.isRequired,
         alertShow: PropTypes.func.isRequired,
         getAllProduct: PropTypes.func.isRequired,
     }
@@ -111,7 +109,6 @@ class editActualite extends React.Component {
      */
     fieldChangedHandler = ({ target: { name, value, files } }) => {
         const { payloadState } = this.state
-        const { alertShow } = this.props
 
         const base64 = []
         if (name === 'image') {
@@ -120,7 +117,7 @@ class editActualite extends React.Component {
             if (fileToLoad && fileToLoad.size <= 150000) {
                 let file = ''
                 // eslint-disable-next-line func-names
-                fileReader.onload = function(fileLoadedEvent) {
+                fileReader.onload = function (fileLoadedEvent) {
                     file = fileLoadedEvent.target.result
                     base64.push(file)
                 }
@@ -145,6 +142,7 @@ class editActualite extends React.Component {
         }
         this.setState({
             payloadState: {
+                ...payloadState,
                 name: this.state.imageState,
                 base64: name === 'image' ? base64 : value,
             },
@@ -187,8 +185,8 @@ class editActualite extends React.Component {
      * @memberof editActualite
      */
     editActualite = () => {
-        const { getAllProduct, alertShow, history } = this.props
-        const { payloadState, idActualite, errorPDF } = this.state
+        const { alertShow, history } = this.props
+        const { payloadState } = this.state
         Patch('article/editPicture', {
             name: payloadState.name + '.png',
             base64: payloadState.base64[0],
@@ -284,8 +282,6 @@ const mapStateToProps = state => {
  */
 const mapDispatchToProps = dispatch => ({
     getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
-    editActualiteReq: payload =>
-        dispatch(editActualiteActions.editActualiteRequest(payload)),
     alertShow: (show, info) =>
         dispatch(
             alertActions.alertShow(show, {

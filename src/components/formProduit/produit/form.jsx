@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Divider, Grid } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { Button, Modal } from 'react-bootstrap'
 import FormControl from '@material-ui/core/FormControl'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import setListInput from './setListInput'
@@ -16,36 +15,12 @@ import SelectList from '../../ui/select'
  * @returns
  */
 const form = ({
-    imageState,
     payload,
     isError,
     errorsList,
     fieldChangedHandler,
 }) => {
-    const [showModal, setShowModal] = useState(false)
 
-    /**
-     * close modal
-     *
-     * @memberof FormLogin
-     */
-    const /**
-         * fermer modal
-         *
-         * @memberof Actions
-         */
-        closeModal = () => {
-            setShowModal(false)
-        }
-
-    /**
-     * show modal
-     *
-     * @memberof FormLogin
-     */
-    const show = () => {
-        setShowModal(true)
-    }
 
     /* render */
     return setListInput().map(item => {
@@ -188,10 +163,10 @@ const form = ({
                                 Object.keys(errorsList).includes(item.name)
                             }
                             required={item.required}
-                            // disabled={
-                            //     item.name !== 'dateFinFonction' &&
-                            //     declarantExist
-                            // }
+                        // disabled={
+                        //     item.name !== 'dateFinFonction' &&
+                        //     declarantExist
+                        // }
                         />
                     </Grid>
                 )
@@ -251,10 +226,10 @@ const form = ({
                                 Object.keys(errorsList).includes(item.name)
                             }
                             required={item.required}
-                            // disabled={
-                            //     item.name !== 'numPassport' &&
-                            //     (item.name !== 'numCin' && declarantExist)
-                            // }
+                        // disabled={
+                        //     item.name !== 'numPassport' &&
+                        //     (item.name !== 'numCin' && declarantExist)
+                        // }
                         />
 
                         {/* {item.sm === 12 && !item.isCheck && <Divider />} */}

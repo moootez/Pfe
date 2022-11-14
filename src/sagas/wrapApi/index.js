@@ -5,8 +5,6 @@ import wrapApiActions, { wrapApiTypes } from '../../redux/wrapApi/index'
 import instance from '../../serveur/axios'
 import alertActions from '../../redux/alert'
 
-const jwtDecode = require('jwt-decode')
-
 /**
  * consomation API avec axios
  *

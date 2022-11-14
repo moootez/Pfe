@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import baseUrl from '../../serveur/baseUrl'
+import { useDispatch, useSelector } from 'react-redux'
+import { Divider, Grid } from '@material-ui/core'
 import '../../assets/sass/style.scss'
 import PageTitle from '../../components/ui/pageTitle'
-import { Divider, Grid } from '@material-ui/core'
 import InputText from '../../components/ui/input'
 import ButtonComponent from '../../components/ui/button'
-import { useDispatch, useSelector } from 'react-redux'
 import getParametresActions from '../../redux/parametres/getParametres'
 import patchParametresActions from '../../redux/parametres/patchParametres'
 
@@ -21,7 +19,7 @@ const ParametreGlobale = () => {
 
     useEffect(() => {
         if (response) {
-            setValue(response.filter(e => e.type == 'timeout')[0])
+            setValue(response.filter(e => e.type === 'timeout')[0])
         }
     }, [response])
 
