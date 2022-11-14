@@ -511,7 +511,8 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
-            loader: () => import('../screens/parametreGlobale/parametreGlobale'),
+            loader: () =>
+                import('../screens/parametreGlobale/parametreGlobale'),
             loading: () => <SpinnerHourGlass />,
         }),
         path: '/prametreGlobale',
@@ -520,6 +521,30 @@ const loadableComponents = [
         },
         role: ['ROLE_ADMIN'],
         name: 'prametre_globale',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/produit'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/produit',
+        props: {
+            exact: true,
+        },
+        name: 'produit',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/produit/editProduit'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/edit_produit',
+        props: {
+            exact: true,
+        },
+        name: 'edit_produit',
         showWhenConnected: true,
     },
 ]

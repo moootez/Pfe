@@ -61,11 +61,8 @@ class Routes extends Component {
      * @memberof
      */
     componentDidMount() {
-        const {
-            wrapApiCall,
-            wrapApiCallFailure,
-            wrapApiPut,
-        } = this.props
+        const { OpaliaToken } = window.localStorage
+        const { wrapApiCall, wrapApiCallFailure, wrapApiPut } = this.props
         try {
             const self = this
 
@@ -87,24 +84,28 @@ class Routes extends Component {
                 },
                 error => {
                     const err = Promise.resolve(error)
-
-                    err.then(e => {
-                        if (e.config && !e.config.url.includes('notification/'))
-                            self.props.alertShow(true, {
-                                title:  'Erreur',
-                                warning: false,
-                                info: false,
-                                error: true,
-                                success: false,
-                                message:
-                                    error.response !== undefined &&
-                                    error.response.data &&
-                                    error.response.data.message &&
-                                    error.response.data.message.fr,
-                            })
-                        self.props.wrapApiPutFailure(e.toString())
-                    })
-                    return Promise.reject(error)
+                    if (OpaliaToken) {
+                        err.then(e => {
+                            if (
+                                e.config &&
+                                !e.config.url.includes('notification/')
+                            )
+                                self.props.alertShow(true, {
+                                    title: 'Erreur',
+                                    warning: false,
+                                    info: false,
+                                    error: true,
+                                    success: false,
+                                    message:
+                                        error.response !== undefined &&
+                                        error.response.data &&
+                                        error.response.data.message &&
+                                        error.response.data.message.fr,
+                                })
+                            self.props.wrapApiPutFailure(e.toString())
+                        })
+                        return Promise.reject(error)
+                    }
                 }
             )
         } catch (err) {
@@ -157,12 +158,9 @@ class Routes extends Component {
 
                         <Footer />
                     </div>
-                    
                 ) : (
                     <div>
                         <Route path="/" component={Login} />
-                        
-                        
                     </div>
                 )}
             </Fragment>
@@ -207,7 +205,4 @@ const mapDispatchToProps = dispatch => ({
     alertShow: (show, info) => dispatch(alertActions.alertShow(show, info)),
 })
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Routes)
+export default connect(mapStateToProps, mapDispatchToProps)(Routes)
