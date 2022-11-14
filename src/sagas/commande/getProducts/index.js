@@ -14,6 +14,8 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  */
 function* getAllProductSagas() {
     try {
+        const { OpaliaToken } = window.localStorage
+
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios({
             method: 'get',
@@ -23,6 +25,7 @@ function* getAllProductSagas() {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

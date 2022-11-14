@@ -16,6 +16,8 @@ import getLoaderActions from '../../../redux/wrapApi/index'
 function* addNewReclamationSagas({ response }) {
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'post',
             url: `${baseUrl}reclamation/new`,
@@ -24,6 +26,7 @@ function* addNewReclamationSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
             data: response,

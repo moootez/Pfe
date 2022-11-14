@@ -17,6 +17,8 @@ function* getStatistiqueSagas({ response }) {
     try {
         const { user, commande } = response
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'get',
             url: `${baseUrl}appelCrm/Livraison_ligne/${user}/${commande}`,
@@ -25,6 +27,7 @@ function* getStatistiqueSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

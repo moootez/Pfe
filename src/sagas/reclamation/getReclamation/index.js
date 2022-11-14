@@ -18,6 +18,8 @@ function* getReclamationSagas({ response }) {
         const endpoint =
             role === 'ROLE_ADV' || role === 'ROLE_ADMIN' ? 'all' : `get/${user}`
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'get',
             url: `${baseUrl}reclamation/${endpoint}`,
@@ -26,6 +28,7 @@ function* getReclamationSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

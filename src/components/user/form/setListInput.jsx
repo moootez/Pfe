@@ -98,6 +98,10 @@ const setListInput = intl => {
                     label: 'ROLE_ADV',
                     value: 3,
                 },
+                {
+                    label: 'ROLE_MANAGER',
+                    value: 4,
+                },
             ],
             isSelect: true,
             // isObject: true,

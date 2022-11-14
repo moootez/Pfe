@@ -17,6 +17,8 @@ function* updateReclamationSagas({ response }) {
     const { reclamation } = response
     try {
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'post',
             url: `${baseUrl}reclamation/change-status/${reclamation}`,
@@ -25,6 +27,7 @@ function* updateReclamationSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
             data: response,

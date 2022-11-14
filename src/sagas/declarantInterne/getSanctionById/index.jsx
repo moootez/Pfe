@@ -16,6 +16,8 @@ function* getSanctionSagas({ response }) {
     try {
         const { user } = response
         yield put(getLoaderActions.activeGeneraleLoader())
+        const { OpaliaToken } = window.localStorage
+
         const res = yield axios({
             method: 'get',
             url: `${baseUrl}appelCrm/Reglements/${user}`,
@@ -24,6 +26,7 @@ function* getSanctionSagas({ response }) {
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`
             },
             timeout: 10000,
         })

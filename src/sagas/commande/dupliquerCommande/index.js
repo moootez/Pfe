@@ -15,11 +15,14 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  */
 function* dupliquerCommandeSagas({ response }) {
     try {
+        const { OpaliaToken } = window.localStorage
+
         yield put(getLoaderActions.activeGeneraleLoader())
         const res = yield axios.post(`${baseUrl}commande/dupliquer`, response, {
             headers: {
                 'Accept-Version': 1,
                 'Access-Control-Allow-Origin': '*',
+                Authorization: `Bearer ${OpaliaToken}`,
             },
             timeout: 8000,
         })
