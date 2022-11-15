@@ -1,4 +1,3 @@
-/* eslint-disable radix */
 import React from 'react'
 import { Grid, FormGroup } from '@material-ui/core'
 import PropTypes from 'prop-types'
@@ -103,7 +102,7 @@ class editActualite extends React.Component {
      * @memberof
      */
     fieldChangedHandler = ({ target: { name, value, files } }) => {
-        const { payloadState } = this.state
+        const { imageState } = this.state
 
         const base64 = []
         if (name === 'image') {
@@ -112,7 +111,7 @@ class editActualite extends React.Component {
             if (fileToLoad && fileToLoad.size <= 150000) {
                 let file = ''
                 // eslint-disable-next-line func-names
-                fileReader.onload = function (fileLoadedEvent) {
+                fileReader.onload = function(fileLoadedEvent) {
                     file = fileLoadedEvent.target.result
                     base64.push(file)
                 }
@@ -134,8 +133,7 @@ class editActualite extends React.Component {
         }
         this.setState({
             payloadState: {
-                ...payloadState,
-                name: this.state.imageState,
+                name: imageState,
                 base64: name === 'image' ? base64 : value,
             },
         })
@@ -180,7 +178,7 @@ class editActualite extends React.Component {
         const { alertShow, history } = this.props
         const { payloadState } = this.state
         Patch('article/editPicture', {
-            name: payloadState.name + '.png',
+            name: `${payloadState.name}.png`,
             base64: payloadState.base64[0],
         }).then(res => {
             if (res.status === 201 || res.status === 200) {
