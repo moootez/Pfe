@@ -44,7 +44,7 @@ const ProtectedRoute = ({ connected, ecrans, history, ...data }) => {
                             return <Route {...data} />
                     }
                 }
-                return <Route {...data} component={ErreurPage} />
+                return;
             })
         } else return <Route {...data} component={ErreurPage} />
     }
