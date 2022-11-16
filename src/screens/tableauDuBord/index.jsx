@@ -9,6 +9,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
+import { Preview, print } from 'react-html2pdf';
 // Import Swiper React components
 import SwiperCore, { Navigation, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -21,35 +22,40 @@ import SliderDash4 from '../../assets/images/banner-dash4.gif'
 // Import Swiper styles
 import 'swiper/swiper.scss'
 import 'swiper/components/navigation/navigation.scss'
+import SelectList from '../../components/ui/select'
+import { Button } from '@material-ui/core'
+import html2canvas from 'html2canvas';
 
 SwiperCore.use([Navigation, Autoplay])
 
 const apiConsumer = [
-    { endPoint: `dashbord/list/kpi/${localStorage.codeInsc}`, name: 'total' },
-    // { endPoint: `dashbord/list/top5/${localStorage.codeInsc}`, name: 'top5' },
+    { endPoint: `dashbord/list/kpi/`, name: 'total' },
+    // { endPoint: `dashbord/list/top5/`, name: 'top5' },
     {
-        endPoint: `dashbord/list/montant-ttc-mois/${localStorage.codeInsc}`,
+        endPoint: `dashbord/list/montant-ttc-mois/`,
         name: 'montant',
     },
     // {
-    //     endPoint: `dashbord/list/delai-reception/${localStorage.codeInsc}`,
+    //     endPoint: `dashbord/list/delai-reception/`,
     //     name: 'delai',
     // },
     {
-        endPoint: `reclamation/getDashboard/${localStorage.codeInsc}`,
+        endPoint: `reclamation/getDashboard/`,
         name: 'reclamation',
     },
 ]
+const { OpaliaToken } = window.localStorage
 
-const consumeAPI = (endPoint, setState, state, name) => {
+const consumeAPI = (endPoint, setState, state, name, codeInsc) => {
     axios({
         method: 'post',
-        url: `${baseUrl}${endPoint}`,
+        url: `${baseUrl}${endPoint}${codeInsc}`,
         headers: {
             'Accept-Version': 1,
             Accept: 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json; charset=utf-8',
+            Authorization: `Bearer ${OpaliaToken}`
         },
         timeout: 30000,
     })
@@ -61,11 +67,36 @@ const consumeAPI = (endPoint, setState, state, name) => {
 
 const index = () => {
     const [state, setState] = useState({ total: {} })
+    const [value, setValue] = useState(null)
+    const [list, setList] = useState([])
+    const [nameGrossite, setNameGrossiste] = useState('')
 
     useEffect(() => {
-        apiConsumer.forEach(el =>
-            consumeAPI(el.endPoint, setState, state, el.name)
-        )
+        if (localStorage.role !== 'ROLE_MANAGER')
+            apiConsumer.forEach(el =>
+                consumeAPI(el.endPoint, setState, state, el.name, localStorage.codeInsc)
+            )
+        else
+            axios({
+                method: 'post',
+                url: `${baseUrl}users/all`,
+                headers: {
+                    'Accept-Version': 1,
+                    Accept: 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json; charset=utf-8',
+                    Authorization: `Bearer ${OpaliaToken}`
+                },
+                timeout: 30000,
+                data: { "role": 2 }
+            })
+                .then(res => {
+                    let listUser = [];
+                    res.data.data.map(e => {
+                        listUser.push({ label: `${e.prenom} ${e.nom}`, value: e.id, codeInsc: e.codeInsc })
+                    })
+                    setList(listUser)
+                })
     }, [])
 
     // graph reclamation
@@ -86,7 +117,7 @@ const index = () => {
     const newDate = new Date()
     const date = newDate.getFullYear()
 
-    if (TTC) {
+    if (TTC && TTC[date - 1]) {
         TTC[date - 1].map(element => (Mois1[element[0] - 1] = element[1]))
     }
 
@@ -96,7 +127,7 @@ const index = () => {
         }
     }
 
-    if (TTC) {
+    if (TTC && TTC[date]) {
         TTC[date].map(element => (Mois2[element[0] - 1] = element[1]))
     }
 
@@ -105,7 +136,37 @@ const index = () => {
             Mois2[i] = 0
         }
     }
-    console.log('montant', Mois1, Mois2)
+
+    const onSelect = (e) => {
+        setValue(e.target.value)
+        const user = list.filter(element => element.value === e.target.value)
+        console.log('user', user);
+        setNameGrossiste(`${user && user[0].label}`)
+        apiConsumer.forEach(el =>
+            consumeAPI(el.endPoint, setState, state, el.name, user && user[0].codeInsc)
+        )
+    }
+
+    const downloadImage = (blob, fileName) => {
+        const fakeLink = window.document.createElement("a");
+        fakeLink.style = "display:none;";
+        fakeLink.download = fileName;
+
+        fakeLink.href = blob;
+
+        document.body.appendChild(fakeLink);
+        fakeLink.click();
+        document.body.removeChild(fakeLink);
+
+        fakeLink.remove();
+    };
+
+    const onGeneratePdf = () => {
+        html2canvas(document.querySelector("#chart")).then(function (canvas) {
+            const image = canvas.toDataURL("image/png", 1.0);
+            downloadImage(image, nameGrossite);
+        });
+    }
 
     return (
         <Fragment>
@@ -134,117 +195,84 @@ const index = () => {
                 </SwiperSlide>
             </Swiper>
             <div className="blc-cnt-dash">
-                <div className="row">
-                    <div className="col-md-3 col-sm-6">
-                        <div className="box-top-dash">
-                            <Paper className="p-3">
-                                <center>
-                                    <b>Commandes totales</b>
-                                    <span className="font-weight-bold d-block">
-                                        {state.total.Nombre_commandes}
-                                    </span>{' '}
-                                </center>
-                            </Paper>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                        <div className="box-top-dash">
-                            <Paper className="p-3">
-                                <center>
-                                    <b>Commandes livrées</b>
-                                    <span className="font-weight-bold d-block">
-                                        {state.total.Nombre_commandes_livrees}
-                                    </span>{' '}
-                                </center>
-                            </Paper>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                        <div className="box-top-dash">
-                            <Paper className="p-3">
-                                <center>
-                                    <b>Montant total des factures(TTC)</b>
-                                    <span className="font-weight-bold d-block">
-                                        {
-                                            state.total
-                                                .Montant_facture_annee_en_cours
-                                        }
-                                    </span>{' '}
-                                </center>
-                            </Paper>
-                        </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                        <div className="box-top-dash">
-                            <Paper className="p-3">
-                                <center>
-                                    <b>Montant à régler (TTC)</b>
-                                    <span className="font-weight-bold d-block">
-                                        {state.total.Montant_a_regler}
-                                    </span>{' '}
-                                </center>
-                            </Paper>
-                        </div>
-                    </div>
-                    {/* <div className="col-md-6 p-3">
-                        <div className="box-charts">
-                            <HighchartsReact
-                                highcharts={Highcharts || {}}
-                                options={{
-                                    chart: {
-                                        type: 'bar',
-                                    },
-                                    title: {
-                                        text: 'TOP 5',
-                                    },
-                                    xAxis: {
-                                        categories: (state.top5 || {})
-                                            .categories,
-                                        // title: {
-                                        //     text: null
-                                        // }
-                                    },
-                                    yAxis: {
-                                        min: 0,
-                                        title: {
-                                            text: 'Quantité',
-                                            align: 'high',
-                                        },
-                                        labels: {
-                                            overflow: 'justify',
-                                        },
-                                    },
-                                    plotOptions: {
-                                        bar: {
-                                            dataLabels: {
-                                                enabled: true,
-                                            },
-                                        },
-                                    },
-                                    legend: {
-                                        layout: 'vertical',
-                                        align: 'right',
-                                        verticalAlign: 'top',
-                                        x: -40,
-                                        y: 80,
-                                        floating: true,
-                                        borderWidth: 1,
-                                        backgroundColor:
-                                            Highcharts.defaultOptions.legend
-                                                .backgroundColor || '#FFFFFF',
-                                        shadow: true,
-                                    },
-
-                                    credits: {
-                                        enabled: false,
-                                    },
-                                    series: [
-                                        { data: (state.top5 || {}).data || [] },
-                                    ],
+                {localStorage.role === 'ROLE_MANAGER' &&
+                    <div className='row'>
+                        <div className="col-md-3 col-sm-6">
+                            <SelectList
+                                onchange={e => {
+                                    onSelect(e)
                                 }}
+                                name="select"
+                                label="Selectionner grossiste"
+                                list={list}
+                                selectedItem={value}
                             />
                         </div>
-                    </div> */}
+                    </div>
+                }
+                <br />
+
+                <div className="row">
+                    {localStorage.role !== 'ROLE_MANAGER' &&
+                        <>
+                            <div className="col-md-3 col-sm-6">
+                                <div className="box-top-dash">
+                                    <Paper className="p-3">
+                                        <center>
+                                            <b>Commandes totales</b>
+                                            <span className="font-weight-bold d-block">
+                                                {state.total.Nombre_commandes}
+                                            </span>{' '}
+                                        </center>
+                                    </Paper>
+                                </div>
+                            </div>
+                            <div className="col-md-3 col-sm-6">
+                                <div className="box-top-dash">
+                                    <Paper className="p-3">
+                                        <center>
+                                            <b>Commandes livrées</b>
+                                            <span className="font-weight-bold d-block">
+                                                {state.total.Nombre_commandes_livrees}
+                                            </span>{' '}
+                                        </center>
+                                    </Paper>
+                                </div>
+                            </div>
+                            <div className="col-md-3 col-sm-6">
+                                <div className="box-top-dash">
+                                    <Paper className="p-3">
+                                        <center>
+                                            <b>Montant total des factures(TTC)</b>
+                                            <span className="font-weight-bold d-block">
+                                                {
+                                                    state.total
+                                                        .Montant_facture_annee_en_cours
+                                                }
+                                            </span>{' '}
+                                        </center>
+                                    </Paper>
+                                </div>
+                            </div>
+                            <div className="col-md-3 col-sm-6">
+                                <div className="box-top-dash">
+                                    <Paper className="p-3">
+                                        <center>
+                                            <b>Montant à régler (TTC)</b>
+                                            <span className="font-weight-bold d-block">
+                                                {state.total.Montant_a_regler}
+                                            </span>{' '}
+                                        </center>
+                                    </Paper>
+                                </div>
+                            </div>
+                        </>}
+                </div>
+                <br />
+                <div className='row' id='chart'>
+                    <div className="col-md-12" style={{ textAlign: 'center', fontSize: '50px' }}>
+                        <b>{nameGrossite}</b>
+                    </div>
                     <div className="col-md-6 p-3">
                         <div className="box-charts">
                             <HighchartsReact
@@ -309,57 +337,7 @@ const index = () => {
                             />
                         </div>
                     </div>
-                    {/* <div className="col-md-6 p-3">
-                        <div className="box-charts">
-                            <HighchartsReact
-                                highcharts={Highcharts || {}}
-                                options={{
-                                    chart: {
-                                        type: 'column',
-                                    },
-                                    title: {
-                                        text: 'Delai de reception',
-                                    },
-                                    xAxis: {
-                                        categories: (state.delai || []).map(
-                                            el => el[0]
-                                        ),
-                                        crosshair: true,
-                                    },
-                                    yAxis: {
-                                        min: 0,
-                                        title: {
-                                            text: '(Jours)',
-                                        },
-                                    },
-                                    tooltip: {
-                                        headerFormat:
-                                            '<span style="font-size:10px">{point.key}</span><table>',
-                                        pointFormat:
-                                            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-                                        footerFormat: '</table>',
-                                        shared: true,
-                                        useHTML: true,
-                                    },
-                                    plotOptions: {
-                                        column: {
-                                            pointPadding: 0.2,
-                                            borderWidth: 0,
-                                        },
-                                    },
-                                    series: [
-                                        {
-                                            data: (state.delai || []).map(
-                                                el => el[1]
-                                            ),
-                                        },
-                                    ],
-                                }}
-                            />
-                        </div>
-                    </div> */}
-                    <div className="col-md-6 p-3">
+                    <div className="col-md-6  p-3">
                         <div className="box-charts">
                             <HighchartsReact
                                 highcharts={Highcharts || {}}
@@ -436,6 +414,17 @@ const index = () => {
                         </div>
                     </div>
                 </div>
+                {localStorage.role === 'ROLE_MANAGER' &&
+                    <div className='row'>
+                        <div
+                            className="m-3 text-left"
+                            style={{ float: 'left', paddingTop: '10px' }}
+                        >
+                            <Button className="btn-submit-cmd" onClick={onGeneratePdf}>
+                                Export pdf
+                            </Button>
+                        </div>
+                    </div>}
             </div>
         </Fragment>
     )

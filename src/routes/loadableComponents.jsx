@@ -547,6 +547,18 @@ const loadableComponents = [
         name: 'edit_produit',
         showWhenConnected: true,
     },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/erreurPage'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/error404',
+        props: {
+            exact: true,
+        },
+        name: 'erreur',
+        showWhenConnected: true,
+    },
 ]
 
 export default loadableComponents
