@@ -9,7 +9,8 @@ import React, { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import { Preview, print } from 'react-html2pdf';
+import html2canvas from 'html2canvas'
+import { Button } from '@material-ui/core'
 // Import Swiper React components
 import SwiperCore, { Navigation, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -23,8 +24,6 @@ import SliderDash4 from '../../assets/images/banner-dash4.gif'
 import 'swiper/swiper.scss'
 import 'swiper/components/navigation/navigation.scss'
 import SelectList from '../../components/ui/select'
-import { Button } from '@material-ui/core'
-import html2canvas from 'html2canvas';
 
 SwiperCore.use([Navigation, Autoplay])
 
@@ -55,7 +54,7 @@ const consumeAPI = (endPoint, setState, state, name, codeInsc) => {
             Accept: 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json; charset=utf-8',
-            Authorization: `Bearer ${OpaliaToken}`
+            Authorization: `Bearer ${OpaliaToken}`,
         },
         timeout: 30000,
     })
@@ -74,7 +73,13 @@ const index = () => {
     useEffect(() => {
         if (localStorage.role !== 'ROLE_MANAGER')
             apiConsumer.forEach(el =>
-                consumeAPI(el.endPoint, setState, state, el.name, localStorage.codeInsc)
+                consumeAPI(
+                    el.endPoint,
+                    setState,
+                    state,
+                    el.name,
+                    localStorage.codeInsc
+                )
             )
         else
             axios({
@@ -85,18 +90,21 @@ const index = () => {
                     Accept: 'application/json',
                     'Access-Control-Allow-Origin': '*',
                     'Content-Type': 'application/json; charset=utf-8',
-                    Authorization: `Bearer ${OpaliaToken}`
+                    Authorization: `Bearer ${OpaliaToken}`,
                 },
                 timeout: 30000,
-                data: { "role": 2 }
-            })
-                .then(res => {
-                    let listUser = [];
-                    res.data.data.map(e => {
-                        listUser.push({ label: `${e.prenom} ${e.nom}`, value: e.id, codeInsc: e.codeInsc })
+                data: { role: 2 },
+            }).then(res => {
+                const listUser = []
+                res.data.data.map(e => {
+                    return listUser.push({
+                        label: `${e.prenom} ${e.nom}`,
+                        value: e.id,
+                        codeInsc: e.codeInsc,
                     })
-                    setList(listUser)
                 })
+                setList(listUser)
+            })
     }, [])
 
     // graph reclamation
@@ -137,35 +145,41 @@ const index = () => {
         }
     }
 
-    const onSelect = (e) => {
+    const onSelect = e => {
         setValue(e.target.value)
         const user = list.filter(element => element.value === e.target.value)
-        console.log('user', user);
+        console.log('user', user)
         setNameGrossiste(`${user && user[0].label}`)
         apiConsumer.forEach(el =>
-            consumeAPI(el.endPoint, setState, state, el.name, user && user[0].codeInsc)
+            consumeAPI(
+                el.endPoint,
+                setState,
+                state,
+                el.name,
+                user && user[0].codeInsc
+            )
         )
     }
 
     const downloadImage = (blob, fileName) => {
-        const fakeLink = window.document.createElement("a");
-        fakeLink.style = "display:none;";
-        fakeLink.download = fileName;
+        const fakeLink = window.document.createElement('a')
+        fakeLink.style = 'display:none;'
+        fakeLink.download = fileName
 
-        fakeLink.href = blob;
+        fakeLink.href = blob
 
-        document.body.appendChild(fakeLink);
-        fakeLink.click();
-        document.body.removeChild(fakeLink);
+        document.body.appendChild(fakeLink)
+        fakeLink.click()
+        document.body.removeChild(fakeLink)
 
-        fakeLink.remove();
-    };
+        fakeLink.remove()
+    }
 
     const onGeneratePdf = () => {
-        html2canvas(document.querySelector("#chart")).then(function (canvas) {
-            const image = canvas.toDataURL("image/png", 1.0);
-            downloadImage(image, nameGrossite);
-        });
+        html2canvas(document.querySelector('#chart')).then(function(canvas) {
+            const image = canvas.toDataURL('image/png', 1.0)
+            downloadImage(image, nameGrossite)
+        })
     }
 
     return (
@@ -195,8 +209,8 @@ const index = () => {
                 </SwiperSlide>
             </Swiper>
             <div className="blc-cnt-dash">
-                {localStorage.role === 'ROLE_MANAGER' &&
-                    <div className='row'>
+                {localStorage.role === 'ROLE_MANAGER' && (
+                    <div className="row">
                         <div className="col-md-3 col-sm-6">
                             <SelectList
                                 onchange={e => {
@@ -209,11 +223,11 @@ const index = () => {
                             />
                         </div>
                     </div>
-                }
+                )}
                 <br />
 
                 <div className="row">
-                    {localStorage.role !== 'ROLE_MANAGER' &&
+                    {localStorage.role !== 'ROLE_MANAGER' && (
                         <>
                             <div className="col-md-3 col-sm-6">
                                 <div className="box-top-dash">
@@ -233,7 +247,10 @@ const index = () => {
                                         <center>
                                             <b>Commandes livrées</b>
                                             <span className="font-weight-bold d-block">
-                                                {state.total.Nombre_commandes_livrees}
+                                                {
+                                                    state.total
+                                                        .Nombre_commandes_livrees
+                                                }
                                             </span>{' '}
                                         </center>
                                     </Paper>
@@ -243,7 +260,9 @@ const index = () => {
                                 <div className="box-top-dash">
                                     <Paper className="p-3">
                                         <center>
-                                            <b>Montant total des factures(TTC)</b>
+                                            <b>
+                                                Montant total des factures(TTC)
+                                            </b>
                                             <span className="font-weight-bold d-block">
                                                 {
                                                     state.total
@@ -266,11 +285,15 @@ const index = () => {
                                     </Paper>
                                 </div>
                             </div>
-                        </>}
+                        </>
+                    )}
                 </div>
                 <br />
-                <div className='row' id='chart'>
-                    <div className="col-md-12" style={{ textAlign: 'center', fontSize: '50px' }}>
+                <div className="row" id="chart">
+                    <div
+                        className="col-md-12"
+                        style={{ textAlign: 'center', fontSize: '50px' }}
+                    >
                         <b>{nameGrossite}</b>
                     </div>
                     <div className="col-md-6 p-3">
@@ -414,17 +437,21 @@ const index = () => {
                         </div>
                     </div>
                 </div>
-                {localStorage.role === 'ROLE_MANAGER' &&
-                    <div className='row'>
+                {localStorage.role === 'ROLE_MANAGER' && (
+                    <div className="row">
                         <div
                             className="m-3 text-left"
                             style={{ float: 'left', paddingTop: '10px' }}
                         >
-                            <Button className="btn-submit-cmd" onClick={onGeneratePdf}>
+                            <Button
+                                className="btn-submit-cmd"
+                                onClick={onGeneratePdf}
+                            >
                                 Export pdf
                             </Button>
                         </div>
-                    </div>}
+                    </div>
+                )}
             </div>
         </Fragment>
     )

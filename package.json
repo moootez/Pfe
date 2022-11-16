@@ -38,6 +38,7 @@
         "react-bootstrap": "^1.0.0",
         "react-bootstrap-sweetalert": "^4.4.1",
         "react-currency-format": "^1.0.0",
+        "html2canvas": "^1.4.1",
         "react-dom": "^16.13.1",
         "react-dropzone": "^10.2.1",
         "react-intl": "^2.9.0",

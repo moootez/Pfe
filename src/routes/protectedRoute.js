@@ -11,24 +11,42 @@ import ErreurPage from '../screens/erreurPage'
  * @returns
  */
 const ProtectedRoute = ({ connected, ecrans, history, ...data }) => {
-
     if (connected === data.showWhenConnected) {
-        if (dataList[0].items.filter(element => element.link === location.pathname)[0]) {
-            if (dataList[0].items.filter(element => element.link === location.pathname)[0].roles.includes(localStorage.role)) {
+        if (
+            dataList[0].items.filter(
+                element => element.link === window.location.pathname
+            )[0]
+        ) {
+            if (
+                dataList[0].items
+                    .filter(
+                        element => element.link === window.location.pathname
+                    )[0]
+                    .roles.includes(localStorage.role)
+            ) {
                 return <Route {...data} />
             }
-        }
-        else if (dataList[0].items) {
+        } else if (dataList[0].items) {
             return dataList[0].items.map(element => {
                 if (element.subitems) {
-                    if (element.subitems.filter(e => e.link === location.pathname)[0]) {
-                        if (element.subitems.filter(e => e.link === location.pathname)[0].roles.includes(localStorage.role))
+                    if (
+                        element.subitems.filter(
+                            e => e.link === window.location.pathname
+                        )[0]
+                    ) {
+                        if (
+                            element.subitems
+                                .filter(
+                                    e => e.link === window.location.pathname
+                                )[0]
+                                .roles.includes(localStorage.role)
+                        )
                             return <Route {...data} />
                     }
                 }
+                return <Route {...data} component={ErreurPage} />
             })
-        }
-        else return <Route {...data} component={ErreurPage} />
+        } else return <Route {...data} component={ErreurPage} />
     }
 
     // if (location.pathname === '/error404') {
