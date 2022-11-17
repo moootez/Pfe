@@ -384,8 +384,6 @@ const Index = props => {
                 style={{ float: 'left', paddingTop: '10px' }}
             >
                 <a
-                    variant="contained"
-                    component="label"
                     className="mr-2"
                     href={safeRequire('ExempleCsv', '../', '.csv')}
                 >
@@ -393,8 +391,6 @@ const Index = props => {
                 </a>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <a
-                    variant="contained"
-                    component="label"
                     className="mr-2"
                     href="declaration_rattacher_saisie/rattacher_le_scan_de_la_declaration/50"
                 >
@@ -474,7 +470,4 @@ Index.propTypes = {
     alertShow: PropTypes.func.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

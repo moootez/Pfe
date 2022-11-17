@@ -25,7 +25,6 @@ import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
 
-
 // destrict
 const Index = props => {
     const {
@@ -212,7 +211,6 @@ const mapDispatchToProps = dispatch => ({
  * @returns
  */
 const mapStateToProps = ({ info, login, commande }) => ({
-    userID: login.response.User.details.codeInsc,
     products: commande.getAllProduct.response,
     newCommande: commande.newCommande,
     uploadNewCommande: commande.uploadCommande,
@@ -224,7 +222,6 @@ const mapStateToProps = ({ info, login, commande }) => ({
  *  declaration des props
  */
 Index.propTypes = {
-    userID: PropTypes.object.isRequired,
     products: PropTypes.array.isRequired,
     getAllProduct: PropTypes.func.isRequired,
     newCommande: PropTypes.any.isRequired,
