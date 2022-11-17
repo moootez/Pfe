@@ -11,7 +11,18 @@ import ErreurPage from '../screens/erreurPage'
  * @returns
  */
 const ProtectedRoute = ({ connected, ecrans, history, ...data }) => {
+    const linkNotIncludes = [
+        "/ajout_user",
+        "/edit_user",
+        "/edit_produit",
+        "/actualite/new",
+        "/actualite/edit",
+        "/edit-commande/"
+    ];
     if (connected === data.showWhenConnected) {
+        if (linkNotIncludes.includes(window.location.pathname)) {
+            return <Route {...data} />
+        }
         if (
             dataList[0].items.filter(
                 element => element.link === window.location.pathname
@@ -24,16 +35,20 @@ const ProtectedRoute = ({ connected, ecrans, history, ...data }) => {
                     )[0]
                     .roles.includes(localStorage.role)
             ) {
+
+
                 return <Route {...data} />
             }
         } else if (dataList[0].items) {
             return dataList[0].items.map(element => {
                 if (element.subitems) {
+
                     if (
                         element.subitems.filter(
                             e => e.link === window.location.pathname
                         )[0]
                     ) {
+
                         if (
                             element.subitems
                                 .filter(
@@ -44,7 +59,7 @@ const ProtectedRoute = ({ connected, ecrans, history, ...data }) => {
                             return <Route {...data} />
                     }
                 }
-                return;
+                return null;
             })
         } else return <Route {...data} component={ErreurPage} />
     }
