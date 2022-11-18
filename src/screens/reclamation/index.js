@@ -24,7 +24,7 @@ const Index = props => {
     return (
         <div className="column col-md-12 style-table">
             <Divider />
-            <MaterialTable
+            {reclamations && <MaterialTable
                 title="Mes réclamations"
                 options={{
                     headerStyle: { fontSize: 20 },
@@ -98,7 +98,7 @@ const Index = props => {
                     },
                 }}
                 data={JSON.parse(JSON.stringify(reclamations)) || []}
-            />
+            />}
         </div>
     )
 }

@@ -7,9 +7,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import MaterialTable from 'material-table'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
-import { removeBottomDash } from '../../shared/utility'
 import SimpleTable from '../simpleTable'
+import DateField from '../../components/ui/datePicker'
 
 const useStyles = makeStyles(theme => ({
     txt: {
@@ -21,33 +20,24 @@ const useStyles = makeStyles(theme => ({
 const DetailPanelWithRowClick = props => {
     const subDataRef = useRef(null)
     // const [dataSub, setDataSub] = useState(useRef)
-    const { apiCall, dataApi, dataReturned, dataSubArray, title } = props
-    const [show, setShow] = useState(false)
-    const classes = useStyles()
+    const { apiCall, dataApi, dataReturned, dataSubArray, title, headerTable, userID } = props
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
     const [allList, setAllList] = useState(0);
+    const [dateDebut, setDateDebut] = useState(null);
+    const [dateFin, setDateFin] = useState(null);
 
     useEffect(() => {
         apiCall(dataApi)
     }, [])
-    setTimeout(() => setShow(true), 10000)
 
     // Set livraison on state
     useEffect(() => {
-        const header = Object.keys(
-            dataReturned && dataReturned.length ? dataReturned[0] : {}
-        ).map(el => ({
-            field: el,
-            title: removeBottomDash(el),
-        }))
-        // header.push({ field: 'action', title: 'Action1' })
-        setDataTable({
-            header,
-            data: dataReturned instanceof Array ? dataReturned : [],
-            /* .map(
-                el => ({ ...el, action: <PictureAsPdfIcon /> })
-            ), */
-        })
+        if (dataReturned) {
+            setDataTable({
+                header: headerTable,
+                data: dataReturned instanceof Array ? dataReturned : [],
+            })
+        }
     }, [JSON.stringify(dataReturned)])
 
     useEffect(() => {
@@ -57,6 +47,25 @@ const DetailPanelWithRowClick = props => {
     useEffect(() => {
         subDataRef.current = (dataSubArray || {}).dataReturned
     }, [JSON.stringify((dataSubArray || {}).dataReturned)])
+
+    const fieldChangedHandler = (e, name) => {
+        if (name === 'de') {
+            setDateDebut(e.target.value)
+            if (dateFin) {
+                apiCall({ user: userID, dateDebut: e.target.value, dateFin })
+            } else apiCall({ user: userID, dateDebut: e.target.value, dateFin: null })
+        }
+        else {
+            setDateFin(e.target.value)
+            if (dateDebut) {
+                apiCall({ user: userID, dateFin: e.target.value, dateDebut })
+            } else apiCall({ user: userID, dateFin: e.target.value, dateDebut: null })
+        }
+        setDataTable({
+            header: headerTable,
+            data: dataReturned instanceof Array ? dataReturned : [],
+        })
+    }
 
     const detailPanel = dataSubArray
         ? {
@@ -75,55 +84,88 @@ const DetailPanelWithRowClick = props => {
         : {}
     return (
         <>
-            {!show ? (
-                <h4 className={classes.txt}>
-                    Merci de patienter quelques secondes, vos données sont en
-                    cours de traitement.
-                </h4>
-            ) : dataTable.header.length && dataTable.data.length ? (
-                <MaterialTable
-                    options={{
-                        maxBodyHeight: '80vh',
-                        headerStyle: { fontSize: 20 },
-                        pageSizeOptions: [
-                            5,
-                            10,
-                            20,
-                            { value: allList, label: 'Afficher Tous' },
-                        ],
-                    }}
-                    dataTable
-                    columns={dataTable.header}
-                    localization={{
-                        pagination: {
-                            labelDisplayedRows: '{from}-{to} de {count}',
-                            labelRowsSelect: 'lignes par page',
-                            labelRowsPerPage: 'lignes par page:',
-                            firstAriaLabel: 'Première page',
-                            firstTooltip: 'Première page',
-                            previousAriaLabel: 'Page précédente',
-                            previousTooltip: 'Page précédente',
-                            nextAriaLabel: 'Page suivante',
-                            nextTooltip: 'Page suivante',
-                            lastAriaLabel: 'Dernière page',
-                            lastTooltip: 'Dernière page',
-                        },
-                        toolbar: {
-                            searchPlaceholder: 'Rechercher',
-                        },
-                    }}
-                    data={dataTable.data}
-                    title={title}
-                    onRowClick={(event, rowData, togglePanel) => {
-                        togglePanel()
-                    }}
-                    {...detailPanel}
-                />
-            ) : (
-                <h4 className={classes.txt}>
-                    Merci de contacter votre webmaster!!
-                </h4>
-            )}
+            {title === 'Mes commandes' &&
+                <div className="row">
+                    <div className="col-md-3 col-sm-6">
+                        <DateField
+                            key="de"
+                            id="de"
+                            onchange={e =>
+                                fieldChangedHandler(
+                                    e,
+                                    'de'
+                                )
+                            }
+                            defaultValue={dateDebut}
+                            name="de"
+                            label="Date début"
+                            isArabic={false}
+                            attributes={{
+                                disableFuture: false,
+                            }}
+                            required={false}
+                        />
+                    </div>
+                    <div className="col-md-3 col-sm-6">
+                        <DateField
+                            key="a"
+                            id="a"
+                            onchange={e =>
+                                fieldChangedHandler(
+                                    e,
+                                    'a'
+                                )
+                            }
+                            defaultValue={dateFin}
+                            name="a"
+                            label="Date fin"
+                            isArabic={false}
+                            attributes={{
+                                disableFuture: false,
+                            }}
+                            required={false}
+                        />
+                    </div>
+                </div>}
+            <br />
+            <MaterialTable
+                options={{
+                    maxBodyHeight: '80vh',
+                    headerStyle: { fontSize: 20 },
+                    pageSizeOptions: [
+                        5,
+                        10,
+                        20,
+                        { value: allList, label: 'Afficher Tous' },
+                    ],
+                }}
+                dataTable
+                columns={dataTable.header}
+                localization={{
+                    pagination: {
+                        labelDisplayedRows: '{from}-{to} de {count}',
+                        labelRowsSelect: 'lignes par page',
+                        labelRowsPerPage: 'lignes par page:',
+                        firstAriaLabel: 'Première page',
+                        firstTooltip: 'Première page',
+                        previousAriaLabel: 'Page précédente',
+                        previousTooltip: 'Page précédente',
+                        nextAriaLabel: 'Page suivante',
+                        nextTooltip: 'Page suivante',
+                        lastAriaLabel: 'Dernière page',
+                        lastTooltip: 'Dernière page',
+                    },
+                    toolbar: {
+                        searchPlaceholder: 'Rechercher',
+                    },
+                }}
+                data={dataTable.data}
+                title={title}
+                onRowClick={(event, rowData, togglePanel) => {
+                    togglePanel()
+                }}
+                {...detailPanel}
+            />
         </>
     )
 }

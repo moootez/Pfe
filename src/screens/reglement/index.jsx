@@ -19,6 +19,33 @@ const Index = props => {
 
     // Set livraison on state
 
+    const header = [
+        {
+            field: "No_facture",
+            title: "No facture"
+        },
+        {
+            field: "Tiers",
+            title: "Tiers"
+        },
+        {
+            field: "Date_échéance",
+            title: "Date échéance"
+        },
+        {
+            field: "Mode_réglement",
+            title: "Mode réglement"
+        },
+        {
+            field: "Montant_TND",
+            title: "Montant TND"
+        },
+        {
+            field: "Réglé_TND",
+            title: "Réglé TND"
+        }
+    ]
+
     return (
         <div className="column col-md-12 style-table">
             <Divider />
@@ -27,6 +54,7 @@ const Index = props => {
                 apiCall={getAllReglement}
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(reglements))}
+                headerTable={header}
             />
         </div>
     )

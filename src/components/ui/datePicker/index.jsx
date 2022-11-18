@@ -5,7 +5,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers'
-import arDZ from 'date-fns/locale/ar-DZ'
+// import arDZ from 'date-fns/locale/ar-DZ'
 import { FormControl } from '@material-ui/core'
 import FrDateFnsUtils from './frDateFnsUtils'
 
@@ -107,8 +107,10 @@ const index = ({
                     setError('')
                 }
             } else {
-                setSelectedDate(date)
-                onchange({ target: { value: formatDate(date), name } }, id)
+                if (name !== 'de' && name !== 'a') {
+                    setSelectedDate(date)
+                    onchange({ target: { value: formatDate(date), name } }, id)
+                }
             }
         } else {
             setSelectedDate(date)
@@ -156,7 +158,7 @@ const index = ({
                     ''
                 )}
             </label>
-            <MuiPickersUtilsProvider utils={FrDateFnsUtils} locale={arDZ}>
+            <MuiPickersUtilsProvider utils={FrDateFnsUtils} >
                 <KeyboardDatePicker
                     onFocus={fucusFn}
                     id="datepicker"
@@ -209,7 +211,7 @@ const index = ({
  *  Inialisation
  */
 index.defaultProps = {
-    onchange: () => {},
+    onchange: () => { },
     placeholder: ' ',
     defaultValue: null,
     label: '',

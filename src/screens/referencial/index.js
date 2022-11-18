@@ -45,6 +45,30 @@ const Index = props => {
     useEffect(() => {
         setData(dataSubArray)
     })
+
+    const header = [
+        {
+            field: "No_livraison",
+            title: "No livraison"
+        },
+        {
+            field: "Client_commande",
+            title: "Client commande"
+        },
+        {
+            field: "Date_livraison",
+            title: "Date livraison"
+        },
+        {
+            field: "Validé",
+            title: "Validé"
+        },
+        {
+            field: "Facturé",
+            title: "Facturé"
+        }
+    ]
+
     return (
         <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
@@ -57,6 +81,7 @@ const Index = props => {
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(livraisons))}
                 dataSubArray={{ ...dataSubArray }}
+                headerTable={header}
             />
         </div>
     )

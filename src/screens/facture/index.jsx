@@ -43,6 +43,24 @@ const Index = props => {
     useEffect(() => {
         setData(dataSubArray)
     })
+    const header = [
+        {
+            field: "No_facture",
+            title: "No facture"
+        },
+        {
+            field: "Date",
+            title: "Date"
+        },
+        {
+            field: "Montant_HT_TND",
+            title: "Montant HT TND"
+        },
+        {
+            field: "Montant_TTC_TND",
+            title: "Montant TTC TND"
+        }
+    ]
 
     return (
         <div className="column col-md-12 style-table">
@@ -56,6 +74,7 @@ const Index = props => {
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(factures))}
                 dataSubArray={dataSubArray}
+                headerTable={header}
             />
         </div>
     )
