@@ -107,10 +107,10 @@ const index = ({
                     setError('')
                 }
             } else {
-                if (name !== 'de' && name !== 'a') {
-                    setSelectedDate(date)
-                    onchange({ target: { value: formatDate(date), name } }, id)
-                }
+                // if (name !== 'de' && name !== 'a') {
+                setSelectedDate(date)
+                onchange({ target: { value: formatDate(date), name } }, id)
+                // }
             }
         } else {
             setSelectedDate(date)
@@ -158,7 +158,7 @@ const index = ({
                     ''
                 )}
             </label>
-            <MuiPickersUtilsProvider utils={FrDateFnsUtils} >
+            <MuiPickersUtilsProvider utils={FrDateFnsUtils}>
                 <KeyboardDatePicker
                     onFocus={fucusFn}
                     id="datepicker"
@@ -211,7 +211,7 @@ const index = ({
  *  Inialisation
  */
 index.defaultProps = {
-    onchange: () => { },
+    onchange: () => {},
     placeholder: ' ',
     defaultValue: null,
     label: '',

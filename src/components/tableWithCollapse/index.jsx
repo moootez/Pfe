@@ -8,7 +8,7 @@ import MaterialTable from 'material-table'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import SimpleTable from '../simpleTable'
-import DateField from '../../components/ui/datePicker'
+import DateField from '../ui/datePicker'
 
 const useStyles = makeStyles(theme => ({
     txt: {
@@ -20,11 +20,19 @@ const useStyles = makeStyles(theme => ({
 const DetailPanelWithRowClick = props => {
     const subDataRef = useRef(null)
     // const [dataSub, setDataSub] = useState(useRef)
-    const { apiCall, dataApi, dataReturned, dataSubArray, title, headerTable, userID } = props
+    const {
+        apiCall,
+        dataApi,
+        dataReturned,
+        dataSubArray,
+        title,
+        headerTable,
+        userID,
+    } = props
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
-    const [allList, setAllList] = useState(0);
-    const [dateDebut, setDateDebut] = useState(null);
-    const [dateFin, setDateFin] = useState(null);
+    const [allList, setAllList] = useState(0)
+    const [dateDebut, setDateDebut] = useState(null)
+    const [dateFin, setDateFin] = useState(null)
 
     useEffect(() => {
         apiCall(dataApi)
@@ -53,13 +61,22 @@ const DetailPanelWithRowClick = props => {
             setDateDebut(e.target.value)
             if (dateFin) {
                 apiCall({ user: userID, dateDebut: e.target.value, dateFin })
-            } else apiCall({ user: userID, dateDebut: e.target.value, dateFin: null })
-        }
-        else {
+            } else
+                apiCall({
+                    user: userID,
+                    dateDebut: e.target.value,
+                    dateFin: null,
+                })
+        } else {
             setDateFin(e.target.value)
             if (dateDebut) {
                 apiCall({ user: userID, dateFin: e.target.value, dateDebut })
-            } else apiCall({ user: userID, dateFin: e.target.value, dateDebut: null })
+            } else
+                apiCall({
+                    user: userID,
+                    dateFin: e.target.value,
+                    dateDebut: null,
+                })
         }
         setDataTable({
             header: headerTable,
@@ -69,33 +86,28 @@ const DetailPanelWithRowClick = props => {
 
     const detailPanel = dataSubArray
         ? {
-            detailPanel: rowData => {
-                return (
-                    // dataSubArray.dataApi is A function to get useful data from row data
-                    <SimpleTable
-                        {...rowData}
-                        {...dataSubArray}
-                        dataApi={dataSubArray.dataApi(rowData)}
-                        dataReturned={subDataRef.current}
-                    />
-                )
-            },
-        }
+              detailPanel: rowData => {
+                  return (
+                      // dataSubArray.dataApi is A function to get useful data from row data
+                      <SimpleTable
+                          {...rowData}
+                          {...dataSubArray}
+                          dataApi={dataSubArray.dataApi(rowData)}
+                          dataReturned={subDataRef.current}
+                      />
+                  )
+              },
+          }
         : {}
     return (
         <>
-            {title === 'Mes commandes' &&
+            {title === 'Mes commandes' && (
                 <div className="row">
                     <div className="col-md-3 col-sm-6">
                         <DateField
                             key="de"
                             id="de"
-                            onchange={e =>
-                                fieldChangedHandler(
-                                    e,
-                                    'de'
-                                )
-                            }
+                            onchange={e => fieldChangedHandler(e, 'de')}
                             defaultValue={dateDebut}
                             name="de"
                             label="Date début"
@@ -110,12 +122,7 @@ const DetailPanelWithRowClick = props => {
                         <DateField
                             key="a"
                             id="a"
-                            onchange={e =>
-                                fieldChangedHandler(
-                                    e,
-                                    'a'
-                                )
-                            }
+                            onchange={e => fieldChangedHandler(e, 'a')}
                             defaultValue={dateFin}
                             name="a"
                             label="Date fin"
@@ -126,7 +133,8 @@ const DetailPanelWithRowClick = props => {
                             required={false}
                         />
                     </div>
-                </div>}
+                </div>
+            )}
             <br />
             <MaterialTable
                 options={{
