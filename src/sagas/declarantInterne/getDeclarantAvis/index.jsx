@@ -17,13 +17,13 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  */
 function* getDeclarantAvisSagas({ response }) {
     try {
-        const { user } = response
+        const { user, dateDebut, dateFin } = response
         yield put(getLoaderActions.activeGeneraleLoader())
         const { OpaliaToken } = window.localStorage
 
         const res = yield axios({
             method: 'get',
-            url: `${baseUrl}appelCrm/Commande_entete/${user}`,
+            url: `${baseUrl}appelCrm/Commande_entete/${user}/${dateDebut}/${dateFin}`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',

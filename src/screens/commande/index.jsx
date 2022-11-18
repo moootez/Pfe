@@ -21,7 +21,7 @@ const Index = props => {
     } = props
 
     useEffect(() => {
-        getAllCommande({ user: userID })
+        getAllCommande({ user: userID, dateDebut: null, dateFin: null })
     }, [])
 
     // Set livraison on state
@@ -45,6 +45,37 @@ const Index = props => {
         setData(dataSubArray)
     })
 
+    const header = [
+        {
+            field: "No_commande",
+            title: "No commande"
+        },
+        {
+            field: "Code_client",
+            title: "Code client"
+        },
+        {
+            field: "Date_commande",
+            title: "Date commande"
+        },
+        {
+            field: "Etat_commande",
+            title: "Etat commande"
+        },
+        {
+            field: "Livraison",
+            title: "Livraison"
+        },
+        {
+            field: "Facture",
+            title: "Facture"
+        },
+        {
+            field: "Montant_HT_TND",
+            title: "Montant HT TND"
+        }
+    ]
+
     return (
         <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
@@ -58,6 +89,8 @@ const Index = props => {
                 dataApi={{ user: userID }}
                 dataReturned={JSON.parse(JSON.stringify(commandes))}
                 dataSubArray={dataSubArray}
+                headerTable={header}
+                userID={userID}
             />
         </div>
     )
