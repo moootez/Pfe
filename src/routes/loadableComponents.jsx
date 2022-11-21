@@ -559,6 +559,18 @@ const loadableComponents = [
         name: 'erreur',
         showWhenConnected: true,
     },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/histtoriqueCommande'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/historique-commande',
+        props: {
+            exact: true,
+        },
+        name: 'historique-commande',
+        showWhenConnected: true,
+    },
 ]
 
 export default loadableComponents

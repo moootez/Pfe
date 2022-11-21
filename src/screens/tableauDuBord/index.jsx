@@ -98,7 +98,7 @@ const index = () => {
                 const listUser = []
                 res.data.data.map(e => {
                     return listUser.push({
-                        label: `${e.prenom} ${e.nom}`,
+                        label: e.codeInsc,
                         value: e.id,
                         codeInsc: e.codeInsc,
                     })
@@ -148,7 +148,6 @@ const index = () => {
     const onSelect = e => {
         setValue(e.target.value)
         const user = list.filter(element => element.value === e.target.value)
-        console.log('user', user)
         setNameGrossiste(`${user && user[0].label}`)
         apiConsumer.forEach(el =>
             consumeAPI(
@@ -176,7 +175,7 @@ const index = () => {
     }
 
     const onGeneratePdf = () => {
-        html2canvas(document.querySelector('#chart')).then(function(canvas) {
+        html2canvas(document.querySelector('#chart')).then(function (canvas) {
             const image = canvas.toDataURL('image/png', 1.0)
             downloadImage(image, nameGrossite)
         })
@@ -290,12 +289,13 @@ const index = () => {
                 </div>
                 <br />
                 <div className="row" id="chart">
-                    <div
-                        className="col-md-12"
-                        style={{ textAlign: 'center', fontSize: '50px' }}
-                    >
-                        <b>{nameGrossite}</b>
-                    </div>
+                    {nameGrossite !== '' &&
+                        <div
+                            className="col-md-12"
+                            style={{ textAlign: 'center', fontSize: '50px' }}
+                        >
+                            <b>Client : {nameGrossite}</b>
+                        </div>}
                     <div className="col-md-6 p-3">
                         <div className="box-charts">
                             <HighchartsReact
@@ -447,7 +447,7 @@ const index = () => {
                                 className="btn-submit-cmd"
                                 onClick={onGeneratePdf}
                             >
-                                Export pdf
+                                Export
                             </Button>
                         </div>
                     </div>

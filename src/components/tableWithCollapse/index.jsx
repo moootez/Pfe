@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import SimpleTable from '../simpleTable'
 import DateField from '../ui/datePicker'
+import SelectList from '..//ui/select'
 
 const useStyles = makeStyles(theme => ({
     txt: {
@@ -28,14 +29,18 @@ const DetailPanelWithRowClick = props => {
         title,
         headerTable,
         userID,
+        listGrossiste
     } = props
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
     const [allList, setAllList] = useState(0)
     const [dateDebut, setDateDebut] = useState(null)
     const [dateFin, setDateFin] = useState(null)
+    const [value, setValue] = useState(null)
+    const [valueGrossiste, setValueGrossiste] = useState(null)
 
     useEffect(() => {
         apiCall(dataApi)
+        setValueGrossiste(userID)
     }, [])
 
     // Set livraison on state
@@ -60,20 +65,20 @@ const DetailPanelWithRowClick = props => {
         if (name === 'de') {
             setDateDebut(e.target.value)
             if (dateFin) {
-                apiCall({ user: userID, dateDebut: e.target.value, dateFin })
+                apiCall({ user: valueGrossiste, dateDebut: e.target.value, dateFin })
             } else
                 apiCall({
-                    user: userID,
+                    user: valueGrossiste,
                     dateDebut: e.target.value,
                     dateFin: null,
                 })
         } else {
             setDateFin(e.target.value)
             if (dateDebut) {
-                apiCall({ user: userID, dateFin: e.target.value, dateDebut })
+                apiCall({ user: valueGrossiste, dateFin: e.target.value, dateDebut })
             } else
                 apiCall({
-                    user: userID,
+                    user: valueGrossiste,
                     dateFin: e.target.value,
                     dateDebut: null,
                 })
@@ -84,57 +89,81 @@ const DetailPanelWithRowClick = props => {
         })
     }
 
+    const onSelect = e => {
+        setValue(e.target.value)
+        const user = listGrossiste.filter(element => element.value === e.target.value)
+        if (user.length) {
+            setValueGrossiste(user[0].codeInsc)
+            apiCall({ user: user[0].codeInsc, dateFin: dateFin, dateDebut })
+        }
+    }
+
     const detailPanel = dataSubArray
         ? {
-              detailPanel: rowData => {
-                  return (
-                      // dataSubArray.dataApi is A function to get useful data from row data
-                      <SimpleTable
-                          {...rowData}
-                          {...dataSubArray}
-                          dataApi={dataSubArray.dataApi(rowData)}
-                          dataReturned={subDataRef.current}
-                      />
-                  )
-              },
-          }
+            detailPanel: rowData => {
+                return (
+                    // dataSubArray.dataApi is A function to get useful data from row data
+                    <SimpleTable
+                        {...rowData}
+                        {...dataSubArray}
+                        dataApi={dataSubArray.dataApi(rowData)}
+                        dataReturned={subDataRef.current}
+                    />
+                )
+            },
+        }
         : {}
     return (
         <>
-            {title === 'Mes commandes' && (
-                <div className="row">
-                    <div className="col-md-3 col-sm-6">
-                        <DateField
-                            key="de"
-                            id="de"
-                            onchange={e => fieldChangedHandler(e, 'de')}
-                            defaultValue={dateDebut}
-                            name="de"
-                            label="Date début"
-                            isArabic={false}
-                            attributes={{
-                                disableFuture: false,
-                            }}
-                            required={false}
-                        />
-                    </div>
-                    <div className="col-md-3 col-sm-6">
-                        <DateField
-                            key="a"
-                            id="a"
-                            onchange={e => fieldChangedHandler(e, 'a')}
-                            defaultValue={dateFin}
-                            name="a"
-                            label="Date fin"
-                            isArabic={false}
-                            attributes={{
-                                disableFuture: false,
-                            }}
-                            required={false}
-                        />
-                    </div>
-                </div>
-            )}
+            <div className="row">
+                {(title === 'Mes commandes' || title === 'Historique Commande') && (
+                    <>
+                        {title === 'Historique Commande' &&
+                            <div className="col-md-3 col-sm-6">
+                                <SelectList
+                                    onchange={e => {
+                                        onSelect(e)
+                                    }}
+                                    name="select"
+                                    label="Selectionner grossiste"
+                                    list={listGrossiste}
+                                    selectedItem={value}
+                                />
+                            </div>
+                        }
+                        <div className="col-md-3 col-sm-6">
+                            <DateField
+                                key="de"
+                                id="de"
+                                onchange={e => fieldChangedHandler(e, 'de')}
+                                defaultValue={dateDebut}
+                                name="de"
+                                label="Date début"
+                                isArabic={false}
+                                attributes={{
+                                    disableFuture: false,
+                                }}
+                                required={false}
+                            />
+                        </div>
+                        <div className="col-md-3 col-sm-6">
+                            <DateField
+                                key="a"
+                                id="a"
+                                onchange={e => fieldChangedHandler(e, 'a')}
+                                defaultValue={dateFin}
+                                name="a"
+                                label="Date fin"
+                                isArabic={false}
+                                attributes={{
+                                    disableFuture: false,
+                                }}
+                                required={false}
+                            />
+                        </div>
+                    </>
+                )}
+            </div>
             <br />
             <MaterialTable
                 options={{
