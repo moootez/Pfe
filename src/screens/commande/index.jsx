@@ -1,15 +1,24 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { Grid, Divider } from '@material-ui/core'
+import { Divider } from '@material-ui/core'
+import TableCollapse from '../../components/tableWithCollapse'
+import SwiperCore, { Navigation, Autoplay } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import getAllCommandes from '../../redux/declarantInterne/getDeclarantAvis'
 import getCommandes from '../../redux/declarantInterne/getDeclarantById'
-import TableCollapse from '../../components/tableWithCollapse'
-import PageTitle from '../../components/ui/pageTitle'
+import SliderDash2 from '../../assets/images/banner-dash1.gif'
+import SliderDash1 from '../../assets/images/banner-dash2.gif'
+import SliderDash3 from '../../assets/images/banner-dash3.gif'
+import SliderDash4 from '../../assets/images/banner-dash4.gif'
+import 'swiper/swiper.scss'
+import 'swiper/components/navigation/navigation.scss'
+
+SwiperCore.use([Navigation, Autoplay])
 
 const Index = props => {
     const {
@@ -77,22 +86,48 @@ const Index = props => {
     ]
 
     return (
-        <div className="column col-md-12 style-table">
-            {/* <Grid className="gridItem">
+        <Fragment>
+            <Swiper
+                spaceBetween={0}
+                slidesPerView={1}
+                autoplay={{
+                    delay: 7000,
+                }}
+                navigation
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={swiper => console.log(swiper)}
+                className="slider_dash"
+            >
+                <SwiperSlide>
+                    <img src={SliderDash1} alt="slider" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={SliderDash2} alt="slider" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={SliderDash3} alt="slider" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={SliderDash4} alt="slider" />
+                </SwiperSlide>
+            </Swiper>
+            <div className="column col-md-12 style-table">
+                {/* <Grid className="gridItem">
                 <PageTitle label="Mes commandes" />
             </Grid> */}
-            <Divider />
+                <Divider />
 
-            <TableCollapse
-                title="Mes commandes"
-                apiCall={getAllCommande}
-                dataApi={{ user: userID }}
-                dataReturned={JSON.parse(JSON.stringify(commandes))}
-                dataSubArray={dataSubArray}
-                headerTable={header}
-                userID={userID}
-            />
-        </div>
+                <TableCollapse
+                    title="Mes commandes"
+                    apiCall={getAllCommande}
+                    dataApi={{ user: userID }}
+                    dataReturned={JSON.parse(JSON.stringify(commandes))}
+                    dataSubArray={dataSubArray}
+                    headerTable={header}
+                    userID={userID}
+                />
+            </div>
+        </Fragment>
     )
 }
 
