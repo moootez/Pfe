@@ -43,7 +43,7 @@ const Index = props => {
             const listUser = []
             res.data.data.map(e => {
                 return listUser.push({
-                    label: `${e.prenom} ${e.nom}`,
+                    label: e.codeInsc,
                     value: e.id,
                     codeInsc: e.codeInsc,
                 })
