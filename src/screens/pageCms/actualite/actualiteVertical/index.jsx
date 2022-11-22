@@ -87,8 +87,9 @@ const Index = ({ filtredTable, getActualite }) => {
             autoplay={{
                 delay: 3000,
             }}
-        // spaceBetween={20}
-        // slidesPerView={4}
+            className="mySwiper"
+            spaceBetween={400}
+            slidesPerView={2}
         // centerInsufficientSlides="true"
         // navigation
         >

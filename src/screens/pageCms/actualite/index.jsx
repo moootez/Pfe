@@ -82,7 +82,7 @@ const Index = ({ filtredTable, getActualite }) => {
             {/* <Grid className="gridItem">
                     <PageTitle />
                 </Grid> */}
-            {page === '/actualite' && (
+            {page === '/actualite' || page === '/commande' && (
                 <Swiper
                     // install Swiper modules
                     modules={[Navigation, Pagination, Scrollbar, A11y]}

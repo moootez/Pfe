@@ -17,6 +17,7 @@ import SliderDash3 from '../../assets/images/banner-dash3.gif'
 import SliderDash4 from '../../assets/images/banner-dash4.gif'
 import 'swiper/swiper.scss'
 import 'swiper/components/navigation/navigation.scss'
+import Actualite from '../pageCms/actualite'
 
 SwiperCore.use([Navigation, Autoplay])
 
@@ -87,30 +88,7 @@ const Index = props => {
 
     return (
         <Fragment>
-            <Swiper
-                spaceBetween={0}
-                slidesPerView={1}
-                autoplay={{
-                    delay: 7000,
-                }}
-                navigation
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={swiper => console.log(swiper)}
-                className="slider_dash"
-            >
-                <SwiperSlide>
-                    <img src={SliderDash1} alt="slider" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src={SliderDash2} alt="slider" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src={SliderDash3} alt="slider" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src={SliderDash4} alt="slider" />
-                </SwiperSlide>
-            </Swiper>
+            <Actualite />
             <div className="column col-md-12 style-table">
                 {/* <Grid className="gridItem">
                 <PageTitle label="Mes commandes" />
