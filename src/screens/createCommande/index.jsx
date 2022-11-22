@@ -11,13 +11,15 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
 import PropTypes, { number } from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/styles'
 import { Divider, TextField, Button } from '@material-ui/core'
+import SwiperCore, { Navigation, Autoplay } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import alertActions from '../../redux/alert'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import addNewCommandeActions from '../../redux/commande/newCommande'
@@ -26,6 +28,11 @@ import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
+import 'swiper/swiper.scss'
+import 'swiper/components/navigation/navigation.scss'
+import Actualite from '../pageCms/actualite/actualiteVertical'
+
+SwiperCore.use([Navigation, Autoplay])
 
 const useStyles = makeStyles(theme => ({
     txt: {
@@ -112,7 +119,7 @@ const Index = props => {
 
     getTotalQt = rowData =>
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
-            parseInt(rowData.coefUcUs || 0) +
+        parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
     const getTotalPrix = rowData =>
         Math.round(getTotalQt(rowData) * rowData.prix * 1000) / 1000
@@ -162,251 +169,302 @@ const Index = props => {
         }
     }
 
+    const safeImage = (url, path) => {
+        try {
+            return `${baseUrl}${path}${url}`
+        } catch {
+            return unknown
+        }
+    }
+
     return (
-        <div className="column col-md-12 style-table">
-            <Divider />
-
-            <MaterialTable
-                options={{
-                    headerStyle: { fontSize: 20 },
-                    pageSize: 5,
-                    pageSizeOptions: [
-                        5,
-                        10,
-                        20,
-                        { value: all, label: 'Afficher Tous' },
-                    ],
+        <Fragment>
+            <Swiper
+                spaceBetween={0}
+                slidesPerView={1}
+                autoplay={{
+                    delay: 7000,
                 }}
-                title={<PageTitle label="Créer une commande" />}
-                columns={[
-                    {
-                        title: 'Image',
-                        field: 'codeArticleX3',
-                        cellStyle: {
-                            width: '10%',
-                            textAlign: 'center',
-                        },
-                        render: rowData => (
-                            <img
-                                key={generateKey()}
-                                src={safeRequire(
-                                    rowData.codeArticleX3,
-                                    '../produits/',
-                                    '.png'
-                                )}
-                                style={{ width: 150, borderRadius: '2%' }}
-                                alt="produit"
-                            />
-                        ),
-                    },
-                    {
-                        title: 'Code Article',
-                        field: 'codeArticleX3',
-                        cellStyle: {
-                            width: '8%',
-                            textAlign: 'center',
-                        },
-                    },
-                    {
-                        title: 'Code PCT',
-                        field: 'codePct',
-                        cellStyle: {
-                            width: '8%',
-                        },
-                    },
-                    {
-                        title: 'Désignation',
-                        field: 'designation1',
-                        cellStyle: {
-                            width: '16%',
-                            textAlign: 'center',
-                        },
-                    },
-
-                    {
-                        title: 'Prix',
-                        field: 'prix',
-                        cellStyle: {
-                            textAlign: 'center',
-                        },
-                    },
-                    {
-                        title: 'Colisage',
-                        field: 'coefUcUs',
-                        cellStyle: {
-                            textAlign: 'center',
-                        },
-                    },
-                    {
-                        title: 'Qté en cartons',
-                        field: 'qtc',
-                        cellStyle: {
-                            textAlign: 'center',
-                        },
-                        render: rowData => (
-                            <div style={{ width: 80 }}>
-                                <TextField
-                                    onChange={e => checkQteCarton(e)}
-                                    inputProps={{ min: 0 }}
-                                    disabled={!rowData.actif}
-                                    type="number"
-                                    key={generateKey()}
-                                    label="Quantité"
-                                    id="outlined-size-small"
-                                    defaultValue={
-                                        (commande[rowData.codeArticleX3] || {})
-                                            .qtc || 0
-                                    }
-                                    variant="outlined"
-                                    onBlur={e =>
-                                        setCommande({
-                                            ...commande,
-                                            [rowData.codeArticleX3]: {
-                                                ...(commande[
-                                                    rowData.codeArticleX3
-                                                ] || {}),
-                                                qtc: e.target.value,
-                                                Code_PCT: rowData.codePct,
-                                                Designation:
-                                                    rowData.designation1,
-                                                prix: rowData.prix,
-                                            },
-                                        })
-                                    }
-                                    size="small"
-                                />
-                            </div>
-                        ),
-                    },
-                    {
-                        title: 'Qté vrac',
-                        field: 'qtv',
-                        cellStyle: {
-                            textAlign: 'center',
-                        },
-                        render: rowData => (
-                            <div style={{ width: 80 }}>
-                                <TextField
-                                    onChange={e => checkQteVrac(e)}
-                                    // value={QteVrac}
-                                    inputProps={{ min: 0 }}
-                                    type="number"
-                                    key={generateKey()}
-                                    label="Quantité"
-                                    id="outlined-size-small"
-                                    defaultValue={
-                                        (commande[rowData.codeArticleX3] || {})
-                                            .qtv || 0
-                                    }
-                                    variant="outlined"
-                                    size="small"
-                                    style={{
-                                        border: '2px solid'.ColorBorder,
-                                        height: 'calc(0.5em + 1.5rem + 2px)',
-                                    }}
-                                    onBlur={e =>
-                                        setCommande({
-                                            ...commande,
-                                            [rowData.codeArticleX3]: {
-                                                ...(commande[
-                                                    rowData.codeArticleX3
-                                                ] || {}),
-                                                qtv: e.target.value,
-                                                Code_PCT: rowData.codePct,
-                                                Designation:
-                                                    rowData.designation1,
-                                                prix: rowData.prix,
-                                            },
-                                        })
-                                    }
-                                    disabled={rowData.ucObligatoire === 2}
-                                />
-                            </div>
-                        ),
-                    },
-                    {
-                        title: 'Qté totale',
-                        field: 'qtt',
-                        cellStyle: {
-                            width: '7%',
-                            textAlign: 'center',
-                        },
-                        render: rowData => {
-                            return (
-                                <div key={generateKey()} style={{ width: 80 }}>
-                                    <p>{getTotalQt(rowData)}</p>
-                                </div>
-                            )
-                        },
-                    },
-                    {
-                        title: 'Prix total',
-                        field: 'pt',
-                        cellStyle: {
-                            width: '7%',
-                            textAlign: 'center',
-                        },
-                        render: rowData => {
-                            return (
-                                <div
-                                    key={generateKey()}
-                                    style={{ width: 80 }}
-                                    // handleChnage={getTotalPrix2(rowData)}
-                                >
-                                    <p>{getTotalPrix(rowData)}</p>
-                                </div>
-                            )
-                        },
-                    },
-                ]}
-                localization={{
-                    pagination: {
-                        labelDisplayedRows: '{from}-{to} de {count}',
-                        labelRowsSelect: 'lignes par page',
-                        labelRowsPerPage: 'lignes par page:',
-                        firstAriaLabel: 'Première page',
-                        firstTooltip: 'Première page',
-                        previousAriaLabel: 'Page précédente',
-                        previousTooltip: 'Page précédente',
-                        nextAriaLabel: 'Page suivante',
-                        nextTooltip: 'Page suivante',
-                        lastAriaLabel: 'Dernière page',
-                        lastTooltip: 'Dernière page',
-                    },
-                    toolbar: {
-                        searchPlaceholder: 'Rechercher',
-                    },
-                }}
-                data={allProduct || []}
-            />
-            <div
-                className="m-3 text-left"
-                style={{ float: 'left', paddingTop: '10px' }}
+                navigation
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={swiper => console.log(swiper)}
+                className="slider_dash"
             >
-                <a
-                    className="mr-2"
-                    href={safeRequire('ExempleCsv', '../', '.csv')}
-                >
-                    <b>Exemple de fichier à importer</b>
-                </a>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <a
-                    className="mr-2"
-                    href="declaration_rattacher_saisie/rattacher_le_scan_de_la_declaration/50"
-                >
-                    <b>Import d&#39;une commande</b>
-                </a>
-            </div>
-            <div className="m-3 text-right" style={{ paddingBottom: '20px' }}>
-                {/* <div className={classes.txt}>
+                <SwiperSlide>
+                    <img src={safeImage(
+                        'banner-dash2.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={safeImage(
+                        'banner-dash1.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={safeImage(
+                        'banner-dash3.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img src={safeImage(
+                        'banner-dash4.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
+                </SwiperSlide>
+            </Swiper>
+            <div className='row'>
+                <div className="col-md-10 style-table">
+                    <Divider />
+
+                    <MaterialTable
+                        options={{
+                            headerStyle: { fontSize: 20 },
+                            pageSize: 5,
+                            pageSizeOptions: [
+                                5,
+                                10,
+                                20,
+                                { value: all, label: 'Afficher Tous' },
+                            ],
+                        }}
+                        title={<PageTitle label="Créer une commande" />}
+                        columns={[
+                            {
+                                title: 'Image',
+                                field: 'codeArticleX3',
+                                cellStyle: {
+                                    width: '10%',
+                                    textAlign: 'center',
+                                },
+                                render: rowData => (
+                                    <img
+                                        key={generateKey()}
+                                        src={safeRequire(
+                                            rowData.codeArticleX3,
+                                            '../produits/',
+                                            '.png'
+                                        )}
+                                        style={{ width: 150, borderRadius: '2%' }}
+                                        alt="produit"
+                                    />
+                                ),
+                            },
+                            {
+                                title: 'Code Article',
+                                field: 'codeArticleX3',
+                                cellStyle: {
+                                    width: '8%',
+                                    textAlign: 'center',
+                                },
+                            },
+                            {
+                                title: 'Code PCT',
+                                field: 'codePct',
+                                cellStyle: {
+                                    width: '8%',
+                                },
+                            },
+                            {
+                                title: 'Désignation',
+                                field: 'designation1',
+                                cellStyle: {
+                                    width: '16%',
+                                    textAlign: 'center',
+                                },
+                            },
+
+                            {
+                                title: 'Prix',
+                                field: 'prix',
+                                cellStyle: {
+                                    textAlign: 'center',
+                                },
+                            },
+                            {
+                                title: 'Colisage',
+                                field: 'coefUcUs',
+                                cellStyle: {
+                                    textAlign: 'center',
+                                },
+                            },
+                            {
+                                title: 'Qté en cartons',
+                                field: 'qtc',
+                                cellStyle: {
+                                    textAlign: 'center',
+                                },
+                                render: rowData => (
+                                    <div style={{ width: 80 }}>
+                                        <TextField
+                                            onChange={e => checkQteCarton(e)}
+                                            inputProps={{ min: 0 }}
+                                            disabled={!rowData.actif}
+                                            type="number"
+                                            key={generateKey()}
+                                            label="Quantité"
+                                            id="outlined-size-small"
+                                            defaultValue={
+                                                (commande[rowData.codeArticleX3] || {})
+                                                    .qtc || 0
+                                            }
+                                            variant="outlined"
+                                            onBlur={e =>
+                                                setCommande({
+                                                    ...commande,
+                                                    [rowData.codeArticleX3]: {
+                                                        ...(commande[
+                                                            rowData.codeArticleX3
+                                                        ] || {}),
+                                                        qtc: e.target.value,
+                                                        Code_PCT: rowData.codePct,
+                                                        Designation:
+                                                            rowData.designation1,
+                                                        prix: rowData.prix,
+                                                    },
+                                                })
+                                            }
+                                            size="small"
+                                        />
+                                    </div>
+                                ),
+                            },
+                            {
+                                title: 'Qté vrac',
+                                field: 'qtv',
+                                cellStyle: {
+                                    textAlign: 'center',
+                                },
+                                render: rowData => (
+                                    <div style={{ width: 80 }}>
+                                        <TextField
+                                            onChange={e => checkQteVrac(e)}
+                                            // value={QteVrac}
+                                            inputProps={{ min: 0 }}
+                                            type="number"
+                                            key={generateKey()}
+                                            label="Quantité"
+                                            id="outlined-size-small"
+                                            defaultValue={
+                                                (commande[rowData.codeArticleX3] || {})
+                                                    .qtv || 0
+                                            }
+                                            variant="outlined"
+                                            size="small"
+                                            style={{
+                                                border: '2px solid'.ColorBorder,
+                                                height: 'calc(0.5em + 1.5rem + 2px)',
+                                            }}
+                                            onBlur={e =>
+                                                setCommande({
+                                                    ...commande,
+                                                    [rowData.codeArticleX3]: {
+                                                        ...(commande[
+                                                            rowData.codeArticleX3
+                                                        ] || {}),
+                                                        qtv: e.target.value,
+                                                        Code_PCT: rowData.codePct,
+                                                        Designation:
+                                                            rowData.designation1,
+                                                        prix: rowData.prix,
+                                                    },
+                                                })
+                                            }
+                                            disabled={rowData.ucObligatoire === 2}
+                                        />
+                                    </div>
+                                ),
+                            },
+                            {
+                                title: 'Qté totale',
+                                field: 'qtt',
+                                cellStyle: {
+                                    width: '7%',
+                                    textAlign: 'center',
+                                },
+                                render: rowData => {
+                                    return (
+                                        <div key={generateKey()} style={{ width: 80 }}>
+                                            <p>{getTotalQt(rowData)}</p>
+                                        </div>
+                                    )
+                                },
+                            },
+                            {
+                                title: 'Prix total',
+                                field: 'pt',
+                                cellStyle: {
+                                    width: '7%',
+                                    textAlign: 'center',
+                                },
+                                render: rowData => {
+                                    return (
+                                        <div
+                                            key={generateKey()}
+                                            style={{ width: 80 }}
+                                        // handleChnage={getTotalPrix2(rowData)}
+                                        >
+                                            <p>{getTotalPrix(rowData)}</p>
+                                        </div>
+                                    )
+                                },
+                            },
+                        ]}
+                        localization={{
+                            pagination: {
+                                labelDisplayedRows: '{from}-{to} de {count}',
+                                labelRowsSelect: 'lignes par page',
+                                labelRowsPerPage: 'lignes par page:',
+                                firstAriaLabel: 'Première page',
+                                firstTooltip: 'Première page',
+                                previousAriaLabel: 'Page précédente',
+                                previousTooltip: 'Page précédente',
+                                nextAriaLabel: 'Page suivante',
+                                nextTooltip: 'Page suivante',
+                                lastAriaLabel: 'Dernière page',
+                                lastTooltip: 'Dernière page',
+                            },
+                            toolbar: {
+                                searchPlaceholder: 'Rechercher',
+                            },
+                        }}
+                        data={allProduct || []}
+                    />
+                    <div
+                        className="m-3 text-left"
+                        style={{ float: 'left', paddingTop: '10px' }}
+                    >
+                        <a
+                            className="mr-2"
+                            href={safeRequire('ExempleCsv', '../', '.csv')}
+                        >
+                            <b>Exemple de fichier à importer</b>
+                        </a>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a
+                            className="mr-2"
+                            href="declaration_rattacher_saisie/rattacher_le_scan_de_la_declaration/50"
+                        >
+                            <b>Import d&#39;une commande</b>
+                        </a>
+                    </div>
+                    <div className="m-3 text-right" style={{ paddingBottom: '20px' }}>
+                        {/* <div className={classes.txt}>
                     Prix total : <p id="demo"></p>
                 </div> */}
 
-                <Button className="btn-submit-cmd" onClick={handleSubmit}>
-                    Enregistrer la commande
-                </Button>
+                        <Button className="btn-submit-cmd" onClick={handleSubmit}>
+                            Enregistrer la commande
+                        </Button>
+                    </div>
+                </div>
+                <div className="col-md-2">
+                    <Actualite />
+                </div>
             </div>
-        </div>
+        </Fragment>
     )
 }
 

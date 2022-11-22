@@ -17,7 +17,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
-import Button from '../../components/ui/button'
+// import Button from '../../components/ui/button'
 import getCommandeActions from '../../redux/commande/getCommande'
 import validerCommandeActions from '../../redux/commande/validerCommande'
 import exportPdfCommandeActions from '../../redux/commande/exportPdf'
@@ -48,7 +48,7 @@ const Index = props => {
         exportPdf,
         dupliquerCommande,
         pdfLink,
-        syncProduits,
+        // syncProduits,
         role,
         history,
     } = props
@@ -105,14 +105,14 @@ const Index = props => {
                 <PageTitle label="Validation commande" />
             </Grid> */}
             <Divider />
-            {role !== 'ROLE_CLIENT' && (
+            {/* {role !== 'ROLE_CLIENT' && (
                 <div>
                     <Button
                         clicked={syncProduits}
                         label="Synchronisation produits"
                     />
                 </div>
-            )}
+            )} */}
             <MaterialTable
                 title={<PageTitle label="Commandes à valider" />}
                 options={{
@@ -319,7 +319,7 @@ const mapDispatchToProps = dispatch => ({
     alertHide: () => dispatch(alertActions.alertHide()),
     dupliquerCommande: payload =>
         dispatch(dupliquerCommandeActions.dupliquerCommandeRequest(payload)),
-    syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
+    // syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
 // obtenir les données from  store state
@@ -352,7 +352,7 @@ Index.propTypes = {
     dupliquerCommande: PropTypes.func.isRequired,
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
-    syncProduits: PropTypes.func.isRequired,
+    // syncProduits: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
 }
 

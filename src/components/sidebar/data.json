@@ -187,6 +187,17 @@
                 ],
                 "subitems": null,
                 "defaultPermission": true
+            },
+            {
+                "id": 10,
+                "title": "Photos animées",
+                "link": "/photos-animees",
+                "roles": [
+                    "ROLE_ADMIN",
+                    "ROLE_ADV"
+                ],
+                "subitems": null,
+                "defaultPermission": true
             }
         ]
     }

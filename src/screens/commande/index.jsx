@@ -1,15 +1,21 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { Grid, Divider } from '@material-ui/core'
+import { Divider } from '@material-ui/core'
+import TableCollapse from '../../components/tableWithCollapse'
+import SwiperCore, { Navigation, Autoplay } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import getAllCommandes from '../../redux/declarantInterne/getDeclarantAvis'
 import getCommandes from '../../redux/declarantInterne/getDeclarantById'
-import TableCollapse from '../../components/tableWithCollapse'
-import PageTitle from '../../components/ui/pageTitle'
+import 'swiper/swiper.scss'
+import 'swiper/components/navigation/navigation.scss'
+import Actualite from '../pageCms/actualite'
+
+SwiperCore.use([Navigation, Autoplay])
 
 const Index = props => {
     const {
@@ -77,22 +83,25 @@ const Index = props => {
     ]
 
     return (
-        <div className="column col-md-12 style-table">
-            {/* <Grid className="gridItem">
+        <Fragment>
+            <Actualite />
+            <div className="column col-md-12 style-table">
+                {/* <Grid className="gridItem">
                 <PageTitle label="Mes commandes" />
             </Grid> */}
-            <Divider />
+                <Divider />
 
-            <TableCollapse
-                title="Mes commandes"
-                apiCall={getAllCommande}
-                dataApi={{ user: userID }}
-                dataReturned={JSON.parse(JSON.stringify(commandes))}
-                dataSubArray={dataSubArray}
-                headerTable={header}
-                userID={userID}
-            />
-        </div>
+                <TableCollapse
+                    title="Mes commandes"
+                    apiCall={getAllCommande}
+                    dataApi={{ user: userID }}
+                    dataReturned={JSON.parse(JSON.stringify(commandes))}
+                    dataSubArray={dataSubArray}
+                    headerTable={header}
+                    userID={userID}
+                />
+            </div>
+        </Fragment>
     )
 }
 

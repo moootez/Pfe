@@ -39,55 +39,31 @@ const Index = props => {
 
     const [allProduct, setAllProduct] = useState([])
 
-    // 1 seul fois
     useEffect(() => {
-        getAllProduct()
+        setAllProduct([{ image: 'banner-dash1.gif' }, { image: 'banner-dash2.gif' }, { image: 'banner-dash3.gif' }, { image: 'banner-dash4.gif' }])
     }, [])
-
-    //  exceution mors de changement du parametre
-    // exp [newCommande.loading, uploadNewCommande.loading]
-
-    useEffect(() => {
-        if (newCommande.loading === true || uploadNewCommande.loading === true)
-            setTimeout(() => history.push('/validation-commande'), 1000)
-    }, [newCommande.loading, uploadNewCommande.loading])
-
-    useEffect(() => {
-        setAllProduct(JSON.parse(JSON.stringify(products)))
-    }, [products])
-
-    let all
-    if (allProduct !== null) {
-        all = allProduct.length
-        console.log('all', allProduct.length)
-    }
-
-    const safeRequire = (url, path, ext = null) => {
-        try {
-            return `${baseUrl}${path}${url}${ext}`
-        } catch {
-            return unknown
-        }
-    }
     const editAction = rowData => {
         history.push({
-            pathname: 'edit_produit',
+            pathname: 'edit_photo',
             state: {
-                name: rowData.codeArticleX3,
+                name: rowData.image,
+                rowData,
                 type: 'edit',
             },
         })
     }
 
+    const safeRequire = (url, path) => {
+        try {
+            return `${baseUrl}${path}${url}`
+        } catch {
+            return unknown
+        }
+    }
+
     return (
         <div className="column col-md-12 style-table">
             <Divider />
-            <div>
-                <Button
-                    clicked={syncProduits}
-                    label="Synchronisation produits"
-                />
-            </div>
             <MaterialTable
                 options={{
                     headerStyle: { fontSize: 20 },
@@ -95,66 +71,36 @@ const Index = props => {
                     pageSizeOptions: [
                         5,
                         10,
-                        20,
-                        { value: all, label: 'Afficher Tous' },
+                        20
                     ],
                 }}
-                title={<PageTitle label="Liste des produits" />}
+                title={<PageTitle label="Liste des photos animées" />}
                 columns={[
                     {
                         title: 'Image',
-                        field: 'codeArticleX3',
+                        field: 'image',
                         cellStyle: {
-                            width: '10%',
                             textAlign: 'center',
                         },
                         render: rowData => (
                             <img
                                 key={generateKey()}
                                 src={safeRequire(
-                                    rowData.codeArticleX3,
-                                    '../produits/',
-                                    '.png'
+                                    rowData.image,
+                                    '../photos-animees/'
                                 )}
-                                style={{ width: 150, borderRadius: '2%' }}
-                                alt="produit"
+                                style={{ width: 500, height: 100 }}
+                                alt="photo"
                             />
                         ),
                     },
                     {
-                        title: 'Code Article',
-                        field: 'codeArticleX3',
-                        cellStyle: {
-                            // width: '8%',
-                            textAlign: 'center',
-                        },
-                    },
-                    {
-                        title: 'Code PCT',
-                        field: 'codePct',
-                        // cellStyle: {
-                        //     width: '8%',
-                        // },
-                    },
-                    {
-                        title: 'Désignation',
-                        field: 'designation1',
-                        cellStyle: {
-                            // width: '16%',
-                            textAlign: 'center',
-                        },
-                    },
-
-                    {
-                        title: 'Prix',
-                        field: 'prix',
-                        cellStyle: {
-                            textAlign: 'center',
-                        },
-                    },
-                    {
                         title: 'Modifier Image',
-                        field: 'image',
+                        field: 'actions',
+                        cellStyle: {
+                            width: '10%',
+                            textAlign: 'center',
+                        },
                         render: rowData => {
                             return (
                                 <div>
@@ -170,8 +116,8 @@ const Index = props => {
                                     </Fab>
                                 </div>
                             )
-                        },
-                    },
+                        }
+                    }
                 ]}
                 localization={{
                     pagination: {
