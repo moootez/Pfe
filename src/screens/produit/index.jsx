@@ -24,6 +24,7 @@ import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
+import Button from '../../components/ui/button'
 
 // destrict
 const Index = props => {
@@ -33,6 +34,7 @@ const Index = props => {
         history,
         newCommande,
         uploadNewCommande,
+        syncProduits,
     } = props
 
     const [allProduct, setAllProduct] = useState([])
@@ -80,7 +82,12 @@ const Index = props => {
     return (
         <div className="column col-md-12 style-table">
             <Divider />
-
+            <div>
+                <Button
+                    clicked={syncProduits}
+                    label="Synchronisation produits"
+                />
+            </div>
             <MaterialTable
                 options={{
                     headerStyle: { fontSize: 20 },
@@ -201,6 +208,7 @@ const Index = props => {
  */
 const mapDispatchToProps = dispatch => ({
     getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
+    syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
 // obtenir les données from  store state
@@ -227,6 +235,7 @@ Index.propTypes = {
     newCommande: PropTypes.any.isRequired,
     uploadNewCommande: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    syncProduits: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))
