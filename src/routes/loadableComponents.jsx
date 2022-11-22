@@ -571,6 +571,30 @@ const loadableComponents = [
         name: 'historique-commande',
         showWhenConnected: true,
     },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/photosAnimees'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/photos-animees',
+        props: {
+            exact: true,
+        },
+        name: 'photos-animees',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/photosAnimees/editPhoto'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/edit_photo',
+        props: {
+            exact: true,
+        },
+        name: 'edit_photo',
+        showWhenConnected: true,
+    },
 ]
 
 export default loadableComponents

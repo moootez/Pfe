@@ -28,10 +28,6 @@ import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
-import SliderDash2 from '../../assets/images/banner-dash1.gif'
-import SliderDash1 from '../../assets/images/banner-dash2.gif'
-import SliderDash3 from '../../assets/images/banner-dash3.gif'
-import SliderDash4 from '../../assets/images/banner-dash4.gif'
 import 'swiper/swiper.scss'
 import 'swiper/components/navigation/navigation.scss'
 import Actualite from '../pageCms/actualite/actualiteVertical'
@@ -173,6 +169,14 @@ const Index = props => {
         }
     }
 
+    const safeImage = (url, path) => {
+        try {
+            return `${baseUrl}${path}${url}`
+        } catch {
+            return unknown
+        }
+    }
+
     return (
         <Fragment>
             <Swiper
@@ -187,16 +191,28 @@ const Index = props => {
                 className="slider_dash"
             >
                 <SwiperSlide>
-                    <img src={SliderDash1} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash2.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash2} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash1.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash3} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash3.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash4} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash4.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
             </Swiper>
             <div className='row'>

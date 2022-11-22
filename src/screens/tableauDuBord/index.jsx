@@ -16,10 +16,6 @@ import SwiperCore, { Navigation, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Paper from '@material-ui/core/Paper'
 import baseUrl from '../../serveur/baseUrl'
-import SliderDash2 from '../../assets/images/banner-dash1.gif'
-import SliderDash1 from '../../assets/images/banner-dash2.gif'
-import SliderDash3 from '../../assets/images/banner-dash3.gif'
-import SliderDash4 from '../../assets/images/banner-dash4.gif'
 // Import Swiper styles
 import 'swiper/swiper.scss'
 import 'swiper/components/navigation/navigation.scss'
@@ -181,6 +177,14 @@ const index = () => {
         })
     }
 
+    const safeImage = (url, path) => {
+        try {
+            return `${baseUrl}${path}${url}`
+        } catch {
+            return unknown
+        }
+    }
+
     return (
         <Fragment>
             <Swiper
@@ -195,16 +199,28 @@ const index = () => {
                 className="slider_dash"
             >
                 <SwiperSlide>
-                    <img src={SliderDash1} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash1.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash2} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash2.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash3} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash3.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={SliderDash4} alt="slider" />
+                    <img src={safeImage(
+                        'banner-dash4.gif',
+                        '../photos-animees/'
+                    )} alt="slider" />
                 </SwiperSlide>
             </Swiper>
             <div className="blc-cnt-dash">
