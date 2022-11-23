@@ -24,7 +24,6 @@ import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
-import Button from '../../components/ui/button'
 
 // destrict
 const Index = props => {
@@ -40,7 +39,12 @@ const Index = props => {
     const [allProduct, setAllProduct] = useState([])
 
     useEffect(() => {
-        setAllProduct([{ image: 'banner-dash1.gif' }, { image: 'banner-dash2.gif' }, { image: 'banner-dash3.gif' }, { image: 'banner-dash4.gif' }])
+        setAllProduct([
+            { image: 'banner-dash1.gif' },
+            { image: 'banner-dash2.gif' },
+            { image: 'banner-dash3.gif' },
+            { image: 'banner-dash4.gif' },
+        ])
     }, [])
     const editAction = rowData => {
         history.push({
@@ -68,11 +72,7 @@ const Index = props => {
                 options={{
                     headerStyle: { fontSize: 20 },
                     pageSize: 5,
-                    pageSizeOptions: [
-                        5,
-                        10,
-                        20
-                    ],
+                    pageSizeOptions: [5, 10, 20],
                 }}
                 title={<PageTitle label="Liste des photos animées" />}
                 columns={[
@@ -90,7 +90,7 @@ const Index = props => {
                                     '../photos-animees/'
                                 )}
                                 style={{ width: 500, height: 100 }}
-                                alt="photo"
+                                alt="image1"
                             />
                         ),
                     },
@@ -116,8 +116,8 @@ const Index = props => {
                                     </Fab>
                                 </div>
                             )
-                        }
-                    }
+                        },
+                    },
                 ]}
                 localization={{
                     pagination: {

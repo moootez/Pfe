@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import SimpleTable from '../simpleTable'
 import DateField from '../ui/datePicker'
-import SelectList from '..//ui/select'
+import SelectList from '../ui/select'
 
 const useStyles = makeStyles(theme => ({
     txt: {
@@ -29,7 +29,7 @@ const DetailPanelWithRowClick = props => {
         title,
         headerTable,
         userID,
-        listGrossiste
+        listGrossiste,
     } = props
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
     const [allList, setAllList] = useState(0)
@@ -65,7 +65,11 @@ const DetailPanelWithRowClick = props => {
         if (name === 'de') {
             setDateDebut(e.target.value)
             if (dateFin) {
-                apiCall({ user: valueGrossiste, dateDebut: e.target.value, dateFin })
+                apiCall({
+                    user: valueGrossiste,
+                    dateDebut: e.target.value,
+                    dateFin,
+                })
             } else
                 apiCall({
                     user: valueGrossiste,
@@ -75,7 +79,11 @@ const DetailPanelWithRowClick = props => {
         } else {
             setDateFin(e.target.value)
             if (dateDebut) {
-                apiCall({ user: valueGrossiste, dateFin: e.target.value, dateDebut })
+                apiCall({
+                    user: valueGrossiste,
+                    dateFin: e.target.value,
+                    dateDebut,
+                })
             } else
                 apiCall({
                     user: valueGrossiste,
@@ -91,34 +99,37 @@ const DetailPanelWithRowClick = props => {
 
     const onSelect = e => {
         setValue(e.target.value)
-        const user = listGrossiste.filter(element => element.value === e.target.value)
+        const user = listGrossiste.filter(
+            element => element.value === e.target.value
+        )
         if (user.length) {
             setValueGrossiste(user[0].codeInsc)
-            apiCall({ user: user[0].codeInsc, dateFin: dateFin, dateDebut })
+            apiCall({ user: user[0].codeInsc, dateFin, dateDebut })
         }
     }
 
     const detailPanel = dataSubArray
         ? {
-            detailPanel: rowData => {
-                return (
-                    // dataSubArray.dataApi is A function to get useful data from row data
-                    <SimpleTable
-                        {...rowData}
-                        {...dataSubArray}
-                        dataApi={dataSubArray.dataApi(rowData)}
-                        dataReturned={subDataRef.current}
-                    />
-                )
-            },
-        }
+              detailPanel: rowData => {
+                  return (
+                      // dataSubArray.dataApi is A function to get useful data from row data
+                      <SimpleTable
+                          {...rowData}
+                          {...dataSubArray}
+                          dataApi={dataSubArray.dataApi(rowData)}
+                          dataReturned={subDataRef.current}
+                      />
+                  )
+              },
+          }
         : {}
     return (
         <>
             <div className="row">
-                {(title === 'Mes commandes' || title === 'Historique Commande') && (
+                {(title === 'Mes commandes' ||
+                    title === 'Historique Commande') && (
                     <>
-                        {title === 'Historique Commande' &&
+                        {title === 'Historique Commande' && (
                             <div className="col-md-3 col-sm-6">
                                 <SelectList
                                     onchange={e => {
@@ -130,7 +141,7 @@ const DetailPanelWithRowClick = props => {
                                     selectedItem={value}
                                 />
                             </div>
-                        }
+                        )}
                         <div className="col-md-3 col-sm-6">
                             <DateField
                                 key="de"

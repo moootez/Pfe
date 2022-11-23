@@ -20,6 +20,7 @@ import baseUrl from '../../serveur/baseUrl'
 import 'swiper/swiper.scss'
 import 'swiper/components/navigation/navigation.scss'
 import SelectList from '../../components/ui/select'
+import unknown from '../../assets/images/unknown.jpg'
 
 SwiperCore.use([Navigation, Autoplay])
 
@@ -171,7 +172,7 @@ const index = () => {
     }
 
     const onGeneratePdf = () => {
-        html2canvas(document.querySelector('#chart')).then(function (canvas) {
+        html2canvas(document.querySelector('#chart')).then(function(canvas) {
             const image = canvas.toDataURL('image/png', 1.0)
             downloadImage(image, nameGrossite)
         })
@@ -199,28 +200,40 @@ const index = () => {
                 className="slider_dash"
             >
                 <SwiperSlide>
-                    <img src={safeImage(
-                        'banner-dash1.gif',
-                        '../photos-animees/'
-                    )} alt="slider" />
+                    <img
+                        src={safeImage(
+                            'banner-dash1.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={safeImage(
-                        'banner-dash2.gif',
-                        '../photos-animees/'
-                    )} alt="slider" />
+                    <img
+                        src={safeImage(
+                            'banner-dash2.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={safeImage(
-                        'banner-dash3.gif',
-                        '../photos-animees/'
-                    )} alt="slider" />
+                    <img
+                        src={safeImage(
+                            'banner-dash3.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={safeImage(
-                        'banner-dash4.gif',
-                        '../photos-animees/'
-                    )} alt="slider" />
+                    <img
+                        src={safeImage(
+                            'banner-dash4.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
                 </SwiperSlide>
             </Swiper>
             <div className="blc-cnt-dash">
@@ -305,13 +318,14 @@ const index = () => {
                 </div>
                 <br />
                 <div className="row" id="chart">
-                    {nameGrossite !== '' &&
+                    {nameGrossite !== '' && (
                         <div
                             className="col-md-12"
                             style={{ textAlign: 'center', fontSize: '50px' }}
                         >
                             <b>Client : {nameGrossite}</b>
-                        </div>}
+                        </div>
+                    )}
                     <div className="col-md-6 p-3">
                         <div className="box-charts">
                             <HighchartsReact

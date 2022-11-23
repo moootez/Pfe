@@ -17,7 +17,6 @@ import 'swiper/components/scrollbar/scrollbar.scss'
 import './style.css'
 // install Swiper modules
 const useStyles = makeStyles(theme => ({
-
     root: {
         maxWidth: 345,
     },
@@ -79,7 +78,7 @@ const Index = ({ filtredTable, getActualite }) => {
     return (
         <Swiper
             // install Swiper modules
-            direction={"vertical"}
+            direction="vertical"
             pagination={{
                 clickable: true,
             }}
@@ -90,8 +89,8 @@ const Index = ({ filtredTable, getActualite }) => {
             className="mySwiper"
             spaceBetween={400}
             slidesPerView={2}
-        // centerInsufficientSlides="true"
-        // navigation
+            // centerInsufficientSlides="true"
+            // navigation
         >
             {rows.map(el => (
                 <SwiperSlide>
@@ -162,7 +161,4 @@ Index.propTypes = {
     filtredTable: PropTypes.array,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))
