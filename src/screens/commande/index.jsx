@@ -27,7 +27,13 @@ const Index = props => {
     } = props
 
     useEffect(() => {
-        getAllCommande({ user: userID, dateDebut: null, dateFin: null })
+        // getAllCommande({ user: userID, dateDebut: null, dateFin: null })
+        getAllCommande({
+            user: userID,
+            dateFin: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate(),
+            dateDebut: (new Date().getFullYear() - 1) + '-' + new Date().getMonth() + '-' + new Date().getDate()
+        })
+
     }, [])
 
     // Set livraison on state
