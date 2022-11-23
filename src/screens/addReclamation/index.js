@@ -140,7 +140,6 @@ const Index = props => {
     //     }
     // }
 
-    console.log(livraisons)
     return (
         <div className="column col-md-12 text-center style-table form-reclam">
             <Grid className="gridItem">
@@ -148,6 +147,19 @@ const Index = props => {
             </Grid>
             <Divider />
             <div className="row mt-3 mb-3">
+                <div className="d-flex col-6 row-form-reclam">
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">
+                            Code Client{' '}
+                            <span className="text-danger"> * </span>
+                        </p>
+                    </div>
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">
+                            {userID}
+                        </p>
+                    </div>
+                </div>
                 <div className="d-flex col-6 row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">
@@ -271,7 +283,7 @@ const Index = props => {
                                 ).map((element, index) => {
                                     return (
                                         element.Code_article ===
-                                            reclamation.produit && (
+                                        reclamation.produit && (
                                             <MenuItem
                                                 key={`${element.Lot}-${index}`}
                                                 value={element.Lot}

@@ -61,7 +61,7 @@ function* scanDecSagas({ response }) {
                 info: false,
                 error: true,
                 success: false,
-                message: `${error.response.data.message.ar}`,
+                message: `${error.response.data.message.fr}`,
             })
         )
         // yield put(scanDecActions.scanDecFailure(error))
