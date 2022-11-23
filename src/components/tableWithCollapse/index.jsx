@@ -33,13 +33,14 @@ const DetailPanelWithRowClick = props => {
     } = props
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
     const [allList, setAllList] = useState(0)
-    const [dateDebut, setDateDebut] = useState(null)
-    const [dateFin, setDateFin] = useState(null)
+    const [dateDebut, setDateDebut] = useState(new Date().setFullYear(new Date().getFullYear() - 1))
+    const [dateFin, setDateFin] = useState(new Date())
     const [value, setValue] = useState(null)
     const [valueGrossiste, setValueGrossiste] = useState(null)
+    console.log(dateDebut, dateFin);
 
     useEffect(() => {
-        apiCall(dataApi)
+        // apiCall(dataApi)
         setValueGrossiste(userID)
     }, [])
 
