@@ -271,7 +271,8 @@ class index extends PureComponent {
                                             key !== 'id' &&
                                             key !== 'index' &&
                                             key !== 'isDisabled' &&
-                                            key !== 'user'
+                                            key !== 'user' &&
+                                            key !== 'NumReclamation'
                                         ) {
                                             return (
                                                 <CustomTableCell

@@ -168,7 +168,6 @@ const Index = props => {
     }
 
     const headers = [
-        'Num Réclamation',
         'Code PCT',
         'Article',
         'Motif',
