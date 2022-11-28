@@ -22,6 +22,10 @@ import Button from '../../components/ui/button'
 import alertActions from '../../redux/alert'
 import Table from '../../components/ui/table'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import axios from 'axios'
+import baseUrl from '../../serveur/baseUrl'
+import getAllProductActions from '../../redux/commande/getAllProduct'
+import DateField from '../../components/ui/datePicker'
 
 const natureReclamation = [
     'Périmé',
@@ -45,6 +49,9 @@ const Index = props => {
         getCommande,
         newReclamation,
         history,
+        getAllProduct,
+        products,
+        userNamePre
     } = props
 
     const [reclamation, setReclamation] = useState({})
@@ -55,15 +62,45 @@ const Index = props => {
     const [meta, setMeta] = useState([])
     const [isEdited, setIsEdited] = useState(false)
     const [index, setIndex] = useState(0)
+    const [listLot, setListLot] = useState([])
+    const [listBl, setListBl] = useState([])
+    const [show, setShow] = useState(false)
 
     useEffect(() => {
-        getAllLivraison({ user: userID })
+        getAllProduct()
+        // getAllLivraison({ user: userID })
+
     }, [])
 
     useEffect(() => {
-        if (reclamation.livraison)
-            getCommande({ user: userID, commande: reclamation.livraison })
-    }, [reclamation.livraison])
+        const { OpaliaToken } = window.localStorage
+        if (reclamation.article)
+            axios({
+                method: 'get',
+                url: `${baseUrl}reclamation/${userID}/${reclamation.article}`,
+                headers: {
+                    'Accept-Version': 1,
+                    Accept: 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json; charset=utf-8',
+                    Authorization: `Bearer ${OpaliaToken}`,
+                },
+                timeout: 30000,
+            }).then(res => {
+                setShow(true);
+                setListLot(res.data.lot)
+                setListBl(res.data.bl)
+                // const listUser = []
+                // res.data.data.map(e => {
+                //     return listUser.push({
+                //         label: e.codeInsc,
+                //         value: e.id,
+                //         codeInsc: e.codeInsc,
+                //     })
+                // })
+                // setList(listUser)
+            })
+    }, [reclamation.article])
 
     let errorredirect = null
 
@@ -121,14 +158,14 @@ const Index = props => {
         const newPayload = {
             // client: userID,
             NumReclamation: reclamation.NumReclamation || index + 1,
-            codePct: 'Code PCT',
-            article: 'Article',
+            codePct: reclamation.codePct,
+            article: reclamation.article,
             gravite: reclamation.gravite,
             qte: reclamation.qte || 0,
             numLot: reclamation.numLot,
-            numBl: 'Num BL',
+            numBl: reclamation.numBl,
             numFact: 'Num Fact',
-            datePere: 'Date Péremption',
+            datePere: reclamation.datePere,
             commentaire: reclamation.commentaire,
             // dateLivraison: new Date(Date.now()),
             // codeLivraison: reclamation.livraison,
@@ -149,6 +186,8 @@ const Index = props => {
             if (isEdited) deleteRef(reclamation)
             else setIndex(index + 1)
             setReclamation({});
+            setLots([]);
+            setBls([]);
             setIndex(index + 1)
             setRows([...rows, newPayload])
         }
@@ -156,9 +195,21 @@ const Index = props => {
     }
 
     const [lots, setLots] = useState([])
+    const [bls, setBls] = useState([])
     const changeHandler = (name, e) => {
         const { value } = e.target
+        if (name === 'article') {
+            setShow(false)
+            let listFiltred = products.filter(element => element.codeArticleX3 === value);
+            setReclamation(r => ({ ...r, codePct: listFiltred[0].codePct }))
+        }
         setReclamation(r => ({ ...r, [name]: value }))
+    }
+
+    const changeHandlerBl = (name, e) => {
+        const { value } = e.target
+        setBls([...bls, value])
+        setReclamation(r => ({ ...r, [name]: [...bls, value] }))
     }
 
     const changeHandlerLot = (name, e) => {
@@ -181,16 +232,11 @@ const Index = props => {
     ]
     const editAction = (row, key) => {
         setIsEdited(true)
+        console.log(row, 'row');
+        setLots(row.numLot)
+        setBls(row.numBl)
         setReclamation(() => (row))
     }
-
-    function removeObjectWithKey(objWithIdIndex) {
-        rows.splice(objWithIdIndex, 1);
-        return rows;
-    }
-
-
-
 
     return (
         <div className="column col-md-12 text-center style-table form-reclam">
@@ -221,11 +267,12 @@ const Index = props => {
                     </div>
                     <div className="col-6 mt-3">
                         <p className="txt_form">
-                            Désignation
+                            {userNamePre.nom} {userNamePre.prenom}
                             {/* {userID} */}
                         </p>
                     </div>
                 </div>
+                {/* Gravité réclamation */}
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">
@@ -265,6 +312,7 @@ const Index = props => {
                         </FormControl>
                     </div>
                 </div>
+                {/* Article */}
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">
@@ -281,13 +329,13 @@ const Index = props => {
                                 className="border"
                                 id="demo-mutiple-name"
                                 labelId="select-gravite"
-                                // value={(reclamation || {}).livraison}
-                                onChange={e => changeHandler('gravite', e)}
+                                value={reclamation.article || ''}
+                                onChange={e => changeHandler('article', e)}
                                 input={<Input />}
                             >
-                                {[].map(element => (
-                                    <MenuItem key={element} value={element}>
-                                        {element}
+                                {(products || []).map(element => (
+                                    <MenuItem key={element.codeArticleX3} value={element.codeArticleX3}>
+                                        {element.codePct} - {element.codeArticleX3} - {element.designation1}
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -305,7 +353,7 @@ const Index = props => {
                     </div>
                 </div>
                 {/* Numero de lot */}
-                <div className="col-6 d-flex row-form-reclam">
+                {show && <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">Numéro de lot</p>
                     </div>
@@ -315,30 +363,22 @@ const Index = props => {
                                 className="border"
                                 labelId="demo-multiple-checkbox-label"
                                 id="demo-mutiple-checkbox"
-                                value={lots}
+                                value={lots || ''}
                                 renderValue={selected => selected.join(',')}
                                 onChange={e => changeHandlerLot('numLot', e)}
                                 input={<Input />}
                                 required
                             >
-                                {(commandes instanceof Array
-                                    ? commandes
-                                    : []
-                                ).map((element, index) => {
-                                    return (
-                                        element.Code_article ===
-                                        reclamation.produit && (
-                                            <MenuItem
-                                                key={`${element.Lot}-${index}`}
-                                                value={element.Lot}
-                                            >
-                                                <ListItemText
-                                                    primary={element.Lot}
-                                                />
-                                            </MenuItem>
-                                        )
-                                    )
-                                })}
+                                {listLot.map((element, index) => (
+                                    <MenuItem
+                                        key={element}
+                                        value={element}
+                                    >
+                                        {element}
+                                    </MenuItem>
+                                )
+                                )
+                                }
                             </Select>
                             {/*  <TextField
                                 // error="tttt"
@@ -352,7 +392,7 @@ const Index = props => {
                             />  */}
                         </FormControl>
                     </div>
-                </div>
+                </div>}
                 {/* Quantite reclame */}
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
@@ -381,20 +421,62 @@ const Index = props => {
                     </div>
                     <div className="col-6">
                         <p className="txt_form">
-                            date
+                            <DateField
+                                key="datePere"
+                                id="datePere"
+                                onchange={e => changeHandler('datePere', e)}
+                                value={reclamation.datePere}
+                                name="datePere"
+                                isArabic={false}
+                                attributes={{
+                                    disableFuture: false,
+                                }}
+                                required={false}
+                            />
                         </p>
                     </div>
                 </div>
-                <div className="col-6 d-flex row-form-reclam">
+                {/* BL*/}
+                {show && <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">N°BL</p>
                     </div>
                     <div className="col-6">
-                        <p className="txt_form">
-                            N°BL
-                        </p>
+                        <FormControl className="w-100">
+                            <Select
+                                className="border"
+                                labelId="demo-multiple-checkbox-label"
+                                id="demo-mutiple-checkbox"
+                                value={bls || null}
+                                renderValue={selected => selected.join(',')}
+                                onChange={e => changeHandlerBl('numBl', e)}
+                                input={<Input />}
+                                required
+                            >
+                                {(listBl || []).map((element, index) => (
+                                    <MenuItem
+                                        key={element}
+                                        value={element}
+                                    >
+                                        {element}
+                                    </MenuItem>
+                                )
+                                )
+                                }
+                            </Select>
+                            {/*  <TextField
+                                // error="tttt"
+                                // helperText="frrr"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                type="text"
+                                className="d-flex border"
+                                onChange={e => changeHandler('numLot', e)}
+                            />  */}
+                        </FormControl>
                     </div>
-                </div>
+                </div>}
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">N°Facture</p>
@@ -642,6 +724,7 @@ Index.propTypes = {
     newReclamation: PropTypes.object.isRequired,
     addReclamation: PropTypes.func.isRequired,
     userID: PropTypes.object.isRequired,
+    userNamePre: PropTypes.object.isRequired,
     getAllLivraison: PropTypes.func.isRequired,
     commandes: PropTypes.array.isRequired,
     getCommande: PropTypes.func.isRequired,
@@ -649,6 +732,7 @@ Index.propTypes = {
     livraisons: PropTypes.array,
     alertShow: PropTypes.func.isRequired,
     lng: PropTypes.string.isRequired,
+    products: PropTypes.array.isRequired,
 }
 
 Index.defaultProps = {
@@ -669,6 +753,7 @@ const mapDispatchToProps = dispatch => ({
     getCommande: data => dispatch(getCommandes.getStatistiqueRequest(data)),
     addReclamation: payload =>
         dispatch(addReclamationActions.addNewReclamationRequest(payload)),
+    getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
     alertShow: (show, info) =>
         dispatch(
             alertActions.alertShow(show, {
@@ -696,12 +781,15 @@ const mapStateToProps = ({
     referencial,
     statistique,
     reclamation,
+    commande
 }) => ({
     userID: login.response.User.details.codeInsc,
+    userNamePre: login.response.User.details,
     livraisons: referencial.allReferencials.response,
     commandes: statistique.getStatistique.response,
     newReclamation: reclamation.newReclamation,
     lng: info.language,
+    products: commande.getAllProduct.response,
 })
 
 export default connect(
