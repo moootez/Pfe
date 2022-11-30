@@ -52,11 +52,11 @@ const Index = props => {
         // syncProduits,
         role,
         history,
-        getAllReclamation
+        getAllReclamation,
     } = props
 
     const [allReclamation, setAllReclamation] = useState([])
-    const [allList, setAllList] = useState(0);
+    const [allList, setAllList] = useState(0)
 
     useEffect(() => {
         // getCommande({ user: userID, role })
@@ -134,36 +134,36 @@ const Index = props => {
                     },
                     role === 'ROLE_CLIENT'
                         ? {
-                            title: 'Date de création',
-                            field: 'createdAt',
-                        }
+                              title: 'Date de création',
+                              field: 'createdAt',
+                          }
                         : { title: 'Statut', field: 'status' },
                     role !== 'ROLE_CLIENT'
                         ? {
-                            title: 'Client',
-                            field: 'client.codeInsc',
-                        }
+                              title: 'Client',
+                              field: 'client.codeInsc',
+                          }
                         : {
-                            title: 'Dupliquer commande',
-                            field: 'dupliquer',
-                            render: rowData => {
-                                return (
-                                    <div>
-                                        <IconButton
-                                            onClick={() =>
-                                                dupliquerCommande({
-                                                    id: rowData.id,
-                                                    source: 'duplication',
-                                                })
-                                            }
-                                            color="primary"
-                                        >
-                                            <FileCopyOutlinedIcon />
-                                        </IconButton>
-                                    </div>
-                                )
-                            },
-                        },
+                              title: 'Dupliquer commande',
+                              field: 'dupliquer',
+                              render: rowData => {
+                                  return (
+                                      <div>
+                                          <IconButton
+                                              onClick={() =>
+                                                  dupliquerCommande({
+                                                      id: rowData.id,
+                                                      source: 'duplication',
+                                                  })
+                                              }
+                                              color="primary"
+                                          >
+                                              <FileCopyOutlinedIcon />
+                                          </IconButton>
+                                      </div>
+                                  )
+                              },
+                          },
                     {
                         title: 'Validation',
                         field: 'validation',
@@ -358,10 +358,8 @@ Index.propTypes = {
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     // syncProduits: PropTypes.func.isRequired,
+    getAllReclamation: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

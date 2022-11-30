@@ -5,25 +5,26 @@ import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
 import { Card, CardMedia, CardContent, Typography } from '@material-ui/core'
 // import Swiper core and required modules
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Pagination, FreeMode, Navigation } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import getActualiteActions from '../../../redux/pageCms/actualite/getActualite'
 // Import Swiper styles
 import 'swiper/swiper.scss'
-import 'swiper/components/navigation/navigation.scss'
-import 'swiper/components/pagination/pagination.scss'
-import 'swiper/components/scrollbar/scrollbar.scss'
+import 'swiper/swiper.min.css'
+import 'swiper/modules/free-mode/free-mode.min.css'
+import 'swiper/modules/pagination/pagination.min.css'
 import './styleActuSlider.css'
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
+SwiperCore.use([Pagination, FreeMode, Navigation])
 
 const page = window.location.pathname
 const useStyles = makeStyles(theme => ({
-    root: {
-        maxWidth: 345,
-    },
+    // root: {
+    //     maxWidth: 345,
+    // },
     media: {
         height: '300px',
+        // width: '500px',
         backgroundSize: 'contain',
     },
     expand: {
@@ -78,35 +79,31 @@ const Index = ({ filtredTable, getActualite }) => {
     }, [filtredTable])
 
     return (
-        <div style={{ padding: '1%' }} className="container-fluid">
+        <div
+            style={{ padding: '1%', backgroundColor: '#eeeeee' }}
+            className="container-fluid"
+        >
             {/* <Grid className="gridItem">
                     <PageTitle />
                 </Grid> */}
-            {page === '/actualite' || page === '/commande' && (
+            {(page === '/actualite' || page === '/commande') && (
                 <Swiper
                     // install Swiper modules
-                    modules={[Navigation, Pagination, Scrollbar, A11y]}
-                    spaceBetween={20}
                     slidesPerView={4}
-                    centerInsufficientSlides="true"
-                    navigation
-                    breakpoints={{
-                        '0': {
-                            slidesPerView: 1,
-                        },
-                        '480': {
-                            slidesPerView: 2,
-                        },
-                        '1024': {
-                            slidesPerView: 3,
-                        },
-                        '1200': {
-                            slidesPerView: 4,
-                        },
+                    // spaceBetween={30}
+                    freeMode
+                    pagination={{
+                        clickable: true,
                     }}
+                    autoplay={{
+                        delay: 500,
+                    }}
+                    navigation
+                    modules={[FreeMode, Pagination, Navigation]}
+                    className="mySwiper"
                 >
                     {rows.map(el => (
-                        <SwiperSlide>
+                        <SwiperSlide key={el.titre}>
                             <Card style={{ borderRadius: '0px' }}>
                                 <CardMedia
                                     className={classes.media}
@@ -176,7 +173,4 @@ Index.propTypes = {
     filtredTable: PropTypes.array,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

@@ -12,17 +12,22 @@ import Highcharts from 'highcharts'
 import html2canvas from 'html2canvas'
 import { Button } from '@material-ui/core'
 // Import Swiper React components
-import SwiperCore, { Navigation, Autoplay } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation, Autoplay, Thumbs, FreeMode } from 'swiper'
+// import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
 import Paper from '@material-ui/core/Paper'
 import baseUrl from '../../serveur/baseUrl'
 // Import Swiper styles
 import 'swiper/swiper.scss'
-import 'swiper/components/navigation/navigation.scss'
+import 'swiper/swiper.min.css'
+import 'swiper/modules/free-mode/free-mode.min.css'
+import 'swiper/modules/navigation/navigation.min.css'
+import 'swiper/modules/thumbs/thumbs.min.css'
+// import 'swiper/components/navigation/navigation.scss'
 import SelectList from '../../components/ui/select'
 import unknown from '../../assets/images/unknown.jpg'
 
-SwiperCore.use([Navigation, Autoplay])
+SwiperCore.use([Navigation, Autoplay, Thumbs, FreeMode])
 
 const apiConsumer = [
     { endPoint: `dashbord/list/kpi/`, name: 'total' },
@@ -66,6 +71,7 @@ const index = () => {
     const [value, setValue] = useState(null)
     const [list, setList] = useState([])
     const [nameGrossite, setNameGrossiste] = useState('')
+    const [thumbsSwiper, setThumbsSwiper] = useState(null)
 
     useEffect(() => {
         if (localStorage.role !== 'ROLE_MANAGER')
@@ -189,10 +195,16 @@ const index = () => {
     return (
         <Fragment>
             <Swiper
-                spaceBetween={0}
+                style={{
+                    '--swiper-navigation-color': '#fff',
+                    '--swiper-pagination-color': '#fff',
+                }}
+                spaceBetween={10}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Navigation, Thumbs]}
                 slidesPerView={1}
                 autoplay={{
-                    delay: 7000,
+                    delay: 2000,
                 }}
                 navigation
                 onSlideChange={() => console.log('slide change')}
@@ -236,6 +248,53 @@ const index = () => {
                     />
                 </SwiperSlide>
             </Swiper>
+            <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={10}
+                slidesPerView={4}
+                freeMode
+                watchSlidesProgress
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="mySwiper"
+            >
+                <SwiperSlide>
+                    <img
+                        src={safeImage(
+                            'banner-dash1.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img
+                        src={safeImage(
+                            'banner-dash2.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img
+                        src={safeImage(
+                            'banner-dash3.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img
+                        src={safeImage(
+                            'banner-dash4.gif',
+                            '../photos-animees/'
+                        )}
+                        alt="slider"
+                    />
+                </SwiperSlide>
+            </Swiper>
+
             <div className="blc-cnt-dash">
                 {localStorage.role === 'ROLE_MANAGER' && (
                     <div className="row">

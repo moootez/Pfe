@@ -51,8 +51,9 @@ const Index = props => {
         history,
         getAllProduct,
         products,
-        userNamePre
+        userNamePre,
     } = props
+    const { OpaliaToken } = window.localStorage
 
     const [reclamation, setReclamation] = useState({})
     const [errorsList, setErrorsList] = useState({})
@@ -69,11 +70,9 @@ const Index = props => {
     useEffect(() => {
         getAllProduct()
         // getAllLivraison({ user: userID })
-
     }, [])
 
     useEffect(() => {
-        const { OpaliaToken } = window.localStorage
         if (reclamation.article)
             axios({
                 method: 'get',
@@ -87,7 +86,7 @@ const Index = props => {
                 },
                 timeout: 30000,
             }).then(res => {
-                setShow(true);
+                setShow(true)
                 setListLot(res.data.lot)
                 setListBl(res.data.bl)
                 // const listUser = []
@@ -129,7 +128,6 @@ const Index = props => {
             //  }
             errorredirect = true
         }
-
     }, [newReclamation.loading])
 
     // useEffect(() => {
@@ -138,18 +136,20 @@ const Index = props => {
     // }, [newReclamation.loading])
 
     function removeObjectWithNumRec(arr, idRec) {
-        const objWithIdIndex = arr.findIndex((obj) => obj.NumReclamation === idRec);
+        const objWithIdIndex = arr.findIndex(
+            obj => obj.NumReclamation === idRec
+        )
 
         if (objWithIdIndex > -1) {
-            arr.splice(objWithIdIndex, 1);
+            arr.splice(objWithIdIndex, 1)
         }
 
-        return arr;
+        return arr
     }
 
     const deleteRef = (itemlm, key) => {
-        const newArr = removeObjectWithNumRec(rows, itemlm.NumReclamation);
-        setRows([...newArr]);
+        const newArr = removeObjectWithNumRec(rows, itemlm.NumReclamation)
+        setRows([...newArr])
         // setIndex(index - 1)
         // setPayload([...newArr]);
     }
@@ -185,9 +185,9 @@ const Index = props => {
         } else {
             if (isEdited) deleteRef(reclamation)
             else setIndex(index + 1)
-            setReclamation({});
-            setLots([]);
-            setBls([]);
+            setReclamation({})
+            setLots([])
+            setBls([])
             setIndex(index + 1)
             setRows([...rows, newPayload])
         }
@@ -200,7 +200,9 @@ const Index = props => {
         const { value } = e.target
         if (name === 'article') {
             setShow(false)
-            let listFiltred = products.filter(element => element.codeArticleX3 === value);
+            let listFiltred = products.filter(
+                element => element.codeArticleX3 === value
+            )
             setReclamation(r => ({ ...r, codePct: listFiltred[0].codePct }))
         }
         setReclamation(r => ({ ...r, [name]: value }))
@@ -232,10 +234,27 @@ const Index = props => {
     ]
     const editAction = (row, key) => {
         setIsEdited(true)
-        console.log(row, 'row');
+        console.log(row, 'row')
         setLots(row.numLot)
         setBls(row.numBl)
-        setReclamation(() => (row))
+        setReclamation(() => row)
+    }
+
+    const ValiderReclamation = () => {
+        axios({
+            method: 'post',
+            url: `${baseUrl}commandess`,
+            headers: {
+                'Accept-Version': 1,
+                Accept: 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`,
+            },
+            timeout: 8000,
+            data: rows,
+        })
+        // console.log('rows', rows);
     }
 
     return (
@@ -248,14 +267,11 @@ const Index = props => {
                 <div className="d-flex col-6 row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">
-                            Code Client{' '}
-                            <span className="text-danger"> * </span>
+                            Code Client <span className="text-danger"> * </span>
                         </p>
                     </div>
                     <div className="col-6 mt-3">
-                        <p className="txt_form">
-                            {userID}
-                        </p>
+                        <p className="txt_form">{userID}</p>
                     </div>
                 </div>
                 <div className="d-flex col-6 row-form-reclam">
@@ -316,8 +332,7 @@ const Index = props => {
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">
-                            Article{' '}
-                            <span className="text-danger"> * </span>
+                            Article <span className="text-danger"> * </span>
                         </p>
                     </div>
                     <div className="col-6">
@@ -334,8 +349,13 @@ const Index = props => {
                                 input={<Input />}
                             >
                                 {(products || []).map(element => (
-                                    <MenuItem key={element.codeArticleX3} value={element.codeArticleX3}>
-                                        {element.codePct} - {element.codeArticleX3} - {element.designation1}
+                                    <MenuItem
+                                        key={element.codeArticleX3}
+                                        value={element.codeArticleX3}
+                                    >
+                                        {element.codePct} -{' '}
+                                        {element.codeArticleX3} -{' '}
+                                        {element.designation1}
                                     </MenuItem>
                                 ))}
                             </Select>
@@ -353,34 +373,32 @@ const Index = props => {
                     </div>
                 </div>
                 {/* Numero de lot */}
-                {show && <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3">
-                        <p className="txt_form">Numéro de lot</p>
-                    </div>
-                    <div className="col-6">
-                        <FormControl className="w-100">
-                            <Select
-                                className="border"
-                                labelId="demo-multiple-checkbox-label"
-                                id="demo-mutiple-checkbox"
-                                value={lots || ''}
-                                renderValue={selected => selected.join(',')}
-                                onChange={e => changeHandlerLot('numLot', e)}
-                                input={<Input />}
-                                required
-                            >
-                                {listLot.map((element, index) => (
-                                    <MenuItem
-                                        key={element}
-                                        value={element}
-                                    >
-                                        {element}
-                                    </MenuItem>
-                                )
-                                )
-                                }
-                            </Select>
-                            {/*  <TextField
+                {show && (
+                    <div className="col-6 d-flex row-form-reclam">
+                        <div className="col-6 mt-3">
+                            <p className="txt_form">Numéro de lot</p>
+                        </div>
+                        <div className="col-6">
+                            <FormControl className="w-100">
+                                <Select
+                                    className="border"
+                                    labelId="demo-multiple-checkbox-label"
+                                    id="demo-mutiple-checkbox"
+                                    value={lots || ''}
+                                    renderValue={selected => selected.join(',')}
+                                    onChange={e =>
+                                        changeHandlerLot('numLot', e)
+                                    }
+                                    input={<Input />}
+                                    required
+                                >
+                                    {listLot.map((element, index) => (
+                                        <MenuItem key={element} value={element}>
+                                            {element}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                {/*  <TextField
                                 // error="tttt"
                                 // helperText="frrr"
                                 InputLabelProps={{
@@ -390,9 +408,10 @@ const Index = props => {
                                 className="d-flex border"
                                 onChange={e => changeHandler('numLot', e)}
                             />  */}
-                        </FormControl>
+                            </FormControl>
+                        </div>
                     </div>
-                </div>}
+                )}
                 {/* Quantite reclame */}
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
@@ -437,34 +456,30 @@ const Index = props => {
                     </div>
                 </div>
                 {/* BL*/}
-                {show && <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3">
-                        <p className="txt_form">N°BL</p>
-                    </div>
-                    <div className="col-6">
-                        <FormControl className="w-100">
-                            <Select
-                                className="border"
-                                labelId="demo-multiple-checkbox-label"
-                                id="demo-mutiple-checkbox"
-                                value={bls || null}
-                                renderValue={selected => selected.join(',')}
-                                onChange={e => changeHandlerBl('numBl', e)}
-                                input={<Input />}
-                                required
-                            >
-                                {(listBl || []).map((element, index) => (
-                                    <MenuItem
-                                        key={element}
-                                        value={element}
-                                    >
-                                        {element}
-                                    </MenuItem>
-                                )
-                                )
-                                }
-                            </Select>
-                            {/*  <TextField
+                {show && (
+                    <div className="col-6 d-flex row-form-reclam">
+                        <div className="col-6 mt-3">
+                            <p className="txt_form">N°BL</p>
+                        </div>
+                        <div className="col-6">
+                            <FormControl className="w-100">
+                                <Select
+                                    className="border"
+                                    labelId="demo-multiple-checkbox-label"
+                                    id="demo-mutiple-checkbox"
+                                    value={bls || null}
+                                    renderValue={selected => selected.join(',')}
+                                    onChange={e => changeHandlerBl('numBl', e)}
+                                    input={<Input />}
+                                    required
+                                >
+                                    {(listBl || []).map((element, index) => (
+                                        <MenuItem key={element} value={element}>
+                                            {element}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                {/*  <TextField
                                 // error="tttt"
                                 // helperText="frrr"
                                 InputLabelProps={{
@@ -474,17 +489,16 @@ const Index = props => {
                                 className="d-flex border"
                                 onChange={e => changeHandler('numLot', e)}
                             />  */}
-                        </FormControl>
+                            </FormControl>
+                        </div>
                     </div>
-                </div>}
+                )}
                 <div className="col-6 d-flex row-form-reclam">
                     <div className="col-6 mt-3">
                         <p className="txt_form">N°Facture</p>
                     </div>
                     <div className="col-6">
-                        <p className="txt_form">
-                            N°Facture
-                        </p>
+                        <p className="txt_form">N°Facture</p>
                     </div>
                 </div>
                 <div className="col-6 d-flex row-form-reclam">
@@ -500,9 +514,7 @@ const Index = props => {
                                 value={reclamation.commentaire || ''}
                                 defaultValue={reclamation.commentaire}
                                 className="d-flex border"
-                                onChange={e =>
-                                    changeHandler('commentaire', e)
-                                }
+                                onChange={e => changeHandler('commentaire', e)}
                                 label="Commentaire"
                             />
                             {isError && (
@@ -518,9 +530,6 @@ const Index = props => {
                         </FormControl>
                     </div>
                 </div>
-
-
-
 
                 {/* commentaire */}
                 <>
@@ -624,7 +633,6 @@ const Index = props => {
                     {/* </div> */}
                     {/* </div> */}
 
-
                     {/* Nature reclamation */}
                     {/*reclamation.nature !== 'Autres' ? (
                     <div className="col-6 d-flex row-form-reclam">
@@ -701,14 +709,17 @@ const Index = props => {
                 </>
             </div>
 
-            <Button clicked={submitReclamation} label={isEdited ? "Modifier" : "Ajouter"} />
+            <Button
+                clicked={submitReclamation}
+                label={isEdited ? 'Modifier' : 'Ajouter'}
+            />
             <Divider />
             <Table
                 lng={lng}
                 headers={headers}
                 rows={rows}
                 history={history}
-                type='reclamation'
+                type="reclamation"
                 // intl={intl}
                 // type={type}
                 editAction={editAction}
@@ -716,6 +727,7 @@ const Index = props => {
                 // paramTab={paramConsultTab}
                 meta={meta}
             />
+            <Button clicked={ValiderReclamation} label="Valider" />
         </div>
     )
 }
@@ -781,7 +793,7 @@ const mapStateToProps = ({
     referencial,
     statistique,
     reclamation,
-    commande
+    commande,
 }) => ({
     userID: login.response.User.details.codeInsc,
     userNamePre: login.response.User.details,
@@ -792,7 +804,4 @@ const mapStateToProps = ({
     products: commande.getAllProduct.response,
 })
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

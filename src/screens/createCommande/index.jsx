@@ -19,7 +19,7 @@ import { injectIntl } from 'react-intl'
 import { makeStyles } from '@material-ui/styles'
 import { Divider, TextField, Button } from '@material-ui/core'
 import SwiperCore, { Navigation, Autoplay } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Swiper, SwiperSlide } from 'swiper/react'
 import alertActions from '../../redux/alert'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import addNewCommandeActions from '../../redux/commande/newCommande'
@@ -29,7 +29,7 @@ import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
 import 'swiper/swiper.scss'
-import 'swiper/components/navigation/navigation.scss'
+// import 'swiper/components/navigation/navigation.scss'
 import Actualite from '../pageCms/actualite/actualiteVertical'
 
 SwiperCore.use([Navigation, Autoplay])
@@ -119,7 +119,7 @@ const Index = props => {
 
     getTotalQt = rowData =>
         parseInt((commande[rowData.codeArticleX3] || {}).qtc || 0) *
-        parseInt(rowData.coefUcUs || 0) +
+            parseInt(rowData.coefUcUs || 0) +
         parseInt((commande[rowData.codeArticleX3] || {}).qtv || 0)
     const getTotalPrix = rowData =>
         Math.round(getTotalQt(rowData) * rowData.prix * 1000) / 1000
@@ -179,7 +179,7 @@ const Index = props => {
 
     return (
         <Fragment>
-            <Swiper
+            {/* <Swiper
                 spaceBetween={0}
                 slidesPerView={1}
                 autoplay={{
@@ -214,8 +214,8 @@ const Index = props => {
                         '../photos-animees/'
                     )} alt="slider" />
                 </SwiperSlide>
-            </Swiper>
-            <div className='row'>
+            </Swiper> */}
+            <div className="row">
                 <div className="col-md-10 style-table">
                     <Divider />
 
@@ -247,7 +247,10 @@ const Index = props => {
                                             '../produits/',
                                             '.png'
                                         )}
-                                        style={{ width: 150, borderRadius: '2%' }}
+                                        style={{
+                                            width: 150,
+                                            borderRadius: '2%',
+                                        }}
                                         alt="produit"
                                     />
                                 ),
@@ -307,8 +310,11 @@ const Index = props => {
                                             label="Quantité"
                                             id="outlined-size-small"
                                             defaultValue={
-                                                (commande[rowData.codeArticleX3] || {})
-                                                    .qtc || 0
+                                                (
+                                                    commande[
+                                                        rowData.codeArticleX3
+                                                    ] || {}
+                                                ).qtc || 0
                                             }
                                             variant="outlined"
                                             onBlur={e =>
@@ -316,10 +322,12 @@ const Index = props => {
                                                     ...commande,
                                                     [rowData.codeArticleX3]: {
                                                         ...(commande[
-                                                            rowData.codeArticleX3
+                                                            rowData
+                                                                .codeArticleX3
                                                         ] || {}),
                                                         qtc: e.target.value,
-                                                        Code_PCT: rowData.codePct,
+                                                        Code_PCT:
+                                                            rowData.codePct,
                                                         Designation:
                                                             rowData.designation1,
                                                         prix: rowData.prix,
@@ -348,31 +356,39 @@ const Index = props => {
                                             label="Quantité"
                                             id="outlined-size-small"
                                             defaultValue={
-                                                (commande[rowData.codeArticleX3] || {})
-                                                    .qtv || 0
+                                                (
+                                                    commande[
+                                                        rowData.codeArticleX3
+                                                    ] || {}
+                                                ).qtv || 0
                                             }
                                             variant="outlined"
                                             size="small"
                                             style={{
                                                 border: '2px solid'.ColorBorder,
-                                                height: 'calc(0.5em + 1.5rem + 2px)',
+                                                height:
+                                                    'calc(0.5em + 1.5rem + 2px)',
                                             }}
                                             onBlur={e =>
                                                 setCommande({
                                                     ...commande,
                                                     [rowData.codeArticleX3]: {
                                                         ...(commande[
-                                                            rowData.codeArticleX3
+                                                            rowData
+                                                                .codeArticleX3
                                                         ] || {}),
                                                         qtv: e.target.value,
-                                                        Code_PCT: rowData.codePct,
+                                                        Code_PCT:
+                                                            rowData.codePct,
                                                         Designation:
                                                             rowData.designation1,
                                                         prix: rowData.prix,
                                                     },
                                                 })
                                             }
-                                            disabled={rowData.ucObligatoire === 2}
+                                            disabled={
+                                                rowData.ucObligatoire === 2
+                                            }
                                         />
                                     </div>
                                 ),
@@ -386,7 +402,10 @@ const Index = props => {
                                 },
                                 render: rowData => {
                                     return (
-                                        <div key={generateKey()} style={{ width: 80 }}>
+                                        <div
+                                            key={generateKey()}
+                                            style={{ width: 80 }}
+                                        >
                                             <p>{getTotalQt(rowData)}</p>
                                         </div>
                                     )
@@ -404,7 +423,7 @@ const Index = props => {
                                         <div
                                             key={generateKey()}
                                             style={{ width: 80 }}
-                                        // handleChnage={getTotalPrix2(rowData)}
+                                            // handleChnage={getTotalPrix2(rowData)}
                                         >
                                             <p>{getTotalPrix(rowData)}</p>
                                         </div>
@@ -450,12 +469,18 @@ const Index = props => {
                             <b>Import d&#39;une commande</b>
                         </a>
                     </div>
-                    <div className="m-3 text-right" style={{ paddingBottom: '20px' }}>
+                    <div
+                        className="m-3 text-right"
+                        style={{ paddingBottom: '20px' }}
+                    >
                         {/* <div className={classes.txt}>
                     Prix total : <p id="demo"></p>
                 </div> */}
 
-                        <Button className="btn-submit-cmd" onClick={handleSubmit}>
+                        <Button
+                            className="btn-submit-cmd"
+                            onClick={handleSubmit}
+                        >
                             Enregistrer la commande
                         </Button>
                     </div>

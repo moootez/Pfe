@@ -8,11 +8,11 @@ import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
 import TableCollapse from '../../components/tableWithCollapse'
 import SwiperCore, { Navigation, Autoplay } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Swiper, SwiperSlide } from 'swiper/react'
 import getAllCommandes from '../../redux/declarantInterne/getDeclarantAvis'
 import getCommandes from '../../redux/declarantInterne/getDeclarantById'
 import 'swiper/swiper.scss'
-import 'swiper/components/navigation/navigation.scss'
+// import 'swiper/components/navigation/navigation.scss'
 import Actualite from '../pageCms/actualite'
 import getAllReclamations from '../../redux/reclamation/getReclamation'
 
@@ -26,13 +26,12 @@ const Index = props => {
         commandes,
         getAllCommande,
         reclamations,
-        getAllReclamation
+        getAllReclamation,
     } = props
 
     useEffect(() => {
         // getAllCommande({ user: userID, dateDebut: null, dateFin: null })
         getAllReclamation({ user: userID })
-
     }, [])
 
     // Set livraison on state
@@ -58,37 +57,37 @@ const Index = props => {
 
     const header = [
         {
-            field: "id",
-            title: "ID"
+            field: 'id',
+            title: 'ID',
         },
         {
-            field: "dateLivraison",
-            title: "Date Livraison"
+            field: 'dateLivraison',
+            title: 'Date Livraison',
         },
         {
-            field: "codeLivraison",
-            title: "Code Livraison"
+            field: 'codeLivraison',
+            title: 'Code Livraison',
         },
         {
-            field: "codeArticle",
-            title: "Code Article"
+            field: 'codeArticle',
+            title: 'Code Article',
         },
         {
-            field: "quantite",
-            title: "Quantite"
+            field: 'quantite',
+            title: 'Quantite',
         },
         {
-            field: "nature",
-            title: "Nature"
+            field: 'nature',
+            title: 'Nature',
         },
         {
-            field: "gravite",
-            title: "Gravite"
+            field: 'gravite',
+            title: 'Gravite',
         },
         {
-            field: "status",
-            title: "Status"
-        }
+            field: 'status',
+            title: 'Status',
+        },
     ]
 
     return (
@@ -130,7 +129,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(getCommandes.getDeclarantInterneRequest(data)),
     getAllReclamation: userID =>
         dispatch(getAllReclamations.getReclamationRequest(userID)),
-
 })
 
 // obtenir les données from  store state
@@ -158,10 +156,8 @@ Index.propTypes = {
     userID: PropTypes.object.isRequired,
     commandes: PropTypes.array.isRequired,
     getAllCommande: PropTypes.func.isRequired,
+    getAllReclamation: PropTypes.func.isRequired,
     reclamations: PropTypes.func.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))
