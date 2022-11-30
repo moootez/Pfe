@@ -243,7 +243,7 @@ const Index = props => {
     const ValiderReclamation = () => {
         axios({
             method: 'post',
-            url: `${baseUrl}commandess`,
+            url: `${baseUrl}reclamation/new`,
             headers: {
                 'Accept-Version': 1,
                 Accept: 'application/json',
@@ -251,10 +251,25 @@ const Index = props => {
                 'Content-Type': 'application/json; charset=utf-8',
                 Authorization: `Bearer ${OpaliaToken}`,
             },
-            timeout: 8000,
-            data: rows,
+            data: { data: rows, client: userID, status: 'en attente' },
+        }).then(res => {
+            console.log(res);
+
+            if (res.status === 201 || res.code === 200) {
+                alertShow(true, {
+                    onConfirm: false,
+                    warning: false,
+                    info: false,
+                    error: false,
+                    success: true,
+                    message: 'Ajouter avec succés',
+                })
+                history.push({
+                    pathname: 'mes-reclamation',
+                })
+                window.location.reload()
+            }
         })
-        // console.log('rows', rows);
     }
 
     return (

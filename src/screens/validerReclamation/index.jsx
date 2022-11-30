@@ -15,6 +15,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
+import axios from 'axios'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
 // import Button from '../../components/ui/button'
@@ -25,6 +26,9 @@ import dupliquerCommandeActions from '../../redux/commande/dupliquerCommande'
 import PageTitle from '../../components/ui/pageTitle'
 import alertActions from '../../redux/alert'
 import getAllReclamations from '../../redux/reclamation/getReclamation'
+import TableCollapse from '../../components/tableWithCollapse'
+import getReclamationLignes from '../../redux/reclamation/getReclamationLigne'
+import baseUrl from '../../serveur/baseUrl'
 
 const statusAndTxt = {
     BROUILLON: 'Valider',
@@ -53,30 +57,20 @@ const Index = props => {
         role,
         history,
         getAllReclamation,
+        reclamationDetails,
+        getReclamationLigne,
     } = props
+    const { OpaliaToken } = window.localStorage
 
     const [allReclamation, setAllReclamation] = useState([])
     const [allList, setAllList] = useState(0)
 
     useEffect(() => {
-        // getCommande({ user: userID, role })
         getAllReclamation({ user: userID })
     }, [])
 
-    // useEffect(() => {
-    //     if (allReclamation !== null) setAllList(allReclamation.length)
-    // }, [allReclamation])
 
     useEffect(() => {
-        // let newReclamations
-        // if (role === 'ROLE_CLIENT')
-        //     newReclamations = (reclamations || []).filter(
-        //         el => el.status === 'BROUILLON'
-        //     )
-        // else
-        //     newReclamations = (reclamations || []).filter(
-        //         el => el.status === 'VALIDATION_CLIENT'
-        //     )
         setAllReclamation(JSON.parse(JSON.stringify(reclamations)))
     }, [reclamations])
 
@@ -84,12 +78,54 @@ const Index = props => {
         if (pdfLink?.length) window.open(pdfLink, '_blank')
     }, [pdfLink])
 
-    const handleSubmit = (newStatus, idCommande) => {
-        validerCommande({
-            status: newStatus,
-            commande: idCommande,
-            user: userID,
-            role,
+    const handleSubmitValider = (id) => {
+        axios({
+            method: 'post',
+            url: `${baseUrl}reclamation/change-status/${id}`,
+            headers: {
+                'Accept-Version': 1,
+                Accept: 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`,
+            },
+            data: { status: 'en cours' },
+        }).then(res => {
+            if (res.status === 201 || res.code === 200) {
+                alertShow(true, {
+                    onConfirm: false,
+                    warning: false,
+                    info: false,
+                    error: false,
+                    success: true,
+                    message: 'Valider avec succés',
+                })
+            }
+        })
+    }
+
+    const handleSubmitDelete = (id) => {
+        axios({
+            method: 'delete',
+            url: `${baseUrl}reclamation/${id}`,
+            headers: {
+                'Accept-Version': 1,
+                Accept: 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json; charset=utf-8',
+                Authorization: `Bearer ${OpaliaToken}`,
+            },
+        }).then(res => {
+            if (res.status === 201 || res.status === 200) {
+                alertShow(true, {
+                    onConfirm: false,
+                    warning: false,
+                    info: false,
+                    error: false,
+                    success: true,
+                    message: 'Supprimer avec succés',
+                })
+            }
         })
     }
 
@@ -102,191 +138,125 @@ const Index = props => {
             },
         })
     }
+
+    const [dataSubArray, setDataSubArray] = useState({
+        apiCall: getReclamationLigne,
+        dataApi: data => ({
+            id: data.id,
+        }),
+        dataId: 'No-reclamation',
+        dataReturned: reclamationDetails,
+    })
+
+    useEffect(() => {
+        setDataSubArray({ ...dataSubArray, dataReturned: reclamationDetails })
+    }, [reclamationDetails])
+
+    const header = [
+        {
+            title: 'ID',
+            field: 'id',
+        },
+        role === 'ROLE_CLIENT'
+            ? {
+                title: 'Date de création',
+                field: 'createdAt',
+            }
+            : { title: 'Statut', field: 'status' },
+        // role !== 'ROLE_CLIENT'
+        {
+            title: 'Client',
+            field: 'client.codeInsc',
+        },
+        {
+            title: 'Validation',
+            field: 'validation',
+            render: rowData => {
+                let newStatus = 'VALIDATION_OPALIA'
+                const refusStatus =
+                    role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
+                if (rowData.status === 'BROUILLON') {
+                    newStatus = 'VALIDATION_CLIENT'
+                } else if (rowData.status === 'VALIDATION_CLIENT') {
+                    newStatus = 'VALIDATION_OPALIA'
+                }
+
+                const toValide =
+                    rowData.status !== 'VALIDATION_OPALIA'
+
+                return (
+                    <div>
+                        {toValide && (
+                            <IconButton
+                                onClick={() =>
+                                    alertShow(true, {
+                                        warning: false,
+                                        info: true,
+                                        error: false,
+                                        success: false,
+                                        title: `Voulez-vous vraiment valider`,
+                                        onConfirm: () => {
+                                            handleSubmitValider(rowData.id)
+                                            setTimeout(() => {
+                                                alertHide()
+                                                getAllReclamation({ user: userID })
+                                            }, 2000)
+                                        },
+                                    })
+                                }
+                                style={{ color: green[500] }}
+                                aria-label={statusAndTxt[newStatus]}
+                            >
+                                <CheckIcon />
+                            </IconButton>
+                        )}
+                        {role === 'ROLE_CLIENT' && (
+                            <IconButton
+                                onClick={() => editCMD(rowData)}
+                                aria-label={statusAndTxt[newStatus]}
+                                style={{ color: '#1c79be' }}
+                            >
+                                <EditIcon />
+                            </IconButton>
+                        )}
+                        <IconButton
+                            onClick={() =>
+                                alertShow(true, {
+                                    warning: true,
+                                    info: false,
+                                    error: false,
+                                    success: false,
+                                    title: `Voulez-vous vraiment supprimer`,
+                                    onConfirm: () => {
+                                        handleSubmitDelete(rowData.id)
+                                        setTimeout(() => {
+                                            alertHide()
+                                            getAllReclamation({ user: userID })
+                                        }, 2000)
+                                    },
+                                })
+                            }
+                            style={{ color: red[500] }}
+                            aria-label="Annuler"
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </div>
+                )
+            },
+        },
+    ]
     return (
         <div className="column col-md-12 style-table">
-            {/* <Grid className="gridItem">
-                <PageTitle label="Validation commande" />
-            </Grid> */}
             <Divider />
-            {/* {role !== 'ROLE_CLIENT' && (
-                <div>
-                    <Button
-                        clicked={syncProduits}
-                        label="Synchronisation produits"
-                    />
-                </div>
-            )} */}
-            <MaterialTable
-                title={<PageTitle label="Réclamation à valider" />}
-                options={{
-                    headerStyle: { fontSize: 20 },
-                    pageSizeOptions: [
-                        5,
-                        10,
-                        20,
-                        // { value: allList, label: 'Afficher Tous' },
-                    ],
-                }}
-                columns={[
-                    {
-                        title: 'ID',
-                        field: 'id',
-                    },
-                    role === 'ROLE_CLIENT'
-                        ? {
-                              title: 'Date de création',
-                              field: 'createdAt',
-                          }
-                        : { title: 'Statut', field: 'status' },
-                    role !== 'ROLE_CLIENT'
-                        ? {
-                              title: 'Client',
-                              field: 'client.codeInsc',
-                          }
-                        : {
-                              title: 'Dupliquer commande',
-                              field: 'dupliquer',
-                              render: rowData => {
-                                  return (
-                                      <div>
-                                          <IconButton
-                                              onClick={() =>
-                                                  dupliquerCommande({
-                                                      id: rowData.id,
-                                                      source: 'duplication',
-                                                  })
-                                              }
-                                              color="primary"
-                                          >
-                                              <FileCopyOutlinedIcon />
-                                          </IconButton>
-                                      </div>
-                                  )
-                              },
-                          },
-                    {
-                        title: 'Validation',
-                        field: 'validation',
-                        render: rowData => {
-                            let newStatus = 'VALIDATION_OPALIA'
-                            const refusStatus =
-                                role !== 'ROLE_CLIENT' ? 'BROUILLON' : 'ANNULER'
-                            if (rowData.status === 'BROUILLON') {
-                                newStatus = 'VALIDATION_CLIENT'
-                            } else if (rowData.status === 'VALIDATION_CLIENT') {
-                                newStatus = 'VALIDATION_OPALIA'
-                            }
-
-                            const toValide =
-                                rowData.status !== 'VALIDATION_OPALIA'
-
-                            return (
-                                <div>
-                                    {toValide && (
-                                        <IconButton
-                                            onClick={() =>
-                                                alertShow(true, {
-                                                    warning: false,
-                                                    info: true,
-                                                    error: false,
-                                                    success: false,
-                                                    title: `Voulez-vous vraiment valider`,
-                                                    onConfirm: () => {
-                                                        handleSubmit(
-                                                            newStatus,
-                                                            rowData.id
-                                                        )
-                                                        // deleteActualite(item.id)
-                                                        setTimeout(() => {
-                                                            alertHide()
-                                                            getCommande()
-                                                        }, 2000)
-                                                    },
-                                                })
-                                            }
-                                            style={{ color: green[500] }}
-                                            aria-label={statusAndTxt[newStatus]}
-                                        >
-                                            <CheckIcon />
-                                        </IconButton>
-                                    )}
-                                    {role === 'ROLE_CLIENT' && (
-                                        <IconButton
-                                            onClick={() => editCMD(rowData)}
-                                            aria-label={statusAndTxt[newStatus]}
-                                            style={{ color: '#1c79be' }}
-                                        >
-                                            <EditIcon />
-                                        </IconButton>
-                                    )}
-                                    <IconButton
-                                        onClick={() =>
-                                            alertShow(true, {
-                                                warning: true,
-                                                info: false,
-                                                error: false,
-                                                success: false,
-                                                title: `Voulez-vous vraiment supprimer`,
-                                                onConfirm: () => {
-                                                    handleSubmit(
-                                                        refusStatus,
-                                                        rowData.id
-                                                    )
-                                                    setTimeout(() => {
-                                                        alertHide()
-                                                        getCommande()
-                                                    }, 2000)
-                                                },
-                                            })
-                                        }
-                                        style={{ color: red[500] }}
-                                        aria-label="Annuler"
-                                    >
-                                        <CloseIcon />
-                                    </IconButton>
-                                </div>
-                            )
-                        },
-                    },
-                    // {
-                    //     title: 'Export Pdf',
-                    //     field: 'export',
-                    //     render: rowData => {
-                    //         return (
-                    //             <div>
-                    //                 <IconButton
-                    //                     onClick={() =>
-                    //                         exportPdf({ id: rowData.id })
-                    //                     }
-                    //                     color="primary"
-                    //                 >
-                    //                     <FileCopyIcon />
-                    //                 </IconButton>
-                    //             </div>
-                    //         )
-                    //     },
-                    // },
-                ]}
-                localization={{
-                    pagination: {
-                        labelDisplayedRows: '{from}-{to} de {count}',
-                        labelRowsSelect: 'lignes par page',
-                        labelRowsPerPage: 'lignes par page:',
-                        firstAriaLabel: 'Première page',
-                        firstTooltip: 'Première page',
-                        previousAriaLabel: 'Page précédente',
-                        previousTooltip: 'Page précédente',
-                        nextAriaLabel: 'Page suivante',
-                        nextTooltip: 'Page suivante',
-                        lastAriaLabel: 'Dernière page',
-                        lastTooltip: 'Dernière page',
-                    },
-                    toolbar: {
-                        searchPlaceholder: 'Rechercher',
-                        emptyDataSourceMessage: 'pas de rien',
-                    },
-                }}
-                data={allReclamation || []}
+            <TableCollapse
+                title="Réclamation à valider"
+                apiCall={getAllReclamation}
+                dataApi={{ user: userID }}
+                dataReturned={JSON.parse(JSON.stringify(reclamations))}
+                dataSubArray={dataSubArray}
+                headerTable={header}
+                userID={userID}
             />
         </div>
     )
@@ -324,6 +294,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch(dupliquerCommandeActions.dupliquerCommandeRequest(payload)),
     getAllReclamation: userID =>
         dispatch(getAllReclamations.getReclamationRequest(userID)),
+    getReclamationLigne: data =>
+        dispatch(getReclamationLignes.getReclamationLigneRequest(data)),
     // syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
@@ -340,6 +312,7 @@ const mapStateToProps = ({ info, login, commande, reclamation }) => ({
     reclamations: reclamation.getReclamation.response,
     pdfLink: commande.exportPdf.response,
     lng: info.language,
+    reclamationDetails: reclamation.getReclamationLigne.response,
 })
 
 /* Proptypes */
@@ -355,10 +328,12 @@ Index.propTypes = {
     alertShow: PropTypes.func.isRequired,
     alertHide: PropTypes.func.isRequired,
     dupliquerCommande: PropTypes.func.isRequired,
+    getReclamationLigne: PropTypes.func.isRequired,
     pdfLink: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     // syncProduits: PropTypes.func.isRequired,
     getAllReclamation: PropTypes.func.isRequired,
+    reclamationDetails: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
 }
 
