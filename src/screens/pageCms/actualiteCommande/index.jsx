@@ -3,26 +3,29 @@ import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
-import { Card, CardMedia, CardContent, Typography } from '@material-ui/core'
+import { useHistory } from 'react-router'
+import { Card, CardMedia } from '@material-ui/core'
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
-// import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Pagination, EffectCoverflow } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
-import getActualiteActions from '../../../../redux/pageCms/actualite/getActualite'
+import getActualiteActions from '../../../redux/pageCms/actualite/getActualite'
 // Import Swiper styles
-// import 'swiper/swiper.scss'
 import 'swiper/swiper.scss'
-// import 'swiper/components/navigation/navigation.scss'
-// import 'swiper/components/pagination/pagination.scss'
-// import 'swiper/components/scrollbar/scrollbar.scss'
-import './style.css'
+import 'swiper/swiper.min.css'
+import 'swiper/modules/effect-coverflow/effect-coverflow.min.css'
+import 'swiper/modules/pagination/pagination.min.css'
+import './styleActuSlider.css'
 // install Swiper modules
+SwiperCore.use([Pagination, EffectCoverflow])
+
+const page = window.location.pathname
 const useStyles = makeStyles(theme => ({
-    root: {
-        maxWidth: 345,
-    },
+    // root: {
+    //     maxWidth: 345,
+    // },
     media: {
         height: '300px',
+        // width: '500px',
         backgroundSize: 'contain',
     },
     expand: {
@@ -44,6 +47,7 @@ const useStyles = makeStyles(theme => ({
  * @returns
  */
 const Index = ({ filtredTable, getActualite }) => {
+    const history = useHistory()
     const classes = useStyles()
     /* hooks member */
     const [rows, setRows] = useState([])
@@ -76,56 +80,58 @@ const Index = ({ filtredTable, getActualite }) => {
         }
     }, [filtredTable])
 
+    const goToActualite = () => {
+        history.push({
+            pathname: 'actualite',
+        })
+    }
     return (
-        <Swiper
-            // install Swiper modules
-            direction="vertical"
-            pagination={{
-                clickable: true,
-            }}
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            autoplay={{
-                delay: 3000,
-            }}
-            className="mySwiper"
-            spaceBetween={400}
-            slidesPerView={2}
-            // centerInsufficientSlides="true"
-            // navigation
-        >
-            {rows.map(el => (
-                <SwiperSlide>
-                    <Card style={{ borderRadius: '0px' }}>
-                        <CardMedia
-                            className={classes.media}
-                            image={el.image}
-                            title="New"
-                        />
-                        <CardContent>
-                            <Typography
-                                className="title-act"
-                                variant="body2"
-                                style={{
-                                    color: 'red',
-                                    fontSize: '1.1rem',
-                                }}
-                                component="h3"
+        <div style={{ padding: '1%', backgroundColor: '#eeeeee' }}>
+            {/* <Grid className="gridItem">
+                    <PageTitle />
+                </Grid> */}
+            {(page === '/actualite' || page === '/commande') && (
+                <Swiper
+                    // install Swiper modules
+                    effect="coverflow"
+                    grabCursor
+                    centeredSlides
+                    slidesPerView={3}
+                    // slidesPerView={4}
+                    // spaceBetween={30}
+                    coverflowEffect={{
+                        rotate: 50,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: true,
+                    }}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    centerInsufficientSlides="true"
+                    autoplay={{
+                        delay: 1000,
+                    }}
+                    modules={[EffectCoverflow, Pagination]}
+                >
+                    {rows.map(el => (
+                        <SwiperSlide>
+                            <Card
+                                style={{ borderRadius: '0px' }}
+                                onClick={goToActualite}
                             >
-                                {el.titre}
-                            </Typography>
-
-                            <Typography
-                                variant="body2"
-                                color="textSecondary"
-                                component="p"
-                            >
-                                {el.theme}
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </SwiperSlide>
-            ))}
-        </Swiper>
+                                <CardMedia
+                                    className={classes.media}
+                                    image={el.image}
+                                    title={el.image}
+                                />
+                            </Card>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            )}
+        </div>
     )
 }
 

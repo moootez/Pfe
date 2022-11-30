@@ -20,7 +20,7 @@ function* wrapApiPut(payload) {
                     info: false,
                     error: false,
                     success: true,
-                    message: payload.response.data.message.ar,
+                    message: payload.response.data.message.fr,
                 })
             )
         }

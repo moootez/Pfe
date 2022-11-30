@@ -134,6 +134,16 @@
                         "roles": [
                             "ROLE_ADV"
                         ]
+                    },
+                    {
+                        "id": 32,
+                        "link": "/validation-reclamation",
+                        "title": "Réclamation à valider",
+                        "defaultPermission": false,
+                        "roles": [
+                            "ROLE_ADV",
+                            "ROLE_CLIENT"
+                        ]
                     }
                 ]
             },

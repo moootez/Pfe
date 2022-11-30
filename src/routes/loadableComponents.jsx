@@ -595,6 +595,18 @@ const loadableComponents = [
         name: 'edit_photo',
         showWhenConnected: true,
     },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/validerReclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/validation-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'Validation_reclamation',
+        showWhenConnected: true,
+    },
 ]
 
 export default loadableComponents

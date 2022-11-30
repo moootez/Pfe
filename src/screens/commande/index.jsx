@@ -8,12 +8,10 @@ import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
 import TableCollapse from '../../components/tableWithCollapse'
 import SwiperCore, { Navigation, Autoplay } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Swiper, SwiperSlide } from 'swiper/react'
 import getAllCommandes from '../../redux/declarantInterne/getDeclarantAvis'
 import getCommandes from '../../redux/declarantInterne/getDeclarantById'
-import 'swiper/swiper.scss'
-import 'swiper/components/navigation/navigation.scss'
-import Actualite from '../pageCms/actualite'
+import Actualite from '../pageCms/actualiteCommande'
 
 SwiperCore.use([Navigation, Autoplay])
 
@@ -30,10 +28,10 @@ const Index = props => {
         // getAllCommande({ user: userID, dateDebut: null, dateFin: null })
         getAllCommande({
             user: userID,
-            dateFin: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate(),
-            dateDebut: (new Date().getFullYear() - 1) + '-' + new Date().getMonth() + '-' + new Date().getDate()
+            dateFin: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`,
+            dateDebut: `${new Date().getFullYear() -
+                1}-${new Date().getMonth()}-${new Date().getDate()}`,
         })
-
     }, [])
 
     // Set livraison on state
@@ -59,33 +57,33 @@ const Index = props => {
 
     const header = [
         {
-            field: "No_commande",
-            title: "No commande"
+            field: 'No_commande',
+            title: 'No commande',
         },
         {
-            field: "Code_client",
-            title: "Code client"
+            field: 'Code_client',
+            title: 'Code client',
         },
         {
-            field: "Date_commande",
-            title: "Date commande"
+            field: 'Date_commande',
+            title: 'Date commande',
         },
         {
-            field: "Etat_commande",
-            title: "Etat commande"
+            field: 'Etat_commande',
+            title: 'Etat commande',
         },
         {
-            field: "Livraison",
-            title: "Livraison"
+            field: 'Livraison',
+            title: 'Livraison',
         },
         {
-            field: "Facture",
-            title: "Facture"
+            field: 'Facture',
+            title: 'Facture',
         },
         {
-            field: "Montant_HT_TND",
-            title: "Montant HT TND"
-        }
+            field: 'Montant_HT_TND',
+            title: 'Montant HT TND',
+        },
     ]
 
     return (
@@ -153,7 +151,4 @@ Index.propTypes = {
     getAllCommande: PropTypes.func.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

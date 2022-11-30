@@ -74,10 +74,11 @@ const index = ({
         if (date) {
             if (
                 ((name !== 'dateNaissance' && Number.isNaN(date.getDate())) ||
-                    (attributes.disableFuture && date < new Date(1900, 1, 1))) &&
-                (name !== 'de' && name !== 'a')
+                    (attributes.disableFuture &&
+                        date < new Date(1900, 1, 1))) &&
+                name !== 'de' &&
+                name !== 'a'
             ) {
-                debugger
                 setError(intl.formatMessage({ id: 'msgDateErreur' }))
             } else {
                 setSelectedDate(date)
@@ -213,7 +214,7 @@ const index = ({
  *  Inialisation
  */
 index.defaultProps = {
-    onchange: () => { },
+    onchange: () => {},
     placeholder: ' ',
     defaultValue: null,
     label: '',

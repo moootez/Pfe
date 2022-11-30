@@ -264,14 +264,15 @@ class index extends PureComponent {
                                 page * rowsPerPage,
                                 page * rowsPerPage + rowsPerPage
                             )
-                            .map(item => (
+                            .map((item, ky) => (
                                 <TableRow className={classes.row} key={item.id}>
                                     {Object.keys(item).map(key => {
                                         if (
                                             key !== 'id' &&
                                             key !== 'index' &&
                                             key !== 'isDisabled' &&
-                                            key !== 'user'
+                                            key !== 'user' &&
+                                            key !== 'NumReclamation'
                                         ) {
                                             return (
                                                 <CustomTableCell
@@ -283,9 +284,9 @@ class index extends PureComponent {
                                                     key={generateKey()}
                                                 >
                                                     {key !==
-                                                    'codeDeclaration' ? (
+                                                        'codeDeclaration' ? (
                                                         key !==
-                                                        'rapport_De_Contrôle' ? (
+                                                            'rapport_De_Contrôle' ? (
                                                             item[key] && (
                                                                 <div>
                                                                     {item[
@@ -324,7 +325,7 @@ class index extends PureComponent {
                                                                     href={
                                                                         type ===
                                                                             'saisieAssujetti' ||
-                                                                        type ===
+                                                                            type ===
                                                                             'validationAssujetti'
                                                                             ? ' '
                                                                             : null
@@ -453,62 +454,64 @@ class index extends PureComponent {
                                         type === 'publication' ||
                                         type === 'publicationEtablissement' ||
                                         type === 'publierDeclarant') && (
-                                        <Checkbox
-                                            variant="contained"
-                                            color="primary"
-                                            style={{
-                                                margin: 'auto',
-                                                marginTop: '0.6em',
-                                            }}
-                                            onChange={e =>
-                                                this.handleChange(e, item)
-                                            }
-                                            disabled={
-                                                (type === 'validation' &&
-                                                    item.status ===
+                                            <Checkbox
+                                                variant="contained"
+                                                color="primary"
+                                                style={{
+                                                    margin: 'auto',
+                                                    marginTop: '0.6em',
+                                                }}
+                                                onChange={e =>
+                                                    this.handleChange(e, item)
+                                                }
+                                                disabled={
+                                                    (type === 'validation' &&
+                                                        item.status ===
                                                         'مصادق عليها') ||
-                                                (type === 'affectation' &&
-                                                    item.status ===
+                                                    (type === 'affectation' &&
+                                                        item.status ===
                                                         'تمت مقاربتها')
-                                            }
-                                        />
-                                    )}
+                                                }
+                                            />
+                                        )}
                                     {(type === 'user' ||
                                         type === 'listQuide' ||
                                         type === 'listTextJuridique' ||
                                         type === 'listLien' ||
                                         type === 'listRapport' ||
+                                        type === 'reclamation' ||
                                         type === 'listActualite' ||
                                         type === 'listFaq') && (
-                                        <Fab
-                                            color="secondary"
-                                            aria-label="edit"
-                                            className={classes.fab}
-                                            size="small"
-                                        >
-                                            <EditIcon
-                                                onClick={() => editAction(item)}
-                                            />
-                                        </Fab>
-                                    )}
+                                            <Fab
+                                                color="secondary"
+                                                aria-label="edit"
+                                                className={classes.fab}
+                                                size="small"
+                                            >
+                                                <EditIcon
+                                                    onClick={() => editAction(item, ky)}
+                                                />
+                                            </Fab>
+                                        )}
 
                                     {(type === 'listTextJuridique' ||
                                         type === 'listLien' ||
                                         type === 'listRapport' ||
                                         type === 'user' ||
                                         type === 'listActualite' ||
+                                        type === 'reclamation' ||
                                         type === 'listFaq') && (
-                                        <Fab
-                                            aria-label="delete"
-                                            className={classes.fab}
-                                            size="small"
-                                        >
-                                            <DeleteIcon
-                                                onClick={() => deleteRef(item)}
-                                                color="primary"
-                                            />
-                                        </Fab>
-                                    )}
+                                            <Fab
+                                                aria-label="delete"
+                                                className={classes.fab}
+                                                size="small"
+                                            >
+                                                <DeleteIcon
+                                                    onClick={() => deleteRef(item, ky)}
+                                                    color="primary"
+                                                />
+                                            </Fab>
+                                        )}
                                 </TableRow>
                             ))}
                     </TableBody>
@@ -576,16 +579,16 @@ index.propTypes = {
  */
 index.defaultProps = {
     saisieAction: null,
-    getReceviedAction: () => {},
+    getReceviedAction: () => { },
     scanAction: null,
     status: '',
     type: '',
     searchValue: '',
     row: {},
     rows: [],
-    setArrayDecAffecter: () => {},
-    fn: () => {},
-    editAction: () => {},
-    deleteRef: () => {},
+    setArrayDecAffecter: () => { },
+    fn: () => { },
+    editAction: () => { },
+    deleteRef: () => { },
 }
 export default withStyles(styles)(index)
