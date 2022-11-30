@@ -129,12 +129,11 @@ const Index = props => {
         })
     }
 
-    const editCMD = rowData => {
+    const editReclamation = rowData => {
         history.push({
-            pathname: `/edit-commande/`,
+            pathname: `/ajout-reclamation`,
             state: {
-                index: rowData,
-                idCMD: rowData.id,
+                index: rowData
             },
         })
     }
@@ -210,15 +209,15 @@ const Index = props => {
                                 <CheckIcon />
                             </IconButton>
                         )}
-                        {role === 'ROLE_CLIENT' && (
+                        {/* {role === 'ROLE_CLIENT' && (
                             <IconButton
-                                onClick={() => editCMD(rowData)}
+                                onClick={() => editReclamation(rowData)}
                                 aria-label={statusAndTxt[newStatus]}
                                 style={{ color: '#1c79be' }}
                             >
                                 <EditIcon />
                             </IconButton>
-                        )}
+                        )} */}
                         <IconButton
                             onClick={() =>
                                 alertShow(true, {

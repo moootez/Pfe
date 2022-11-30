@@ -26,6 +26,7 @@ import axios from 'axios'
 import baseUrl from '../../serveur/baseUrl'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import DateField from '../../components/ui/datePicker'
+import getReclamationLignes from '../../redux/reclamation/getReclamationLigne'
 
 const natureReclamation = [
     'Périmé',
@@ -52,6 +53,8 @@ const Index = props => {
         getAllProduct,
         products,
         userNamePre,
+        getReclamationLigne,
+        reclamationDetails
     } = props
     const { OpaliaToken } = window.localStorage
 
@@ -69,8 +72,20 @@ const Index = props => {
 
     useEffect(() => {
         getAllProduct()
-        // getAllLivraison({ user: userID })
     }, [])
+
+
+    useEffect(() => {
+        if (reclamationDetails) {
+            setReclamation(reclamationDetails)
+        }
+    }, [reclamationDetails])
+
+    useEffect(() => {
+        if (history.location.state !== undefined) {
+            getReclamationLigne({ id: history.location.state.index.id })
+        }
+    }, [history.location.state])
 
     useEffect(() => {
         if (reclamation.article)
@@ -129,11 +144,6 @@ const Index = props => {
             errorredirect = true
         }
     }, [newReclamation.loading])
-
-    // useEffect(() => {
-    //     if (newReclamation.loading === true)
-    //         setTimeout(() => history.push('/mes-reclamation'), 1000)
-    // }, [newReclamation.loading])
 
     function removeObjectWithNumRec(arr, idRec) {
         const objWithIdIndex = arr.findIndex(
@@ -755,6 +765,7 @@ Index.propTypes = {
     getAllLivraison: PropTypes.func.isRequired,
     commandes: PropTypes.array.isRequired,
     getCommande: PropTypes.func.isRequired,
+    reclamationDetails: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     livraisons: PropTypes.array,
     alertShow: PropTypes.func.isRequired,
@@ -781,6 +792,8 @@ const mapDispatchToProps = dispatch => ({
     addReclamation: payload =>
         dispatch(addReclamationActions.addNewReclamationRequest(payload)),
     getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
+    getReclamationLigne: data =>
+        dispatch(getReclamationLignes.getReclamationLigneRequest(data)),
     alertShow: (show, info) =>
         dispatch(
             alertActions.alertShow(show, {
@@ -814,6 +827,7 @@ const mapStateToProps = ({
     userNamePre: login.response.User.details,
     livraisons: referencial.allReferencials.response,
     commandes: statistique.getStatistique.response,
+    reclamationDetails: reclamation.getReclamationLigne.response,
     newReclamation: reclamation.newReclamation,
     lng: info.language,
     products: commande.getAllProduct.response,
