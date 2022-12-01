@@ -90,7 +90,7 @@ const Index = ({ filtredTable, getActualite }) => {
             {/* <Grid className="gridItem">
                     <PageTitle />
                 </Grid> */}
-            {(page === '/actualite' || page === '/commande') && (
+            {(page === '/actualite' || page === '/commande' || page === '/create_commande') && (
                 <Swiper
                     // install Swiper modules
                     effect="coverflow"
