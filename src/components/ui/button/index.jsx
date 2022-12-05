@@ -33,9 +33,9 @@ const index = props => {
             backgroundColor: bgColor,
             fontFamily:
                 '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-            fontWeight: 600,
+            // fontWeight: 600,
             borderRadius: 0,
-            width: 200,
+            // width: 200,
             '&:hover': {
                 backgroundColor: hoverColor,
             },

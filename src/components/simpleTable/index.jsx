@@ -5,6 +5,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { red, green } from '@material-ui/core/colors'
 import { withStyles } from '@material-ui/core/styles'
 import { injectIntl } from 'react-intl'
 import {
@@ -16,7 +17,9 @@ import {
     Paper,
 } from '@material-ui/core'
 import generateKey, { removeBottomDash } from '../../shared/utility'
-
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
+import CheckIcon from '@material-ui/icons/Check'
 /**
  * style cellule du table
  */
@@ -79,7 +82,7 @@ const styles = theme => ({
 })
 
 const Index = props => {
-    const { classes, apiCall, dataApi, dataReturned, dataId } = props
+    const { classes, apiCall, dataApi, dataReturned, dataId, validationReclamation, onValidate, onDelete } = props
     const [state, setState] = useState(
         ((dataReturned || [])[0] || {})[dataId] === props[dataId]
             ? dataReturned
@@ -93,6 +96,7 @@ const Index = props => {
         if (((dataReturned || [])[0] || {})[dataId] === props[dataId])
             setState(dataReturned)
     }, [JSON.stringify(dataReturned)])
+    console.log(state);
 
     return (
         <div className="column col-md-12">
@@ -105,7 +109,7 @@ const Index = props => {
                         <TableRow>
                             {Boolean((state || []).length) &&
                                 Object.keys(state[0] || {}).map(item => (
-                                    <StyledTableCell
+                                    item !== 'NumReclamation' && <StyledTableCell
                                         className={classes.headTable}
                                         align="center"
                                         key={generateKey()}
@@ -113,24 +117,54 @@ const Index = props => {
                                         {removeBottomDash(item)}
                                     </StyledTableCell>
                                 ))}
+                            {validationReclamation &&
+                                <StyledTableCell
+                                    className={classes.headTable}
+                                    align="center"
+                                >
+                                    Acceptation
+                                </StyledTableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {(state || []).map(item => (
+
                             <StyledTableRow key={generateKey()}>
-                                {Object.values(item).map(value => {
+                                {Object.keys(item).map((value) => {
                                     return (
-                                        <StyledTableCell
+                                        value !== 'NumReclamation' && <StyledTableCell
                                             className={classes.headTable}
                                             align="center"
                                             key={generateKey()}
                                         >
                                             <div key={generateKey()}>
-                                                {value}
+                                                {item[value]}
                                             </div>
                                         </StyledTableCell>
                                     )
                                 })}
+                                {(validationReclamation) &&
+                                    <StyledTableCell
+                                        className={classes.headTable}
+                                        align="center"
+                                    >
+                                        <IconButton
+                                            onClick={() => onValidate(item)}
+                                            style={{ color: !item.status ? green[500] : '#b5b5b5' }}
+                                            disabled={item.status}
+                                        // aria-label={statusAndTxt[newstatus]}
+                                        >
+                                            <CheckIcon />
+                                        </IconButton>
+                                        <IconButton
+                                            onClick={() => onDelete(item)}
+                                            style={{ color: !item.status ? red[500] : '#b5b5b5' }}
+                                            aria-label="Annuler"
+                                            disabled={item.status}
+                                        >
+                                            <CloseIcon />
+                                        </IconButton>
+                                    </StyledTableCell>}
                             </StyledTableRow>
                         ))}
                     </TableBody>
@@ -150,6 +184,9 @@ Index.propTypes = {
     dataReturned: PropTypes.array.isRequired,
     apiCall: PropTypes.func.isRequired,
     dataId: PropTypes.string.isRequired,
+    validationReclamation: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onValidate: PropTypes.func.isRequired,
 }
 
 export default injectIntl(withStyles(styles)(Index))

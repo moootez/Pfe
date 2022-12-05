@@ -269,9 +269,11 @@ class index extends PureComponent {
                                     {Object.keys(item).map(key => {
                                         if (
                                             key !== 'id' &&
+                                            key !== 'Id' &&
                                             key !== 'index' &&
                                             key !== 'isDisabled' &&
                                             key !== 'user' &&
+                                            key !== 'status' &&
                                             key !== 'NumReclamation'
                                         ) {
                                             return (

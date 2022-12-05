@@ -30,6 +30,10 @@ const DetailPanelWithRowClick = props => {
         headerTable,
         userID,
         listGrossiste,
+        reclamationFilter,
+        validationReclamation,
+        onValidate,
+        onDelete
     } = props
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
     const [allList, setAllList] = useState(0)
@@ -60,6 +64,8 @@ const DetailPanelWithRowClick = props => {
 
     useEffect(() => {
         subDataRef.current = (dataSubArray || {}).dataReturned
+        console.log('dataSubArray', dataSubArray);
+
     }, [JSON.stringify((dataSubArray || {}).dataReturned)])
 
     const fieldChangedHandler = (e, name) => {
@@ -108,73 +114,78 @@ const DetailPanelWithRowClick = props => {
             apiCall({ user: user[0].codeInsc, dateFin, dateDebut })
         }
     }
+    const [detailPanel, setdetailPanel] = useState({});
+    useEffect(() => {
+        if (dataSubArray)
+            setdetailPanel({
+                detailPanel: rowData => {
+                    return (
+                        // dataSubArray.dataApi is A function to get useful data from row data
+                        <SimpleTable
+                            {...rowData}
+                            {...dataSubArray}
+                            dataApi={dataSubArray.dataApi(rowData)}
+                            dataReturned={subDataRef.current}
+                            validationReclamation={validationReclamation}
+                            onValidate={(e) => onValidate(e)}
+                            onDelete={(e) => onDelete(e)}
+                        />
+                    )
+                },
+            })
+    }, [dataSubArray])
 
-    const detailPanel = dataSubArray
-        ? {
-              detailPanel: rowData => {
-                  return (
-                      // dataSubArray.dataApi is A function to get useful data from row data
-                      <SimpleTable
-                          {...rowData}
-                          {...dataSubArray}
-                          dataApi={dataSubArray.dataApi(rowData)}
-                          dataReturned={subDataRef.current}
-                      />
-                  )
-              },
-          }
-        : {}
     return (
         <>
             <div className="row">
                 {(title === 'Mes commandes' ||
-                    title === 'Historique Commande') && (
-                    <>
-                        {title === 'Historique Commande' && (
+                    title === 'Historique Commande' || reclamationFilter) && (
+                        <>
+                            {(title === 'Historique Commande' || reclamationFilter) && (
+                                <div className="col-md-3 col-sm-6">
+                                    <SelectList
+                                        onchange={e => {
+                                            onSelect(e)
+                                        }}
+                                        name="select"
+                                        label="Selectionner grossiste"
+                                        list={listGrossiste}
+                                        selectedItem={value}
+                                    />
+                                </div>
+                            )}
                             <div className="col-md-3 col-sm-6">
-                                <SelectList
-                                    onchange={e => {
-                                        onSelect(e)
+                                <DateField
+                                    key="de"
+                                    id="de"
+                                    onchange={e => fieldChangedHandler(e, 'de')}
+                                    defaultValue={dateDebut}
+                                    name="de"
+                                    label="Date début"
+                                    isArabic={false}
+                                    attributes={{
+                                        disableFuture: false,
                                     }}
-                                    name="select"
-                                    label="Selectionner grossiste"
-                                    list={listGrossiste}
-                                    selectedItem={value}
+                                    required={false}
                                 />
                             </div>
-                        )}
-                        <div className="col-md-3 col-sm-6">
-                            <DateField
-                                key="de"
-                                id="de"
-                                onchange={e => fieldChangedHandler(e, 'de')}
-                                defaultValue={dateDebut}
-                                name="de"
-                                label="Date début"
-                                isArabic={false}
-                                attributes={{
-                                    disableFuture: false,
-                                }}
-                                required={false}
-                            />
-                        </div>
-                        <div className="col-md-3 col-sm-6">
-                            <DateField
-                                key="a"
-                                id="a"
-                                onchange={e => fieldChangedHandler(e, 'a')}
-                                defaultValue={dateFin}
-                                name="a"
-                                label="Date fin"
-                                isArabic={false}
-                                attributes={{
-                                    disableFuture: false,
-                                }}
-                                required={false}
-                            />
-                        </div>
-                    </>
-                )}
+                            <div className="col-md-3 col-sm-6">
+                                <DateField
+                                    key="a"
+                                    id="a"
+                                    onchange={e => fieldChangedHandler(e, 'a')}
+                                    defaultValue={dateFin}
+                                    name="a"
+                                    label="Date fin"
+                                    isArabic={false}
+                                    attributes={{
+                                        disableFuture: false,
+                                    }}
+                                    required={false}
+                                />
+                            </div>
+                        </>
+                    )}
             </div>
             <br />
             <MaterialTable
@@ -224,10 +235,14 @@ DetailPanelWithRowClick.propTypes = {
     dataReturned: PropTypes.array.isRequired,
     apiCall: PropTypes.func.isRequired,
     dataSubArray: PropTypes.object,
+    validationReclamation: PropTypes.bool,
+    reclamationFilter: PropTypes.bool,
 }
 
 DetailPanelWithRowClick.defaultProps = {
     dataSubArray: null,
+    reclamationFilter: false,
+    validationReclamation: false
 }
 
 export default DetailPanelWithRowClick

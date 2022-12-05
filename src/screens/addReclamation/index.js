@@ -27,6 +27,8 @@ import baseUrl from '../../serveur/baseUrl'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import DateField from '../../components/ui/datePicker'
 import getReclamationLignes from '../../redux/reclamation/getReclamationLigne'
+import Immutable from 'seamless-immutable'
+import { async } from 'q'
 
 const natureReclamation = [
     'Périmé',
@@ -37,7 +39,7 @@ const natureReclamation = [
     'Autres',
 ]
 
-const graviteReclamation = ['Mineur', 'Majeur', 'Critique']
+const motifReclamation = ['Mineur', 'Majeur', 'Critique']
 
 const Index = props => {
     const {
@@ -78,6 +80,7 @@ const Index = props => {
     useEffect(() => {
         if (reclamationDetails) {
             setReclamation(reclamationDetails)
+            setRows(Immutable.asMutable(reclamationDetails))
         }
     }, [reclamationDetails])
 
@@ -146,45 +149,50 @@ const Index = props => {
     }, [newReclamation.loading])
 
     function removeObjectWithNumRec(arr, idRec) {
-        const objWithIdIndex = arr.findIndex(
-            obj => obj.NumReclamation === idRec
-        )
 
+        const objWithIdIndex = arr.findIndex(
+            obj => parseInt(obj.NumReclamation) === parseInt(idRec)
+        )
+        let result = [];
         if (objWithIdIndex > -1) {
-            arr.splice(objWithIdIndex, 1)
+            // arr = [...Immutable.asMutable(arr).slice(0, objWithIdIndex), ...Immutable.asMutable(arr).slice(objWithIdIndex + 1)]
+            result = [...Immutable.asMutable(arr).slice(0, objWithIdIndex), ...Immutable.asMutable(arr).slice(objWithIdIndex + 1)]
         }
 
-        return arr
+        return result
     }
 
     const deleteRef = (itemlm, key) => {
-        const newArr = removeObjectWithNumRec(rows, itemlm.NumReclamation)
-        setRows([...newArr])
+
+        const newArr = removeObjectWithNumRec(rows, parseInt(itemlm.NumReclamation))
+
+        if (isEdited)
+            return newArr;
+        else
+            setRows(newArr)
         // setIndex(index - 1)
         // setPayload([...newArr]);
     }
 
     const submitReclamation = () => {
+
         const newPayload = {
             // client: userID,
-            NumReclamation: reclamation.NumReclamation || index + 1,
-            codePct: reclamation.codePct,
+            NumReclamation: parseInt(reclamation.NumReclamation) || index + 1,
+            motif: reclamation.motif,
             article: reclamation.article,
-            gravite: reclamation.gravite,
-            qte: reclamation.qte || 0,
-            numLot: reclamation.numLot,
-            numBl: reclamation.numBl,
-            numFact: 'Num Fact',
-            datePere: reclamation.datePere,
+            code_Pct: reclamation.code_Pct,
+            quantite: reclamation.quantite || 0,
+            num_Lot: reclamation.num_Lot,
+            num_Bl: reclamation.num_Bl,
+            date_Peremption: reclamation.date_Peremption,
+            num_Fact: 'Num Fact',
             commentaire: reclamation.commentaire,
-            // dateLivraison: new Date(Date.now()),
-            // codeLivraison: reclamation.livraison,
-            // codeArticle: reclamation.produit,
-            // nature: reclamation.nature,
-            // status: null,
+            id: reclamation.id || null,
+            quantite_Valide: reclamation.quantite_Valide || 0,
         }
 
-        if (newPayload.qte <= 0) {
+        if (newPayload.quantite <= 0) {
             alertShow(true, {
                 warning: false,
                 info: false,
@@ -193,15 +201,19 @@ const Index = props => {
                 message: 'Quantité négative ',
             })
         } else {
-            if (isEdited) deleteRef(reclamation)
-            else setIndex(index + 1)
+            if (isEdited) {
+                setRows([...deleteRef(reclamation), newPayload])
+            }
+            else {
+                setRows([...rows, newPayload])
+                setIndex(index + 1)
+            }
             setReclamation({})
             setLots([])
             setBls([])
             setIndex(index + 1)
-            setRows([...rows, newPayload])
+            setIsEdited(false)
         }
-        setIsEdited(false)
     }
 
     const [lots, setLots] = useState([])
@@ -213,7 +225,7 @@ const Index = props => {
             let listFiltred = products.filter(
                 element => element.codeArticleX3 === value
             )
-            setReclamation(r => ({ ...r, codePct: listFiltred[0].codePct }))
+            setReclamation(r => ({ ...r, code_Pct: listFiltred[0].codePct }))
         }
         setReclamation(r => ({ ...r, [name]: value }))
     }
@@ -231,55 +243,84 @@ const Index = props => {
     }
 
     const headers = [
-        'Code PCT',
-        'Article',
         'Motif',
+        'Article',
+        'Code PCT',
         'Quantité à Retouner',
         'N°Lot',
         'N°BL',
-        'N°Fact',
         'Date Péremption',
+        'N°Fact',
         'commentaire',
+        'Quantité Valide',
         'Action',
     ]
     const editAction = (row, key) => {
         setIsEdited(true)
-        console.log(row, 'row')
-        setLots(row.numLot)
-        setBls(row.numBl)
         setReclamation(() => row)
+        // setShow(true)
     }
 
     const ValiderReclamation = () => {
-        axios({
-            method: 'post',
-            url: `${baseUrl}reclamation/new`,
-            headers: {
-                'Accept-Version': 1,
-                Accept: 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json; charset=utf-8',
-                Authorization: `Bearer ${OpaliaToken}`,
-            },
-            data: { data: rows, client: userID, status: 'en attente' },
-        }).then(res => {
-            console.log(res);
+        if (history.location.state !== undefined) {
+            axios({
+                method: 'patch',
+                url: `${baseUrl}reclamation/${history.location.state.index.id}`,
+                headers: {
+                    'Accept-Version': 1,
+                    Accept: 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json; charset=utf-8',
+                    Authorization: `Bearer ${OpaliaToken}`,
+                },
+                data: { data: rows, client: userID, status: 'en attente' },
+            }).then(res => {
+                console.log('res', res);
 
-            if (res.status === 201 || res.code === 200) {
-                alertShow(true, {
-                    onConfirm: false,
-                    warning: false,
-                    info: false,
-                    error: false,
-                    success: true,
-                    message: 'Ajouter avec succés',
-                })
-                history.push({
-                    pathname: 'mes-reclamation',
-                })
-                window.location.reload()
-            }
-        })
+                if (res.status === 202 || res.code === 200) {
+                    alertShow(true, {
+                        onConfirm: false,
+                        warning: false,
+                        info: false,
+                        error: false,
+                        success: true,
+                        message: 'Modifier avec succés',
+                    })
+                    history.push({
+                        pathname: 'validation-reclamation',
+                    })
+                }
+            })
+        } else
+            axios({
+                method: 'post',
+                url: `${baseUrl}reclamation/new`,
+                headers: {
+                    'Accept-Version': 1,
+                    Accept: 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json; charset=utf-8',
+                    Authorization: `Bearer ${OpaliaToken}`,
+                },
+                data: { data: rows, client: userID, status: 'en attente' },
+            }).then(res => {
+                console.log(res);
+
+                if (res.status === 201 || res.code === 200) {
+                    alertShow(true, {
+                        onConfirm: false,
+                        warning: false,
+                        info: false,
+                        error: false,
+                        success: true,
+                        message: 'Ajouter avec succés',
+                    })
+                    history.push({
+                        pathname: 'mes-reclamation',
+                    })
+                    // window.location.reload()
+                }
+            })
     }
 
     return (
@@ -323,18 +364,18 @@ const Index = props => {
                     </div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            {/* <InputLabel id="select-gravite">
+                            {/* <InputLabel id="select-motif">
                                 Gravité réclamation
                             </InputLabel> */}
                             <Select
                                 className="border"
                                 id="demo-mutiple-name"
-                                labelId="select-gravite"
-                                value={reclamation.gravite || ''}
-                                onChange={e => changeHandler('gravite', e)}
+                                labelId="select-motif"
+                                value={reclamation.motif || ''}
+                                onChange={e => changeHandler('motif', e)}
                                 input={<Input />}
                             >
-                                {graviteReclamation.map(element => (
+                                {motifReclamation.map(element => (
                                     <MenuItem key={element} value={element}>
                                         {element}
                                     </MenuItem>
@@ -347,7 +388,7 @@ const Index = props => {
                                         fontSize: '0.8rem',
                                     }}
                                 >
-                                    {errorsList.gravite}
+                                    {errorsList.motif}
                                 </span>
                             )}
                         </FormControl>
@@ -362,13 +403,13 @@ const Index = props => {
                     </div>
                     <div className="col-6">
                         <FormControl className="w-100">
-                            {/* <InputLabel id="select-gravite">
+                            {/* <InputLabel id="select-motif">
                                 Gravité réclamation
                             </InputLabel> */}
                             <Select
                                 className="border"
                                 id="demo-mutiple-name"
-                                labelId="select-gravite"
+                                labelId="select-motif"
                                 value={reclamation.article || ''}
                                 onChange={e => changeHandler('article', e)}
                                 input={<Input />}
@@ -391,7 +432,7 @@ const Index = props => {
                                         fontSize: '0.8rem',
                                     }}
                                 >
-                                    {errorsList.gravite}
+                                    {errorsList.motif}
                                 </span>
                             )}
                         </FormControl>
@@ -409,10 +450,12 @@ const Index = props => {
                                     className="border"
                                     labelId="demo-multiple-checkbox-label"
                                     id="demo-mutiple-checkbox"
-                                    value={lots || ''}
-                                    renderValue={selected => selected.join(',')}
+                                    // value={lots || ''}
+                                    value={reclamation.num_Lot || ''}
+                                    // renderValue={selected => selected.join(',')}
                                     onChange={e =>
-                                        changeHandlerLot('numLot', e)
+                                        changeHandler('num_Lot', e)
+                                        // changeHandlerLot('num_Lot', e)
                                     }
                                     input={<Input />}
                                     required
@@ -431,7 +474,7 @@ const Index = props => {
                                 }}
                                 type="text"
                                 className="d-flex border"
-                                onChange={e => changeHandler('numLot', e)}
+                                onChange={e => changeHandler('num_Lot', e)}
                             />  */}
                             </FormControl>
                         </div>
@@ -449,12 +492,12 @@ const Index = props => {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                                value={reclamation.qte || ''}
-                                defaultValue={reclamation.qte}
+                                value={reclamation.quantite || ''}
+                                defaultValue={reclamation.quantite}
                                 type="number"
                                 className="d-flex border "
-                                onChange={e => changeHandler('qte', e)}
-                                name="qte_rec"
+                                onChange={e => changeHandler('quantite', e)}
+                                name="quantite_rec"
                             />
                         </FormControl>
                     </div>
@@ -466,11 +509,11 @@ const Index = props => {
                     <div className="col-6">
                         <p className="txt_form">
                             <DateField
-                                key="datePere"
-                                id="datePere"
-                                onchange={e => changeHandler('datePere', e)}
-                                value={reclamation.datePere}
-                                name="datePere"
+                                key="date_Peremption"
+                                id="date_Peremption"
+                                onchange={e => changeHandler('date_Peremption', e)}
+                                value={reclamation.date_Peremption}
+                                name="date_Peremption"
                                 isArabic={false}
                                 attributes={{
                                     disableFuture: false,
@@ -492,9 +535,9 @@ const Index = props => {
                                     className="border"
                                     labelId="demo-multiple-checkbox-label"
                                     id="demo-mutiple-checkbox"
-                                    value={bls || null}
-                                    renderValue={selected => selected.join(',')}
-                                    onChange={e => changeHandlerBl('numBl', e)}
+                                    value={reclamation.num_Bl || ''}
+                                    // renderValue={selected => selected.join(',')}
+                                    onChange={e => changeHandler('num_Bl', e)}
                                     input={<Input />}
                                     required
                                 >
@@ -512,7 +555,7 @@ const Index = props => {
                                 }}
                                 type="text"
                                 className="d-flex border"
-                                onChange={e => changeHandler('numLot', e)}
+                                onChange={e => changeHandler('num_Lot', e)}
                             />  */}
                             </FormControl>
                         </div>
@@ -555,183 +598,6 @@ const Index = props => {
                         </FormControl>
                     </div>
                 </div>
-
-                {/* commentaire */}
-                <>
-                    {/* <div className="d-flex col-6 row-form-reclam"> */}
-                    {/* <div className="col-6 mt-3">
-                        <p className="txt_form">
-                            Code livraison{' '}
-                            <span className="text-danger"> * </span>
-                        </p>
-                    </div> */}
-                    {/* <div className="col-6"> */}
-                    {/* <FormControl className="w-100"> */}
-                    {/* <InputLabel id="select-livraison">
-                                Code livraison
-                            </InputLabel> */}
-                    {/* <Select
-                                className="border"
-                                id="demo-mutiple-name"
-                                labelId="select-livraison"
-                                value={(reclamation || {}).livraison}
-                                onChange={e => changeHandler('livraison', e)}
-                                input={<Input />}
-                                required
-                            >
-                                {(livraisons instanceof Array
-                                    ? livraisons
-                                    : []
-                                ).map(element => (
-                                    <MenuItem
-                                        key={element.No_livraison}
-                                        value={element.No_livraison}
-                                    >
-                                        {element.No_livraison}
-                                    </MenuItem>
-                                ))}
-                            </Select> */}
-                    {/* {isError && (
-                                <span
-                                    style={{
-                                        color: '#f44336',
-                                        fontSize: '0.8rem',
-                                    }}
-                                >
-                                    {errorsList.codeLivraison}
-                                </span>
-                            )} */}
-                    {/* </FormControl> */}
-                    {/* </div> */}
-                    {/* </div> */}
-                    {/* Numero du produit */}
-                    {/* <div className="col-6 d-flex row-form-reclam">
-                    <div className="col-6 mt-3">
-                        <p className="txt_form">
-                            Code produit{' '}
-                            <span className="text-danger"> * </span>
-                        </p>
-                    </div>
-                    <div className="col-6">
-                        <FormControl className="w-100">
-                            {/* <InputLabel id="select-produit">
-                                Code produit
-                            </InputLabel> */}
-                    {/* <Select
-                                className="border"
-                                id="demo-mutiple-name"
-                                labelId="select-produit"
-                                value={(reclamation || {}).livraison}
-                                onChange={e => changeHandler('produit', e)}
-                                input={<Input />}
-                            >
-                                {(commandes || []).forEach(commande => {
-                                    if (
-                                        fileteredCommandes.indexOf(
-                                            commande.Code_article
-                                        ) === -1
-                                    ) {
-                                        fileteredCommandes.push(
-                                            commande.Code_article
-                                        )
-                                    }
-                                })}
-                                {(fileteredCommandes || []).map(element => {
-                                    return (
-                                        <MenuItem key={element} value={element}>
-                                            {element}
-                                        </MenuItem>
-                                    )
-                                })}
-                            </Select> */}
-                    {/* {isError && (
-                                <span
-                                    style={{
-                                        color: '#f44336',
-                                        fontSize: '0.8rem',
-                                    }}
-                                >
-                                    {errorsList.codeArticle}
-                                </span>
-                            )} */}
-                    {/* </FormControl> */}
-                    {/* </div> */}
-                    {/* </div> */}
-
-                    {/* Nature reclamation */}
-                    {/*reclamation.nature !== 'Autres' ? (
-                    <div className="col-6 d-flex row-form-reclam">
-                        <div className="col-6 mt-3">
-                            <p className="txt_form">
-                                Nature réclamation{' '}
-                                <span className="text-danger"> * </span>
-                            </p>
-                        </div>
-                        <div className="col-6">
-                            <FormControl className="w-100">
-                                {/* <InputLabel id="select-nature">
-                                    Nature réclamation
-                                </InputLabel> */}
-                    {/* <Select
-                                    className="border"
-                                    id="demo-mutiple-name"
-                                    labelId="select-nature"
-                                    value={(reclamation || {}).livraison}
-                                    onChange={e => changeHandler('nature', e)}
-                                    input={<Input />}
-                                >
-                                    {natureReclamation.map(element => (
-                                        <MenuItem key={element} value={element}>
-                                            {element}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                                {isError && (
-                                    <span
-                                        style={{
-                                            color: '#f44336',
-                                            fontSize: '0.8rem',
-                                        }}
-                                    >
-                                        {errorsList.nature}
-                                    </span>
-                                )} */}
-                    {/* </FormControl> */}
-                    {/* </div> */}
-                    {/* </div> */}
-                    {/* ) : ( */}
-                    {/* <div className="col-6 d-flex row-form-reclam">
-                        <div className="col-6 mt-3">
-                            <p className="txt_form">Préciser votre situation</p>
-                        </div>
-                        <div className="col-6">
-                            <FormControl className="w-100">
-                                <TextField
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    className="d-flex border"
-                                    onChange={e =>
-                                        changeHandler('commentaire', e)
-                                    }
-                                    label="Préciser votre situation"
-                                />
-                                {isError && (
-                                    <span
-                                        style={{
-                                            color: '#f44336',
-                                            fontSize: '0.8rem',
-                                        }}
-                                    >
-                                        {errorsList.nature}
-                                    </span>
-                                )}
-                            </FormControl>
-                        </div>
-                    </div> */}
-                    {/* )} */}
-                    {/* Gravite du reclamation */}
-                </>
             </div>
 
             <Button

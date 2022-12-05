@@ -21,6 +21,7 @@
         "highcharts-react-official": "^3.0.0",
         "history": "^4.10.1",
         "html2canvas": "^1.4.1",
+        "immutable": "^4.1.0",
         "jss": "^10.0.0",
         "jss-rtl": "^0.3.0",
         "jwt-decode": "^2.2.0",
