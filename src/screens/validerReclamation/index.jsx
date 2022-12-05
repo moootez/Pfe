@@ -156,17 +156,15 @@ const Index = props => {
             title: 'ID',
             field: 'id',
         },
-        role === 'ROLE_CLIENT'
-            ? {
-                title: 'Date de création',
-                field: 'createdAt',
-            }
-            : { title: 'Statut', field: 'status' },
-        // role !== 'ROLE_CLIENT'
+        {
+            title: 'Date de création',
+            field: 'createdAt',
+        },
         {
             title: 'Client',
             field: 'client.codeInsc',
         },
+        { title: 'Statut', field: 'status' },
         {
             title: 'Validation',
             field: 'validation',
@@ -181,43 +179,43 @@ const Index = props => {
                 }
 
                 const toValide =
-                    rowData.status !== 'VALIDATION_OPALIA'
+                    rowData.status === 'validé' ||
+                    rowData.status === 'accepté'
 
                 return (
                     <div>
-                        {toValide && (
-                            <IconButton
-                                onClick={() =>
-                                    alertShow(true, {
-                                        warning: false,
-                                        info: true,
-                                        error: false,
-                                        success: false,
-                                        title: `Voulez-vous vraiment valider`,
-                                        onConfirm: () => {
-                                            handleSubmitValider(rowData.id)
-                                            setTimeout(() => {
-                                                alertHide()
-                                                getAllReclamation({ user: userID })
-                                            }, 2000)
-                                        },
-                                    })
-                                }
-                                style={{ color: green[500] }}
-                                aria-label={statusAndTxt[newStatus]}
-                            >
-                                <CheckIcon />
-                            </IconButton>
-                        )}
-                        {role === 'ROLE_CLIENT' && (
-                            <IconButton
-                                onClick={() => editReclamation(rowData)}
-                                aria-label={statusAndTxt[newStatus]}
-                                style={{ color: '#1c79be' }}
-                            >
-                                <EditIcon />
-                            </IconButton>
-                        )}
+
+                        <IconButton
+                            onClick={() =>
+                                alertShow(true, {
+                                    warning: false,
+                                    info: true,
+                                    error: false,
+                                    success: false,
+                                    title: `Voulez-vous vraiment valider`,
+                                    onConfirm: () => {
+                                        handleSubmitValider(rowData.id)
+                                        setTimeout(() => {
+                                            alertHide()
+                                            getAllReclamation({ user: userID })
+                                        }, 2000)
+                                    },
+                                })
+                            }
+                            disabled={toValide}
+                            style={{ color: !toValide ? green[500] : '#b5b5b5' }}
+                            aria-label={statusAndTxt[newStatus]}
+                        >
+                            <CheckIcon />
+                        </IconButton>
+                        <IconButton
+                            onClick={() => editReclamation(rowData)}
+                            aria-label={statusAndTxt[newStatus]}
+                            disabled={toValide}
+                            style={{ color: !toValide ? '#1c79be' : '#b5b5b5' }}
+                        >
+                            <EditIcon />
+                        </IconButton>
                         <IconButton
                             onClick={() =>
                                 alertShow(true, {
@@ -235,7 +233,8 @@ const Index = props => {
                                     },
                                 })
                             }
-                            style={{ color: red[500] }}
+                            disabled={toValide}
+                            style={{ color: !toValide ? red[500] : '#b5b5b5' }}
                             aria-label="Annuler"
                         >
                             <CloseIcon />

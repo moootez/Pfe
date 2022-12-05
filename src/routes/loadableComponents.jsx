@@ -619,6 +619,18 @@ const loadableComponents = [
         name: 'Validation_reclamation',
         showWhenConnected: true,
     },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/recapReclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/recap-retours',
+        props: {
+            exact: true,
+        },
+        name: 'recap-retours',
+        showWhenConnected: true,
+    },
 ]
 
 export default loadableComponents

@@ -109,7 +109,8 @@ const Index = props => {
                     // getAllReclamation({ user: userID, role })
                     // window.location.reload()
                     setTimeout(() => {
-                        window.location.reload()
+                        // getAllReclamation({ user: userID, role })
+                        getReclamationLigne({ id: item.id_rec })
                     }, 1000)
                 }, 2000)
             },
@@ -153,7 +154,8 @@ const Index = props => {
                     })
                     alertHide()
                     setTimeout(() => {
-                        window.location.reload()
+                        // getAllReclamation({ user: userID, role })
+                        getReclamationLigne({ id: item.id_rec })
                     }, 1000)
                     // getAllReclamation({ user: userID, role })
                     // window.location.reload()
@@ -172,6 +174,18 @@ const Index = props => {
             },
         })
     }
+
+    const recapClick = (rowData) => {
+        history.push({
+            pathname: `/recap-retours`,
+            state: {
+                index: rowData,
+                id: rowData.id,
+                consulter: true
+            },
+        })
+    }
+
     // Set livraison on state
     const header = [
         { title: 'Code réclamation', field: 'id' },
@@ -192,6 +206,26 @@ const Index = props => {
                             color="primary"
                             aria-label="Changer status"
                             disabled={rowData.status !== 'accepté'}
+                        // disabled={rowData.status === 'Acceptée'}
+                        >
+                            <SendIcon />
+                        </IconButton>
+                        {/* )} */}
+                    </div>
+                )
+            },
+        },
+        {
+            title: 'Recap Retour',
+            field: 'recap',
+            render: rowData => {
+                return (
+                    <div>
+                        <IconButton
+                            onClick={() => recapClick(rowData)}
+                            color="primary"
+                            aria-label="Changer status"
+                            disabled={rowData.status !== 'validé'}
                         // disabled={rowData.status === 'Acceptée'}
                         >
                             <SendIcon />

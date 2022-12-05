@@ -19,7 +19,8 @@ const ProtectedRoute = ({ connected, ecrans, history, ...data }) => {
         "/actualite/edit",
         "/edit-commande/",
         "/edit_photo",
-        "/consulter-reclamation"
+        "/consulter-reclamation",
+        "/recap-retours"
     ];
     if (connected === data.showWhenConnected) {
         if (linkNotIncludes.includes(window.location.pathname)) {

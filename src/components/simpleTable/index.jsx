@@ -109,7 +109,7 @@ const Index = props => {
                         <TableRow>
                             {Boolean((state || []).length) &&
                                 Object.keys(state[0] || {}).map(item => (
-                                    item !== 'NumReclamation' && <StyledTableCell
+                                    (item !== 'NumReclamation' && item !== 'id_rec') && <StyledTableCell
                                         className={classes.headTable}
                                         align="center"
                                         key={generateKey()}
@@ -132,7 +132,7 @@ const Index = props => {
                             <StyledTableRow key={generateKey()}>
                                 {Object.keys(item).map((value) => {
                                     return (
-                                        value !== 'NumReclamation' && <StyledTableCell
+                                        (value !== 'NumReclamation' && value !== 'id_rec') && <StyledTableCell
                                             className={classes.headTable}
                                             align="center"
                                             key={generateKey()}
