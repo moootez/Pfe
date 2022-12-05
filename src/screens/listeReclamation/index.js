@@ -162,6 +162,16 @@ const Index = props => {
         })
 
     }
+
+    const validationClick = (rowData) => {
+        history.push({
+            pathname: `/consulter-reclamation`,
+            state: {
+                index: rowData,
+                consulter: true
+            },
+        })
+    }
     // Set livraison on state
     const header = [
         { title: 'Code réclamation', field: 'id' },
@@ -178,15 +188,7 @@ const Index = props => {
                 return (
                     <div>
                         <IconButton
-                            onClick={() => {
-                                history.push({
-                                    pathname: `/consulter-reclamation`,
-                                    state: {
-                                        index: rowData,
-                                        consulter: true
-                                    },
-                                })
-                            }}
+                            onClick={() => validationClick(rowData)}
                             color="primary"
                             aria-label="Changer status"
                             disabled={rowData.status !== 'accepté'}
