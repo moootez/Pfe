@@ -209,7 +209,7 @@ const Index = props => {
                                 <CheckIcon />
                             </IconButton>
                         )}
-                        {/* {role === 'ROLE_CLIENT' && (
+                        {role === 'ROLE_CLIENT' && (
                             <IconButton
                                 onClick={() => editReclamation(rowData)}
                                 aria-label={statusAndTxt[newStatus]}
@@ -217,7 +217,7 @@ const Index = props => {
                             >
                                 <EditIcon />
                             </IconButton>
-                        )} */}
+                        )}
                         <IconButton
                             onClick={() =>
                                 alertShow(true, {

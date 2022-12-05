@@ -162,6 +162,18 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/detailsReclamation'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/consulter-reclamation',
+        props: {
+            exact: true,
+        },
+        name: 'ajout_reclamation',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/facture'),
             loading: () => <SpinnerHourGlass />,
         }),

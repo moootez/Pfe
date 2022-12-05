@@ -95,16 +95,15 @@ const Index = ({ filtredTable, getActualite }) => {
                     // install Swiper modules
                     effect="coverflow"
                     grabCursor
-                    centeredSlides
+                    // centeredSlides
                     slidesPerView={3}
                     // slidesPerView={4}
                     // spaceBetween={30}
                     coverflowEffect={{
                         rotate: 50,
                         stretch: 0,
-                        depth: 100,
-                        modifier: 1,
-                        slideShadows: true,
+                        // depth: 100,
+                        // modifier: 1,
                     }}
                     pagination={{
                         clickable: true,

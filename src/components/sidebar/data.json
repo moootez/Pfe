@@ -141,7 +141,6 @@
                         "title": "Réclamation à valider",
                         "defaultPermission": false,
                         "roles": [
-                            "ROLE_ADV",
                             "ROLE_CLIENT"
                         ]
                     }

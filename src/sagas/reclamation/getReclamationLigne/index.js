@@ -14,6 +14,8 @@ import getLoaderActions from '../../../redux/wrapApi/index'
  */
 function* getReclamationLigneSagas({ response }) {
     try {
+        console.log(response);
+
         yield put(getLoaderActions.activeGeneraleLoader())
         const { OpaliaToken } = window.localStorage
         const res = yield axios({

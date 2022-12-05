@@ -13,7 +13,6 @@ import getAllCommandes from '../../redux/declarantInterne/getDeclarantAvis'
 import getReclamationLignes from '../../redux/reclamation/getReclamationLigne'
 import 'swiper/swiper.scss'
 // import 'swiper/components/navigation/navigation.scss'
-import Actualite from '../pageCms/actualite'
 import getAllReclamations from '../../redux/reclamation/getReclamation'
 
 SwiperCore.use([Navigation, Autoplay])
@@ -70,13 +69,11 @@ const Index = props => {
 
     return (
         <Fragment>
-            <Actualite />
             <div className="column col-md-12 style-table">
                 {/* <Grid className="gridItem"> 
                 <PageTitle label="Mes commandes" />
             </Grid> */}
                 <Divider />
-
                 <TableCollapse
                     title="Mes réclamations"
                     apiCall={getAllReclamation}
