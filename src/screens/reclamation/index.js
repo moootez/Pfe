@@ -5,7 +5,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { Divider } from '@material-ui/core'
+import { Divider, IconButton } from '@material-ui/core'
 import TableCollapse from '../../components/tableWithCollapse'
 import SwiperCore, { Navigation, Autoplay } from 'swiper'
 // import { Swiper, SwiperSlide } from 'swiper/react'
@@ -14,6 +14,7 @@ import getReclamationLignes from '../../redux/reclamation/getReclamationLigne'
 import 'swiper/swiper.scss'
 // import 'swiper/components/navigation/navigation.scss'
 import getAllReclamations from '../../redux/reclamation/getReclamation'
+import SendIcon from '@material-ui/icons/Send'
 
 SwiperCore.use([Navigation, Autoplay])
 
@@ -26,6 +27,7 @@ const Index = props => {
         getAllCommande,
         reclamations,
         getAllReclamation,
+        history
     } = props
 
     useEffect(() => {
@@ -48,6 +50,17 @@ const Index = props => {
         setDataSubArray({ ...dataSubArray, dataReturned: reclamationDetails })
     }, [reclamationDetails])
 
+    const recapClick = (rowData) => {
+        history.push({
+            pathname: `/recap-retours`,
+            state: {
+                index: rowData,
+                id: rowData.id,
+                consulter: true
+            },
+        })
+    }
+
     const header = [
         {
             field: 'id',
@@ -64,6 +77,26 @@ const Index = props => {
         {
             field: 'status',
             title: 'Status',
+        },
+        {
+            title: 'Recap Retour',
+            field: 'recap',
+            render: rowData => {
+                return (
+                    <div>
+                        <IconButton
+                            onClick={() => recapClick(rowData)}
+                            color="primary"
+                            aria-label="Changer status"
+                            disabled={rowData.status !== 'validé'}
+                        // disabled={rowData.status === 'Acceptée'}
+                        >
+                            <SendIcon />
+                        </IconButton>
+                        {/* )} */}
+                    </div>
+                )
+            },
         },
     ]
 
@@ -133,6 +166,7 @@ Index.propTypes = {
     getAllCommande: PropTypes.func.isRequired,
     getAllReclamation: PropTypes.func.isRequired,
     reclamations: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

@@ -172,6 +172,18 @@ const Index = props => {
             },
         })
     }
+
+    const recapClick = (rowData) => {
+        history.push({
+            pathname: `/recap-retours`,
+            state: {
+                index: rowData,
+                id: rowData.id,
+                consulter: true
+            },
+        })
+    }
+
     // Set livraison on state
     const header = [
         { title: 'Code réclamation', field: 'id' },
@@ -192,6 +204,26 @@ const Index = props => {
                             color="primary"
                             aria-label="Changer status"
                             disabled={rowData.status !== 'accepté'}
+                        // disabled={rowData.status === 'Acceptée'}
+                        >
+                            <SendIcon />
+                        </IconButton>
+                        {/* )} */}
+                    </div>
+                )
+            },
+        },
+        {
+            title: 'Recap Retour',
+            field: 'recap',
+            render: rowData => {
+                return (
+                    <div>
+                        <IconButton
+                            onClick={() => recapClick(rowData)}
+                            color="primary"
+                            aria-label="Changer status"
+                            disabled={rowData.status !== 'validé'}
                         // disabled={rowData.status === 'Acceptée'}
                         >
                             <SendIcon />
