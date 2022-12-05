@@ -72,6 +72,7 @@ const Index = props => {
     const [listBl, setListBl] = useState([])
     const [statusReclamation, setStatusReclamation] = useState(null)
     const [ColorBorder, setColorBorder] = useState('green')
+    const [client, setClient] = useState(null)
 
     useEffect(() => {
         axios({
@@ -96,6 +97,7 @@ const Index = props => {
         if (history.location.state !== undefined) {
             getReclamationLigne({ id: history.location.state.index.id })
             setStatusReclamation(history.location.state.index.status)
+            setClient(history.location.state.index.client.codeInsc)
         }
     }, [history.location.state])
 
@@ -160,7 +162,7 @@ const Index = props => {
                         </p>
                     </div>
                     <div className="col-6 mt-3">
-                        <p className="txt_form">{userID}</p>
+                        <p className="txt_form">{client}</p>
                     </div>
                 </div>
                 <div className="d-flex col-6">
