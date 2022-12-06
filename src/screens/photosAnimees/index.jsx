@@ -19,11 +19,15 @@ import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
 import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import PageTitle from '../../components/ui/pageTitle'
 import generateKey from '../../shared/utility'
 import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
+import Button from '../../components/ui/button'
+import { Delete, Get } from '../../serveur/axios'
+import alertActions from '../../redux/alert'
 
 // destrict
 const Index = props => {
@@ -34,25 +38,42 @@ const Index = props => {
         newCommande,
         uploadNewCommande,
         syncProduits,
+        alertShow
     } = props
 
-    const [allProduct, setAllProduct] = useState([])
+    const [allPhotos, setAllPhotos] = useState([])
 
     useEffect(() => {
-        setAllProduct([
-            { image: 'banner-dash1.gif' },
-            { image: 'banner-dash2.gif' },
-            { image: 'banner-dash3.gif' },
-            { image: 'banner-dash4.gif' },
-        ])
+        Get('animatedPictures/all').then(res => {
+            if (res.status === 200 || res.status === 200) {
+                setAllPhotos(res.data)
+            }
+        })
     }, [])
     const editAction = rowData => {
         history.push({
             pathname: 'edit_photo',
             state: {
                 name: rowData.image,
+                id: rowData.id,
                 rowData,
                 type: 'edit',
+            },
+        })
+    }
+
+    const deleteRef = rowData => {
+        alertShow(true, {
+            warning: true,
+            info: false,
+            error: false,
+            success: false,
+            title: `Voulez-vous vraiment supprimer`,
+            onConfirm: () => {
+                Delete(`animatedPictures/${rowData.id}`)
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             },
         })
     }
@@ -63,6 +84,15 @@ const Index = props => {
         } catch {
             return unknown
         }
+    }
+
+    const addPhoto = () => {
+        history.push({
+            pathname: 'edit_photo',
+            state: {
+                type: 'add',
+            },
+        })
     }
 
     return (
@@ -85,20 +115,17 @@ const Index = props => {
                         render: rowData => (
                             <img
                                 key={generateKey()}
-                                src={safeRequire(
-                                    rowData.image,
-                                    '../photos-animees/'
-                                )}
+                                src={rowData.base64}
                                 style={{ width: 500, height: 100 }}
                                 alt="image1"
                             />
                         ),
                     },
                     {
-                        title: 'Modifier Image',
+                        title: 'Actions',
                         field: 'actions',
                         cellStyle: {
-                            width: '10%',
+                            width: '20%',
                             textAlign: 'center',
                         },
                         render: rowData => {
@@ -112,6 +139,16 @@ const Index = props => {
                                     >
                                         <EditIcon
                                             onClick={() => editAction(rowData)}
+                                        />
+                                    </Fab>
+                                    <Fab
+                                        aria-label="delete"
+                                        // className={classes.fab}
+                                        size="small"
+                                    >
+                                        <DeleteIcon
+                                            onClick={() => deleteRef(rowData)}
+                                            color="primary"
                                         />
                                     </Fab>
                                 </div>
@@ -137,7 +174,15 @@ const Index = props => {
                         searchPlaceholder: 'Rechercher',
                     },
                 }}
-                data={allProduct || []}
+                data={allPhotos || []}
+            />
+            <Divider />
+            <Button
+                color="secondary"
+                type="contained"
+                size="medium"
+                label="Ajouter photo"
+                clicked={addPhoto}
             />
         </div>
     )
@@ -155,6 +200,18 @@ const Index = props => {
 const mapDispatchToProps = dispatch => ({
     getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
     syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
+    alertShow: (show, info) =>
+        dispatch(
+            alertActions.alertShow(show, {
+                onConfirm: info.onConfirm,
+                warning: info.warning,
+                info: info.info,
+                error: info.error,
+                success: info.success,
+                message: info.message,
+                title: info.title,
+            })
+        ),
 })
 
 // obtenir les données from  store state
@@ -182,6 +239,7 @@ Index.propTypes = {
     uploadNewCommande: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     syncProduits: PropTypes.func.isRequired,
+    alertShow: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

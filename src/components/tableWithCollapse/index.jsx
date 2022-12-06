@@ -126,7 +126,7 @@ const DetailPanelWithRowClick = props => {
                             {...dataSubArray}
                             dataApi={dataSubArray.dataApi(rowData)}
                             dataReturned={subDataRef.current}
-                            validationReclamation={validationReclamation}
+                            validationReclamation={validationReclamation && rowData.status !== 'en attente'}
                             onValidate={(e) => onValidate(e)}
                             onDelete={(e) => onDelete(e)}
                         />

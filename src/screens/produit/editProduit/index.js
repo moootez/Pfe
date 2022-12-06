@@ -111,7 +111,7 @@ class editActualite extends React.Component {
             if (fileToLoad && fileToLoad.size <= 150000) {
                 let file = ''
                 // eslint-disable-next-line func-names
-                fileReader.onload = function(fileLoadedEvent) {
+                fileReader.onload = function (fileLoadedEvent) {
                     file = fileLoadedEvent.target.result
                     base64.push(file)
                 }

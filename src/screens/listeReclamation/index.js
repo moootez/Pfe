@@ -109,8 +109,9 @@ const Index = props => {
                     // getAllReclamation({ user: userID, role })
                     // window.location.reload()
                     setTimeout(() => {
-                        // getAllReclamation({ user: userID, role })
+                        // 
                         getReclamationLigne({ id: item.id_rec })
+                        getAllReclamation({ user: userID, role })
                     }, 1000)
                 }, 2000)
             },
@@ -154,8 +155,9 @@ const Index = props => {
                     })
                     alertHide()
                     setTimeout(() => {
-                        // getAllReclamation({ user: userID, role })
+                        // 
                         getReclamationLigne({ id: item.id_rec })
+                        getAllReclamation({ user: userID, role })
                     }, 1000)
                     // getAllReclamation({ user: userID, role })
                     // window.location.reload()
