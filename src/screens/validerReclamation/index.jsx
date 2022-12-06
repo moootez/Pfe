@@ -180,11 +180,11 @@ const Index = props => {
 
                 const toValide =
                     rowData.status === 'validé' ||
-                    rowData.status === 'accepté'
+                    rowData.status === 'accepté' ||
+                    rowData.status === 'en cours'
 
                 return (
                     <div>
-
                         <IconButton
                             onClick={() =>
                                 alertShow(true, {

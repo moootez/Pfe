@@ -7,7 +7,7 @@ import RenderForm from '../../../components/formProduit/produit/form'
 import PageTitle from '../../../components/ui/pageTitle'
 import ButtonComponent from '../../../components/ui/button'
 import alertActions from '../../../redux/alert'
-import { Patch } from '../../../serveur/axios'
+import { Put, Post } from '../../../serveur/axios'
 
 /**
  * edit actualité
@@ -106,9 +106,12 @@ class editActualite extends React.Component {
     fieldChangedHandler = ({ target: { name, value, files } }) => {
         const { imageState } = this.state
 
+
         const base64 = []
+        let namePhoto = "";
         if (name === 'image') {
             const fileToLoad = files[0]
+            namePhoto = fileToLoad.name;
             const fileReader = new FileReader()
             if (fileToLoad && fileToLoad.size <= 150000) {
                 let file = ''
@@ -119,24 +122,13 @@ class editActualite extends React.Component {
                 }
                 // Convert data to base64
                 fileReader.readAsDataURL(fileToLoad)
+
             }
-            // else {
-            //     this.setState({
-            //         errorPDF: true,
-            //     })
-            //     alertShow(true, {
-            //         warning: false,
-            //         info: false,
-            //         error: true,
-            //         success: false,
-            //         message: `Image de grande taille, il faut choisir une image de taille inférieure à 150Ko`,
-            //     })
-            // }
         }
 
         this.setState({
             payloadState: {
-                name: imageState,
+                name: imageState || namePhoto,
                 base64: name === 'image' ? base64 : value,
             },
         })
@@ -148,7 +140,10 @@ class editActualite extends React.Component {
      * @memberof editActualite
      */
     cancelActualite = () => {
-        this.resetForm()
+        const { history } = this.props
+        history.push({
+            pathname: '/photos-animees'
+        })
     }
 
     /**
@@ -181,26 +176,57 @@ class editActualite extends React.Component {
         const { alertShow, history } = this.props
         const { payloadState } = this.state
         console.log('imageState', payloadState);
-
-        Patch('article/editPhotosAnimees', {
-            name: `${payloadState.name}`,
-            base64: payloadState.base64[0],
-        }).then(res => {
-            if (res.status === 201 || res.status === 200) {
-                alertShow(true, {
-                    onConfirm: false,
-                    warning: false,
-                    info: false,
-                    error: false,
-                    success: true,
-                    message: 'Import fait avec succés',
+        if (payloadState !== undefined) {
+            if (history.location.state.type === 'add') {
+                Post('animatedPictures/new', {
+                    name: `${payloadState.name}`,
+                    base64: payloadState.base64[0],
+                }).then(res => {
+                    if (res.status === 201 || res.status === 200) {
+                        alertShow(true, {
+                            onConfirm: false,
+                            warning: false,
+                            info: false,
+                            error: false,
+                            success: true,
+                            message: 'Import fait avec succés',
+                        })
+                        history.push({
+                            pathname: 'photos-animees',
+                        })
+                    }
                 })
-                history.push({
-                    pathname: 'photos-animees',
-                })
-                window.location.reload()
             }
-        })
+            else {
+                Put(`animatedPictures/${history.location.state.id}`, {
+                    name: `${payloadState.name}`,
+                    base64: payloadState.base64[0],
+                }).then(res => {
+                    if (res.status === 201 || res.status === 200) {
+                        alertShow(true, {
+                            onConfirm: false,
+                            warning: false,
+                            info: false,
+                            error: false,
+                            success: true,
+                            message: 'Import fait avec succés',
+                        })
+                        history.push({
+                            pathname: 'photos-animees',
+                        })
+                    }
+                })
+            }
+        } else {
+            alertShow(true, {
+                onConfirm: false,
+                warning: false,
+                info: false,
+                error: true,
+                success: false,
+                message: 'Photo est obligatoire',
+            })
+        }
     }
 
     /* render */
@@ -211,12 +237,12 @@ class editActualite extends React.Component {
      * @memberof Actions
      */
     render() {
-        const { lng, intl } = this.props
+        const { lng, intl, history } = this.props
         const { isError, errorsList, payloadState, imageState } = this.state
 
         return (
             <div className="ctn__declataion">
-                <PageTitle label="Modifier image" />
+                <PageTitle label={`${history.location.state.type === 'add' ? "Ajouter photo" : "Modifier photo"}`} />
                 <FormGroup>
                     <div className="centerDiv">
                         <Grid container>

@@ -26,6 +26,7 @@ import 'swiper/modules/thumbs/thumbs.min.css'
 // import 'swiper/components/navigation/navigation.scss'
 import SelectList from '../../components/ui/select'
 import unknown from '../../assets/images/unknown.jpg'
+import { Get } from '../../serveur/axios'
 
 SwiperCore.use([Navigation, Autoplay, Thumbs, FreeMode])
 
@@ -72,8 +73,14 @@ const index = () => {
     const [list, setList] = useState([])
     const [nameGrossite, setNameGrossiste] = useState('')
     const [thumbsSwiper, setThumbsSwiper] = useState(null)
+    const [allPhotos, setAllPhotos] = useState([])
 
     useEffect(() => {
+        Get('animatedPictures/all').then(res => {
+            if (res.status === 200 || res.status === 200) {
+                setAllPhotos(res.data)
+            }
+        })
         if (localStorage.role !== 'ROLE_MANAGER')
             apiConsumer.forEach(el =>
                 consumeAPI(
@@ -178,7 +185,7 @@ const index = () => {
     }
 
     const onGeneratePdf = () => {
-        html2canvas(document.querySelector('#chart')).then(function(canvas) {
+        html2canvas(document.querySelector('#chart')).then(function (canvas) {
             const image = canvas.toDataURL('image/png', 1.0)
             downloadImage(image, nameGrossite)
         })
@@ -211,42 +218,14 @@ const index = () => {
                 onSwiper={swiper => console.log(swiper)}
                 className="slider_dash"
             >
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash1.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash2.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash3.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash4.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
+                {allPhotos.map(element => (
+                    <SwiperSlide>
+                        <img
+                            src={element.base64}
+                            alt="slider"
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
             <Swiper
                 onSwiper={setThumbsSwiper}
@@ -257,44 +236,15 @@ const index = () => {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
             >
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash1.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash2.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash3.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img
-                        src={safeImage(
-                            'banner-dash4.gif',
-                            '../photos-animees/'
-                        )}
-                        alt="slider"
-                    />
-                </SwiperSlide>
+                {allPhotos.map(element => (
+                    <SwiperSlide>
+                        <img
+                            src={element.base64}
+                            alt="slider"
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
-
             <div className="blc-cnt-dash">
                 {localStorage.role === 'ROLE_MANAGER' && (
                     <div className="row">

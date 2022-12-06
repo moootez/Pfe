@@ -273,6 +273,7 @@ class index extends PureComponent {
                                             key !== 'index' &&
                                             key !== 'isDisabled' &&
                                             key !== 'user' &&
+                                            key !== 'id_rec' &&
                                             key !== 'status' &&
                                             key !== 'NumReclamation'
                                         ) {

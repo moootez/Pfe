@@ -77,7 +77,8 @@ const index = ({
                     (attributes.disableFuture &&
                         date < new Date(1900, 1, 1))) &&
                 name !== 'de' &&
-                name !== 'a'
+                name !== 'a' &&
+                name !== 'date_Peremption'
             ) {
                 setError(intl.formatMessage({ id: 'msgDateErreur' }))
             } else {
@@ -214,7 +215,7 @@ const index = ({
  *  Inialisation
  */
 index.defaultProps = {
-    onchange: () => {},
+    onchange: () => { },
     placeholder: ' ',
     defaultValue: null,
     label: '',
