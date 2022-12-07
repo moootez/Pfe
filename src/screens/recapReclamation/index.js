@@ -95,7 +95,7 @@ const Index = props => {
 
     useEffect(() => {
         if (history.location.state !== undefined) {
-            getReclamationLigne({ id: history.location.state.index.id })
+            // getReclamationLigne({ id: history.location.state.index.id })
             setStatusReclamation(history.location.state.index.status)
             setClient(history.location.state.index.client.codeInsc)
         }
@@ -109,45 +109,8 @@ const Index = props => {
         } else {
             setColorBorder('red')
         }
-
-        // setQteVrac(e.target.value)
     }
 
-    const enregisterReclamation = () => {
-        const payload = Object.entries(reclamation).map(elem => ({
-            // Code_PCT: elem[1].Code_PCT,
-            id: parseInt(elem[0]),
-            // Designation: elem[1].Designation,
-            quantite_Valide: elem[1].quantite_Valide,
-        }))
-
-        axios({
-            method: 'post',
-            url: `${baseUrl}reclamation/validation/${history.location.state.index.id}`,
-            headers: {
-                'Accept-Version': 1,
-                Accept: 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json; charset=utf-8',
-                Authorization: `Bearer ${OpaliaToken}`,
-            },
-            data: payload,
-        }).then(res => {
-            if (res.status === 201 || res.code === 200) {
-                alertShow(true, {
-                    onConfirm: false,
-                    warning: false,
-                    info: false,
-                    error: false,
-                    success: true,
-                    message: 'Modifier avec succés',
-                })
-                history.push({
-                    pathname: 'liste-reclamation',
-                })
-            }
-        })
-    }
     return (
         <div className="column col-md-12 text-center style-table form-reclam">
             <Grid className="gridItem">
@@ -172,7 +135,7 @@ const Index = props => {
                         </p>
                     </div>
                     <div className="col-6 mt-3">
-                        <p className="txt_form">{userNamePre.nom} {userNamePre.prenom}</p>
+                        <p className="txt_form">{reclamation.designation}</p>
                     </div>
                 </div>
             </div>
@@ -251,6 +214,16 @@ const Index = props => {
                     </div>
                     <div className="col-6 mt-3">
                         <p className="txt_form">{reclamation.status}</p>
+                    </div>
+                </div>
+                <div className="d-flex col-6">
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">
+                            <b>   Responsable : </b>
+                        </p>
+                    </div>
+                    <div className="col-6 mt-3">
+                        <p className="txt_form">{reclamation.updated_By}</p>
                     </div>
                 </div>
             </div>
