@@ -16,7 +16,7 @@ function* getReclamationSagas({ response }) {
     try {
         const { user, role } = response
         const endpoint =
-            role === 'ROLE_ADV' || role === 'ROLE_ADMIN' ? 'all' : `get/${user}`
+            role === 'ROLE_ADV' || role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER' ? 'all' : `get/${user}`
         yield put(getLoaderActions.activeGeneraleLoader())
         const { OpaliaToken } = window.localStorage
 

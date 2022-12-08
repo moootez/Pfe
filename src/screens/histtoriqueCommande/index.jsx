@@ -5,13 +5,15 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import { Grid, Divider } from '@material-ui/core'
+import { Grid, Divider, IconButton } from '@material-ui/core'
 import getAllCommandes from '../../redux/declarantInterne/getDeclarantAvis'
 import getCommandes from '../../redux/declarantInterne/getDeclarantById'
 import TableCollapse from '../../components/tableWithCollapse'
 import PageTitle from '../../components/ui/pageTitle'
 import axios from 'axios'
 import baseUrl from '../../serveur/baseUrl'
+import GetAppIcon from '@material-ui/icons/GetApp';
+import { Post } from '../../serveur/axios'
 
 const Index = props => {
     const {
@@ -73,6 +75,17 @@ const Index = props => {
         setData(dataSubArray)
     })
 
+    const exportHistorique = (rowData) => {
+        Post(`commande/export/${rowData.No_commande}/${rowData.Code_client}`, rowData).then(
+            res => {
+                console.log('res', res);
+                if (res.status === 201 || res.status === 200) {
+                    window.open(res.data.result, '_blank')
+                }
+            }
+        )
+    }
+
     const header = [
         {
             field: "No_commande",
@@ -101,7 +114,26 @@ const Index = props => {
         {
             field: "Montant_HT_TND",
             title: "Montant HT TND"
-        }
+        },
+        {
+            title: 'Export',
+            field: 'export',
+            render: rowData => {
+                return (
+                    <div>
+                        <IconButton
+                            onClick={() => exportHistorique(rowData)}
+                            color="primary"
+                            aria-label="Changer status"
+                        // disabled={rowData.status === 'Acceptée'}
+                        >
+                            <GetAppIcon />
+                        </IconButton>
+                        {/* )} */}
+                    </div >
+                )
+            },
+        },
     ]
 
     return (
@@ -110,7 +142,6 @@ const Index = props => {
                 <PageTitle label="Mes commandes" />
             </Grid> */}
             <Divider />
-
             <TableCollapse
                 title="Historique Commande"
                 apiCall={getAllCommande}
