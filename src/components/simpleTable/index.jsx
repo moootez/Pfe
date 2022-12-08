@@ -82,7 +82,7 @@ const styles = theme => ({
 })
 
 const Index = props => {
-    const { classes, apiCall, dataApi, dataReturned, dataId, validationReclamation, onValidate, onDelete } = props
+    const { classes, apiCall, dataApi, dataReturned, dataId, validationReclamation, onValidate, onDelete, role } = props
     const [state, setState] = useState(
         ((dataReturned || [])[0] || {})[dataId] === props[dataId]
             ? dataReturned
@@ -114,10 +114,10 @@ const Index = props => {
                                         align="center"
                                         key={generateKey()}
                                     >
-                                        {removeBottomDash(item)}
+                                        {removeBottomDash(item.charAt(0).toUpperCase() + item.slice(1))}
                                     </StyledTableCell>
                                 ))}
-                            {validationReclamation &&
+                            {(validationReclamation && role !== 'ROLE_MANAGER') &&
                                 <StyledTableCell
                                     className={classes.headTable}
                                     align="center"
@@ -143,7 +143,7 @@ const Index = props => {
                                         </StyledTableCell>
                                     )
                                 })}
-                                {(validationReclamation) &&
+                                {(validationReclamation && role !== 'ROLE_MANAGER') &&
                                     <StyledTableCell
                                         className={classes.headTable}
                                         align="center"
@@ -187,6 +187,7 @@ Index.propTypes = {
     validationReclamation: PropTypes.string.isRequired,
     onDelete: PropTypes.func.isRequired,
     onValidate: PropTypes.func.isRequired,
+    role: PropTypes.string.isRequired,
 }
 
 export default injectIntl(withStyles(styles)(Index))

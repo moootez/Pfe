@@ -132,6 +132,7 @@ const index = () => {
     const TTC = state.montant !== undefined && state.montant
     const Mois1 = Array(12)
     const Mois2 = Array(12)
+    const Mois3 = Array(12)
     const newDate = new Date()
     const date = newDate.getFullYear()
 
@@ -152,6 +153,17 @@ const index = () => {
     for (let i = 0; i < Mois2.length; i++) {
         if (Mois2[i] == null) {
             Mois2[i] = 0
+        }
+    }
+
+    if (TTC && TTC[date]) {
+        if (!TTC[date - 2]) TTC[date - 1].map(element => (Mois3[element[0] - 1] = element[1]))
+        else TTC[date - 2].map(element => (Mois3[element[0] - 1] = element[1]))
+    }
+
+    for (let i = 0; i < Mois3.length; i++) {
+        if (Mois3[i] == null) {
+            Mois3[i] = 0
         }
     }
 
@@ -386,6 +398,10 @@ const index = () => {
                                         },
                                     },
                                     series: [
+                                        {
+                                            name: date - 2,
+                                            data: Mois3,
+                                        },
                                         {
                                             name: date - 1,
                                             data: Mois1,

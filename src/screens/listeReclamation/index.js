@@ -187,7 +187,7 @@ const Index = props => {
             },
         })
     }
-
+    console.log(role);
     // Set livraison on state
     const header = [
         { title: 'Code réclamation', field: 'id' },
@@ -197,7 +197,7 @@ const Index = props => {
             title: 'Statut',
             field: 'status',
         },
-        {
+        role !== 'ROLE_MANAGER' ? {
             title: 'Validation',
             field: 'validation',
             render: rowData => {
@@ -216,7 +216,7 @@ const Index = props => {
                     </div>
                 )
             },
-        },
+        } : {},
         {
             title: 'Recap Retour',
             field: 'recap',
@@ -251,6 +251,7 @@ const Index = props => {
                     headerTable={header}
                     userID={userID}
                     validationReclamation
+                    role={role}
                     onValidate={onValidate}
                     onDelete={onDelete}
                 />

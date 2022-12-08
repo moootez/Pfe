@@ -33,7 +33,8 @@ const DetailPanelWithRowClick = props => {
         reclamationFilter,
         validationReclamation,
         onValidate,
-        onDelete
+        onDelete,
+        role
     } = props
     const [dataTable, setDataTable] = useState({ header: [], data: [] })
     const [allList, setAllList] = useState(0)
@@ -129,6 +130,7 @@ const DetailPanelWithRowClick = props => {
                             validationReclamation={validationReclamation && rowData.status !== 'en attente'}
                             onValidate={(e) => onValidate(e)}
                             onDelete={(e) => onDelete(e)}
+                            role={role}
                         />
                     )
                 },
@@ -237,6 +239,7 @@ DetailPanelWithRowClick.propTypes = {
     dataSubArray: PropTypes.object,
     validationReclamation: PropTypes.bool,
     reclamationFilter: PropTypes.bool,
+    role: PropTypes.string.isRequired,
 }
 
 DetailPanelWithRowClick.defaultProps = {
