@@ -18,7 +18,7 @@ import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
 import Fab from '@material-ui/core/Fab'
-import EditIcon from '@material-ui/icons/Edit'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import DeleteIcon from '@material-ui/icons/Delete'
 import getAllProductActions from '../../redux/commande/getAllProduct'
 import PageTitle from '../../components/ui/pageTitle'
@@ -137,7 +137,7 @@ const Index = props => {
                                         // className={classes.fab}
                                         size="small"
                                     >
-                                        <EditIcon
+                                        <EditOutlinedIcon
                                             onClick={() => editAction(rowData)}
                                         />
                                     </Fab>

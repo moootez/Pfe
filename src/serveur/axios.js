@@ -23,6 +23,18 @@ const instance = axios.create({
         'Content-Type': 'application/json; charset=utf-8',
         ...authorisation,
     },
+    security : {
+        http : {
+            headers: {
+                "access-control-allow-origin": "*"
+  },
+    cors: {
+        "access-control-allow-origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT",
+        "Access-Control-Allow-Headers": "Origin, Content-Type, Accept, Authorization, X-Request-With, soapaction, x-requested-with",
+        "Access-Control-Allow-Credentials": "true"
+
+     } }},
     timeout: 10000,
 })
 
@@ -107,3 +119,5 @@ export default {
     interceptors,
     defaults,
 }
+
+

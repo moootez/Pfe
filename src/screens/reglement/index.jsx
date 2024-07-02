@@ -1,6 +1,10 @@
+
+
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable import/order */
+
+
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -60,6 +64,7 @@ const Index = props => {
     )
 }
 
+
 /* redux */
 
 // dispatch action
@@ -101,3 +106,4 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(injectIntl(Index))
+

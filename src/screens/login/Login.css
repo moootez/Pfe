@@ -1,5 +1,5 @@
 .bg {
-    background: url('../../assets/images/bg-login1.png') #fff;
+    background: url('../../assets/images/inetum3.jpg') #fff;
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
@@ -18,15 +18,15 @@
 
 .btn-submit {
     height: 65px;
-    border: 1px solid #cd121a;
+    border: 1px solid #12145f;
     color: #fff;
-    background: #cd121a;
+    background: #12145f;
     text-transform: uppercase;
 }
 
 .btn-submit:hover {
     background-color: transparent;
-    color: #cd121a;
+    color: #12145f;
 }
 
 .rtl {
@@ -76,7 +76,7 @@
     font-weight: 700;
 }
 .link_btn a:hover{
-    color: #cd121a;
+    color: #12145f;
 }
 .formPadding {
     padding: 30px;

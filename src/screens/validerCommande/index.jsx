@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
@@ -50,7 +50,7 @@ const Index = props => {
         pdfLink,
         // syncProduits,
         role,
-        history,
+        history
     } = props
 
     const [allCommande, setAllCommande] = useState([])
@@ -88,6 +88,7 @@ const Index = props => {
             user: userID,
             role,
         })
+        console.log(commandes)
     }
 
     const editCMD = rowData => {
@@ -99,6 +100,7 @@ const Index = props => {
             },
         })
     }
+    
     return (
         <div className="column col-md-12 style-table">
             {/* <Grid className="gridItem">
@@ -213,7 +215,7 @@ const Index = props => {
                                             aria-label={statusAndTxt[newStatus]}
                                             style={{ color: '#1c79be' }}
                                         >
-                                            <EditIcon />
+                                            <EditOutlinedIcon />
                                         </IconButton>
                                     )}
                                     <IconButton
@@ -253,7 +255,7 @@ const Index = props => {
                                 <div>
                                     <IconButton
                                         onClick={() =>
-                                            exportPdf({ id: rowData.id })
+                                            exportPdf({ id: rowData.id})
                                         }
                                         color="primary"
                                     >
@@ -287,7 +289,9 @@ const Index = props => {
             />
         </div>
     )
+    
 }
+
 /* redux */
 
 // dispatch action

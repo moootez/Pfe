@@ -285,7 +285,7 @@ const Index = ({
             <div className="float-right m-3">
                 <Button
                     color="white"
-                    margin=" 3% 5% 1% "
+                    margin=" 3% 0 1% "
                     type="contained"
                     size="medium"
                     label="Ajouter utilisateur"

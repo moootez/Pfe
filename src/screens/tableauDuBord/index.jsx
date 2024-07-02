@@ -196,7 +196,7 @@ const index = () => {
         fakeLink.remove()
     }
 
-    const onGeneratePdf = () => {
+    const onGeneratePdf = () => { // eslint-disable-next-line
         html2canvas(document.querySelector('#chart')).then(function (canvas) {
             const image = canvas.toDataURL('image/png', 1.0)
             downloadImage(image, nameGrossite)

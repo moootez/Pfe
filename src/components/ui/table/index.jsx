@@ -10,7 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import TableRow from '@material-ui/core/TableRow'
 import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
-import EditIcon from '@material-ui/icons/Edit'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
@@ -491,7 +491,7 @@ class index extends PureComponent {
                                                 className={classes.fab}
                                                 size="small"
                                             >
-                                                <EditIcon
+                                                <EditOutlinedIcon
                                                     onClick={() => editAction(item, ky)}
                                                 />
                                             </Fab>

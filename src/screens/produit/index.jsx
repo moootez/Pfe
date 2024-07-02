@@ -26,7 +26,6 @@ import unknown from '../../assets/images/unknown.jpg'
 import baseUrl from '../../serveur/baseUrl'
 import Button from '../../components/ui/button'
 
-// destrict
 const Index = props => {
     const {
         products,
@@ -37,15 +36,32 @@ const Index = props => {
         syncProduits,
     } = props
 
-    const [allProduct, setAllProduct] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [fetchError, setFetchError] = useState(null)
+    const [tableData, setTableData] = useState([])
 
-    // 1 seul fois
+    useEffect(() => {
+        fetch('http://localhost/opalia/produit.php') 
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(responseData => {
+                setTableData(responseData.data.x3MasterData.product.query.edges.map(edge => edge.node));
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                setFetchError(error);
+                setLoading(false);
+            });
+    }, []);
+
     useEffect(() => {
         getAllProduct()
     }, [])
-
-    //  exceution mors de changement du parametre
-    // exp [newCommande.loading, uploadNewCommande.loading]
 
     useEffect(() => {
         if (newCommande.loading === true || uploadNewCommande.loading === true)
@@ -53,13 +69,13 @@ const Index = props => {
     }, [newCommande.loading, uploadNewCommande.loading])
 
     useEffect(() => {
-        setAllProduct(JSON.parse(JSON.stringify(products)))
+        setTableData(JSON.parse(JSON.stringify(products)))
     }, [products])
 
     let all
-    if (allProduct !== null) {
-        all = allProduct.length
-        console.log('all', allProduct.length)
+    if (tableData !== null) {
+        all = tableData.length
+        console.log('all', tableData.length)
     }
 
     const safeRequire = (url, path, ext = null) => {
@@ -69,6 +85,7 @@ const Index = props => {
             return unknown
         }
     }
+
     const editAction = rowData => {
         history.push({
             pathname: 'edit_produit',
@@ -78,6 +95,9 @@ const Index = props => {
             },
         })
     }
+
+    if (loading) return <p>Loading...</p>;
+    if (fetchError) return <p>Error: {fetchError.message}</p>;
 
     return (
         <div className="column col-md-12 style-table">
@@ -123,31 +143,30 @@ const Index = props => {
                     },
                     {
                         title: 'Code Article',
-                        field: 'codeArticleX3',
+                        field: 'code',
                         cellStyle: {
-                            // width: '8%',
                             textAlign: 'center',
                         },
                     },
                     {
-                        title: 'Code PCT',
-                        field: 'codePct',
-                        // cellStyle: {
-                        //     width: '8%',
-                        // },
+                        title: 'Statut',
+                        field: 'productStatus',
+                        cellStyle: {
+                            textAlign: 'center',
+                        },
                     },
                     {
                         title: 'Désignation',
-                        field: 'designation1',
+                        field: 'description1',
                         cellStyle: {
-                            // width: '16%',
                             textAlign: 'center',
                         },
                     },
 
                     {
                         title: 'Prix',
-                        field: 'prix',
+                        field: 'purchaseBasePrice',
+                        type: 'numeric',
                         cellStyle: {
                             textAlign: 'center',
                         },
@@ -155,22 +174,19 @@ const Index = props => {
                     {
                         title: 'Modifier Image',
                         field: 'image',
-                        render: rowData => {
-                            return (
-                                <div>
-                                    <Fab
-                                        color="secondary"
-                                        aria-label="edit"
-                                        // className={classes.fab}
-                                        size="small"
-                                    >
-                                        <EditIcon
-                                            onClick={() => editAction(rowData)}
-                                        />
-                                    </Fab>
-                                </div>
-                            )
-                        },
+                        render: rowData => (
+                            <div>
+                                <Fab
+                                    color="secondary"
+                                    aria-label="edit"
+                                    size="small"
+                                >
+                                    <EditIcon
+                                        onClick={() => editAction(rowData)}
+                                    />
+                                </Fab>
+                            </div>
+                        ),
                     },
                 ]}
                 localization={{
@@ -191,33 +207,17 @@ const Index = props => {
                         searchPlaceholder: 'Rechercher',
                     },
                 }}
-                data={allProduct || []}
+                data={tableData || []}
             />
         </div>
     )
 }
 
-/* redux */
-
-// dispatch action
-
-/**
- *
- *
- * @param {*} dispatch
- */
 const mapDispatchToProps = dispatch => ({
     getAllProduct: () => dispatch(getAllProductActions.getAllProductRequest()),
     syncProduits: () => dispatch({ type: 'SYNC_PRODUITS' }),
 })
 
-// obtenir les données from  store state
-/**
- *
- *
- * @param {*} state
- * @returns
- */
 const mapStateToProps = ({ info, login, commande }) => ({
     products: commande.getAllProduct.response,
     newCommande: commande.newCommande,
@@ -225,10 +225,6 @@ const mapStateToProps = ({ info, login, commande }) => ({
     lng: info.language,
 })
 
-/* Proptypes */
-/**
- *  declaration des props
- */
 Index.propTypes = {
     products: PropTypes.array.isRequired,
     getAllProduct: PropTypes.func.isRequired,

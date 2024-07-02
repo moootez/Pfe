@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import { Divider } from '@material-ui/core'
-import EditIcon from '@material-ui/icons/Edit'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import CheckIcon from '@material-ui/icons/Check'
@@ -214,7 +214,7 @@ const Index = props => {
                             disabled={toValide}
                             style={{ color: !toValide ? '#1c79be' : '#b5b5b5' }}
                         >
-                            <EditIcon />
+                            <EditOutlinedIcon />
                         </IconButton>
                         <IconButton
                             onClick={() =>

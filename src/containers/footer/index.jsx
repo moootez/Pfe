@@ -15,8 +15,7 @@ import Public from '@material-ui/icons/Public'
 import Fb from '../../assets/images/fb.png'
 import Linkedin from '../../assets/images/linkedin.png'
 import Youtube from '../../assets/images/youtube.png'
-import Logo from '../../assets/images/logo.png'
-import Logopalia from '../../assets/images/logo_opalia.PNG'
+import Logo from '../../assets/images/logoinetum.png'
 
 /**
  *
@@ -29,70 +28,52 @@ const Index = () => {
             <div className="blc-footer-top">
                 <Grid container justify="space-around">
                     <Grid item xs={12} sm={12} md={2} className="footleft">
-                        <a href="https://www.opaliarecordati.com/">
+                    <div>
+                        <a>
                             <img
-                                src={Logopalia}
+                                src={Logo}
                                 alt="Logo-OPALIA"
+                                
                                 // style={{ height: 60 }}
                             />
                         </a>
+                   
+                    </div>
+                        
                         {/* <span className="slogan">
                         Construisons aujourd&apos;hui la sant&eacute; de demain
                     </span> */}
                     </Grid>
+                    
+                    
+                   
+
+
                     <Grid
                         item
                         xs={12}
                         sm={12}
                         md={2}
-                        style={{ paddingLeft: '10px' }}
+                        style={{ verticalAlign: 'top' }}
                         className="footmid"
                     >
                         <div className="activHello helloWidget">
-                            <p>Siège commercial</p>
+                            <h3>Contact</h3>
                             <div className="adressContact">
                                 <p>
                                     <label>
-                                        27, Avenue de la Livre Sterling, les
-                                        Berges du Lac 2 - 1053 Tunis
+                                    ADRESSE
+Immeuble Harbour, Avenue de la Bourse, 1053, Tunis
                                     </label>
-                                    <label className="black-label">
-                                        Tel : (+216) 71 19 63 57
-                                    </label>
-                                    <label className="black-label">
-                                        Fax : (+216) 71 19 63 59
-                                    </label>
-                                    <a href="mailto:contact@opaliarecordati.tn">
-                                        Email : contact@opaliarecordati.tn
+                                    
+                                    <a href="mailto:contact@inetum.tn">
+                                        Email : contact@inetum.tn
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        sm={12}
-                        md={3}
-                        style={{ paddingLeft: '10px' }}
-                        className="footmid"
-                    >
-                        <p>Siège social</p>
-                        <div className="adressContact">
-                            <p>
-                                <label>
-                                    Z.I. Kalaat Al Andalouss – 2022 Ariana
-                                </label>
-                                <label className="black-label">
-                                    Tel : (+216) 70 55 90 70 / (+216) 70 55 90
-                                    64 64
-                                </label>
-                                <label className="black-label">
-                                    Fax : (+216) 70 55 91 84
-                                </label>
-                            </p>
-                        </div>
-                    </Grid>
+                    
                     <Grid
                         item
                         xs={12}
@@ -104,14 +85,8 @@ const Index = () => {
                         <h3>Qui sommes-nous ?</h3>
                         <div>
                             <p>
-                                Laboratoire pionnier des médicaments génériques
-                                créé en 1988, OPALIA PHARMA, filiale du groupe
-                                multinational RECORDATI depuis 2013, se présente
-                                aujourd’hui parmi les leaders dans le domaine
-                                pharmaceutique en Tunisie. OPALIA PHARMA est
-                                reconnue pour sa compétence et son savoir-faire,
-                                et ce de la conception jusqu'à la fabrication et
-                                la distribution des médicaments.
+                            Inetum est une entreprise de services et de solutions digitales. Présent dans plus de 19 pays, le Groupe compte près de 28 000 collaborateurs et a réalisé en 2022 un chiffre d’affaires de 2,5 milliards d’euros. Dans un contexte où les besoins et les usages se réinventent sans cesse, le groupe Inetum accompagne des entreprises et des gouvernements dans leur transformation digitale en mettant à leur service une combinaison unique de proximité, d’organisation sectorielle et de solutions innovantes. Présentant un profil de multi-spécialiste, Inetum aligne son organisation autour de 4 Global Business Lines : Inetum Consulting, Inetum Technologies, Inetum Solutions, Inetum Software.
+
                             </p>
                             {/* <p>OPALIA emploie plus de 300 salariés sélectionnés et qualifiés pour mettre à la disposition des patients et des professionnels de santé des médicaments génériques et innovants dans différents domaines thérapeutiques, sous différentes formes galéniques (les formes liquides à usage externe et interne, les formes pâteuses, les formes sèches ainsi que des produits injectables).</p> */}
                             {/* <p>OPALIA Pharma, Laboratoire pharmaceutique de renom, adopte un système de management de la qualité et de l'environnement certifié. Une réelle politique d’amélioration continue est déployée afin de satisfaire les attentes de ses clients et les exigences réglementaires nationales et internationales en vigueur, à savoir les Bonnes Pratiques de Fabrication ainsi que les normes ISO.</p> */}
@@ -130,7 +105,7 @@ const Index = () => {
                         {/* <h3>Nous suivre</h3> */}
                         <div className="blc_rs">
                             <a
-                                href="https://www.facebook.com/OpaliaRecordati/"
+                                href="https://www.facebook.com/InetumTunisie/"
                                 target="_blank"
                             >
                                 {/* <img
@@ -141,13 +116,13 @@ const Index = () => {
                                 <img src={Fb} alt="facebook" />
                             </a>
                             <a
-                                href="https://www.linkedin.com/company/opalia-pharma-recordati-group/"
+                                href="https://www.inetum.com/fr/tunisie/"
                                 target="_blank"
                             >
                                 <img src={Linkedin} alt="linkedin" />
                             </a>
                             <a
-                                href="https://www.youtube.com/channel/UC-jqFV78HBKGuPoQiKo0B_A"
+                                href="https://www.youtube.com/@Inetum"
                                 target="_blank"
                             >
                                 <img src={Youtube} alt="youtube" />
@@ -155,6 +130,7 @@ const Index = () => {
                         </div>
                     </Grid>
                 </Grid>
+                
             </div>
             <div className="blc-bottom-footer">
                 <Grid>

@@ -6,7 +6,7 @@ $color_viking_approx: #61c5e5;
 $black_53: rgba(0, 0, 0, 0.53);
 $black_12: rgba(0, 0, 0, 0.12);
 $color_asphalt_approx: #170312;
-$color_valencia_approx: rgb(213, 69, 64);
+$color_valencia_approx: #232d4b;
 
 .App {
     min-height: 37vh;
@@ -172,7 +172,7 @@ body {
         }
 
         .username {
-            color: #cd121a;
+            color: #232d4b;
             margin: 0;
             width: 75px;
             font-weight: bold;
@@ -297,7 +297,7 @@ body {
         }
 
         .username {
-            color: #cd121a;
+            color: #232d4b;
             margin: 0;
             width: 75px;
             font-weight: bold;
@@ -621,7 +621,7 @@ div.centerDiv {
     -ms-flex-align: center;
     align-items: center;
     font-weight: 400;
-    color: rgb(213, 69, 64);
+    color: #232d4b;
 }
 
 .text-center {
@@ -664,7 +664,7 @@ div.centerDiv {
 .countryOpaliaHeader {
     right: 0;
     text-align: right;
-    background: #c20d20;
+    background: #232d4b;
     position: fixed;
     top: 0;
     z-index: 999;
@@ -678,7 +678,7 @@ div.centerDiv {
     position: absolute;
     top: 0;
     left: -30px;
-    border-top: 38px solid #c20d20;
+    border-top: 38px solid #232d4b;
     border-left: 30px solid transparent;
 }
 
@@ -709,7 +709,7 @@ div.centerDiv {
 
 .blc-sidebar > ul > a:hover,
 .blc-sidebar > ul > a:focus {
-    color: #c20d20;
+    color: #232d4b;
     text-decoration: none;
 }
 
@@ -720,11 +720,7 @@ div.centerDiv {
     position: absolute;
     top: -15px;
     left: 0;
-    background: linear-gradient(
-        to right,
-        rgb(157, 224, 245),
-        rgba(33, 112, 231, 0.733)
-    );
+    background: linear-gradient(#029dd5, #232D4B);
     z-index: 1;
 }
 
@@ -743,7 +739,7 @@ div.centerDiv {
 // }
 .blc-top-header > p {
     margin: 0 15px 15px;
-    color: #c20d20;
+    color: #232d4b;
 }
 
 .blc-top-header .MuiIconButton-root:hover {
@@ -751,7 +747,7 @@ div.centerDiv {
 }
 
 .blc-top-header .blc_deconnexion button {
-    color: #c20d20;
+    color: #232d4b;
     font-size: 13px;
 }
 
@@ -796,12 +792,12 @@ div.centerDiv {
 }
 
 .blc_deconnexion button span svg {
-    color: #c20d20;
+    color: #232d4b;
     font-size: 16px;
 }
 
 table thead tr th {
-    background: #7fbb05 !important;
+    background: #232d4b !important;
     color: #fff !important;
 }
 
@@ -950,9 +946,9 @@ table tbody tr:hover {
 }
 
 .MuiButton-root.btn-submit-cmd {
-    border: 1px solid rgb(205, 18, 26);
+    border: 1px solid #232d4b;;
     color: rgb(255, 255, 255);
-    background: rgb(205, 18, 26);
+    background: #232d4b;;
 }
 
 .style-table table th,
@@ -970,7 +966,7 @@ table tbody tr:hover {
 
 .swiper-button-prev:after,
 .swiper-button-next:after {
-    color: #c20d20;
+    color: #232d4b;
     font-weight: 700;
 }
 
@@ -1019,7 +1015,7 @@ table tbody tr:hover {
     }
 }
 
-@media screen and(min-width: 960px) {
+@media screen and (  min-width: 960px) {
     .header .right-block .prof-access {
         top: 25%;
     }
@@ -1030,7 +1026,7 @@ table tbody tr:hover {
     }
 }
 
-@media screen and(max-width: 1200px) {
+@media screen and ( max-width: 1200px) {
     .blc-sidebar .MuiCollapse-entered {
         left: 20px;
     }
@@ -1058,7 +1054,7 @@ table tbody tr:hover {
     }
 }
 
-@media screen and(max-width: 991px) {
+@media screen and ( max-width: 991px) {
     .blc-sidebar .MuiCollapse-entered a {
         display: block;
         padding: 5px 30px;
@@ -1070,7 +1066,7 @@ table tbody tr:hover {
     }
 }
 
-@media screen and(max-width: 991px) {
+@media screen and ( max-width: 991px) {
     .shadow-login:after {
         display: none;
     }
@@ -1163,7 +1159,7 @@ table tbody tr:hover {
     }
 }
 
-@media screen and(max-width: 767px) {
+@media screen and ( max-width: 767px) {
     .navbar__items {
         display: block;
     }

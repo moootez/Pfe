@@ -37,6 +37,7 @@ function* loginSagas(payload) {
                 'codeInsc',
                 response.data.User.details.codeInsc
             )
+           
             yield localStorage.setItem('OpaliaToken', response.data.Token)
             yield localStorage.setItem(
                 'role',

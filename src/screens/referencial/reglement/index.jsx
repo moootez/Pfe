@@ -1,103 +1,68 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable import/order */
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { injectIntl } from 'react-intl'
-import { Grid, Divider } from '@material-ui/core'
-import getAllReglements from '../../redux/declarantInterne/getSanctionById'
-import TableCollapse from '../../components/tableWithCollapse'
-import PageTitle from '../../components/ui/pageTitle'
+import React, { useEffect, useState } from 'react';
+import { Divider } from '@material-ui/core';
+import Table from 'material-table';
 
-const Index = props => {
-    const { userID, reglements, getAllReglement } = props
+const Index = () => {
+    const [tableData, setTableData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(null);
 
     useEffect(() => {
-        getAllReglement({ user: userID })
-    }, [])
+        const codeInscription = localStorage.getItem('codeInsc');
 
-    // Set livraison on state
+        fetch('http://localhost/opalia/livraison.php', {
+            
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ codeInsc: codeInscription})})
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(responseData => {
+                setTableData(responseData.data.x3Sales.salesDelivery.query.edges.map(edge => edge.node));
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                setFetchError(error);
+                setLoading(false);
+            });
+    }, []);
 
-    const header = [
-        {
-            field: "No_facture",
-            title: "No facture"
-        },
-        {
-            field: "Tiers",
-            title: "Tiers"
-        },
-        {
-            field: "Date_échéance",
-            title: "Date échéance"
-        },
-        {
-            field: "Mode_réglement",
-            title: "Mode réglement"
-        },
-        {
-            field: "Montant_TND",
-            title: "Montant TND"
-        },
-        {
-            field: "Réglé_TND",
-            title: "Réglé TND"
-        }
-    ]
+    if (loading) return <p>Loading...</p>;
+    if (fetchError) return <p>Error: {fetchError.message}</p>;
 
     return (
         <div className="column col-md-12 style-table">
             <Divider />
-            <TableCollapse
-                title="Réglements"
-                apiCall={getAllReglement}
-                dataApi={{ user: userID }}
-                dataReturned={JSON.parse(JSON.stringify(reglements))}
-                headerTable={header}
+            <Table
+                title="Livraisons"
+                columns={[
+                    { title: 'No Livraison', field: 'id' },
+                    { title: 'Client livré', field: 'payByBusinessPartner.code' },
+                    { title: 'Validé', field: 'isValidated' },
+                    { title: 'Catégorie', field: 'category' },
+                    { title: "Date d'expédition", field: 'shipmentDate' },
+                    { title: 'Date de livraison', field: 'deliveryDate' },
+                    { title: 'Montant TTC', field: 'linesAmountIncludingTax' }
+                    
+                    
+                    
+                ]}
+                data={tableData}
+                options={{
+                    sorting: true,
+                    paging: true,
+                    search: true,
+                }}
             />
         </div>
-    )
-}
+    );
+};
 
-/* redux */
-
-// dispatch action
-
-/**
- *
- *
- * @param {*} dispatch
- */
-const mapDispatchToProps = dispatch => ({
-    getAllReglement: userID =>
-        dispatch(getAllReglements.getSanctionRequest(userID)),
-})
-
-// obtenir les données from  store state
-/**
- *
- *
- * @param {*} state
- * @returns
- */
-const mapStateToProps = ({ info, login, declarantInterne }) => ({
-    userID: login.response.User.details.codeInsc,
-    reglements: declarantInterne.getSanction.response,
-    lng: info.language,
-})
-
-/* Proptypes */
-/**
- *  declaration des props
- */
-Index.propTypes = {
-    userID: PropTypes.object.isRequired,
-    reglements: PropTypes.array.isRequired,
-    getAllReglement: PropTypes.func.isRequired,
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default Index;

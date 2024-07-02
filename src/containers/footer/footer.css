@@ -2,7 +2,7 @@
     width: 100%;
     margin: auto;
     /* padding: 12px 12px 0 12px; */
-    background: linear-gradient(#cfcfcf, #9a9a9a);
+    background: linear-gradient(#005573, #232D4B);
     margin-top: 40px;
     position: relative;
 }
@@ -19,7 +19,6 @@
    width: 413px;
    height: 100%;
    position: absolute;
-   background: url("../../assets/images/bg-footer.png") 0 0 no-repeat;
    right: 0;
    bottom: 0;
    z-index: 0;
@@ -51,7 +50,7 @@
 }
 .slogan{
     text-align: start;
-    color: #c20d20!important;
+    color: #12145f!important;
     font-weight: bold;
     margin-bottom: 1rem;
 }
@@ -72,23 +71,23 @@
 /*Footer*/
 footer {
     /*background: #555;*/
-    /*background: #c20d20;*/
+    /*background: #12145f;*/
     background: #f6f6f6;
     /*padding: 35px 0 20px;*/
     /*color: #FFF;*/
-    color: #717175;
+    color: #ffffff;
    
       
 }
 
 footer a {
     /*color: #FFF;*/
-    color: #717175;
+    color: #ffffff;
 }
 
 footer a:hover {
     /*color: #dedede;*/
-    color: #c20d20;
+    color: #12145f;
 }
 
 footer > div > div {
@@ -103,12 +102,12 @@ footer > div > div {
 }
 
 .footleft p {
-    font-size: .8rem;
+    font-size: .20rem;
     /*padding-left: 4%;*/
 }
 
 .footmid h3, .footright h3, .footleft h3 {
-	color: #000000;
+	color: #ffffff;
 }
 .footleft h3 {
     font-size: 1.14rem !important;
@@ -138,9 +137,9 @@ footer span {
 .footmid h3, .footright h3 {
     margin: 0 0 15px;
     font-size: 26px;
-    /*color: #c20d20;*/
+    /*color: #12145f;*/
     /*border-bottom: 1px solid white;
-    border-bottom: 1px solid #c20d20;*/
+    border-bottom: 1px solid #12145f;*/
     padding-bottom: 5px;
     display: inline-block;
     position: relative;
@@ -152,7 +151,7 @@ footer span {
     position: absolute;
     bottom: 0;
     left: 0;
-    background: linear-gradient(to right, #93c136, #fff);
+    background: linear-gradient(to right, #12145f, #fff);
     z-index: 1;
 }
 
@@ -202,7 +201,7 @@ footer span {
 
 footer .copyright {
     /*border-top: 1px solid white;*/
-    border-top: 1px solid #c20d20;
+    border-top: 1px solid #12145f;
     width: 100%;
     /*margin-top: 45px;*/
 }
@@ -223,7 +222,7 @@ footer .copyright span {
     padding: 2px 12px;
     margin-top: 10px;
     /*border-right: 1px solid #777;*/
-    border-right: 1px solid #c20d20;
+    border-right: 1px solid #12145f;
 }
 
 footer .conditions-footer {
@@ -237,9 +236,9 @@ footer .copyright span:nth-child(4) {
 .history-link {
     text-align: center;
     text-decoration: none;
-    background: #c20d20!important;
+    background: #12145f!important;
     color: white!important;
-    border: solid #c20d20 1px;
+    border: solid #12145f 1px;
     margin-left: 0!important;
     margin: 10px 4rem!important;
     border-radius: 2px;

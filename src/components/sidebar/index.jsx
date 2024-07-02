@@ -1,272 +1,191 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable import/order */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-debugger */
-/* eslint-disable no-unreachable */
-/* eslint-disable import/newline-after-import */
-/* eslint-disable no-shadow */
-
-import React, { Fragment, useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-// import Immutable from 'seamless-immutable'
-import { Typography, Collapse } from '@material-ui/core'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import List from '@material-ui/core/List'
+import React, { useState, useEffect } from 'react'
+import {
+    Sidebar,
+    Menu,
+    MenuItem,
+    SubMenu,
+    useProSidebar,
+} from 'react-pro-sidebar'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { withRouter, Link } from 'react-router-dom'
-import SiteNav, { ContentGroup } from 'react-site-nav'
-import { ExpandLess, ExpandMore } from '@material-ui/icons'
+import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+// import { AiOutlineHome } from 'react-icons/ai'
+import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined';
+import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
+import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined';
+// import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import { withRouter, Link } from 'react-router-dom';
+
 import data from './data.json'
-// import './app.css'
-// import { blue } from '@material-ui/core/colors'
-
-/* style */
-/**
- * style css
- */
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '200px',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-        float: 'left',
-        border: '1px solid red',
-    },
-    nested: {
-        paddingRight: theme.spacing(1),
-    },
-    itemText: {
-        fontSize: '20px',
-    },
-    subItemText: {
-        fontSize: '17px',
-    },
-    listItem: {
-        borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-    },
-
-    selectedSubText: {
-        fontSize: '17px',
-        fontWeight: 'bold',
-        color: 'red',
-    },
-}))
+import LogoInetum from '../../assets/images/logoinetum.png'
+import { history } from '../../store'
 
 /**
  *
  *
- * @param {*} { history, interfaces }
+ * @param {*} {  role , history}
  * @returns
  */
-const index = ({ history, role }) => {
-    const classes = useStyles()
-    const Str = history.location.pathname
-    // eslint-disable-next-line react/prop-types
-    const path = Str.substring(
-        // eslint-disable-next-line react/prop-types
-        Str.lastIndexOf('/') - 1
-        // eslint-disable-next-line react/prop-types
-        // Str.lastIndexOf(':')
-    )
-
+const index = ({ role, logout , loggedUser, children   }) => {
+    const { username } = loggedUser.User.details
+    const [collapsed, setCollapsed] = useState(true)
     const [selectedItem, setSelectedItem] = useState(1)
-
     const [selectedSubItem, setSelectedSubItem] = useState(1)
-    const [open, setOpen] = useState(false)
     const [itemsMenu, setItemsMenu] = useState([])
-    const [buttonColor, setButtonColor] = useState()
-    /* functions */
-    /**
-     * select item in sidbar
-     *
-     * @param {*} event
-     * @param {*} item
-     */
-    const handleSelectItem = (event, item) => {
-        history.push({
-            pathname: item.link,
-        })
-    }
+    const { collapseSidebar } = useProSidebar()
+    const getIcon = (iconName) => {
+  switch (iconName) {
+    case 'NewspaperOutlinedIcon':
+      return <NewspaperOutlinedIcon/>;
+    case 'Inventory2OutlinedIcon':
+        return <Inventory2OutlinedIcon/>;
+    case 'CollectionsOutlinedIcon':
+        return <CollectionsOutlinedIcon/>;
+    case 'TrendingUpOutlinedIcon':
+        return <TrendingUpOutlinedIcon/>;
+    case 'PeopleOutlinedIcon' :
+        return <PeopleOutlinedIcon/>;
+    case 'LocalShippingOutlinedIcon' :
+        return <LocalShippingOutlinedIcon/>;
+    case 'DescriptionOutlinedIcon' :
+        return <DescriptionOutlinedIcon/>;
+    case 'FactCheckOutlinedIcon' :
+        return <FactCheckOutlinedIcon/>;
+    case 'FeedbackOutlinedIcon' :
+        return <FeedbackOutlinedIcon/>;
+    default:
+      return <WarningAmberOutlinedIcon />; // Fallback icon
+  }
+};
 
-    /* life cycle */
+    const handleLogout = () => {
+        logout()
+        history.push('/')
+        window.location.reload()
+    }
     useEffect(() => {
-        const buttonColor = document.getElementsByClassName('button')
-        try {
-            if (role) {
-                // const ecran = Immutable.asMutable([role])
-                const newRoutes = data[0].items
-                    .map(menu => {
-                        if (menu.subitems) {
-                            return {
-                                ...menu,
-                                subitems: menu.subitems.filter(submenu =>
-                                    submenu.roles.includes(role)
-                                ),
-                            }
+        if (role) {
+            const newRoutes = data[0].items
+                .map(menu => {
+                    if (menu.subitems) {
+                        return {
+                            ...menu,
+                            subitems: menu.subitems.filter(submenu =>
+                                submenu.roles.includes(role)
+                            ),
                         }
-                        return menu
-                    })
-                    .filter(menu => menu.roles.includes(role))
+                    }
+                    return menu
+                })
+                .filter(menu => menu.roles.includes(role))
 
-                if (newRoutes.length > 0) {
-                    setItemsMenu(newRoutes)
-                } else {
-                    setItemsMenu([])
-                }
-            } else setItemsMenu(data[0].items)
-        } catch (e) {
-            console.log(e)
+            setItemsMenu(newRoutes.length > 0 ? newRoutes : [])
+        } else {
+            setItemsMenu(data[0].items)
         }
-    }, [])
-    const tabClicked = e => {
-        console.log('rrrr', e)
+    }, [role])
+
+    
+    const handleToggleSidebar = () => {
+        setCollapsed(!collapsed)
+        collapseSidebar()
+    }
+    
+    const handleSelectItem = (event, item) => {
+        history.push({ pathname: item.link })
     }
 
-    /**
-     * select sous menu
-     *
-     * @param {*} e
-     * @param {*} item
-     */
+
     const handleClickSubItem = (e, item) => {
         setSelectedSubItem(item.id)
+        console.log(selectedSubItem)
         handleSelectItem(e, item)
-        setOpen(false)
-        tabClicked(e, true)
-    }
-    /**
-     * select menu
-     *
-     * @param {*} e
-     * @param {*} item
-     */
+        handleToggleSidebar()   
+     }
+
     const handleClickItem = (e, item) => {
         setSelectedItem(item.id)
-        setOpen(!open)
+        console.log(selectedItem)
+        handleToggleSidebar();
     }
 
-    /* render */
+    
+    // Divider component
+const Divider = () => <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', margin: '10px 0' }} />;
 
+
+   
     return (
-        <Fragment>
-            <List>
-                {itemsMenu.map(item => (
-                    <Fragment>
-                        {item.subitems !== null ? (
-                            <Fragment>
-                                <ListItem
-                                    button
-                                    onClick={e => handleClickItem(e, item)}
-                                    className={classes.listItem}
-                                >
-                                    <span
-                                        style={
-                                            Str.includes(item.id)
-                                                ? { color: '#bd162e' }
-                                                : { color: '#8a8b8e' }
-                                        }
-                                    >
-                                        {item.title}
-                                    </span>
-                                    {open && selectedItem === item.id ? (
-                                        <ExpandLess
-                                            style={
-                                                Str.includes(item.id)
-                                                    ? { color: '#bd162e' }
-                                                    : { color: '#8a8b8e' }
-                                            }
-                                        />
-                                    ) : (
-                                        <ExpandMore
-                                            style={
-                                                Str.includes(item.id)
-                                                    ? { color: '#bd162e' }
-                                                    : { color: '#8a8b8e' }
-                                            }
-                                        />
-                                    )}
-                                </ListItem>
-                                <Collapse
-                                    in={open}
-                                    timeout="auto"
-                                    unmountOnExit
-                                >
-                                    {open &&
-                                    item.subitems !== null &&
-                                    selectedItem === item.id ? (
-                                        <List component="div" disablePadding>
-                                            {item.subitems.map(subitem => (
-                                                <ListItem
-                                                    button
-                                                    onClick={e =>
-                                                        handleClickSubItem(
-                                                            e,
-                                                            subitem
-                                                        )
-                                                    }
-                                                    className={
-                                                        selectedSubItem ===
-                                                        subitem.id
-                                                            ? classes.subItemList
-                                                            : ''
-                                                    }
-                                                >
-                                                    <ListItemText
-                                                        primary={
-                                                            <a
-                                                                href={
-                                                                    subitem.link
-                                                                }
-                                                                className={
-                                                                    selectedSubItem ===
-                                                                    subitem.id
-                                                                        ? classes.selectedSubText
-                                                                        : classes.subItemText
-                                                                }
-                                                            >
-                                                                {subitem.title}
-                                                            </a>
-                                                        }
-                                                        className={
-                                                            classes.nested
-                                                        }
-                                                    />
-                                                </ListItem>
-                                            ))}
-                                        </List>
-                                    ) : null}
-                                </Collapse>
-                            </Fragment>
+        <div style={{ height: '100vh', display: 'flex' }}>
+      
+            <Sidebar collapsed={collapsed} backgroundColor="#232d4b" style={{ height: '100vh' }}>
+            <Menu menuItemStyles={{
+                                button: {
+                                      '&:hover': {
+                                         backgroundColor: '#00aa9b',
+                                      },
+                                  },
+                              }}>
+                    <div
+                        className={collapsed ? 'logo-container-collapse' : 'logo-container-expanded'}
+                        role="presentation"
+                    >
+                        <img src={LogoInetum} alt="Logo-Inetum" className="logo-expanded" style={{ marginTop: '24px' }} />
+                    </div>
+                    <Divider/>
+                    <MenuItem icon={<MenuOutlinedIcon style={{ color: 'rgb(210,210,210)' }} />}
+                        onClick={handleToggleSidebar}
+                        style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom:'24px'  }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                             <p className="username" style={{ margin: 0 ,color: 'rgb(210,210,210)'  }}>Bienvenue {username}</p>
+                        </div>
+                    </MenuItem> 
+                    <Divider/>
+                    {itemsMenu.map(item =>
+                        item.subitems ? (
+                            <SubMenu key={item.id} label={item.title} icon={getIcon(item.icon)}  style={{ color: 'rgb(210,210,210)' }}>
+                                {item.subitems.map(subitem => (
+                                    <MenuItem key={subitem.id} onClick={e => handleClickSubItem(e, subitem)}>
+                                        <Link to={subitem.link}>{subitem.title}</Link>
+                                    </MenuItem>
+                                    
+                                ))}
+                            </SubMenu>
                         ) : (
-                            <ListItem
-                                button
-                                onClick={e => handleClickSubItem(e, item)}
-                                className={classes.listItem}
-                            >
-                                <a
-                                    href={item.link}
-                                    id={item.id}
-                                    style={
-                                        Str === item.link
-                                            ? { color: '#bd162e' }
-                                            : { color: '#8a8b8e' }
-                                    }
-                                >
-                                    {item.title}
-                                </a>
-                            </ListItem>
-                        )}
-                    </Fragment>
-                ))}
-            </List>
-        </Fragment>
-    )
-}
-
+                           
+                            <MenuItem key={item.id}  icon={getIcon(item.icon)} style={{ color: 'rgb(210,210,210)' }} onClick={e => handleClickItem(e, item)}>
+                            <Link to={item.link} style={{ color: '#fff', textDecoration: 'none' }}>{item.title}</Link>
+                         </MenuItem>
+                        )
+                    )}
+                    <Divider/>
+                    <MenuItem onClick={handleLogout} icon={<LogoutOutlinedIcon style={{ color: 'rgb(210,210,210)' }}/>} style={{ marginTop: '24px', color: 'rgb(210,210,210)'  }} >
+                        Déconnexion
+                    </MenuItem>
+                </Menu>
+            </Sidebar>
+            <main style={{
+                padding: '20px',
+                backgroundColor: '#f0f5f9',
+                flexGrow: 1,
+                overflowY: 'auto', // Add this to enable scrolling within the main content area
+                // marginLeft: collapsed ? '80px' : '240px', // Adjust based on the sidebar width
+                // transition: 'margin-left 0.3s',
+            }}>
+                {children}
+            </main>
+        </div>
+    );
+};
 // obtenir les données from  store state
 /**
  *
@@ -276,20 +195,38 @@ const index = ({ history, role }) => {
  */
 const mapStateToProps = state => ({
     language: state.info.language,
-    interfaces: state.login.response.User.ecrans,
     role: state.login.response.User.details.userRoles[0].role,
+    loggedUser: state.login.response,
 })
 /**
- *  declaration des props
+ *
+ *
+ * @param {*} dispatch
  */
+const mapDispatchToProps = dispatch => ({
+    logout: () =>
+        dispatch({
+            type: 'SIGNOUT_REQUEST',
+        }),
+})
 index.propTypes = {
+    children: PropTypes.node.isRequired,
     history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
     role: PropTypes.string.isRequired,
+    logout: PropTypes.func.isRequired,
+    loggedUser: PropTypes.shape({
+        User: PropTypes.shape({
+            details: PropTypes.shape({
+                username: PropTypes.string.isRequired,
+            }).isRequired,
+        }).isRequired,
+    }).isRequired,
 }
-export default compose(
-    withRouter,
+
+export default compose( 
+     withRouter,
     connect(
         mapStateToProps,
-        null
+        mapDispatchToProps
     )
 )(index)

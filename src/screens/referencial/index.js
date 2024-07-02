@@ -1,135 +1,68 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable import/order */
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { injectIntl } from 'react-intl'
-import { Grid, Divider } from '@material-ui/core'
-import getAllLivraisons from '../../redux/referencial/getAllReferencial'
-import getCommandes from '../../redux/statistique/getStatistique'
-import TableCollapse from '../../components/tableWithCollapse'
-import PageTitle from '../../components/ui/pageTitle'
+import React, { useEffect, useState } from 'react';
+import { Divider } from '@material-ui/core';
+import Table from 'material-table';
 
-const Index = props => {
-    const {
-        commandes,
-        getCommande,
-        userID,
-        livraisons,
-        getAllLivraison,
-    } = props
+const Index = () => {
+    const [tableData, setTableData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(null);
 
     useEffect(() => {
-        getAllLivraison({ user: userID })
-    }, [])
+        const codeInscription = localStorage.getItem('codeInsc');
 
-    // Set livraison on state
+        fetch('http://localhost/opalia/livraison.php', {
+            
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ codeInsc: codeInscription})})
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(responseData => {
+                setTableData(responseData.data.x3Sales.salesDelivery.query.edges.map(edge => edge.node));
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                setFetchError(error);
+                setLoading(false);
+            });
+    }, []);
 
-    const [dataSubArray, setDataSubArray] = useState({
-        apiCall: getCommande,
-        dataApi: data => ({
-            user: data.Client_commande,
-            commande: data.No_livraison,
-        }),
-        dataReturned: commandes,
-        dataId: 'No_livraison',
-    })
-
-    useEffect(() => {
-        setDataSubArray({ ...dataSubArray, dataReturned: commandes })
-    }, [commandes])
-
-    const [data, setData] = useState({})
-
-    useEffect(() => {
-        setData(dataSubArray)
-    })
-
-    const header = [
-        {
-            field: "No_livraison",
-            title: "No livraison"
-        },
-        {
-            field: "Client_commande",
-            title: "Client commande"
-        },
-        {
-            field: "Date_livraison",
-            title: "Date livraison"
-        },
-        {
-            field: "Validé",
-            title: "Validé"
-        },
-        {
-            field: "Facturé",
-            title: "Facturé"
-        }
-    ]
+    if (loading) return <p>Loading...</p>;
+    if (fetchError) return <p>Error: {fetchError.message}</p>;
 
     return (
         <div className="column col-md-12 style-table">
-            {/* <Grid className="gridItem">
-                <PageTitle label="Livraison" />
-            </Grid> */}
             <Divider />
-            <TableCollapse
+            <Table
                 title="Livraisons"
-                apiCall={getAllLivraison}
-                dataApi={{ user: userID }}
-                dataReturned={JSON.parse(JSON.stringify(livraisons))}
-                dataSubArray={{ ...dataSubArray }}
-                headerTable={header}
+                columns={[
+                    { title: 'No Livraison', field: 'id' },
+                    { title: 'Client livré', field: 'payByBusinessPartner.code' },
+                    { title: 'Validé', field: 'isValidated' },
+                    { title: 'Catégorie', field: 'category' },
+                    { title: "Date d'expédition", field: 'shipmentDate' },
+                    { title: 'Date de livraison', field: 'deliveryDate' },
+                    { title: 'Montant TTC', field: 'linesAmountIncludingTax' }
+                    
+                    
+                    
+                ]}
+                data={tableData}
+                options={{
+                    sorting: true,
+                    paging: true,
+                    search: true,
+                }}
             />
         </div>
-    )
-}
+    );
+};
 
-/* redux */
-
-// dispatch action
-
-/**
- *
- *
- * @param {*} dispatch
- */
-const mapDispatchToProps = dispatch => ({
-    getAllLivraison: userID =>
-        dispatch(getAllLivraisons.getAllReferenceRequest(userID)),
-    getCommande: data => dispatch(getCommandes.getStatistiqueRequest(data)),
-})
-
-// obtenir les données from  store state
-/**
- *
- *
- * @param {*} state
- * @returns
- */
-const mapStateToProps = ({ referencial, info, login, statistique }) => ({
-    commandes: statistique.getStatistique.response,
-    userID: login.response.User.details.codeInsc,
-    livraisons: referencial.allReferencials.response,
-    selectedRef: referencial.allReferencials.selectedRef,
-    lng: info.language,
-})
-
-/* Proptypes */
-/**
- *  declaration des props
- */
-Index.propTypes = {
-    commandes: PropTypes.array.isRequired,
-    getCommande: PropTypes.func.isRequired,
-    userID: PropTypes.object.isRequired,
-    livraisons: PropTypes.array.isRequired,
-    getAllLivraison: PropTypes.func.isRequired,
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default Index;

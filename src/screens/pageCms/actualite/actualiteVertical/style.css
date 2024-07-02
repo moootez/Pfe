@@ -59,7 +59,7 @@
 
 .MuiPaper-root.MuiCard-root.MuiPaper-elevation1 {
     box-shadow: none !important;
-    border: 1px solid #c20d20;
+    border: 1px solid #12145f;
     border-top-left-radius: 25px !important;
     border-top-right-radius: 25px !important;
 }
@@ -70,7 +70,7 @@
 
 .swiper-button-prev:after,
 .swiper-button-next:after {
-    color: #c20d20;
+    color: #12145f;
     font-weight: 700;
 }
 

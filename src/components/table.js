@@ -7,8 +7,10 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
+// import EditIcon from '@material-ui/icons/Edit'
+// import DeleteIcon from '@material-ui/icons/Delete'
 import Fab from '@material-ui/core/Fab'
 import TableFooter from '@material-ui/core/TableFooter'
 import TablePagination from '@material-ui/core/TablePagination'
@@ -295,7 +297,7 @@ class CustomizedTable extends PureComponent {
                                                 className={classes.fab}
                                                 size="small"
                                             >
-                                                <EditIcon
+                                                <EditOutlinedIcon
                                                     onClick={() =>
                                                         editAction(item)
                                                     }
@@ -308,7 +310,7 @@ class CustomizedTable extends PureComponent {
                                                 className={classes.fab}
                                                 size="small"
                                             >
-                                                <DeleteIcon
+                                                <DeleteOutlineOutlinedIcon
                                                     onClick={() =>
                                                         deleteAction(item.id)
                                                     }
