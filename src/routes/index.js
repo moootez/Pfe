@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {  Route,Switch  } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import '../assets/sass/style.scss'
 import instance from '../serveur/axios'
 import wrapApiActions from '../redux/wrapApi'
@@ -13,7 +13,6 @@ import Login from '../screens/login'
 import Alert from '../components/ui/alert'
 /* import { concatMessages } from '../shared/utility' */
 import Sidebar from '../components/sidebar/index'
-
 
 // import Actualites from '../screens/pageCms/actualite/index'
 import GestionActualites from '../screens/pageCms/actualite/gestionActualite'
@@ -46,7 +45,8 @@ import EditPhotoanimes from '../screens/photosAnimees/editPhoto/index'
  */
 class Routes extends Component {
     static propTypes = {
-        history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+        history: PropTypes.shape({ push: PropTypes.func.isRequired })
+            .isRequired,
         wrapApiCall: PropTypes.func.isRequired,
         wrapApiPut: PropTypes.func.isRequired,
         wrapApiCallFailure: PropTypes.func.isRequired,
@@ -83,52 +83,56 @@ class Routes extends Component {
      * @memberof
      */
     componentDidMount() {
-        const { OpaliaToken } = window.localStorage;
-        const { wrapApiCall, wrapApiCallFailure, wrapApiPut } = this.props;
+        const { OpaliaToken } = window.localStorage
+        const { wrapApiCall, wrapApiCallFailure, wrapApiPut } = this.props
         try {
-            const self = this;
+            const self = this
 
             instance.interceptors.request.use(
                 config => {
-                    if (!config.url.includes('notification/')) wrapApiCall();
-                    return config;
+                    if (!config.url.includes('notification/')) wrapApiCall()
+                    return config
                 },
                 error => {
-                    wrapApiCallFailure(error);
-                    return Promise.reject(error);
+                    wrapApiCallFailure(error)
+                    return Promise.reject(error)
                 }
-            );
+            )
 
             instance.interceptors.response.use(
                 response => {
-                    wrapApiPut(response);
-                    return response;
+                    wrapApiPut(response)
+                    return response
                 },
                 error => {
-                    const err = Promise.resolve(error);
+                    const err = Promise.resolve(error)
                     if (OpaliaToken) {
                         err.then(e => {
-                            if (e.config && !e.config.url.includes('notification/'))
+                            if (
+                                e.config &&
+                                !e.config.url.includes('notification/')
+                            )
                                 self.props.alertShow(true, {
                                     title: 'Erreur',
                                     warning: false,
                                     info: false,
                                     error: true,
                                     success: false,
-                                    message: error.response !== undefined &&
+                                    message:
+                                        error.response !== undefined &&
                                         error.response.data &&
                                         error.response.data.message &&
                                         error.response.data.message.fr,
-                                });
-                            self.props.wrapApiPutFailure(e.toString());
-                        });
-                        return Promise.reject(error);
+                                })
+                            self.props.wrapApiPutFailure(e.toString())
+                        })
+                        return Promise.reject(error)
                     }
-                    return null;
+                    return null
                 }
-            );
+            )
         } catch (err) {
-            console.log(err, 'instance');
+            console.log(err, 'instance')
         }
     }
 
@@ -140,8 +144,10 @@ class Routes extends Component {
      * @memberof Actions
      */
     render() {
-        const { generalLoader,  connected, loggedUser } = this.props;
-        const role = loggedUser ? (loggedUser.User.details.userRoles[0] || {}).role : '';
+        const { generalLoader, connected, loggedUser } = this.props
+        const role = loggedUser
+            ? (loggedUser.User.details.userRoles[0] || {}).role
+            : ''
 
         return (
             <Fragment>
@@ -151,35 +157,89 @@ class Routes extends Component {
                     <Sidebar role={role} loggedUser={loggedUser}>
                         <Switch>
                             <Route path="/commande" component={MesCommandes} />
-                            <Route path="/validation-commande" component={CommandesAValider} />
-                            <Route path="/create_commande" component={CreerCommande} />
-                            <Route path="/historique-commande" component={HistoriqueCommande} />
-                            <Route path="/mes-reclamation" component={MesReclamations} />
-                            <Route path="/ajout-reclamation" component={DeposerReclamation} />
-                            <Route path="/liste-reclamation" component={ListeReclamations} />
-                            <Route path="/validation-reclamation" component={ReclamationsAValider} />
-                            <Route path="/edit_photo" component={EditPhotoanimes} />
-                            <Route path="/dashboard" component={DashboardComponent}/> 
-                            <Route path="/actualite/new" component={addActualite} />
-                            <Route path="/actualite/edit" component={editActualite} />
-                            <Route path="/actualite/gestion" component={GestionActualites} />
-                            <Route path="/user" component={GestionUtilisateurs} />
-                            <Route path="/ajout_user" component={AdduserComponent} />
-                            <Route path="/edit_user" component={AdduserComponent} />
+                            <Route
+                                path="/validation-commande"
+                                component={CommandesAValider}
+                            />
+                            <Route
+                                path="/create_commande"
+                                component={CreerCommande}
+                            />
+                            <Route
+                                path="/historique-commande"
+                                component={HistoriqueCommande}
+                            />
+                            <Route
+                                path="/mes-reclamation"
+                                component={MesReclamations}
+                            />
+                            <Route
+                                path="/ajout-reclamation"
+                                component={DeposerReclamation}
+                            />
+                            <Route
+                                path="/liste-reclamation"
+                                component={ListeReclamations}
+                            />
+                            <Route
+                                path="/validation-reclamation"
+                                component={ReclamationsAValider}
+                            />
+                            <Route
+                                path="/edit_photo"
+                                component={EditPhotoanimes}
+                            />
+                            <Route
+                                path="/dashboard"
+                                component={DashboardComponent}
+                            />
+                            <Route
+                                path="/actualite/new"
+                                component={addActualite}
+                            />
+                            <Route
+                                path="/actualite/edit"
+                                component={editActualite}
+                            />
+                            <Route
+                                path="/actualite/gestion"
+                                component={GestionActualites}
+                            />
+                            <Route
+                                path="/user"
+                                component={GestionUtilisateurs}
+                            />
+                            <Route
+                                path="/ajout_user"
+                                component={AdduserComponent}
+                            />
+                            <Route
+                                path="/edit_user"
+                                component={AdduserComponent}
+                            />
                             <Route path="/livraison" component={Livraisons} />
                             <Route path="/facture" component={Factures} />
                             <Route path="/reglement" component={Reglements} />
-                            <Route path="/prametreGlobale" component={ParametreGlobale} />
+                            <Route
+                                path="/prametreGlobale"
+                                component={ParametreGlobale}
+                            />
                             <Route path="/produit" component={Produit} />
-                            <Route path="/edit_produit" component={EditProduit} />
-                            <Route path="/photos-animees" component={PhotosAnimees} />
+                            <Route
+                                path="/edit_produit"
+                                component={EditProduit}
+                            />
+                            <Route
+                                path="/photos-animees"
+                                component={PhotosAnimees}
+                            />
                         </Switch>
                     </Sidebar>
                 ) : (
                     <Route path="/" component={Login} />
                 )}
             </Fragment>
-        );
+        )
     }
 }
 // obtenir les données from  store state
