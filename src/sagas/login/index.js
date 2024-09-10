@@ -33,21 +33,39 @@ function* loginSagas(payload) {
                 'email',
                 response.data.User.details.email
             )
+            console.log(response.data.User.details.email)
+            yield localStorage.setItem('nom', response.data.User.details.nom)
+            yield localStorage.setItem(
+                'prenom',
+                response.data.User.details.prenom
+            )
+            if (response.data.User.details.tel === null) {
+                yield localStorage.setItem('tel', '')
+            } else {
+                yield localStorage.setItem(
+                    'tel',
+                    response.data.User.details.tel
+                )
+            }
             yield localStorage.setItem(
                 'codeInsc',
                 response.data.User.details.codeInsc
             )
-           
+
             yield localStorage.setItem('OpaliaToken', response.data.Token)
             yield localStorage.setItem(
                 'role',
-                 response.data.User.details.userRoles[0].role
+                response.data.User.details.userRoles[0].role
+            )
+            yield localStorage.setItem('id_user', response.data.User.details.id)
+            yield localStorage.setItem(
+                'username',
+                response.data.User.details.username
             )
             instance.defaults.headers.Authorization = `Bearer ${response.data.Token}`
             yield put(getLoaderActions.disableGeneraleLoader())
-           
+
             yield put(loginActions.loginSuccess(response.data))
-            
         } else {
             yield put(getLoaderActions.disableGeneraleLoader())
             yield all([

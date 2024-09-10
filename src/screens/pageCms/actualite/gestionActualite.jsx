@@ -86,7 +86,7 @@ const Index = ({
      */
     const editAction = row => {
         history.push({
-            pathname: `/actualite/edit`,
+            pathname: `/edit_actualite`,
             state: {
                 index: filtredTable[row.index],
             },
@@ -123,7 +123,7 @@ const Index = ({
      */
     const addActualite = () => {
         history.push({
-            pathname: `/actualite/new`,
+            pathname: `/new_actualite`,
         })
     }
 
@@ -222,7 +222,4 @@ Index.propTypes = {
     alertHide: PropTypes.func.isRequired,
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(injectIntl(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Index))

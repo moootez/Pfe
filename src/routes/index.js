@@ -17,6 +17,7 @@ import Sidebar from '../components/sidebar/index'
 // import Actualites from '../screens/pageCms/actualite/index'
 import GestionActualites from '../screens/pageCms/actualite/gestionActualite'
 import GestionUtilisateurs from '../screens/user/getUser/index'
+import userLogsComponent from '../screens/user/userlogs/index'
 import AdduserComponent from '../screens/user/addUser/index'
 import MesCommandes from '../screens/commande/index'
 import CommandesAValider from '../screens/validerCommande/index'
@@ -34,9 +35,11 @@ import Produit from '../screens/produit'
 import EditProduit from '../screens/produit/editProduit'
 import DashboardComponent from '../screens/tableauDuBord/index'
 import PhotosAnimees from '../screens/photosAnimees'
+import Actualite from '../screens/pageCms/actualite/index'
 import editActualite from '../screens/pageCms/actualite/editActualite'
 import addActualite from '../screens/pageCms/actualite/addActualite'
 import EditPhotoanimes from '../screens/photosAnimees/editPhoto/index'
+import Editinguser from '../screens/user/edituserconnected/index'
 /**
  *
  *
@@ -193,16 +196,17 @@ class Routes extends Component {
                                 path="/dashboard"
                                 component={DashboardComponent}
                             />
+                            <Route path="/actualite" component={Actualite} />
                             <Route
-                                path="/actualite/new"
+                                path="/new_actualite"
                                 component={addActualite}
                             />
                             <Route
-                                path="/actualite/edit"
+                                path="/edit_actualite"
                                 component={editActualite}
                             />
                             <Route
-                                path="/actualite/gestion"
+                                path="/gestion_actualite"
                                 component={GestionActualites}
                             />
                             <Route
@@ -212,6 +216,14 @@ class Routes extends Component {
                             <Route
                                 path="/ajout_user"
                                 component={AdduserComponent}
+                            />
+                            <Route
+                                path="/edit_connected_user"
+                                component={Editinguser}
+                            />
+                            <Route
+                                path="/userlogs"
+                                component={userLogsComponent}
                             />
                             <Route
                                 path="/edit_user"

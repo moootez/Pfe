@@ -10,6 +10,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
+import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 // import { AiOutlineHome } from 'react-icons/ai'
@@ -22,7 +23,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined'
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined'
 import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined'
-// import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import EditIconOutlinedIcon from '@mui/icons-material/Edit'
 import { withRouter, Link } from 'react-router-dom'
 import { setupNotifications } from '../../firebase/firebase'
 import data from './data.json'
@@ -55,6 +56,8 @@ const index = ({ role, logout, loggedUser, children }) => {
                 return <TrendingUpOutlinedIcon />
             case 'PeopleOutlinedIcon':
                 return <PeopleOutlinedIcon />
+            case 'QueryStatsIcon':
+                return <QueryStatsIcon />
             case 'LocalShippingOutlinedIcon':
                 return <LocalShippingOutlinedIcon />
             case 'DescriptionOutlinedIcon':
@@ -63,6 +66,8 @@ const index = ({ role, logout, loggedUser, children }) => {
                 return <FactCheckOutlinedIcon />
             case 'FeedbackOutlinedIcon':
                 return <FeedbackOutlinedIcon />
+            case 'EditIconOutlinedIcon':
+                return <EditIconOutlinedIcon />
             default:
                 return <WarningAmberOutlinedIcon /> // Fallback icon
         }
@@ -73,6 +78,7 @@ const index = ({ role, logout, loggedUser, children }) => {
         history.push('/')
         window.location.reload()
     }
+
     useEffect(() => {
         setupNotifications()
         if (role) {

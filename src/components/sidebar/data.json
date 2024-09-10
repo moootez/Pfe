@@ -31,7 +31,7 @@
                 "id": 72,
                 "title": "Gestion des actualités",
                 "icon": "NewspaperOutlinedIcon",
-                "link": "/actualite/gestion",
+                "link": "/gestion_actualite",
                 "defaultPermission": true,
                 "subitems": null,
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"]
@@ -41,6 +41,15 @@
                 "title": "Gestion des utilisateurs",
                 "icon": "PeopleOutlinedIcon",
                 "link": "/user",
+                "roles": ["ROLE_ADMIN"],
+                "subitems": null,
+                "defaultPermission": true
+            },
+            {
+                "id": 74,
+                "title": "Suivi des utilisateurs",
+                "icon": "QueryStatsIcon",
+                "link": "/userlogs",
                 "roles": ["ROLE_ADMIN"],
                 "subitems": null,
                 "defaultPermission": true
@@ -172,6 +181,20 @@
                 "icon": "CollectionsOutlinedIcon",
                 "link": "/photos-animees",
                 "roles": ["ROLE_ADMIN", "ROLE_ADV"],
+                "subitems": null,
+                "defaultPermission": true
+            },
+            {
+                "id": 17,
+                "title": "edit user",
+                "icon": "EditIconOutlinedIcon",
+                "link": "/edit_connected_user",
+                "roles": [
+                    "ROLE_ADMIN",
+                    "ROLE_ADV",
+                    "ROLE_CLIENT",
+                    "ROLE_MANAGER"
+                ],
                 "subitems": null,
                 "defaultPermission": true
             }

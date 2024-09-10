@@ -6,3 +6,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+:root {
+    direction: rtl; /* or ltr depending on your language */
+    writing-mode: horizontal-tb; /* Update with the appropriate value */
+    text-orientation: mixed; /* or upright/sideways-right depending on your use case */
+}

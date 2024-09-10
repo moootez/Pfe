@@ -210,6 +210,30 @@ const loadableComponents = [
     },
     {
         loadableComponent: Loadable({
+            loader: () => import('../screens/user/edituserconnected/index'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/edit_connected_user',
+        props: {
+            exact: true,
+        },
+        name: 'editing_user',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
+            loader: () => import('../screens/user/userlogs'),
+            loading: () => <SpinnerHourGlass />,
+        }),
+        path: '/userlogs',
+        props: {
+            exact: true,
+        },
+        name: 'user',
+        showWhenConnected: true,
+    },
+    {
+        loadableComponent: Loadable({
             loader: () => import('../screens/user/addUser'),
             loading: () => <SpinnerHourGlass />,
         }),
@@ -322,7 +346,7 @@ const loadableComponents = [
                 import('../screens/pageCms/actualite/gestionActualite'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/actualite/gestion',
+        path: '/gestion_actualite',
         props: {
             exact: true,
         },
@@ -334,7 +358,7 @@ const loadableComponents = [
             loader: () => import('../screens/pageCms/actualite/editActualite'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/actualite/edit',
+        path: '/edit_actualite',
         props: {
             exact: true,
         },
@@ -346,7 +370,7 @@ const loadableComponents = [
             loader: () => import('../screens/pageCms/actualite/addActualite'),
             loading: () => <SpinnerHourGlass />,
         }),
-        path: '/actualite/new',
+        path: '/new_actualite',
         props: {
             exact: true,
         },
